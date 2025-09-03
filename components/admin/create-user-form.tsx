@@ -10,7 +10,7 @@ import { useFormStatus } from "react-dom";
 import { signUpUser } from "@/lib/actions/user.actions";
 import { useSearchParams } from "next/navigation";
 
-const CredentialsSignUpForm = () => {
+const CreateUserForm = () => {
   const [data, action] = useActionState(signUpUser, {
     success: false,
     message: "",
@@ -84,16 +84,9 @@ const CredentialsSignUpForm = () => {
         {data && !data.success && (
           <div className="text-center text-destructive">{data.message}</div>
         )}
-
-        <div className="text-sm text-center text-muted-foreground">
-          Already have an account?{" "}
-          <Link href="sign-in" target="_self" className="link">
-            Sign in
-          </Link>
-        </div>
       </div>
     </form>
   );
 };
 
-export default CredentialsSignUpForm;
+export default CreateUserForm;
