@@ -1,3 +1,4 @@
+import CreateUserForm from "@/components/admin/create-user-form";
 import DeleteDialog from "@/components/shared/delete-dialog";
 import Pagination from "@/components/shared/pagination";
 import { Badge } from "@/components/ui/badge";
@@ -10,25 +11,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-
 import { deleteUser, getAllUsers } from "@/lib/actions/user.actions";
 import { requireAdmin } from "@/lib/auth-guard";
 import { shortenUuid } from "@/lib/utils";
 import { Metadata } from "next";
 import Link from "next/link";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import CreateUserForm from "@/components/admin/create-user-form";
 
 export const metadata: Metadata = {
   title: "Admin Users",
@@ -47,30 +34,7 @@ const AdminUsersPage = async ({ searchParams }: PropTypes) => {
     <div className="space-y-2 flex-1">
       <div className="flex justify-between">
         <h2 className="h2-bold">Users</h2>
-        <Dialog>
-          <form>
-            <DialogTrigger asChild>
-              <Button>+ Create</Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
-              <DialogHeader>
-                <DialogTitle>Create new user</DialogTitle>
-                <DialogDescription>
-                  Enter user information here. Click save to create.
-                </DialogDescription>
-              </DialogHeader>
-              <div className="grid gap-4">
-                <CreateUserForm />
-              </div>
-              <DialogFooter>
-                <DialogClose asChild>
-                  <Button variant="outline">Cancel</Button>
-                </DialogClose>
-                <Button type="submit">Save changes</Button>
-              </DialogFooter>
-            </DialogContent>
-          </form>
-        </Dialog>
+        <CreateUserForm />
       </div>
       <div className="overflow-x-auto">
         <Table>
