@@ -12,6 +12,7 @@ import Link from "next/link";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import CredentialsSignUpForm from "@/app/(auth)/sign-up/credentials-signup-form";
+import Logo from "@/components/shared/logo";
 
 export const metadata: Metadata = {
   title: "Sign up",
@@ -34,13 +35,7 @@ const SignUpPage = async ({ searchParams }: PropTypes) => {
       <Card>
         <CardHeader className="space-y-4">
           <Link href="/" className="flex-center">
-            <Image
-              src="/images/logo.avif"
-              width={100}
-              height={100}
-              alt={`${APP_NAME} logo`}
-              priority={true}
-            />
+            <Logo />
           </Link>
           <CardTitle className="text-center">Create Account</CardTitle>
           <CardDescription className="text-center">

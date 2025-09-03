@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { APP_NAME } from "@/lib/constants";
 import Menu from "@/components/shared/header/menu";
+import Logo from "@/components/shared/logo";
 
 const Header = () => {
   return (
@@ -9,13 +9,7 @@ const Header = () => {
       <div className="wrapper flex-between">
         <div className="flex-start">
           <Link className="flex-start" href="/">
-            <Image
-              src="/images/logo.avif"
-              alt={`$${APP_NAME} logo`}
-              height={48}
-              width={48}
-              priority={true}
-            />
+            <Logo />
             <span className="hidden lg:block font-bold text-2xl ml-3">
               {APP_NAME}
             </span>

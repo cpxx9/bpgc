@@ -1,8 +1,7 @@
 import Link from "next/link";
-import Image from "next/image";
-import { APP_NAME } from "@/lib/constants";
 import Menu from "@/components/shared/header/menu";
 import MainNav from "@/app/user/main-nav";
+import Logo from "@/components/shared/logo";
 
 export default function UserLayout({
   children,
@@ -15,12 +14,7 @@ export default function UserLayout({
         <div className="border-b container mx-auto">
           <div className="flex items-center h-16 px-4">
             <Link href="/" className="w-22">
-              <Image
-                src="/images/logo.avif"
-                alt={APP_NAME}
-                height={48}
-                width={48}
-              />
+              <Logo />
             </Link>
             <MainNav className="mx-6" />
             <div className="ml-auto items-center flex space-x-4">

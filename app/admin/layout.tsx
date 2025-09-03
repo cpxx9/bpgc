@@ -1,10 +1,8 @@
 import Link from "next/link";
-import Image from "next/image";
-import { APP_NAME } from "@/lib/constants";
 import Menu from "@/components/shared/header/menu";
 import MainNav from "@/app/admin/main-nav";
-import { requireAdmin } from "@/lib/auth-guard";
 import AdminSearch from "@/components/admin/admin-search";
+import Logo from "@/components/shared/logo";
 
 export default function AdminLayout({
   children,
@@ -17,12 +15,7 @@ export default function AdminLayout({
         <div className="border-b container mx-auto">
           <div className="flex items-center h-16 px-4">
             <Link href="/" className="w-22">
-              <Image
-                src="/images/logo.avif"
-                alt={APP_NAME}
-                height={48}
-                width={48}
-              />
+              <Logo />
             </Link>
             <MainNav className="mx-6" />
             <div className="ml-auto items-center flex space-x-4">
