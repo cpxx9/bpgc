@@ -62,13 +62,6 @@ const CredentialsSignInForm = () => {
         {data && !data.success && (
           <div className="text-center text-destructive">{data.message}</div>
         )}
-
-        <div className="text-sm text-center text-muted-foreground">
-          Don&apos;t have an account?{" "}
-          <Link href="sign-up" target="_self" className="link">
-            Sign up
-          </Link>
-        </div>
       </div>
     </form>
   );

@@ -3,6 +3,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -11,6 +12,7 @@ import Link from "next/link";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import Logo from "@/components/shared/logo";
+import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
   title: "Sign in",
@@ -43,6 +45,11 @@ const SignInPage = async ({ searchParams }: PropTypes) => {
         <CardContent className="space-x-4">
           <CredentialsSignInForm />
         </CardContent>
+        <CardFooter className="flex-center space-y-4">
+          <Button variant="outline" asChild>
+            <Link href="/">Back Home &#10548;</Link>
+          </Button>
+        </CardFooter>
       </Card>
     </div>
   );
