@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { deleteUser, getAllUsers } from "@/lib/actions/user.actions";
+import { requireAdmin } from "@/lib/auth-guard";
 import { shortenUuid } from "@/lib/utils";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -24,6 +25,7 @@ interface PropTypes {
 }
 
 const AdminUsersPage = async ({ searchParams }: PropTypes) => {
+  await requireAdmin();
   const users = await getAllUsers({ page: 1 });
   const { page = "1" } = await searchParams;
 

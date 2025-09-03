@@ -1,19 +1,9 @@
-import Charts from "@/app/admin/overview/charts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { getUserCount } from "@/lib/actions/user.actions";
 import { requireAdmin } from "@/lib/auth-guard";
-import { formatCurrency, formatDateTime, formatNumber } from "@/lib/utils";
-import { BadgeDollarSign, Barcode, CreditCard, Users } from "lucide-react";
+import { formatNumber } from "@/lib/utils";
+import { Users } from "lucide-react";
 import { Metadata } from "next";
-import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
