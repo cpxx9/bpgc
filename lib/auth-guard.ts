@@ -8,3 +8,11 @@ export async function requireAdmin() {
   }
   return session;
 }
+
+export async function requireAdminAction() {
+  const session = await auth();
+  if (session?.user?.role !== "admin") {
+    return false;
+  }
+  return true;
+}

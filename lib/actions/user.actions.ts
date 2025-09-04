@@ -10,6 +10,7 @@ import type { UpdateUser } from "@/types";
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { PAGE_SIZE } from "@/lib/constants";
+import { requireAdminAction } from "@/lib/auth-guard";
 
 export async function signInWithCredentials(
   previousState: unknown,
@@ -36,10 +37,10 @@ export async function signOutUser() {
   await signOut({ redirectTo: "/" });
 }
 
-export async function signUpUser(prevState: unknown, formData: FormData) {
-  const session = auth();
-  console.log(session);
+export async function createUser(prevState: unknown, formData: FormData) {
   try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
     const user = signUpFormSchema.parse({
       name: formData.get("name"),
       email: formData.get("email"),
@@ -70,6 +71,8 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
 
 export async function getUserCount() {
   try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
     const userCount = await prisma.user.count();
 
     return { success: true, userCount };
@@ -90,6 +93,7 @@ export async function getUserById(userId: string | undefined) {
 export async function updateProfile(user: { name: string; email: string }) {
   try {
     const session = await auth();
+    if (!session?.user?.name) throw new Error("You are not authorized!");
     const currentUser = await prisma.user.findFirst({
       where: { id: session?.user?.id },
     });
@@ -106,7 +110,10 @@ export async function updateProfile(user: { name: string; email: string }) {
       message: "User updated successfully",
     };
   } catch (error) {
-    return { success: false, message: formatError(error) };
+    return {
+      success: false,
+      message: formatError(error),
+    };
   }
 }
 
@@ -117,22 +124,33 @@ export async function getAllUsers({
   limit?: number;
   page: number;
 }) {
-  const data = await prisma.user.findMany({
-    orderBy: { createdAt: "desc" },
-    take: limit,
-    skip: (page - 1) * limit,
-  });
+  try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
+    const data = await prisma.user.findMany({
+      orderBy: { createdAt: "desc" },
+      take: limit,
+      skip: (page - 1) * limit,
+    });
 
-  const dataCount = await prisma.user.count();
+    const dataCount = await prisma.user.count();
 
-  return {
-    data,
-    totalPages: Math.ceil(dataCount / limit),
-  };
+    return {
+      data,
+      totalPages: Math.ceil(dataCount / limit),
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: formatError(error),
+    };
+  }
 }
 
 export async function deleteUser(id: string) {
   try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
     await prisma.user.delete({ where: { id } });
     revalidatePath("/admin/users");
     return {
@@ -149,6 +167,8 @@ export async function deleteUser(id: string) {
 
 export async function updateUser(user: UpdateUser) {
   try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
     await prisma.user.update({
       where: { id: user.id },
       data: {
