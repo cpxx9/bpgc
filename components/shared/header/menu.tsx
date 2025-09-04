@@ -1,3 +1,4 @@
+import Links from "@/components/shared/header/links";
 import ModeToggle from "@/components/shared/header/ModeToggle";
 import UserButton from "@/components/shared/header/user-button";
 import { Button } from "@/components/ui/button";
@@ -11,49 +12,12 @@ import {
 import { EllipsisVertical } from "lucide-react";
 import Link from "next/link";
 
-const links = [
-  {
-    title: "HOME",
-    href: "/home",
-  },
-  {
-    title: "ABOUT",
-    href: "/about",
-  },
-  {
-    title: "SCHEDULE",
-    href: "/schedule",
-  },
-  {
-    title: "SCORING INFO",
-    href: "/scoring-info",
-  },
-  {
-    title: "EVENTS",
-    href: "/events",
-  },
-  {
-    title: "CONTESTS",
-    href: "/contests",
-  },
-  {
-    title: "GALLERY",
-    href: "/gallery",
-  },
-];
-
 const Menu = () => {
   return (
     <div className="flex gap-3">
       <nav className="hidden md:flex w-full gap-1">
         <ModeToggle />
-        {links.map((link) => (
-          <Button className="p-2" asChild variant="ghost">
-            <Link key={link.href} href={link.href}>
-              {link.title}
-            </Link>
-          </Button>
-        ))}
+        <Links />
         <UserButton />
       </nav>
       <nav className="md:hidden">
