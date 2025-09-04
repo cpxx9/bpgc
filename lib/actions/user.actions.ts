@@ -92,7 +92,7 @@ export async function getUserById(userId: string | undefined) {
 export async function updateProfile(user: { name: string; email: string }) {
   try {
     const session = await auth();
-    if (!session?.user?.name) throw new Error("You are not authorized!");
+    if (!session) throw new Error("You are not authorized!");
     const currentUser = await prisma.user.findFirst({
       where: { id: session?.user?.id },
     });
