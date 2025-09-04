@@ -39,8 +39,16 @@ const Links = () => {
   let pathname = usePathname();
   pathname = pathname.slice(1);
   if (pathname.length < 1) pathname = "home";
-  if (pathname === "scoring-info") pathname = "scoring info";
-  console.log(pathname);
+  if (pathname.includes("-")) {
+    const pathnameSplit = pathname.split("-");
+    pathnameSplit.forEach((word, i) => {
+      if (i === 0) {
+        pathname = word;
+      } else {
+        pathname = pathname + ` ${word}`;
+      }
+    });
+  }
 
   return (
     <>
