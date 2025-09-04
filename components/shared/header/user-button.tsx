@@ -14,13 +14,7 @@ import Link from "next/link";
 const UserButton = async () => {
   const session = await auth();
   if (!session) {
-    return (
-      <Button asChild>
-        <Link href="/sign-in">
-          <UserIcon /> Sign in
-        </Link>
-      </Button>
-    );
+    return <></>;
   }
 
   const firstInitial = session.user?.name?.charAt(0).toUpperCase() ?? "U";
