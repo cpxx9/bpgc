@@ -51,7 +51,7 @@ const Links = () => {
   }
 
   return (
-    <>
+    <div className={pathname.includes("admin") ? "hidden" : ""}>
       {links.map((link) => (
         <Button
           key={link.href}
@@ -64,7 +64,7 @@ const Links = () => {
           <Link href={link.href}>{link.title}</Link>
         </Button>
       ))}
-    </>
+    </div>
   );
 };
 
