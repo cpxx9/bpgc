@@ -1,3 +1,4 @@
+import CreateUserForm from "@/components/admin/create-user-form";
 import DeleteDialog from "@/components/shared/delete-dialog";
 import Pagination from "@/components/shared/pagination";
 import { Badge } from "@/components/ui/badge";
@@ -11,6 +12,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { deleteUser, getAllUsers } from "@/lib/actions/user.actions";
+import { requireAdmin } from "@/lib/auth-guard";
 import { shortenUuid } from "@/lib/utils";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -24,12 +26,16 @@ interface PropTypes {
 }
 
 const AdminUsersPage = async ({ searchParams }: PropTypes) => {
+  await requireAdmin();
   const users = await getAllUsers({ page: 1 });
   const { page = "1" } = await searchParams;
 
   return (
     <div className="space-y-2 flex-1">
-      <h2 className="h2-bold">Users</h2>
+      <div className="flex justify-between">
+        <h2 className="h2-bold">Users</h2>
+        <CreateUserForm />
+      </div>
       <div className="overflow-x-auto">
         <Table>
           <TableHeader>
