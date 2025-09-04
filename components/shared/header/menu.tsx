@@ -1,5 +1,6 @@
 import ModeToggle from "@/components/shared/header/ModeToggle";
 import UserButton from "@/components/shared/header/user-button";
+import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
@@ -8,12 +9,51 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { EllipsisVertical } from "lucide-react";
+import Link from "next/link";
+
+const links = [
+  {
+    title: "HOME",
+    href: "/home",
+  },
+  {
+    title: "ABOUT",
+    href: "/about",
+  },
+  {
+    title: "SCHEDULE",
+    href: "/schedule",
+  },
+  {
+    title: "SCORING INFO",
+    href: "/scoring-info",
+  },
+  {
+    title: "EVENTS",
+    href: "/events",
+  },
+  {
+    title: "CONTESTS",
+    href: "/contests",
+  },
+  {
+    title: "GALLERY",
+    href: "/gallery",
+  },
+];
 
 const Menu = () => {
   return (
-    <div className="flex justify-end gap-3">
-      <nav className="hidden md:flex w-full max-w-xs gap-1">
+    <div className="flex gap-3">
+      <nav className="hidden md:flex w-full gap-1">
         <ModeToggle />
+        {links.map((link) => (
+          <Button className="p-2" asChild variant="ghost">
+            <Link key={link.href} href={link.href}>
+              {link.title}
+            </Link>
+          </Button>
+        ))}
         <UserButton />
       </nav>
       <nav className="md:hidden">
@@ -25,6 +65,27 @@ const Menu = () => {
             <SheetTitle>Menu</SheetTitle>
             <ModeToggle />
             <UserButton />
+            <Button className="p-2" asChild variant="ghost">
+              <Link href="/home">HOME</Link>
+            </Button>
+            <Button className="p-2" asChild variant="ghost">
+              <Link href="/about">ABOUT</Link>
+            </Button>
+            <Button className="p-2" asChild variant="ghost">
+              <Link href="/schedule">SCHEDULE</Link>
+            </Button>
+            <Button className="p-2" asChild variant="ghost">
+              <Link href="/scoring-info">SCORING INFO</Link>
+            </Button>
+            <Button className="p-2" asChild variant="ghost">
+              <Link href="/events">EVENTS</Link>
+            </Button>
+            <Button className="p-2" asChild variant="ghost">
+              <Link href="/contests">CONTESTS</Link>
+            </Button>
+            <Button className="p-2" asChild variant="ghost">
+              <Link href="/gallery">GALLERY</Link>
+            </Button>
             <SheetDescription></SheetDescription>
           </SheetContent>
         </Sheet>
