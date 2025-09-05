@@ -28,6 +28,7 @@ interface PropTypes {
 const AdminUsersPage = async ({ searchParams }: PropTypes) => {
   await requireAdmin();
   const users = await getAllUsers({ page: 1 });
+  if (!users.totalPages) users.totalPages = 1;
   const { page = "1" } = await searchParams;
 
   return (
@@ -70,7 +71,7 @@ const AdminUsersPage = async ({ searchParams }: PropTypes) => {
             ))}
           </TableBody>
         </Table>
-        {users.totalPages > 1 ? (
+        {users?.totalPages > 1 ? (
           <Pagination page={Number(page) || 1} totalPages={users?.totalPages} />
         ) : (
           <p className="text-muted-foreground">Displaying all results...</p>
