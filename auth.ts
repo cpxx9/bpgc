@@ -91,7 +91,7 @@ export const config = {
         /\/profile/,
         /\/user\/(.*)/,
         /\/order\/(.*)/,
-        /\/admin/,
+        /\/admin\/(.*)/,
       ];
 
       const { pathname } = request.nextUrl;
