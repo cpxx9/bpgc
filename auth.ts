@@ -5,7 +5,6 @@ import { prisma } from "@/db/prisma";
 import { compareSync } from "bcrypt-ts-edge";
 import type { NextAuthConfig } from "next-auth";
 import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
 
 export const config = {
   pages: {
