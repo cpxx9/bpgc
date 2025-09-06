@@ -25,9 +25,11 @@ const Menu = () => {
             <EllipsisVertical />
           </SheetTrigger>
           <SheetContent className="flex flex-col items-start">
-            <SheetTitle>Menu</SheetTitle>
-            <ModeToggle />
-            <UserButton />
+            <SheetTitle>Beaver Point Golf Club</SheetTitle>
+            <div className="flex self-stretch justify-between">
+              <ModeToggle />
+              <UserButton />
+            </div>
             <Links />
             <SheetDescription></SheetDescription>
           </SheetContent>
