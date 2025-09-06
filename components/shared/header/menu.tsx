@@ -8,6 +8,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { APP_NAME } from "@/lib/constants";
 import { EllipsisVertical } from "lucide-react";
 import Link from "next/link";
 
@@ -31,7 +32,12 @@ const Menu = () => {
               <UserButton />
             </div>
             <Links />
-            <SheetDescription></SheetDescription>
+            <SheetDescription className="flex-center flex-col">
+              Est. 1989 | {APP_NAME}
+              <span className="italic">
+                Connecticut's First Golf Club Without Real Estate
+              </span>
+            </SheetDescription>
           </SheetContent>
         </Sheet>
       </nav>
