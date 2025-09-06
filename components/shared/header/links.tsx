@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 const links = [
   {
@@ -51,7 +52,13 @@ const Links = () => {
   }
 
   return (
-    <div className={pathname.includes("admin") ? "hidden" : ""}>
+    <div
+      className={
+        pathname.includes("admin")
+          ? "hidden"
+          : "mx-auto flex gap-2 flex-col md:flex-row"
+      }
+    >
       {links.map((link) => (
         <Button
           key={link.href}
