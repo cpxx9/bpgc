@@ -6,7 +6,7 @@ const Logo = () => {
     <>
       <Image
         src="/images/logo.avif"
-        className="hidden dark:block"
+        className="hidden bg-white rounded-full p-1 dark:block"
         width={48}
         height={48}
         alt={`${APP_NAME} logo`}
@@ -14,7 +14,7 @@ const Logo = () => {
       />
       <Image
         src="/images/logo.avif"
-        className="block dark:hidden"
+        className="block p-1 dark:hidden"
         width={48}
         height={48}
         alt={`${APP_NAME} logo`}
