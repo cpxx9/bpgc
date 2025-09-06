@@ -5,19 +5,19 @@ const Logo = () => {
   return (
     <>
       <Image
-        src="/images/logo.avif"
-        className="hidden bg-white rounded-full p-1 dark:block"
+        src="/images/logo-dark.png"
+        className="hidden dark:block"
         width={48}
         height={48}
-        alt={`${APP_NAME} logo`}
+        alt={`${APP_NAME} dark mode logo`}
         priority={true}
       />
       <Image
-        src="/images/logo.avif"
-        className="block p-1 dark:hidden"
+        src="/images/logo.png"
+        className="block dark:hidden"
         width={48}
         height={48}
-        alt={`${APP_NAME} logo`}
+        alt={`${APP_NAME} light modelogo`}
         priority={true}
       />
     </>
