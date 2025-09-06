@@ -8,7 +8,6 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { signOutUser } from "@/lib/actions/user.actions";
-import { UserIcon } from "lucide-react";
 import Link from "next/link";
 
 const UserButton = async () => {
@@ -26,7 +25,7 @@ const UserButton = async () => {
           <div className="flex items-center">
             <Button
               variant="ghost"
-              className="relative w-8 h-8 rounded-full ml-2 flex items-center justify-center bg-gray-200"
+              className="relative w-8 h-8 rounded-full ml-2 flex items-center justify-center bg-gray-200 dark:text-gray-900"
             >
               {firstInitial}
             </Button>
