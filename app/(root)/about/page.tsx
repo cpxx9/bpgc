@@ -4,7 +4,7 @@ import Image from "next/image";
 const AboutPage = () => {
   return (
     <>
-      <section className="bg-blue-300 flex-col flex-center p-4 text-white font-semibold">
+      <section className="bg-blue-300 flex-col flex-center p-4 font-semibold text-white dark:text-gray-900">
         <Logo width={116} height={116} />
         <h2 className="text-center mt-3 text-[2.1em]/[2rem]">
           CT'S FIRST GOLF CLUB WITHOUT REAL ESTATE
