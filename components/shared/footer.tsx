@@ -31,7 +31,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="hidden lg:flex ">
-          <div className="p-5 flex-center flex-1">
+          <div className="p-1 flex-center flex-1">
             Est. 1989 | {APP_NAME} |
             <span className="italic">
               Connecticut's First Golf Club Without Real Estate
