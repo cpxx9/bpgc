@@ -1,11 +1,13 @@
 import Image from "next/image";
 import { APP_NAME } from "@/lib/constants";
+import darkLogo from "@/assets/logo-dark.png";
+import lightLogo from "@/assets/logo.png";
 
 const Logo = () => {
   return (
     <>
       <Image
-        src="/images/logo-dark.png"
+        src={darkLogo}
         className="hidden dark:block"
         width={48}
         height={48}
@@ -13,7 +15,7 @@ const Logo = () => {
         priority={true}
       />
       <Image
-        src="/images/logo.png"
+        src={lightLogo}
         className="block dark:hidden"
         width={48}
         height={48}
