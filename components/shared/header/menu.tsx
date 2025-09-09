@@ -9,8 +9,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { APP_NAME } from "@/lib/constants";
-import { EllipsisVertical } from "lucide-react";
-import Link from "next/link";
+import { Menu as MenuIcon } from "lucide-react";
 
 const Menu = () => {
   return (
@@ -23,7 +22,7 @@ const Menu = () => {
       <nav className={"md:hidden"}>
         <Sheet>
           <SheetTrigger className="align-middle">
-            <EllipsisVertical />
+            <MenuIcon size={40} />
           </SheetTrigger>
           <SheetContent className="flex flex-col items-start">
             <SheetTitle>Beaver Point Golf Club</SheetTitle>
