@@ -84,9 +84,9 @@ const AboutPage = () => {
             <p>
               In accordance with USGA/CSGA rules, Club Officers and a Board of
               Directors are elected each year, and set the dues for the upcoming
-              season. For the upcoming 2021 season, dues are $80 for new and
-              returning members (no initiation fee) and $40 for seniors and
-              students. All fees include a GHIN Handicap.
+              season. For the upcoming {currentYear} season, dues are $80 for
+              new and returning members (no initiation fee) and $40 for seniors
+              and students. All fees include a GHIN Handicap.
             </p>
             <br />
             <p>
