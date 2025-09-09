@@ -14,6 +14,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Event {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  date        DateTime @db.Date
+  time        DateTime @db.Time
+  location    String
+  description String
+  createdAt   DateTime @default(now()) @db.Timestamp(6)
+  updatedAt   DateTime @updatedAt
+}
+
 model User {
   id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name          String    @default("NO_NAME")
