@@ -31,7 +31,7 @@ const Menu = () => {
               <UserButton />
             </div>
             <Links withSheetClose />
-            <SheetDescription className="flex-center flex-col">
+            <SheetDescription className="flex-center self-center flex-col">
               Est. 1989 | {APP_NAME}
               <span className="italic">
                 Connecticut's First Golf Club Without Real Estate
