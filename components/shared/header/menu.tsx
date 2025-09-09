@@ -31,7 +31,7 @@ const Menu = () => {
               <ModeToggle />
               <UserButton />
             </div>
-            <Links />
+            <Links withSheetClose />
             <SheetDescription className="flex-center flex-col">
               Est. 1989 | {APP_NAME}
               <span className="italic">

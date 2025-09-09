@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { SheetClose } from "@/components/ui/sheet";
+import React from "react";
 
 const links = [
   {
@@ -36,7 +38,15 @@ const links = [
   },
 ];
 
-const Links = () => {
+interface PropTypes {
+  withSheetClose?: boolean;
+}
+
+const Links = ({ withSheetClose = false }: PropTypes) => {
+  const [SheetCloseWrapper, sheetCloseWrapperProps] = withSheetClose
+    ? [SheetClose, { asChild: true }]
+    : [React.Fragment, {}];
+
   let pathname = usePathname();
   pathname = pathname.slice(1);
   if (pathname.length < 1) pathname = "home";
@@ -60,16 +70,17 @@ const Links = () => {
       }
     >
       {links.map((link) => (
-        <Button
-          key={link.href}
-          className="p-2"
-          asChild
-          variant={
-            link.title.toLowerCase().includes(pathname) ? "default" : "ghost"
-          }
-        >
-          <Link href={link.href}>{link.title}</Link>
-        </Button>
+        <SheetCloseWrapper {...sheetCloseWrapperProps} key={link.href}>
+          <Button
+            className="p-2"
+            asChild
+            variant={
+              link.title.toLowerCase().includes(pathname) ? "default" : "ghost"
+            }
+          >
+            <Link href={link.href}>{link.title}</Link>
+          </Button>
+        </SheetCloseWrapper>
       ))}
     </div>
   );
