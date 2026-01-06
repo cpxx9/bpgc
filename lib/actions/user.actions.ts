@@ -6,7 +6,7 @@ import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { hashSync } from "bcrypt-ts-edge";
 import { prisma } from "@/db/prisma";
 import { formatError } from "@/lib/utils";
-import type { UpdateUser } from "@/types";
+import type { UpdateUser, UpdateProfile } from "@/types";
 import { revalidatePath } from "next/cache";
 import { PAGE_SIZE } from "@/lib/constants";
 import { requireAdminAction } from "@/lib/auth-guard";
@@ -89,19 +89,19 @@ export async function getUserById(userId: string | undefined) {
   return user;
 }
 
-export async function updateProfile(user: { name: string; email: string }) {
+export async function updateProfile(profile: UpdateProfile) {
   try {
     const session = await auth();
     if (!session) throw new Error("You are not authorized!");
-    const currentUser = await prisma.user.findFirst({
+    const currentProfile = await prisma.user.findFirst({
       where: { id: session?.user?.id },
     });
 
-    if (!currentUser) throw new Error("User not found");
+    if (!currentProfile) throw new Error("Profile not found");
 
     await prisma.user.update({
-      where: { id: currentUser.id },
-      data: { name: user.name },
+      where: { id: currentProfile.id },
+      data: { name: profile.name },
     });
 
     return {
