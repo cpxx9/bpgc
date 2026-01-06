@@ -5,13 +5,76 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["driverAdapters"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model Event {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt   DateTime @default(now()) @db.Timestamp(6)
+  updatedAt   DateTime @updatedAt
+  date        DateTime @db.Date
+  time        DateTime @db.Time
+  location    String
+  description String
+  leagueWeek  Int
+  scores      Score[]
+}
+
+model Player {
+  id           String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt    DateTime   @default(now()) @db.Timestamp(6)
+  updatedAt    DateTime   @updatedAt
+  fullName     String
+  hci          Float
+  birdies      Int        @default(1)
+  snowmen      Int        @default(1)
+  roundsPlayed Int        @default(1)
+  closestToPin Float      @default(0.0)
+  twoManTeam   TwoManTeam @relation(fields: [twoManTeamId], references: [id])
+  twoManTeamId String     @db.Uuid
+  scores       Score[]
+}
+
+model TwoManTeam {
+  id        String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime   @default(now()) @db.Timestamp(6)
+  updatedAt DateTime   @updatedAt
+  players   Player[]
+  scores    Matchups[]
+}
+
+model Match {
+  id        String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime   @default(now()) @db.Timestamp(6)
+  updatedAt DateTime   @updatedAt
+  teams     Matchups[]
+}
+
+model Matchups {
+  id           String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt    DateTime   @default(now()) @db.Timestamp(6)
+  updatedAt    DateTime   @updatedAt
+  twoManTeam   TwoManTeam @relation(fields: [twoManTeamId], references: [id])
+  twoManTeamId String     @db.Uuid
+  match        Match      @relation(fields: [matchId], references: [id])
+  matchId      String     @db.Uuid
+  score        Float
+}
+
+model Score {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+  score     Int
+  playerId  String   @db.Uuid
+  player    Player   @relation(fields: [playerId], references: [id])
+  eventId   String   @db.Uuid
+  event     Event    @relation(fields: [eventId], references: [id])
 }
 
 model User {

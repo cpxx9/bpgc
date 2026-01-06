@@ -29,12 +29,9 @@ export const signUpFormSchema = z
     path: ["confirmPassword"],
   });
 
-export const updateProfileSchema = z.object({
-  name: z.string().min(3, `Name${threeCharError}`),
-  email: z.string().min(3, `Email${threeCharError}`),
-});
-
-export const updateUserSchema = updateProfileSchema.extend({
+export const updateUserSchema = z.object({
   id: z.string().min(1, `ID${isRequiredError}`),
   role: z.string().min(1, `Role${isRequiredError}`),
+  name: z.string().min(3, `Name${threeCharError}`),
+  email: z.string().min(3, `Email${threeCharError}`),
 });
