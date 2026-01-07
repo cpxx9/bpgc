@@ -6,7 +6,7 @@ import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { hashSync } from "bcrypt-ts-edge";
 import { prisma } from "@/db/prisma";
 import { formatError } from "@/lib/utils";
-import type { UpdateUser, UpdateProfile } from "@/types";
+import type { UpdateUser, UpdateProfile, User } from "@/types";
 import { revalidatePath } from "next/cache";
 import { PAGE_SIZE } from "@/lib/constants";
 import { requireAdminAction } from "@/lib/auth-guard";
@@ -126,7 +126,7 @@ export async function getAllUsers({
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
-    const data = await prisma.user.findMany({
+    const data: User[] = await prisma.user.findMany({
       orderBy: { createdAt: "desc" },
       take: limit,
       skip: (page - 1) * limit,
@@ -135,6 +135,7 @@ export async function getAllUsers({
     const dataCount = await prisma.user.count();
 
     return {
+      success: true,
       data,
       totalPages: Math.ceil(dataCount / limit),
     };

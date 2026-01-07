@@ -4,6 +4,7 @@ import { prisma } from "@/db/prisma";
 import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
 import { formatError } from "@/lib/utils";
+import { Golfer } from "@/types";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 
 export async function createPlayer(formData: FormData) {
@@ -41,7 +42,7 @@ export async function getAllGolfers({
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
-    const data = await prisma.golfer.findMany({
+    const data: Golfer[] = await prisma.golfer.findMany({
       orderBy: { createdAt: "desc" },
       take: limit,
       skip: (page - 1) * limit,
