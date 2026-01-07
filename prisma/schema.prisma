@@ -32,13 +32,21 @@ model Player {
   updatedAt    DateTime   @updatedAt
   fullName     String
   hci          Float
-  birdies      Int        @default(1)
-  snowmen      Int        @default(1)
-  roundsPlayed Int        @default(1)
-  closestToPin Float      @default(0.0)
   twoManTeam   TwoManTeam @relation(fields: [twoManTeamId], references: [id])
   twoManTeamId String     @db.Uuid
   scores       Score[]
+  stats        Stats[]
+}
+
+model Stats {
+  id           String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  player       Player @relation(fields: [playerId], references: [id])
+  playerId     String @db.Uuid
+  year         Int
+  birdies      Int    @default(1)
+  snowmen      Int    @default(1)
+  roundsPlayed Int    @default(1)
+  closestToPin Float  @default(0.0)
 }
 
 model TwoManTeam {
