@@ -27,14 +27,14 @@ model Event {
 }
 
 model Golfer {
-  id           String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt    DateTime   @default(now()) @db.Timestamp(6)
-  updatedAt    DateTime   @updatedAt
+  id           String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt    DateTime    @default(now()) @db.Timestamp(6)
+  updatedAt    DateTime    @updatedAt
   firstName    String
   lastName     String
   hci          Float
-  twoManTeam   TwoManTeam @relation(fields: [twoManTeamId], references: [id])
-  twoManTeamId String     @db.Uuid
+  twoManTeam   TwoManTeam? @relation(fields: [twoManTeamId], references: [id])
+  twoManTeamId String?     @db.Uuid
   scores       Score[]
   stats        Stats[]
 }
