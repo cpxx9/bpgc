@@ -2,7 +2,6 @@
 
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { signUpDefaultValues } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -20,7 +19,7 @@ import { useFormStatus } from "react-dom";
 import { createUser } from "@/lib/actions/user.actions";
 import { useSearchParams } from "next/navigation";
 
-const CreateUserForm = () => {
+const CreateGolferForm = () => {
   const [data, action] = useActionState(createUser, {
     success: false,
     message: "",
@@ -29,7 +28,7 @@ const CreateUserForm = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
 
-  const SignUpButton = () => {
+  const CreateButton = () => {
     const { pending } = useFormStatus();
 
     return (
@@ -53,9 +52,9 @@ const CreateUserForm = () => {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Create new user</DialogTitle>
+            <DialogTitle>Create new golfer</DialogTitle>
             <DialogDescription>
-              Enter user information here. Click save to create.
+              Enter golfer information here. Click save to create.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4">
@@ -63,47 +62,43 @@ const CreateUserForm = () => {
               <input type="hidden" name="callbackUrl" value={callbackUrl} />
               <div className="space-y-6">
                 <div>
-                  <Label htmlFor="name">Name</Label>
+                  <Label htmlFor="firstName">FirstName</Label>
                   <Input
-                    id="name"
-                    name="name"
+                    id="firstName"
+                    name="firstName"
                     type="text"
                     required
-                    autoComplete="name"
-                    defaultValue={signUpDefaultValues.name}
+                    autoComplete="firstname"
                   ></Input>
                 </div>
                 <div>
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="lastName">LastName</Label>
                   <Input
-                    id="email"
-                    name="email"
-                    type="email"
+                    id="lastName"
+                    name="lastName"
+                    type="text"
                     required
-                    autoComplete="email"
-                    defaultValue={signUpDefaultValues.email}
+                    autoComplete="lastName"
                   ></Input>
                 </div>
                 <div>
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="hci">HCI</Label>
                   <Input
-                    id="password"
-                    name="password"
-                    type="password"
+                    id="hci"
+                    name="hci"
+                    type="number"
                     required
-                    autoComplete="password"
-                    defaultValue={signUpDefaultValues.password}
+                    autoComplete="hci"
                   ></Input>
                 </div>
                 <div>
-                  <Label htmlFor="confirmPassword">Confirm Password</Label>
+                  <Label htmlFor="twoManTeam">Two Man Team</Label>
                   <Input
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    type="password"
+                    id="twoManTeam"
+                    name="twoManTeam"
+                    type="text"
                     required
-                    autoComplete="confirmPassword"
-                    defaultValue={signUpDefaultValues.confirmPassword}
+                    autoComplete="twoManTeam"
                   ></Input>
                 </div>
 
@@ -119,7 +114,7 @@ const CreateUserForm = () => {
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <SignUpButton />
+            <CreateButton />
           </DialogFooter>
         </DialogContent>
       </form>
@@ -127,4 +122,4 @@ const CreateUserForm = () => {
   );
 };
 
-export default CreateUserForm;
+export default CreateGolferForm;
