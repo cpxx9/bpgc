@@ -4,6 +4,7 @@ import { prisma } from "@/db/prisma";
 import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
 import { formatError } from "@/lib/utils";
+import { createGolferSchema } from "@/lib/validators";
 import { Golfer } from "@/types";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
@@ -12,6 +13,21 @@ export async function createGolfer(prevState: unknown, formData: FormData) {
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
+    const golfer = createGolferSchema.parse({
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
+      hci: formData.get("hci"),
+      twoManTeam: formData.get("twoManTeam"),
+    });
+
+    await prisma.golfer.create({
+      data: {
+        firstName: golfer.firstName,
+        lastName: golfer.lastName,
+        hci: golfer.hci,
+        twoManTeamId: golfer.twoManTeam ? golfer.twoManTeam : null,
+      },
+    });
   } catch (error) {
     if (isRedirectError(error)) {
       throw error;
