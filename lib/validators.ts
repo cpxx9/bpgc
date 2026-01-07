@@ -9,6 +9,7 @@ const currency = z
   );
 const threeCharError = " must be at least 3 characters";
 const isRequiredError = " is required";
+const nameString = z.string().min(1, { message: "Name cannot be empty" });
 
 export const signInFormSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -39,4 +40,9 @@ export const updateUserSchema = z.object({
 export const updateProfileSchema = z.object({
   name: z.string().min(3, `Name${threeCharError}`),
   email: z.string().min(3, `Email${threeCharError}`),
+});
+
+export const playerSchema = z.object({
+  firstName: nameString,
+  lastName: nameString,
 });
