@@ -15,9 +15,10 @@ import {
 import { getAllGolfers, deleteGolfer } from "@/lib/actions/golfer.actions";
 import { shortenUuid } from "@/lib/utils";
 import Link from "next/link";
+import CreateGolferForm from "@/components/admin/create-golfer-form";
 
 export const metadata: Metadata = {
-  title: "Admin Users",
+  title: "Admin Golfers",
 };
 
 interface PropTypes {
@@ -33,8 +34,8 @@ const AdminGolfersPage = async ({ searchParams }: PropTypes) => {
   return (
     <div className="space-y-2 flex-1">
       <div className="flex justify-between">
-        <h2 className="h2-bold">Users</h2>
-        {/* <CreateUserForm /> */}
+        <h2 className="h2-bold">Golfers</h2>
+        <CreateGolferForm />
       </div>
       <div className="overflow-x-auto">
         <Table>

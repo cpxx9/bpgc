@@ -62,7 +62,7 @@ const CreateGolferForm = () => {
               <input type="hidden" name="callbackUrl" value={callbackUrl} />
               <div className="space-y-6">
                 <div>
-                  <Label htmlFor="firstName">FirstName</Label>
+                  <Label htmlFor="firstName">First Name</Label>
                   <Input
                     id="firstName"
                     name="firstName"
@@ -72,7 +72,7 @@ const CreateGolferForm = () => {
                   ></Input>
                 </div>
                 <div>
-                  <Label htmlFor="lastName">LastName</Label>
+                  <Label htmlFor="lastName">Last Name</Label>
                   <Input
                     id="lastName"
                     name="lastName"
