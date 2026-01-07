@@ -9,7 +9,7 @@ const currency = z
   );
 const threeCharError = " must be at least 3 characters";
 const isRequiredError = " is required";
-const nameString = z.string().min(1, { message: "Name cannot be empty" });
+const nameString = z.string().min(1, "Name cannot be empty");
 
 export const signInFormSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -45,4 +45,6 @@ export const updateProfileSchema = z.object({
 export const playerSchema = z.object({
   firstName: nameString,
   lastName: nameString,
+  hci: z.number({ message: "HCI must be a number!" }),
+  twoManTeam: z.string().uuid("Must be a valid UUID!"),
 });
