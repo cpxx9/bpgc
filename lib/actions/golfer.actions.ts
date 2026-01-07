@@ -5,9 +5,10 @@ import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
 import { formatError } from "@/lib/utils";
 import { Golfer } from "@/types";
+import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 
-export async function createPlayer(formData: FormData) {
+export async function createGolfer(prevState: unknown, formData: FormData) {
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
@@ -59,6 +60,24 @@ export async function getAllGolfers({
     return {
       success: false,
       message: formatError(error),
+    };
+  }
+}
+
+export async function deleteGolfer(id: string) {
+  try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
+    await prisma.golfer.delete({ where: { id } });
+    revalidatePath("/admin/golfers");
+    return {
+      success: true,
+      message: "Golfer deleted successfully",
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
     };
   }
 }
