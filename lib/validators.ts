@@ -42,7 +42,7 @@ export const updateProfileSchema = z.object({
   email: z.string().min(3, `Email${threeCharError}`),
 });
 
-export const playerSchema = z.object({
+export const golferSchema = z.object({
   firstName: nameString,
   lastName: nameString,
   hci: z.number({ message: "HCI must be a number!" }),

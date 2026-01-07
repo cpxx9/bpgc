@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { getGolferCount } from "@/lib/actions/golfer.actions";
 import { getUserCount } from "@/lib/actions/user.actions";
 import { requireAdmin } from "@/lib/auth-guard";
 import { formatNumber } from "@/lib/utils";
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
 const AdminOverviewPage = async () => {
   await requireAdmin();
   const { userCount } = await getUserCount();
+  const { golferCount } = await getGolferCount();
 
   return (
     <div className="space-y-2">
@@ -30,12 +32,12 @@ const AdminOverviewPage = async () => {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Players</CardTitle>
+            <CardTitle className="text-sm font-medium">Golfers</CardTitle>
             <LandPlot />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {/* {formatNumber(userCount || 0)} */}
+              {formatNumber(golferCount || 0)}
             </div>
           </CardContent>
         </Card>

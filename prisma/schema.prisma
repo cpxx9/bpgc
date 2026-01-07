@@ -26,7 +26,7 @@ model Event {
   scores      Score[]
 }
 
-model Player {
+model Golfer {
   id           String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt    DateTime   @default(now()) @db.Timestamp(6)
   updatedAt    DateTime   @updatedAt
@@ -41,8 +41,8 @@ model Player {
 
 model Stats {
   id           String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  player       Player @relation(fields: [playerId], references: [id])
-  playerId     String @db.Uuid
+  golfer       Golfer @relation(fields: [golferId], references: [id])
+  golferId     String @db.Uuid
   year         Int
   birdies      Int    @default(1)
   snowmen      Int    @default(1)
@@ -54,7 +54,7 @@ model TwoManTeam {
   id        String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt DateTime   @default(now()) @db.Timestamp(6)
   updatedAt DateTime   @updatedAt
-  players   Player[]
+  golfers   Golfer[]
   scores    Matchups[]
 }
 
@@ -81,8 +81,8 @@ model Score {
   createdAt DateTime @default(now()) @db.Timestamp(6)
   updatedAt DateTime @updatedAt
   score     Int
-  playerId  String   @db.Uuid
-  player    Player   @relation(fields: [playerId], references: [id])
+  golferId  String   @db.Uuid
+  golfer    Golfer   @relation(fields: [golferId], references: [id])
   eventId   String   @db.Uuid
   event     Event    @relation(fields: [eventId], references: [id])
 }

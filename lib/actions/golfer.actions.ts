@@ -18,13 +18,13 @@ export async function createPlayer(formData: FormData) {
   }
 }
 
-export async function getPlayerCount() {
+export async function getGolferCount() {
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
-    const playerCount = await prisma.player.count();
+    const golferCount = await prisma.golfer.count();
 
-    return { success: true, playerCount };
+    return { success: true, golferCount };
   } catch (error) {
     return { success: false, message: formatError(error) };
   }
