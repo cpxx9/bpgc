@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getUserCount } from "@/lib/actions/user.actions";
 import { requireAdmin } from "@/lib/auth-guard";
 import { formatNumber } from "@/lib/utils";
-import { Users } from "lucide-react";
+import { Users, LandPlot } from "lucide-react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -25,6 +25,17 @@ const AdminOverviewPage = async () => {
           <CardContent>
             <div className="text-2xl font-bold">
               {formatNumber(userCount || 0)}
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Players</CardTitle>
+            <LandPlot />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {/* {formatNumber(userCount || 0)} */}
             </div>
           </CardContent>
         </Card>
