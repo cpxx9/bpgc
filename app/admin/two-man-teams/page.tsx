@@ -67,11 +67,11 @@ const AdminTwoManTeamsPage = async ({ searchParams }: PropTypes) => {
                   {twoManTeam?.golfers[1]?.lastName}
                 </TableCell>
                 <TableCell>
-                  <Button className="mr-1" asChild variant="outline" size="sm">
+                  {/* <Button className="mr-1" asChild variant="outline" size="sm">
                     <Link href={`/admin/two-man-teams/${twoManTeam.id}`}>
                       Edit
                     </Link>
-                  </Button>
+                  </Button> */}
                   <DeleteDialog id={twoManTeam.id} action={deleteTwoManTeam} />
                 </TableCell>
               </TableRow>

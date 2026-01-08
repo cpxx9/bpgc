@@ -13,6 +13,8 @@ export async function createTwoManTeam(golfers: TwoManTeam) {
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
+    if (golfers.golferOneID === golfers.golferTwoID)
+      throw new Error("Teammates cannot be the same golfer!");
 
     await prisma.$transaction(async (tx) => {
       const newTwoManTeam = await tx.twoManTeam.create({ data: {} });
