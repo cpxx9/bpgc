@@ -126,7 +126,7 @@ const UpdateGolferForm = ({ golfer }: PropTypes) => {
             className="w-full"
             disabled={form.formState.isSubmitting}
           >
-            {form.formState.isSubmitting ? "Submitting..." : "Update User"}
+            {form.formState.isSubmitting ? "Submitting..." : "Update Golfer"}
           </Button>
         </div>
       </form>
