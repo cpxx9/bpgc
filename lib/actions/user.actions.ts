@@ -89,33 +89,6 @@ export async function getUserById(userId: string | undefined) {
   return user;
 }
 
-export async function updateProfile(profile: UpdateProfile) {
-  try {
-    const session = await auth();
-    if (!session) throw new Error("You are not authorized!");
-    const currentProfile = await prisma.user.findFirst({
-      where: { id: session?.user?.id },
-    });
-
-    if (!currentProfile) throw new Error("Profile not found");
-
-    await prisma.user.update({
-      where: { id: currentProfile.id },
-      data: { name: profile.name },
-    });
-
-    return {
-      success: true,
-      message: "User updated successfully",
-    };
-  } catch (error) {
-    return {
-      success: false,
-      message: formatError(error),
-    };
-  }
-}
-
 export async function getAllUsers({
   limit = PAGE_SIZE,
   page,

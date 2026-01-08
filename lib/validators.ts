@@ -37,11 +37,6 @@ export const updateUserSchema = z.object({
   email: z.string().min(3, `Email${threeCharError}`).trim(),
 });
 
-export const updateProfileSchema = z.object({
-  name: z.string().min(3, `Name${threeCharError}`).trim(),
-  email: z.string().min(3, `Email${threeCharError}`).trim(),
-});
-
 export const createGolferSchema = z.object({
   firstName: nameString,
   lastName: nameString,

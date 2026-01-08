@@ -1,8 +1,7 @@
 import { z } from "zod";
-import { updateProfileSchema, updateUserSchema } from "@/lib/validators";
+import { updateUserSchema } from "@/lib/validators";
 
 export type UpdateUser = z.infer<typeof updateUserSchema>;
-export type UpdateProfile = z.infer<typeof updateProfileSchema>;
 export type User = {
   id: string;
   role: string;
