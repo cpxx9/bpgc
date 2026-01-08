@@ -43,10 +43,10 @@ model Stats {
   id           String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   golfer       Golfer @relation(fields: [golferId], references: [id])
   golferId     String @db.Uuid
-  year         Int
-  birdies      Int    @default(1)
-  snowmen      Int    @default(1)
-  roundsPlayed Int    @default(1)
+  year         Int    @default(dbgenerated("DATE_PART('year', CURRENT_DATE)"))
+  birdies      Int    @default(0)
+  snowmen      Int    @default(0)
+  roundsPlayed Int    @default(0)
   closestToPin Float  @default(0.0)
 }
 
