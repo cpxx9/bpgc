@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { updateGolfer } from "@/lib/actions/golfer.actions";
-import { updateUserSchema } from "@/lib/validators";
+import { updateGolferSchema } from "@/lib/validators";
 import { UpdateGolfer } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -27,7 +27,7 @@ const UpdateGolferForm = ({ golfer }: PropTypes) => {
   const router = useRouter();
   const { toast } = useToast();
   const form = useForm<UpdateGolfer>({
-    resolver: zodResolver(updateUserSchema),
+    resolver: zodResolver(updateGolferSchema),
     defaultValues: golfer,
   });
 
@@ -113,7 +113,11 @@ const UpdateGolferForm = ({ golfer }: PropTypes) => {
               <FormItem className="w-full">
                 <FormLabel>HCI</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter golfer's HCI" {...field}></Input>
+                  <Input
+                    placeholder="Enter golfer's HCI"
+                    {...field}
+                    type="decimal"
+                  ></Input>
                 </FormControl>
                 <FormMessage />
               </FormItem>
