@@ -16,11 +16,11 @@ import {
 
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
-import { createUser } from "@/lib/actions/user.actions";
 import { useSearchParams } from "next/navigation";
+import { createGolfer } from "@/lib/actions/golfer.actions";
 
 const CreateGolferForm = () => {
-  const [data, action] = useActionState(createUser, {
+  const [data, action] = useActionState(createGolfer, {
     success: false,
     message: "",
   });
@@ -33,7 +33,7 @@ const CreateGolferForm = () => {
 
     return (
       <Button
-        form="create-user-form"
+        form="create-golfer-form"
         type="submit"
         disabled={pending}
         className="w-full"
@@ -58,7 +58,7 @@ const CreateGolferForm = () => {
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4">
-            <form id="create-user-form" action={action}>
+            <form id="create-golfer-form" action={action}>
               <input type="hidden" name="callbackUrl" value={callbackUrl} />
               <div className="space-y-6">
                 <div>
@@ -86,21 +86,20 @@ const CreateGolferForm = () => {
                   <Input
                     id="hci"
                     name="hci"
-                    type="number"
+                    type="decimal"
                     required
                     autoComplete="hci"
                   ></Input>
                 </div>
-                <div>
+                {/* <div>
                   <Label htmlFor="twoManTeam">Two Man Team</Label>
                   <Input
                     id="twoManTeam"
                     name="twoManTeam"
                     type="text"
-                    required
                     autoComplete="twoManTeam"
                   ></Input>
-                </div>
+                </div> */}
 
                 {data && !data.success && (
                   <div className="text-center text-destructive">
