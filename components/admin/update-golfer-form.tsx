@@ -111,7 +111,7 @@ const UpdateGolferForm = ({ golfer }: PropTypes) => {
               field: ControllerRenderProps<UpdateGolfer, "hci">;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>Last Name</FormLabel>
+                <FormLabel>HCI</FormLabel>
                 <FormControl>
                   <Input placeholder="Enter golfer's HCI" {...field}></Input>
                 </FormControl>
