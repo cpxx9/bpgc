@@ -62,7 +62,7 @@ const CreateTwoManTeamForm = ({ golfers }: PropTypes) => {
   return (
     <Form {...form}>
       <form
-        className="flex align-bottom"
+        className="flex p-2 gap-2 items-end border-2 rounded-sm"
         method="POST"
         onSubmit={form.handleSubmit(onSubmit)}
       >
@@ -126,10 +126,10 @@ const CreateTwoManTeamForm = ({ golfers }: PropTypes) => {
             )}
           />
         </div>
-        <div className="flex-between mt-4">
+        <div className="">
           <Button
             type="submit"
-            className="w-full align-bottom"
+            className="w-full"
             disabled={form.formState.isSubmitting}
           >
             {form.formState.isSubmitting ? "Submitting..." : "Create Team"}
