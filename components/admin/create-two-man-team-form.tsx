@@ -75,7 +75,7 @@ const CreateTwoManTeamForm = ({ golfers }: PropTypes) => {
               <div className="space-y-6">
                 <div>
                   <Label htmlFor="golferOneID">Golfer One</Label>
-                  <Select>
+                  <Select name="golferOneID">
                     <SelectTrigger className="w-[280px]">
                       <SelectValue placeholder="Select a golfer" />
                     </SelectTrigger>
@@ -97,7 +97,7 @@ const CreateTwoManTeamForm = ({ golfers }: PropTypes) => {
                 </div>
                 <div>
                   <Label htmlFor="golferTwoID">Golfer Two</Label>
-                  <Select>
+                  <Select name="golferTwoID">
                     <SelectTrigger className="w-[280px]">
                       <SelectValue placeholder="Select a golfer" />
                     </SelectTrigger>
