@@ -23,7 +23,7 @@ const AdminGolferUpdatePage = async ({ params }: PropTypes) => {
   return (
     <div className="space-y-8 max-w-lg mx-auto">
       <h1 className="h2-bold">
-        Update User <span className="text-sm">({id})</span>
+        Update golfer <span className="text-sm">({id})</span>
       </h1>
       <UpdateGolferForm golfer={golfer} />
     </div>
