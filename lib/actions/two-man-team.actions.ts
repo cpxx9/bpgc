@@ -60,6 +60,9 @@ export async function getAllTwoManTeams({
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
     const data = await prisma.twoManTeam.findMany({
+      include: {
+        golfers: true,
+      },
       orderBy: { createdAt: "desc" },
       take: limit,
       skip: (page - 1) * limit,
