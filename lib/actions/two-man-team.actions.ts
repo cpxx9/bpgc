@@ -1,0 +1,99 @@
+"use server";
+
+import { prisma } from "@/db/prisma";
+import { requireAdminAction } from "@/lib/auth-guard";
+import { PAGE_SIZE } from "@/lib/constants";
+import { formatError } from "@/lib/utils";
+import { revalidatePath } from "next/cache";
+import { isRedirectError } from "next/dist/client/components/redirect-error";
+
+export async function createTwoManTeam(prevState: unknown) {
+  try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
+
+    await prisma.twoManTeam.create({
+      data: {},
+    });
+
+    revalidatePath("/admin/two-man-teams");
+
+    return { success: true, message: "Two man team created successfully." };
+  } catch (err) {
+    if (isRedirectError(err)) {
+      throw err;
+    }
+
+    return { success: false, message: formatError(err) };
+  }
+}
+
+export async function getTwoManTeamCount() {
+  try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
+    const twoManTeamCount = await prisma.twoManTeam.count();
+
+    return { success: true, twoManTeamCount };
+  } catch (err) {
+    return { success: false, message: formatError(err) };
+  }
+}
+
+export async function getTwoManTeamById(twoManTeamId: string | undefined) {
+  if (!twoManTeamId) throw new Error("No id passed");
+  const twoManTeam = await prisma.twoManTeam.findFirst({
+    where: { id: twoManTeamId },
+  });
+  if (!twoManTeam) throw new Error("Two Man Team not found");
+  return twoManTeam;
+}
+
+export async function getAllTwoManTeams({
+  limit = PAGE_SIZE,
+  page,
+}: {
+  limit?: number;
+  page: number;
+}) {
+  try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
+    const data = await prisma.twoManTeam.findMany({
+      orderBy: { createdAt: "desc" },
+      take: limit,
+      skip: (page - 1) * limit,
+    });
+
+    const dataCount = await prisma.twoManTeam.count();
+
+    return {
+      success: true,
+      data,
+      totalPages: Math.ceil(dataCount / limit),
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
+}
+
+export async function deleteTwoManTeam(id: string) {
+  try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
+    await prisma.twoManTeam.delete({ where: { id } });
+    revalidatePath("/admin/two-man-teams");
+    return {
+      success: true,
+      message: "Two Man Team deleted successfully",
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
+}
