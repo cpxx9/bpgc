@@ -53,6 +53,15 @@ export async function getGolferCount() {
   }
 }
 
+export async function getGolferById(golferId: string | undefined) {
+  if (!golferId) throw new Error("No id passed");
+  const golfer = await prisma.golfer.findFirst({
+    where: { id: golferId },
+  });
+  if (!golfer) throw new Error("Golfer not found");
+  return golfer;
+}
+
 export async function getAllGolfers({
   limit = PAGE_SIZE,
   page,
