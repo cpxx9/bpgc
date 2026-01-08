@@ -3,7 +3,7 @@ import { getGolferCount } from "@/lib/actions/golfer.actions";
 import { getUserCount } from "@/lib/actions/user.actions";
 import { requireAdmin } from "@/lib/auth-guard";
 import { formatNumber } from "@/lib/utils";
-import { Users, LandPlot } from "lucide-react";
+import { User, Users, LandPlot } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 
@@ -24,7 +24,7 @@ const AdminOverviewPage = async () => {
           <Card className="hover:shadow-md">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Users</CardTitle>
-              <Users />
+              <User />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
@@ -38,6 +38,21 @@ const AdminOverviewPage = async () => {
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Golfers</CardTitle>
               <LandPlot />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                {formatNumber(golferCount || 0)}
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
+        <Link href={"/admin/two-man-teams"}>
+          <Card className="hover:shadow-md">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Two Man Teams
+              </CardTitle>
+              <Users />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
