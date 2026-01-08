@@ -14,11 +14,13 @@ import {
 } from "@/components/ui/table";
 import { shortenUuid } from "@/lib/utils";
 import Link from "next/link";
-import CreateGolferForm from "@/components/admin/create-golfer-form";
+import CreateTwoManTeamForm from "@/components/admin/create-two-man-team-form";
 import {
   deleteTwoManTeam,
   getAllTwoManTeams,
 } from "@/lib/actions/two-man-team.actions";
+import { getAllGolfersList } from "@/lib/actions/golfer.actions";
+import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Admin Two Man Teams",
@@ -31,6 +33,8 @@ interface PropTypes {
 const AdminTwoManTeamsPage = async ({ searchParams }: PropTypes) => {
   await requireAdmin();
   const twoManTeams = await getAllTwoManTeams({ page: 1 });
+  const { data } = await getAllGolfersList();
+  if (!data) notFound();
   if (!twoManTeams.totalPages) twoManTeams.totalPages = 1;
   const { page = "1" } = await searchParams;
 
@@ -38,7 +42,7 @@ const AdminTwoManTeamsPage = async ({ searchParams }: PropTypes) => {
     <div className="space-y-2 flex-1">
       <div className="flex justify-between">
         <h2 className="h2-bold">Two Man Teams</h2>
-        <CreateGolferForm />
+        <CreateTwoManTeamForm golfers={data} />
       </div>
       <div className="overflow-x-auto">
         <Table>
