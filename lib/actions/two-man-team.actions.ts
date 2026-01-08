@@ -5,18 +5,14 @@ import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
 import { formatError } from "@/lib/utils";
 import { createTwoManTeamSchema } from "@/lib/validators";
+import { TwoManTeam } from "@/types";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 
-export async function createTwoManTeam(prevState: unknown, formData: FormData) {
+export async function createTwoManTeam(golfers: TwoManTeam) {
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
-
-    const golfers = createTwoManTeamSchema.parse({
-      golferOneID: formData.get("golferOneID"),
-      golferTwoID: formData.get("golferTwoID"),
-    });
 
     await prisma.$transaction(async (tx) => {
       const newTwoManTeam = await tx.twoManTeam.create({ data: {} });
