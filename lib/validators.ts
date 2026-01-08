@@ -43,3 +43,8 @@ export const createGolferSchema = z.object({
   hci: z.number({ message: "HCI must be a number!" }),
   twoManTeam: z.string().uuid("Must be a valid UUID!").trim().optional(),
 });
+
+export const updateGolferSchema = z.object({
+  id: z.string().min(1, `ID${isRequiredError}`).trim(),
+  hci: z.number({ message: "HCI must be a number!" }),
+});
