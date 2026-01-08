@@ -17,6 +17,10 @@ const links = [
     title: "Golfers",
     href: "/admin/golfers",
   },
+  {
+    title: "Two Man Teams",
+    href: "/admin/two-man-teams",
+  },
 ];
 
 const MainNav = ({
