@@ -31,7 +31,7 @@ export async function createGolfer(prevState: unknown, formData: FormData) {
 
     revalidatePath("/admin/users");
 
-    return { success: true, message: "User registered successfully." };
+    return { success: true, message: "Golfer registered successfully." };
   } catch (err) {
     if (isRedirectError(err)) {
       throw err;
