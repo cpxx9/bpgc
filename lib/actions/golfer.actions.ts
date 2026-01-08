@@ -5,7 +5,7 @@ import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
 import { formatError } from "@/lib/utils";
 import { createGolferSchema } from "@/lib/validators";
-import { Golfer } from "@/types";
+import { Golfer, UpdateGolfer } from "@/types";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 
@@ -32,12 +32,12 @@ export async function createGolfer(prevState: unknown, formData: FormData) {
     revalidatePath("/admin/users");
 
     return { success: true, message: "User registered successfully." };
-  } catch (error) {
-    if (isRedirectError(error)) {
-      throw error;
+  } catch (err) {
+    if (isRedirectError(err)) {
+      throw err;
     }
 
-    return { success: false, message: formatError(error) };
+    return { success: false, message: formatError(err) };
   }
 }
 
@@ -48,8 +48,8 @@ export async function getGolferCount() {
     const golferCount = await prisma.golfer.count();
 
     return { success: true, golferCount };
-  } catch (error) {
-    return { success: false, message: formatError(error) };
+  } catch (err) {
+    return { success: false, message: formatError(err) };
   }
 }
 
@@ -76,10 +76,35 @@ export async function getAllGolfers({
       data,
       totalPages: Math.ceil(dataCount / limit),
     };
-  } catch (error) {
+  } catch (err) {
     return {
       success: false,
-      message: formatError(error),
+      message: formatError(err),
+    };
+  }
+}
+
+export async function updateGolfer(golfer: UpdateGolfer) {
+  try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
+    await prisma.golfer.update({
+      where: { id: golfer.id },
+      data: {
+        hci: golfer.hci,
+      },
+    });
+
+    revalidatePath("/admin/golfers");
+
+    return {
+      success: true,
+      message: "Golfer updated successfully",
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
     };
   }
 }
