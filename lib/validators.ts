@@ -50,3 +50,8 @@ export const updateGolferSchema = z.object({
   lastName: nameString,
   hci: z.coerce.number({ message: "HCI must be a number!" }),
 });
+
+export const createTwoManTeamSchema = z.object({
+  golferOne: z.string().min(1, `ID${isRequiredError}`).uuid().trim(),
+  golferTwo: z.string().min(1, `ID${isRequiredError}`).uuid().trim(),
+});

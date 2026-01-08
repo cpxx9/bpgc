@@ -1,8 +1,13 @@
 import { z } from "zod";
-import { updateGolferSchema, updateUserSchema } from "@/lib/validators";
+import {
+  createTwoManTeamSchema,
+  updateGolferSchema,
+  updateUserSchema,
+} from "@/lib/validators";
 
 export type UpdateUser = z.infer<typeof updateUserSchema>;
 export type UpdateGolfer = z.infer<typeof updateGolferSchema>;
+export type TwoManTeam = z.infer<typeof createTwoManTeamSchema>;
 
 export type User = {
   id: string;
