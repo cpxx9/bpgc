@@ -62,6 +62,26 @@ export async function getGolferById(golferId: string | undefined) {
   return golfer;
 }
 
+export async function getAllGolfersList() {
+  try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
+    const data: Golfer[] = await prisma.golfer.findMany({
+      orderBy: { createdAt: "desc" },
+    });
+
+    return {
+      success: true,
+      data,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
+}
+
 export async function getAllGolfers({
   limit = PAGE_SIZE,
   page,
