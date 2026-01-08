@@ -91,6 +91,8 @@ export async function updateGolfer(golfer: UpdateGolfer) {
     await prisma.golfer.update({
       where: { id: golfer.id },
       data: {
+        firstName: golfer.firstName,
+        lastName: golfer.lastName,
         hci: golfer.hci,
       },
     });

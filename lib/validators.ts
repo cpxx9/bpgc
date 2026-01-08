@@ -46,5 +46,7 @@ export const createGolferSchema = z.object({
 
 export const updateGolferSchema = z.object({
   id: z.string().min(1, `ID${isRequiredError}`).trim(),
+  firstName: nameString,
+  lastName: nameString,
   hci: z.number({ message: "HCI must be a number!" }),
 });
