@@ -4,16 +4,39 @@ import { prisma } from "@/db/prisma";
 import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
 import { formatError } from "@/lib/utils";
+import { createTwoManTeamSchema } from "@/lib/validators";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 
-export async function createTwoManTeam(prevState: unknown) {
+export async function createTwoManTeam(prevState: unknown, formData: FormData) {
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
 
-    await prisma.twoManTeam.create({
-      data: {},
+    const golfers = createTwoManTeamSchema.parse({
+      golferOneID: formData.get("golferOneID"),
+      golferTwoID: formData.get("golferTwoID"),
+    });
+
+    await prisma.$transaction(async (tx) => {
+      const newTwoManTeam = await tx.twoManTeam.create({ data: {} });
+      await tx.golfer.update({
+        where: {
+          id: golfers.golferOneID,
+        },
+        data: {
+          twoManTeamId: newTwoManTeam.id,
+        },
+      });
+
+      await tx.golfer.update({
+        where: {
+          id: golfers.golferTwoID,
+        },
+        data: {
+          twoManTeamId: newTwoManTeam.id,
+        },
+      });
     });
 
     revalidatePath("/admin/two-man-teams");
