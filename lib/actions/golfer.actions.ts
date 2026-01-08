@@ -16,8 +16,8 @@ export async function createGolfer(prevState: unknown, formData: FormData) {
     const golfer = createGolferSchema.parse({
       firstName: formData.get("firstName"),
       lastName: formData.get("lastName"),
-      hci: formData.get("hci"),
-      twoManTeam: formData.get("twoManTeam"),
+      hci: Number(formData.get("hci")),
+      // twoManTeam: formData.get("twoManTeam"),
     });
 
     await prisma.golfer.create({
@@ -25,9 +25,13 @@ export async function createGolfer(prevState: unknown, formData: FormData) {
         firstName: golfer.firstName,
         lastName: golfer.lastName,
         hci: golfer.hci,
-        twoManTeamId: golfer.twoManTeam ? golfer.twoManTeam : null,
+        // twoManTeamId: golfer.twoManTeam ? golfer.twoManTeam : null,
       },
     });
+
+    revalidatePath("/admin/users");
+
+    return { success: true, message: "User registered successfully." };
   } catch (error) {
     if (isRedirectError(error)) {
       throw error;
