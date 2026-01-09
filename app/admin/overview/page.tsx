@@ -5,7 +5,9 @@ import { requireAdmin } from "@/lib/auth-guard";
 import { formatNumber } from "@/lib/utils";
 import { User, Users, LandPlot } from "lucide-react";
 import { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
+import golferIcon from "@/assets/golfer.svg";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
@@ -15,6 +17,7 @@ const AdminOverviewPage = async () => {
   await requireAdmin();
   const { userCount } = await getUserCount();
   const { golferCount } = await getGolferCount();
+  const eventCount = 0;
 
   return (
     <div className="space-y-2">
@@ -37,7 +40,12 @@ const AdminOverviewPage = async () => {
           <Card className="hover:shadow-md">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Golfers</CardTitle>
-              <LandPlot />
+              <Image
+                src={golferIcon}
+                width={25}
+                height={25}
+                alt="Golfer Icon"
+              />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
@@ -57,6 +65,19 @@ const AdminOverviewPage = async () => {
             <CardContent>
               <div className="text-2xl font-bold">
                 {formatNumber(golferCount || 0)}
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
+        <Link href={"/admin/events"}>
+          <Card className="hover:shadow-md">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Events</CardTitle>
+              <LandPlot />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                {formatNumber(eventCount || 0)}
               </div>
             </CardContent>
           </Card>

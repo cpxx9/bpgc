@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="2"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   class="lucide lucide-user-icon lucide-user"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="user.svg"
+   inkscape:version="1.4.3 (1:1.4.3+202512261035+0d15f75042)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="33.833333"
+     inkscape:cx="11.985222"
+     inkscape:cy="12"
+     inkscape:window-width="3440"
+     inkscape:window-height="1355"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <path
+     d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+     id="path1" />
+  <circle
+     cx="12"
+     cy="7"
+     r="4"
+     id="circle1" />
+  <rect
+     style="fill:#f30500;fill-opacity:0.768627;stroke-width:1.44474"
+     id="rect1"
+     width="0.023818353"
+     height="13.531207"
+     x="16.850159"
+     y="2.1013913" />
+  <rect
+     style="fill:#f30500;fill-opacity:0.768627;stroke-width:1.55303"
+     id="rect7"
+     width="5.1295624"
+     height="0.097594693"
+     x="25.032726"
+     y="-12.956718"
+     transform="matrix(0.79920902,0.60105319,0.19058997,0.98166973,0,0)" />
+  <rect
+     style="fill:#f30500;fill-opacity:0.768627;stroke-width:1.55303"
+     id="rect7-5"
+     width="5.1295624"
+     height="0.097594693"
+     x="-3.4360695"
+     y="20.766832"
+     transform="matrix(0.92365548,-0.38322389,0.94244383,0.33436451,0,0)" />
+</svg>
