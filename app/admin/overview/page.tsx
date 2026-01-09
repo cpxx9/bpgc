@@ -8,6 +8,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import golferIcon from "@/assets/golfer.svg";
+import { getTwoManTeamCount } from "@/lib/actions/two-man-team.actions";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
@@ -17,6 +18,7 @@ const AdminOverviewPage = async () => {
   await requireAdmin();
   const { userCount } = await getUserCount();
   const { golferCount } = await getGolferCount();
+  const { twoManTeamCount } = await getTwoManTeamCount();
   const eventCount = 0;
 
   return (
@@ -64,7 +66,7 @@ const AdminOverviewPage = async () => {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {formatNumber(golferCount || 0)}
+                {formatNumber(twoManTeamCount || 0)}
               </div>
             </CardContent>
           </Card>
