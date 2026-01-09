@@ -119,3 +119,21 @@ export async function updateEvent(event: UpdateEvent) {
     };
   }
 }
+
+export async function deleteEvent(id: string) {
+  try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
+    await prisma.event.delete({ where: { id } });
+    revalidatePath("/admin/events");
+    return {
+      success: true,
+      message: "Event deleted successfully",
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
+}
