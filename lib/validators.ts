@@ -55,3 +55,22 @@ export const createTwoManTeamSchema = z.object({
   golferOneID: z.string().min(1, `ID${isRequiredError}`).uuid().trim(),
   golferTwoID: z.string().min(1, `ID${isRequiredError}`).uuid().trim(),
 });
+
+export const createEventSchema = z.object({
+  date: z.date({ message: `Date${isRequiredError}` }),
+  time: z.date({ message: `Time${isRequiredError}` }),
+  location: z.string().min(1, `Location${isRequiredError}`).trim(),
+  description: z.string().min(1, `Description${isRequiredError}`).trim(),
+  leagueWeek: z.number({ message: `League Week${isRequiredError}` }),
+  isTwoManMatch: z.boolean({ message: `Two Man Match${isRequiredError}` }),
+});
+
+export const updateEventSchema = z.object({
+  id: z.string().min(1, `ID${isRequiredError}`).trim(),
+  date: z.date({ message: `Date${isRequiredError}` }),
+  time: z.date({ message: `Time${isRequiredError}` }),
+  location: z.string().min(1, `Location${isRequiredError}`).trim(),
+  description: z.string().min(1, `Description${isRequiredError}`).trim(),
+  leagueWeek: z.number({ message: `League Week${isRequiredError}` }),
+  isTwoManMatch: z.boolean({ message: `Two Man Match${isRequiredError}` }),
+});

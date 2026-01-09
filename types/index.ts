@@ -1,6 +1,7 @@
 import { z } from "zod";
 import {
   createTwoManTeamSchema,
+  updateEventSchema,
   updateGolferSchema,
   updateUserSchema,
 } from "@/lib/validators";
@@ -8,6 +9,19 @@ import {
 export type UpdateUser = z.infer<typeof updateUserSchema>;
 export type UpdateGolfer = z.infer<typeof updateGolferSchema>;
 export type TwoManTeam = z.infer<typeof createTwoManTeamSchema>;
+export type UpdateEvent = z.infer<typeof updateEventSchema>;
+
+export type Event = {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  date: Date;
+  time: Date;
+  location: string;
+  description: string;
+  leagueWeek: number;
+  isTwoManMatch: boolean;
+};
 
 export type User = {
   id: string;
