@@ -37,3 +37,85 @@ export async function createEvent(prevState: unknown, formData: FormData) {
     return { success: false, message: formatError(err) };
   }
 }
+
+export async function getEventCount() {
+  try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
+    const eventCount = await prisma.event.count();
+
+    return { success: true, eventCount };
+  } catch (err) {
+    return { success: false, message: formatError(err) };
+  }
+}
+
+export async function getEventById(eventId: string | undefined) {
+  if (!eventId) throw new Error("No id passed");
+  const event = await prisma.event.findFirst({
+    where: { id: eventId },
+  });
+  if (!event) throw new Error("Event not found");
+  return event;
+}
+
+export async function getAllEvents({
+  limit = PAGE_SIZE,
+  page,
+}: {
+  limit?: number;
+  page: number;
+}) {
+  try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
+    const data: Event[] = await prisma.event.findMany({
+      orderBy: { createdAt: "desc" },
+      take: limit,
+      skip: (page - 1) * limit,
+    });
+
+    const dataCount = await prisma.user.count();
+
+    return {
+      success: true,
+      data,
+      totalPages: Math.ceil(dataCount / limit),
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
+}
+
+export async function updateEvent(event: UpdateEvent) {
+  try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
+    await prisma.event.update({
+      where: { id: event.id },
+      data: {
+        date: event.date,
+        time: event.time,
+        location: event.location,
+        description: event.description,
+        leagueWeek: event.leagueWeek,
+        isTwoManMatch: event.isTwoManMatch,
+      },
+    });
+
+    revalidatePath("/admin/events");
+
+    return {
+      success: true,
+      message: "Event updated successfully",
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
+}
