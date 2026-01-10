@@ -56,6 +56,7 @@ const AdminEventsPage = async ({ searchParams }: PropTypes) => {
                 <TableCell>{shortenUuid(event.id)}</TableCell>
                 <TableCell>{event.date.toLocaleDateString("en-US")}</TableCell>
                 <TableCell>{event.time.toLocaleTimeString("en-US")}</TableCell>
+                <TableCell>{event.location}</TableCell>
                 <TableCell>{event.description}</TableCell>
                 <TableCell>{event.leagueWeek}</TableCell>
                 <TableCell>
