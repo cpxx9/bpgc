@@ -21,6 +21,10 @@ const links = [
     title: "Two Man Teams",
     href: "/admin/two-man-teams",
   },
+  {
+    title: "Events",
+    href: "/admin/events",
+  },
 ];
 
 const MainNav = ({
