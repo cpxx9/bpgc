@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { updateGolfer } from "@/lib/actions/golfer.actions";
+import { updateEvent } from "@/lib/actions/event.actions";
 import { updateEventSchema } from "@/lib/validators";
 import { UpdateEvent, UpdateGolfer } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -33,7 +33,7 @@ const UpdateEventForm = ({ event }: PropTypes) => {
 
   const onSubmit = async (values: UpdateEvent) => {
     try {
-      const res = await updateGolfer({ ...values, id: event.id });
+      const res = await updateEvent({ ...values, id: event.id });
 
       if (!res.success) {
         return toast({
@@ -57,7 +57,7 @@ const UpdateEventForm = ({ event }: PropTypes) => {
   return (
     <Form {...form}>
       <form method="POST" onSubmit={form.handleSubmit(onSubmit)}>
-        {/* <div>
+        <div>
           <FormField
             control={form.control}
             name="date"
@@ -67,11 +67,11 @@ const UpdateEventForm = ({ event }: PropTypes) => {
               field: ControllerRenderProps<UpdateEvent, "date">;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>First Name</FormLabel>
+                <FormLabel>Date</FormLabel>
                 <FormControl>
                   <Input
-                  type="date"
-                    placeholder="Enter golfer's first name"
+                    type="date"
+                    placeholder="Enter event date"
                     {...field}
                   ></Input>
                 </FormControl>
@@ -79,7 +79,30 @@ const UpdateEventForm = ({ event }: PropTypes) => {
               </FormItem>
             )}
           />
-        </div> */}
+        </div>
+        <div>
+          <FormField
+            control={form.control}
+            name="time"
+            render={({
+              field,
+            }: {
+              field: ControllerRenderProps<UpdateEvent, "time">;
+            }) => (
+              <FormItem className="w-full">
+                <FormLabel>Time</FormLabel>
+                <FormControl>
+                  <Input
+                    type="time"
+                    placeholder="Enter event time"
+                    {...field}
+                  ></Input>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <div>
           <FormField
             control={form.control}
@@ -109,7 +132,7 @@ const UpdateEventForm = ({ event }: PropTypes) => {
               field: ControllerRenderProps<UpdateEvent, "description">;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>Last Name</FormLabel>
+                <FormLabel>Description</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Enter event description"
@@ -131,7 +154,7 @@ const UpdateEventForm = ({ event }: PropTypes) => {
               field: ControllerRenderProps<UpdateEvent, "leagueWeek">;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>HCI</FormLabel>
+                <FormLabel>League Week</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="League Week"

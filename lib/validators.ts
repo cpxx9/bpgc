@@ -75,8 +75,8 @@ export const createEventSchema = z.object({
 
 export const updateEventSchema = z.object({
   id: z.string().min(1, `ID${isRequiredError}`).trim(),
-  date: z.date({ message: `Date${isRequiredError}` }),
-  time: z.date({ message: `Time${isRequiredError}` }),
+  date: z.string(),
+  time: z.string(),
   location: z.string().min(1, `Location${isRequiredError}`).trim(),
   description: z.string().min(1, `Description${isRequiredError}`).trim(),
   leagueWeek: z.number({ message: `League Week${isRequiredError}` }),

@@ -58,11 +58,25 @@ export async function getEventCount() {
 
 export async function getEventById(eventId: string | undefined) {
   if (!eventId) throw new Error("No id passed");
-  const event = await prisma.event.findFirst({
-    where: { id: eventId },
-  });
-  if (!event) throw new Error("Event not found");
-  return event;
+  try {
+    const event = await prisma.event.findFirst({
+      where: { id: eventId },
+    });
+
+    if (!event) throw new Error("Event not found");
+    const parsedEvent = {
+      ...event,
+      time: event.time.toLocaleTimeString(),
+      date: event.date.toLocaleDateString(),
+    };
+    const parsedDateArr = parsedEvent.date.split("/");
+    parsedEvent.date = `${parsedDateArr[2]}-${parsedDateArr[1]}-${parsedDateArr[0]}`;
+    parsedEvent.time = parsedEvent.time.split(" ")[0];
+
+    return parsedEvent;
+  } catch (err) {
+    return formatError(err);
+  }
 }
 
 export async function getAllEvents({
@@ -108,7 +122,7 @@ export async function updateEvent(event: UpdateEvent) {
         location: event.location,
         description: event.description,
         leagueWeek: event.leagueWeek,
-        // isTwoManMatch: event.isTwoManMatch,
+        isTwoManMatch: event.isTwoManMatch,
       },
     });
 
