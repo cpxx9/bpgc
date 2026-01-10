@@ -18,9 +18,11 @@ import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 import { useSearchParams } from "next/navigation";
 import { createGolfer } from "@/lib/actions/golfer.actions";
+import { createEvent } from "@/lib/actions/event.actions";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const CreateEventForm = () => {
-  const [data, action] = useActionState(createGolfer, {
+  const [data, action] = useActionState(createEvent, {
     success: false,
     message: "",
   });
@@ -33,7 +35,7 @@ const CreateEventForm = () => {
 
     return (
       <Button
-        form="create-golfer-form"
+        form="create-event-form"
         type="submit"
         disabled={pending}
         className="w-full"
@@ -52,54 +54,69 @@ const CreateEventForm = () => {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Create new golfer</DialogTitle>
+            <DialogTitle>Create new event</DialogTitle>
             <DialogDescription>
-              Enter golfer information here. Click save to create.
+              Enter event information here. Click save to create.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4">
-            <form id="create-golfer-form" action={action}>
+            <form id="create-event-form" action={action}>
               <input type="hidden" name="callbackUrl" value={callbackUrl} />
               <div className="space-y-6">
                 <div>
-                  <Label htmlFor="firstName">First Name</Label>
+                  <Label htmlFor="date">Date</Label>
                   <Input
-                    id="firstName"
-                    name="firstName"
-                    type="text"
+                    id="date"
+                    name="date"
+                    type="date"
                     required
-                    autoComplete="firstname"
+                    autoComplete="date"
                   ></Input>
                 </div>
                 <div>
-                  <Label htmlFor="lastName">Last Name</Label>
+                  <Label htmlFor="time">Time</Label>
                   <Input
-                    id="lastName"
-                    name="lastName"
-                    type="text"
+                    id="time"
+                    name="time"
+                    type="time"
                     required
-                    autoComplete="lastName"
+                    autoComplete="time"
                   ></Input>
                 </div>
                 <div>
-                  <Label htmlFor="hci">HCI</Label>
+                  <Label htmlFor="location">Location</Label>
                   <Input
-                    id="hci"
-                    name="hci"
-                    type="decimal"
+                    id="location"
+                    name="location"
+                    type="text"
                     required
-                    autoComplete="hci"
+                    autoComplete="location"
                   ></Input>
                 </div>
-                {/* <div>
-                  <Label htmlFor="twoManTeam">Two Man Team</Label>
+                <div>
+                  <Label htmlFor="description">Description</Label>
                   <Input
-                    id="twoManTeam"
-                    name="twoManTeam"
+                    id="description"
+                    name="description"
                     type="text"
-                    autoComplete="twoManTeam"
+                    autoComplete="description"
                   ></Input>
-                </div> */}
+                </div>
+                <div>
+                  <Label htmlFor="leagueWeek">League Week</Label>
+                  <Input
+                    id="leagueWeek"
+                    name="leagueWeek"
+                    type="number"
+                    autoComplete="leagueWeek"
+                  ></Input>
+                </div>
+                <div className="flex justify-between">
+                  <Label htmlFor="isTwoManMatch">
+                    Is this a Two Man Match?
+                  </Label>
+                  <Checkbox id="isTwoManMatch" name="isTwoManMatch" />
+                </div>
 
                 {data && !data.success && (
                   <div className="text-center text-destructive">
