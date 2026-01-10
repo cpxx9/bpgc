@@ -11,6 +11,12 @@ const threeCharError = " must be at least 3 characters";
 const isRequiredError = " is required";
 const nameString = z.string().min(1, "Name cannot be empty").trim();
 
+const getYesterday = () => {
+  let d = new Date(); // Gets the current date and time
+  d.setDate(d.getDate() - 1); // Subtracts one day
+  return d;
+};
+
 export const signInFormSchema = z.object({
   email: z.string().email("Invalid email address").trim(),
   password: z.string().min(6, "Password must be at least 6 characters.").trim(),
@@ -57,11 +63,13 @@ export const createTwoManTeamSchema = z.object({
 });
 
 export const createEventSchema = z.object({
-  date: z.date({ message: `Date${isRequiredError}` }),
-  time: z.date({ message: `Time${isRequiredError}` }),
+  date: z
+    .date()
+    .min(getYesterday(), { message: "Date cannot be in the past." }),
+  time: z.date(),
   location: z.string().min(1, `Location${isRequiredError}`).trim(),
   description: z.string().min(1, `Description${isRequiredError}`).trim(),
-  leagueWeek: z.number({ message: `League Week${isRequiredError}` }),
+  leagueWeek: z.number().min(1, `League Week${isRequiredError}`),
   isTwoManMatch: z.boolean({ message: `Two Man Match${isRequiredError}` }),
 });
 
