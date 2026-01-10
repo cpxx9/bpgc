@@ -13,11 +13,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 import { useSearchParams } from "next/navigation";
-import { createGolfer } from "@/lib/actions/golfer.actions";
 import { createEvent } from "@/lib/actions/event.actions";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -115,7 +113,11 @@ const CreateEventForm = () => {
                   <Label htmlFor="isTwoManMatch">
                     Is this a Two Man Match?
                   </Label>
-                  <Checkbox id="isTwoManMatch" name="isTwoManMatch" />
+                  <Checkbox
+                    id="isTwoManMatch"
+                    name="isTwoManMatch"
+                    value="true"
+                  />
                 </div>
 
                 {data && !data.success && (
