@@ -1,5 +1,8 @@
 import { requireAdmin } from "@/lib/auth-guard";
 import { Metadata } from "next";
+import { shortenUuid } from "@/lib/utils";
+import Link from "next/link";
+import { getAllEvents, deleteEvent } from "@/lib/actions/event.actions";
 import DeleteDialog from "@/components/shared/delete-dialog";
 import Pagination from "@/components/shared/pagination";
 import { Badge } from "@/components/ui/badge";
@@ -12,10 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { shortenUuid } from "@/lib/utils";
-import Link from "next/link";
-import CreateGolferForm from "@/components/admin/create-golfer-form";
-import { getAllEvents, deleteEvent } from "@/lib/actions/event.actions";
+import CreateEventForm from "@/components/admin/create-event-form";
 
 export const metadata: Metadata = {
   title: "Admin Golfers",
@@ -35,7 +35,7 @@ const AdminEventsPage = async ({ searchParams }: PropTypes) => {
     <div className="space-y-2 flex-1">
       <div className="flex justify-between">
         <h2 className="h2-bold">Events</h2>
-        <CreateGolferForm />
+        <CreateEventForm />
       </div>
       <div className="overflow-x-auto">
         <Table>
