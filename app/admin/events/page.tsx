@@ -18,7 +18,7 @@ import {
 import CreateEventForm from "@/components/admin/create-event-form";
 
 export const metadata: Metadata = {
-  title: "Admin Golfers",
+  title: "Admin Events",
 };
 
 interface PropTypes {
