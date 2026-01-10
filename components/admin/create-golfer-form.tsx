@@ -86,7 +86,8 @@ const CreateGolferForm = () => {
                   <Input
                     id="hci"
                     name="hci"
-                    type="decimal"
+                    type="number"
+                    step="any"
                     required
                     autoComplete="hci"
                   ></Input>
