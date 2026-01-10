@@ -97,8 +97,8 @@ export async function updateEvent(event: UpdateEvent) {
     await prisma.event.update({
       where: { id: event.id },
       data: {
-        date: event.date,
-        time: event.time,
+        date: new Date(event.date),
+        time: new Date(event.time),
         location: event.location,
         description: event.description,
         leagueWeek: event.leagueWeek,
