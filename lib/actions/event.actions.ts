@@ -12,7 +12,7 @@ import { isRedirectError } from "next/dist/client/components/redirect-error";
 export async function createEvent(prevState: unknown, formData: FormData) {
   try {
     let timeString = String(formData.get("time"));
-    timeString = String(`2055-01-01T${timeString}:00-05:00`);
+    timeString = String(`2000-01-01T${timeString}:00-05:00`);
     const isTwoManMatch = formData.get("isTwoManMatch");
 
     const admin = await requireAdminAction();
@@ -28,13 +28,13 @@ export async function createEvent(prevState: unknown, formData: FormData) {
 
     console.log(event);
 
-    // await prisma.event.create({
-    //   data: event,
-    // });
+    await prisma.event.create({
+      data: event,
+    });
 
-    // revalidatePath("/admin/events");
+    revalidatePath("/admin/events");
 
-    // return { success: true, message: "Event created successfully." };
+    return { success: true, message: "Event created successfully." };
   } catch (err) {
     if (isRedirectError(err)) {
       throw err;
