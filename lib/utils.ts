@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import qs from "query-string";
+import { date } from "zod";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -128,4 +129,23 @@ export function formUrlQuery({
     },
     { skipNull: true }
   );
+}
+
+export function convertToFormDate(date: Date): string {
+  const parsedDateArr = date.toLocaleDateString().split("/");
+  let newStringArr: string[] = [];
+  parsedDateArr.forEach((element) => {
+    if (element.length > 1) {
+      newStringArr.push(element);
+    } else {
+      newStringArr.push(`0${element}`);
+    }
+  });
+  console.log(newStringArr);
+  return `${newStringArr[2]}-${newStringArr[1]}-${newStringArr[0]}`;
+}
+
+export function convertToFormTime(time: Date): string {
+  const parsedTime = time.toLocaleTimeString().split(" ")[0];
+  return "";
 }

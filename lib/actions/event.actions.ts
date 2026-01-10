@@ -3,7 +3,7 @@
 import { prisma } from "@/db/prisma";
 import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
-import { formatError } from "@/lib/utils";
+import { convertToFormDate, convertToFormTime, formatError } from "@/lib/utils";
 import { createEventSchema } from "@/lib/validators";
 import { Event, UpdateEvent } from "@/types";
 import { revalidatePath } from "next/cache";
@@ -66,12 +66,9 @@ export async function getEventById(eventId: string | undefined) {
     if (!event) throw new Error("Event not found");
     const parsedEvent = {
       ...event,
-      time: event.time.toLocaleTimeString(),
-      date: event.date.toLocaleDateString(),
+      date: convertToFormDate(event.date),
+      time: convertToFormTime(event.time),
     };
-    const parsedDateArr = parsedEvent.date.split("/");
-    parsedEvent.date = `${parsedDateArr[2]}-${parsedDateArr[1]}-${parsedDateArr[0]}`;
-    parsedEvent.time = parsedEvent.time.split(" ")[0];
 
     return parsedEvent;
   } catch (err) {
