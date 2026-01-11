@@ -106,6 +106,11 @@ export async function getAllEvents({
 }
 
 export async function updateEvent(event: UpdateEvent) {
+  console.log(event);
+  let timeString = String(event.time);
+  timeString = String(`2000-01-01T${timeString}-05:00`);
+  console.log(timeString);
+  console.log(new Date(timeString));
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
@@ -113,7 +118,7 @@ export async function updateEvent(event: UpdateEvent) {
       where: { id: event.id },
       data: {
         date: new Date(event.date),
-        time: new Date(event.time),
+        time: new Date(timeString),
         location: event.location,
         description: event.description,
         leagueWeek: event.leagueWeek,

@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -45,7 +46,7 @@ const UpdateEventForm = ({ event }: PropTypes) => {
       toast({
         description: res.message,
       });
-      router.push("/admin/golfers");
+      router.push("/admin/events");
     } catch (err) {
       toast({
         variant: "destructive",
@@ -161,6 +162,28 @@ const UpdateEventForm = ({ event }: PropTypes) => {
                     {...field}
                     type="number"
                   ></Input>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div>
+          <FormField
+            control={form.control}
+            name="isTwoManMatch"
+            render={({
+              field,
+            }: {
+              field: ControllerRenderProps<UpdateEvent, "isTwoManMatch">;
+            }) => (
+              <FormItem className="mt-2 flex justify-between">
+                <FormLabel>Is this a Two Man Match?</FormLabel>
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
