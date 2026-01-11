@@ -5,7 +5,7 @@ import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
 import { formatError } from "@/lib/utils";
 import { createGolferSchema } from "@/lib/validators";
-import { Golfer, UpdateGolfer } from "@/types";
+import { Golfer, GolferWithTeammate, UpdateGolfer } from "@/types";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 
@@ -96,13 +96,20 @@ export async function getAllGolfers({
       orderBy: { createdAt: "desc" },
       take: limit,
       skip: (page - 1) * limit,
+      include: {
+        twoManTeam: {
+          include: {
+            golfers: true,
+          },
+        },
+      },
     });
 
     const dataCount = await prisma.golfer.count();
 
     return {
       success: true,
-      data,
+      data: data as GolferWithTeammate[],
       totalPages: Math.ceil(dataCount / limit),
     };
   } catch (err) {

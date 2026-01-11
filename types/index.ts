@@ -43,3 +43,12 @@ export type Golfer = {
   updatedAt: Date;
   twoManTeamId: string | null;
 };
+
+export type GolferWithTeammate = Golfer & {
+  twoManTeam: {
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
+    golfers: Golfer[];
+  };
+};

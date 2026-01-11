@@ -70,7 +70,9 @@ const AdminGolfersPage = async ({ searchParams }: PropTypes) => {
                     variant={golfer.twoManTeamId ? "default" : "secondary"}
                   >
                     {golfer.twoManTeamId
-                      ? shortenUuid(golfer.twoManTeamId)
+                      ? golfer.twoManTeam.golfers[0].id === golfer.id
+                        ? `${golfer.twoManTeam.golfers[1].firstName} ${golfer.twoManTeam.golfers[1].lastName}`
+                        : `${golfer.twoManTeam.golfers[0].firstName} ${golfer.twoManTeam.golfers[0].lastName}`
                       : "Solo Player"}
                   </Badge>
                 </TableCell>
