@@ -132,7 +132,9 @@ export function formUrlQuery({
 }
 
 export function convertToFormDate(date: Date): string {
-  const parsedDateArr = date.toLocaleDateString().split("/");
+  const parsedDateArr = date
+    .toLocaleDateString("en-US", { timeZone: "UTC" })
+    .split("/");
   let newStringArr: string[] = [];
   parsedDateArr.forEach((element) => {
     if (element.length > 1) {
@@ -141,8 +143,7 @@ export function convertToFormDate(date: Date): string {
       newStringArr.push(`0${element}`);
     }
   });
-  console.log(newStringArr);
-  return `${newStringArr[2]}-${newStringArr[1]}-${newStringArr[0]}`;
+  return `${newStringArr[2]}-${newStringArr[0]}-${newStringArr[1]}`;
 }
 
 export function convertToFormTime(time: Date): string {
