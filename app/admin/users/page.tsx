@@ -39,6 +39,11 @@ const AdminUsersPage = async ({ searchParams }: PropTypes) => {
         <CreateUserForm />
       </div>
       <div className="overflow-x-auto">
+        {users?.totalPages > 1 ? (
+          <Pagination page={Number(page) || 1} totalPages={users?.totalPages} />
+        ) : (
+          <p className="text-muted-foreground">Displaying all results...</p>
+        )}
         <Table>
           <TableHeader>
             <TableRow>
@@ -72,11 +77,6 @@ const AdminUsersPage = async ({ searchParams }: PropTypes) => {
             ))}
           </TableBody>
         </Table>
-        {users?.totalPages > 1 ? (
-          <Pagination page={Number(page) || 1} totalPages={users?.totalPages} />
-        ) : (
-          <p className="text-muted-foreground">Displaying all results...</p>
-        )}
       </div>
     </div>
   );

@@ -46,6 +46,14 @@ const AdminTwoManTeamsPage = async ({ searchParams }: PropTypes) => {
         <CreateTwoManTeamForm golfers={data} />
       </div>
       <div className="overflow-x-auto">
+        {twoManTeams?.totalPages > 1 ? (
+          <Pagination
+            page={Number(page) || 1}
+            totalPages={twoManTeams?.totalPages}
+          />
+        ) : (
+          <p className="text-muted-foreground">Displaying all results...</p>
+        )}
         <Table>
           <TableHeader>
             <TableRow>
@@ -79,14 +87,6 @@ const AdminTwoManTeamsPage = async ({ searchParams }: PropTypes) => {
             ))}
           </TableBody>
         </Table>
-        {twoManTeams?.totalPages > 1 ? (
-          <Pagination
-            page={Number(page) || 1}
-            totalPages={twoManTeams?.totalPages}
-          />
-        ) : (
-          <p className="text-muted-foreground">Displaying all results...</p>
-        )}
       </div>
     </div>
   );

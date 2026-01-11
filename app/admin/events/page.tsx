@@ -39,6 +39,14 @@ const AdminEventsPage = async ({ searchParams }: PropTypes) => {
         <CreateEventForm />
       </div>
       <div className="overflow-x-auto">
+        {events?.totalPages > 1 ? (
+          <Pagination
+            page={Number(page) || 1}
+            totalPages={events?.totalPages}
+          />
+        ) : (
+          <p className="text-muted-foreground">Displaying all results...</p>
+        )}
         <Table>
           <TableHeader>
             <TableRow>
@@ -79,14 +87,6 @@ const AdminEventsPage = async ({ searchParams }: PropTypes) => {
             ))}
           </TableBody>
         </Table>
-        {events?.totalPages > 1 ? (
-          <Pagination
-            page={Number(page) || 1}
-            totalPages={events?.totalPages}
-          />
-        ) : (
-          <p className="text-muted-foreground">Displaying all results...</p>
-        )}
       </div>
     </div>
   );
