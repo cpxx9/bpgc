@@ -98,7 +98,7 @@ export async function getAllGolfers({
       skip: (page - 1) * limit,
     });
 
-    const dataCount = await prisma.user.count();
+    const dataCount = await prisma.golfer.count();
 
     return {
       success: true,

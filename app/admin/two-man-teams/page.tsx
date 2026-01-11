@@ -32,11 +32,12 @@ interface PropTypes {
 
 const AdminTwoManTeamsPage = async ({ searchParams }: PropTypes) => {
   await requireAdmin();
-  const twoManTeams = await getAllTwoManTeams({ page: 1 });
+  const { page = "1" } = await searchParams;
+  const pageParam = Number(page);
+  const twoManTeams = await getAllTwoManTeams({ page: pageParam });
   const { data } = await getAllGolfersList();
   if (!data) notFound();
   if (!twoManTeams.totalPages) twoManTeams.totalPages = 1;
-  const { page = "1" } = await searchParams;
 
   return (
     <div className="space-y-2 flex-1">

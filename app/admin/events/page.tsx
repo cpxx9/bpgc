@@ -27,9 +27,10 @@ interface PropTypes {
 
 const AdminEventsPage = async ({ searchParams }: PropTypes) => {
   await requireAdmin();
-  const events = await getAllEvents({ page: 1 });
-  if (!events.totalPages) events.totalPages = 1;
   const { page = "1" } = await searchParams;
+  const pageParam = Number(page);
+  const events = await getAllEvents({ page: pageParam });
+  if (!events.totalPages) events.totalPages = 1;
 
   return (
     <div className="space-y-2 flex-1">

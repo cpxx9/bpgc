@@ -27,9 +27,10 @@ interface PropTypes {
 
 const AdminUsersPage = async ({ searchParams }: PropTypes) => {
   await requireAdmin();
-  const users = await getAllUsers({ page: 1 });
-  if (!users.totalPages) users.totalPages = 1;
   const { page = "1" } = await searchParams;
+  const pageParam = Number(page);
+  const users = await getAllUsers({ page: pageParam });
+  if (!users.totalPages) users.totalPages = 1;
 
   return (
     <div className="space-y-2 flex-1">

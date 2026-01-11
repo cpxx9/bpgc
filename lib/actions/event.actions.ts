@@ -90,7 +90,7 @@ export async function getAllEvents({
       skip: (page - 1) * limit,
     });
 
-    const dataCount = await prisma.user.count();
+    const dataCount = await prisma.event.count();
 
     return {
       success: true,

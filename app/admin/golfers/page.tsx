@@ -27,9 +27,10 @@ interface PropTypes {
 
 const AdminGolfersPage = async ({ searchParams }: PropTypes) => {
   await requireAdmin();
-  const golfers = await getAllGolfers({ page: 1 });
-  if (!golfers.totalPages) golfers.totalPages = 1;
   const { page = "1" } = await searchParams;
+  const pageParam = Number(page);
+  const golfers = await getAllGolfers({ page: pageParam });
+  if (!golfers.totalPages) golfers.totalPages = 1;
 
   return (
     <div className="space-y-2 flex-1">
@@ -38,6 +39,14 @@ const AdminGolfersPage = async ({ searchParams }: PropTypes) => {
         <CreateGolferForm />
       </div>
       <div className="overflow-x-auto">
+        {golfers?.totalPages > 1 ? (
+          <Pagination
+            page={Number(page) || 1}
+            totalPages={golfers?.totalPages}
+          />
+        ) : (
+          <p className="text-muted-foreground">Displaying all results...</p>
+        )}
         <Table>
           <TableHeader>
             <TableRow>
@@ -75,14 +84,6 @@ const AdminGolfersPage = async ({ searchParams }: PropTypes) => {
             ))}
           </TableBody>
         </Table>
-        {golfers?.totalPages > 1 ? (
-          <Pagination
-            page={Number(page) || 1}
-            totalPages={golfers?.totalPages}
-          />
-        ) : (
-          <p className="text-muted-foreground">Displaying all results...</p>
-        )}
       </div>
     </div>
   );
