@@ -148,5 +148,13 @@ export function convertToFormDate(date: Date): string {
 
 export function convertToFormTime(time: Date): string {
   const parsedTime = time.toLocaleTimeString().split(" ")[0];
-  return "";
+  const parsedTimeArr = parsedTime.split(":");
+  parsedTimeArr.forEach((element, index) => {
+    if (element.length > 1) {
+      return;
+    } else {
+      parsedTimeArr[index] = `0${element}`;
+    }
+  });
+  return `${parsedTimeArr[0]}:${parsedTimeArr[1]}:${parsedTimeArr[2]}`;
 }

@@ -26,8 +26,6 @@ export async function createEvent(prevState: unknown, formData: FormData) {
       isTwoManMatch: isTwoManMatch ? true : false,
     });
 
-    console.log(event);
-
     await prisma.event.create({
       data: event,
     });
