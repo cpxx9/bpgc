@@ -85,7 +85,7 @@ export async function getAllEvents({
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
     const data: Event[] = await prisma.event.findMany({
-      orderBy: { createdAt: "desc" },
+      orderBy: { leagueWeek: "asc" },
       take: limit,
       skip: (page - 1) * limit,
     });
