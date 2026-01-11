@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import golferIcon from "@/assets/golfer.svg";
 import { getTwoManTeamCount } from "@/lib/actions/two-man-team.actions";
+import { getEventCount } from "@/lib/actions/event.actions";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
@@ -19,7 +20,7 @@ const AdminOverviewPage = async () => {
   const { userCount } = await getUserCount();
   const { golferCount } = await getGolferCount();
   const { twoManTeamCount } = await getTwoManTeamCount();
-  const eventCount = 0;
+  const { eventCount } = await getEventCount();
 
   return (
     <div className="space-y-2">
