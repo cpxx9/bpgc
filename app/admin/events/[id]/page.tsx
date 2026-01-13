@@ -16,11 +16,9 @@ const EventInfo = async ({ params }: PropTypes) => {
     <div className="flex flex-col gap-3">
       <header className="flex justify-between">
         <h1 className="h2-bold">Event Info</h1>
-        <Link className="" href={`/admin/events/${id}/edit`}>
-          <Button asChild>
-            <h3>Update Event Details</h3>
-          </Button>
-        </Link>
+        <Button asChild>
+          <Link href={`/admin/events/${id}/edit`}>Update Event Details</Link>
+        </Button>
       </header>
       <section>
         <Card>
