@@ -79,7 +79,7 @@ const AdminEventsPage = async ({ searchParams }: PropTypes) => {
                 </TableCell>
                 <TableCell>
                   <Button className="mr-1" asChild variant="outline" size="sm">
-                    <Link href={`/admin/events/${event.id}`}>Edit</Link>
+                    <Link href={`/admin/events/${event.id}`}>View</Link>
                   </Button>
                   <DeleteDialog id={event.id} action={deleteEvent} />
                 </TableCell>
