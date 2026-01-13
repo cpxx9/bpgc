@@ -5,7 +5,7 @@ import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
 import { convertToFormDate, convertToFormTime, formatError } from "@/lib/utils";
 import { createEventSchema } from "@/lib/validators";
-import { Event, UpdateEvent } from "@/types";
+import { Event, FormEvent, UpdateEvent } from "@/types";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 
@@ -62,13 +62,13 @@ export async function getEventById(eventId: string | undefined) {
     });
 
     if (!event) throw new Error("Event not found");
-    const parsedEvent = {
+    const parsedEvent: FormEvent = {
       ...event,
       date: convertToFormDate(event.date),
       time: convertToFormTime(event.time),
     };
 
-    return parsedEvent;
+    return { success: true, event: parsedEvent };
   } catch (err) {
     return formatError(err);
   }

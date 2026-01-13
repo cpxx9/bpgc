@@ -23,6 +23,11 @@ export type Event = {
   isTwoManMatch: boolean;
 };
 
+export type FormEvent = Omit<Event, "date" | "time"> & {
+  date: string;
+  time: string;
+};
+
 export type User = {
   id: string;
   role: string;

@@ -16,7 +16,7 @@ const AdminEventUpdatePage = async ({ params }: PropTypes) => {
   await requireAdmin();
   const { id } = await params;
 
-  const event = await getEventById(id);
+  const { event } = await getEventById(id);
 
   if (!event) notFound();
 
