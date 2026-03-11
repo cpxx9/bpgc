@@ -19,6 +19,7 @@ const EventInfo = async ({ params }: PropTypes) => {
         <Button asChild>
           <Link href={`/admin/events/${id}/edit`}>Update Event Details</Link>
         </Button>
+        {/* <div>test</div> */}
       </header>
       <section>
         <Card>
