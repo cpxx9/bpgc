@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { getEventById } from "@/lib/actions/event.actions";
+import { getAllGolfersList } from "@/lib/actions/golfer.actions";
 import { requireAdmin } from "@/lib/auth-guard";
 import Link from "next/link";
 
@@ -12,6 +13,8 @@ const EventInfo = async ({ params }: PropTypes) => {
   await requireAdmin();
   const { id } = await params;
   const { event } = await getEventById(id);
+  const { data: golfers } = await getAllGolfersList();
+  console.log(golfers);
   return (
     <div className="flex flex-col gap-3">
       <header className="flex justify-between">
@@ -27,7 +30,13 @@ const EventInfo = async ({ params }: PropTypes) => {
           </CardHeader>
         </Card>
       </section>
-      <section></section>
+      <section>
+        <Card>
+          <CardHeader>
+            <CardTitle>Golfers</CardTitle>
+          </CardHeader>
+        </Card>
+      </section>
     </div>
   );
 };
