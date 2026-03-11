@@ -69,7 +69,7 @@ export const createEventSchema = z.object({
   time: z.date(),
   location: z.string().min(1, `Location${isRequiredError}`).trim(),
   description: z.string().min(1, `Description${isRequiredError}`).trim(),
-  leagueWeek: z.number().min(1, `League Week${isRequiredError}`),
+  leagueWeek: z.coerce.number().min(1, `League Week${isRequiredError}`),
   isTwoManMatch: z.boolean({ message: `Two Man Match${isRequiredError}` }),
 });
 
