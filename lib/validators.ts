@@ -79,6 +79,6 @@ export const updateEventSchema = z.object({
   time: z.string(),
   location: z.string().min(1, `Location${isRequiredError}`).trim(),
   description: z.string().min(1, `Description${isRequiredError}`).trim(),
-  leagueWeek: z.number({ message: `League Week${isRequiredError}` }),
+  leagueWeek: z.coerce.number({ message: `League Week${isRequiredError}` }),
   isTwoManMatch: z.boolean({ message: `Two Man Match${isRequiredError}` }),
 });
