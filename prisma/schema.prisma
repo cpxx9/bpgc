@@ -75,9 +75,9 @@ model Score {
   snowmen      Int      @default(0)
   closestToPin Float    @default(0.0)
   golferId     String   @db.Uuid
-  golfer       Golfer   @relation(fields: [golferId], references: [id])
+  golfer       Golfer   @relation(fields: [golferId], references: [id], onDelete: Cascade)
   eventId      String   @db.Uuid
-  event        Event    @relation(fields: [eventId], references: [id])
+  event        Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
 }
 
 model User {
