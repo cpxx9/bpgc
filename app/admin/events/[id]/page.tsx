@@ -37,11 +37,14 @@ const EventInfo = async ({ params }: PropTypes) => {
       <section>
         <Card>
           <CardHeader>
-            <CardTitle>Golfers</CardTitle>
+            <CardTitle>Scores</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="flex flex-col">
             {golfers?.map((golfer) => (
-              <div key={golfer.id} className="flex space-between">
+              <div
+                key={golfer.id}
+                className="flex items-center justify-between border-t-2 pt-2 pb-2"
+              >
                 <h4>{`${golfer.firstName} ${golfer.lastName}`}</h4>
                 <UpdateScoreForm score={golfer.scores[0]} />
               </div>

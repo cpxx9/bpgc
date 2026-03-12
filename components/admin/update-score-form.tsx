@@ -13,7 +13,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { updateScore } from "@/lib/actions/score.actions";
-// import { updateScore } from "@/lib/actions/score.actions";
 import { updateScoreSchema } from "@/lib/validators";
 import { UpdateScore } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -59,7 +58,7 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
       <form
         method="POST"
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex"
+        className="flex gap-4"
       >
         <div>
           <FormField
@@ -70,13 +69,14 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
             }: {
               field: ControllerRenderProps<UpdateScore, "score">;
             }) => (
-              <FormItem className="flex">
-                <FormLabel>Score</FormLabel>
+              <FormItem className="flex justify-center items-center gap-2">
+                <FormLabel>Score:</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Enter score"
                     {...field}
                     type="decimal"
+                    className="!m-0 !w-[4rem]"
                   ></Input>
                 </FormControl>
               </FormItem>
@@ -92,13 +92,14 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
             }: {
               field: ControllerRenderProps<UpdateScore, "birdies">;
             }) => (
-              <FormItem className="flex">
-                <FormLabel>Birdies</FormLabel>
+              <FormItem className="flex justify-center items-center gap-2">
+                <FormLabel>Birdies:</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Enter birdies"
                     {...field}
                     type="decimal"
+                    className="!m-0 !w-[4rem]"
                   ></Input>
                 </FormControl>
               </FormItem>
@@ -114,13 +115,14 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
             }: {
               field: ControllerRenderProps<UpdateScore, "snowmen">;
             }) => (
-              <FormItem className="flex">
-                <FormLabel>Snowmen</FormLabel>
+              <FormItem className="flex justify-center items-center gap-2">
+                <FormLabel>Snowmen:</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Enter snowmen"
                     {...field}
                     type="decimal"
+                    className="!m-0 !w-[4rem]"
                   ></Input>
                 </FormControl>
               </FormItem>
@@ -136,13 +138,14 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
             }: {
               field: ControllerRenderProps<UpdateScore, "closestToPin">;
             }) => (
-              <FormItem className="flex">
-                <FormLabel>Closest To the Pin</FormLabel>
+              <FormItem className="flex justify-center items-center gap-2">
+                <FormLabel>Closest To the Pin:</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Enter closest to the pin"
                     {...field}
                     type="decimal"
+                    className="!m-0 !w-[4rem]"
                   ></Input>
                 </FormControl>
               </FormItem>
