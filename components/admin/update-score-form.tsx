@@ -55,9 +55,107 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
   };
 
   return (
-    <div>
-      <div>test</div>
-    </div>
+    <Form {...form}>
+      <form method="POST" onSubmit={form.handleSubmit(onSubmit)}>
+        <div>
+          <FormField
+            control={form.control}
+            name="score"
+            render={({
+              field,
+            }: {
+              field: ControllerRenderProps<UpdateScore, "score">;
+            }) => (
+              <FormItem className="">
+                <FormLabel>Score</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Enter score"
+                    {...field}
+                    type="decimal"
+                  ></Input>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+        </div>
+        <div>
+          <FormField
+            control={form.control}
+            name="birdies"
+            render={({
+              field,
+            }: {
+              field: ControllerRenderProps<UpdateScore, "birdies">;
+            }) => (
+              <FormItem className="">
+                <FormLabel>Birdies</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Enter birdies"
+                    {...field}
+                    type="decimal"
+                  ></Input>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+        </div>
+        <div>
+          <FormField
+            control={form.control}
+            name="snowmen"
+            render={({
+              field,
+            }: {
+              field: ControllerRenderProps<UpdateScore, "snowmen">;
+            }) => (
+              <FormItem className="">
+                <FormLabel>Snowmen</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Enter snowmen"
+                    {...field}
+                    type="decimal"
+                  ></Input>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+        </div>
+        <div>
+          <FormField
+            control={form.control}
+            name="closestToPin"
+            render={({
+              field,
+            }: {
+              field: ControllerRenderProps<UpdateScore, "closestToPin">;
+            }) => (
+              <FormItem className="">
+                <FormLabel>Closest To the Pin</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Enter closest to the pin"
+                    {...field}
+                    type="decimal"
+                  ></Input>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="flex-between mt-4">
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={form.formState.isSubmitting}
+          >
+            {form.formState.isSubmitting ? "Submitting..." : "Update Score"}
+          </Button>
+        </div>
+      </form>
+    </Form>
   );
 };
 
