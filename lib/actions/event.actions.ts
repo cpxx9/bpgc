@@ -26,10 +26,21 @@ export async function createEvent(prevState: unknown, formData: FormData) {
       isTwoManMatch: isTwoManMatch ? true : false,
     });
 
-    await prisma.event.create({
+    const newEvent = await prisma.event.create({
       data: event,
     });
 
+    const golfers = await prisma.golfer.findMany();
+    if (golfers) {
+      golfers.forEach(async (golfer) => {
+        await prisma.score.create({
+          data: {
+            golferId: golfer.id,
+            eventId: newEvent.id,
+          },
+        });
+      });
+    }
     revalidatePath("/admin/events");
 
     return { success: true, message: "Event created successfully." };
