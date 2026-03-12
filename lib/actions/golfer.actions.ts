@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/db/prisma";
+import { getAllEvents } from "@/lib/actions/event.actions";
 import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
 import { formatError } from "@/lib/utils";
@@ -17,17 +18,27 @@ export async function createGolfer(prevState: unknown, formData: FormData) {
       firstName: formData.get("firstName"),
       lastName: formData.get("lastName"),
       hci: Number(formData.get("hci")),
-      // twoManTeam: formData.get("twoManTeam"),
     });
 
-    await prisma.golfer.create({
+    const newGolfer = await prisma.golfer.create({
       data: {
         firstName: golfer.firstName,
         lastName: golfer.lastName,
         hci: golfer.hci,
-        // twoManTeamId: golfer.twoManTeam ? golfer.twoManTeam : null,
       },
     });
+
+    const events = await prisma.event.findMany();
+    if (events) {
+      events.forEach(async (event) => {
+        await prisma.score.create({
+          data: {
+            eventId: event.id,
+            golferId: newGolfer.id,
+          },
+        });
+      });
+    }
 
     revalidatePath("/admin/users");
 
