@@ -3,6 +3,7 @@ import {
   createTwoManTeamSchema,
   updateEventSchema,
   updateGolferSchema,
+  updateScoreSchema,
   updateUserSchema,
 } from "@/lib/validators";
 
@@ -10,6 +11,7 @@ export type UpdateUser = z.infer<typeof updateUserSchema>;
 export type UpdateGolfer = z.infer<typeof updateGolferSchema>;
 export type TwoManTeam = z.infer<typeof createTwoManTeamSchema>;
 export type UpdateEvent = z.infer<typeof updateEventSchema>;
+export type UpdateScore = z.infer<typeof updateScoreSchema>;
 
 export type Event = {
   id: string;

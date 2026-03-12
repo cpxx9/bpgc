@@ -82,3 +82,13 @@ export const updateEventSchema = z.object({
   leagueWeek: z.coerce.number({ message: `League Week${isRequiredError}` }),
   isTwoManMatch: z.boolean({ message: `Two Man Match${isRequiredError}` }),
 });
+
+export const updateScoreSchema = z.object({
+  id: z.string().min(1, `ID${isRequiredError}`).trim(),
+  score: z.coerce.number({ message: `Score${isRequiredError}` }),
+  birdies: z.coerce.number({ message: `Birdies${isRequiredError}` }),
+  snowmen: z.coerce.number({ message: `Snowmen${isRequiredError}` }),
+  closestToPin: z.coerce.number({
+    message: `Closest To the Pin${isRequiredError}`,
+  }),
+});
