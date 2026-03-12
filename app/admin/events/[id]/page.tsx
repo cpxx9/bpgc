@@ -1,3 +1,4 @@
+import UpdateScoreForm from "@/components/admin/update-score-form";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { getEventById } from "@/lib/actions/event.actions";
@@ -38,7 +39,10 @@ const EventInfo = async ({ params }: PropTypes) => {
           <CardHeader>
             <CardTitle>Golfers</CardTitle>
             {golfers?.map((golfer) => (
-              <h4>{`${golfer.firstName} ${golfer.lastName}`}</h4>
+              <div key={golfer.id}>
+                <h4>{`${golfer.firstName} ${golfer.lastName}`}</h4>
+                <UpdateScoreForm score={golfer.scores[0]} />
+              </div>
             ))}
           </CardHeader>
         </Card>
