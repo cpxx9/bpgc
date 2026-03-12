@@ -56,7 +56,11 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
 
   return (
     <Form {...form}>
-      <form method="POST" onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        method="POST"
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex"
+      >
         <div>
           <FormField
             control={form.control}
@@ -66,7 +70,7 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
             }: {
               field: ControllerRenderProps<UpdateScore, "score">;
             }) => (
-              <FormItem className="">
+              <FormItem className="flex">
                 <FormLabel>Score</FormLabel>
                 <FormControl>
                   <Input
@@ -88,7 +92,7 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
             }: {
               field: ControllerRenderProps<UpdateScore, "birdies">;
             }) => (
-              <FormItem className="">
+              <FormItem className="flex">
                 <FormLabel>Birdies</FormLabel>
                 <FormControl>
                   <Input
@@ -110,7 +114,7 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
             }: {
               field: ControllerRenderProps<UpdateScore, "snowmen">;
             }) => (
-              <FormItem className="">
+              <FormItem className="flex">
                 <FormLabel>Snowmen</FormLabel>
                 <FormControl>
                   <Input
@@ -132,7 +136,7 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
             }: {
               field: ControllerRenderProps<UpdateScore, "closestToPin">;
             }) => (
-              <FormItem className="">
+              <FormItem className="flex">
                 <FormLabel>Closest To the Pin</FormLabel>
                 <FormControl>
                   <Input
@@ -145,7 +149,7 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
             )}
           />
         </div>
-        <div className="flex-between mt-4">
+        <div className="">
           <Button
             type="submit"
             className="w-full"

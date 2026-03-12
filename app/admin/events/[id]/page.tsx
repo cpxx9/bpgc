@@ -1,6 +1,6 @@
 import UpdateScoreForm from "@/components/admin/update-score-form";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getEventById } from "@/lib/actions/event.actions";
 import {
   getAllGolfersList,
@@ -38,13 +38,15 @@ const EventInfo = async ({ params }: PropTypes) => {
         <Card>
           <CardHeader>
             <CardTitle>Golfers</CardTitle>
+          </CardHeader>
+          <CardContent>
             {golfers?.map((golfer) => (
-              <div key={golfer.id}>
+              <div key={golfer.id} className="flex space-between">
                 <h4>{`${golfer.firstName} ${golfer.lastName}`}</h4>
                 <UpdateScoreForm score={golfer.scores[0]} />
               </div>
             ))}
-          </CardHeader>
+          </CardContent>
         </Card>
       </section>
     </div>
