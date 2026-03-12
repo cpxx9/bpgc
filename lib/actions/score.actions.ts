@@ -15,7 +15,6 @@ export async function getEventById(eventId: string | undefined) {
 }
 
 export async function updateScore(score: UpdateScore) {
-  console.log(score);
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
