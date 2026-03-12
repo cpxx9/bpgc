@@ -5,13 +5,33 @@ import { formatError } from "@/lib/utils";
 import { UpdateScore } from "@/types";
 import { revalidatePath } from "next/cache";
 
-export async function getEventById(eventId: string | undefined) {
-  if (!eventId) throw new Error("No id passed");
-  const event = await prisma.event.findFirst({
-    where: { id: eventId },
+export async function getScoreById(scoreId: string | undefined) {
+  if (!scoreId) throw new Error("No id passed");
+  const score = await prisma.score.findFirst({
+    where: { id: scoreId },
   });
-  if (!event) throw new Error("Event not found");
-  return event;
+  if (!score) throw new Error("Score not found");
+  return score;
+}
+
+export async function getEventScoreWinners(eventId: string) {
+  try {
+    const lowestScore = await prisma.score.findFirst({
+      where: {
+        eventId: eventId,
+      },
+      orderBy: {
+        score: "desc",
+      },
+    });
+
+    return {
+      success: true,
+      data: {
+        lowestScore,
+      },
+    };
+  } catch (err) {}
 }
 
 export async function updateScore(score: UpdateScore) {
