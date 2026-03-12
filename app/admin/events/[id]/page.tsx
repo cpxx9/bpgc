@@ -1,4 +1,6 @@
+import EventScoreWinners from "@/components/admin/event-score-winners";
 import UpdateScoreForm from "@/components/admin/update-score-form";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getEventById } from "@/lib/actions/event.actions";
@@ -18,7 +20,6 @@ const EventInfo = async ({ params }: PropTypes) => {
   const { id } = await params;
   const { event } = await getEventById(id);
   const { data: golfers } = await getAllGolfersWithEventScoreList(id);
-  console.log(golfers);
   return (
     <div className="flex flex-col gap-3">
       <header className="flex justify-between">
@@ -27,11 +28,30 @@ const EventInfo = async ({ params }: PropTypes) => {
           <Link href={`/admin/events/${id}/edit`}>Update Event Details</Link>
         </Button>
       </header>
-      <section>
-        <Card>
+      <section className="flex gap-4">
+        <Card className="flex-1">
           <CardHeader>
             <CardTitle>{event.location}</CardTitle>
           </CardHeader>
+          <CardContent>
+            <p>Date: {event.date}</p>
+            <p>Time: {event.time}</p>
+            <p>Week: {event.leagueWeek}</p>
+            {event.isTwoManMatch ? (
+              <Badge variant="default">Two Man Match</Badge>
+            ) : (
+              <Badge variant="secondary">Off Week</Badge>
+            )}
+            <p>{event.description}</p>
+          </CardContent>
+        </Card>
+        <Card className="flex-1">
+          <CardHeader>
+            <CardTitle>Contests</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <EventScoreWinners eventId={id} />
+          </CardContent>
         </Card>
       </section>
       <section>
