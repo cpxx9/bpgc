@@ -20,6 +20,14 @@ export async function getEventScoreWinners(eventId: string) {
       where: {
         eventId: eventId,
       },
+      include: {
+        golfer: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
+      },
       orderBy: {
         score: "desc",
       },
