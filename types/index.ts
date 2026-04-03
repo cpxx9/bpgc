@@ -51,6 +51,23 @@ export type Golfer = {
   twoManTeamId: string | null;
 };
 
+export type Score = {
+  id: string;
+  score: number;
+  year: number;
+  birdies: number;
+  snowmen: number;
+  closestToPin: number;
+  golferId: string;
+  eventId: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type GolferWithEventScores = Golfer & {
+  scores: Score[];
+};
+
 export type GolferWithTeammate = Golfer & {
   twoManTeam: {
     id: string;

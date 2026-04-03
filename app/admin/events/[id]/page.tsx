@@ -20,6 +20,7 @@ const EventInfo = async ({ params }: PropTypes) => {
   const { id } = await params;
   const { event } = await getEventById(id);
   const { data: golfers } = await getAllGolfersWithEventScoreList(id);
+  console.log(golfers);
   return (
     <div className="flex flex-col gap-3">
       <header className="flex justify-between">
@@ -66,7 +67,11 @@ const EventInfo = async ({ params }: PropTypes) => {
                 className="flex items-center justify-between border-t-2 pt-2 pb-2"
               >
                 <h4>{`${golfer.firstName} ${golfer.lastName}`}</h4>
-                <UpdateScoreForm score={golfer.scores[0]} />
+                {golfer.scores.length > 0 ? (
+                  <UpdateScoreForm score={golfer.scores[0]} />
+                ) : (
+                  <div>test</div>
+                )}
               </div>
             ))}
           </CardContent>
