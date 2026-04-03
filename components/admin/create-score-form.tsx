@@ -9,7 +9,12 @@ import { useFormStatus } from "react-dom";
 import { useSearchParams } from "next/navigation";
 import { createScore } from "@/lib/actions/score.actions";
 
-const CreateScoreForm = () => {
+interface PropTypes {
+  eventId: string;
+  golferId: string;
+}
+
+const CreateScoreForm = ({ eventId, golferId }: PropTypes) => {
   const [data, action] = useActionState(createScore, {
     success: false,
     message: "",
@@ -38,6 +43,8 @@ const CreateScoreForm = () => {
     <div className="grid gap-4">
       <form id="create-score-form" action={action}>
         <input type="hidden" name="callbackUrl" value={callbackUrl} />
+        <input type="hidden" name="eventId" value={eventId} />
+        <input type="hidden" name="golferId" value={golferId} />
         <div className="space-y-6">
           <div>
             <Label htmlFor="score">Score</Label>
