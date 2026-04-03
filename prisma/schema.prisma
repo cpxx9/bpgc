@@ -69,11 +69,11 @@ model Score {
   id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt    DateTime @default(now()) @db.Timestamp(6)
   updatedAt    DateTime @updatedAt
-  score        Int?
-  year         Int?
-  birdies      Int?
-  snowmen      Int?
-  closestToPin Float?
+  score        Int
+  year         Int
+  birdies      Int
+  snowmen      Int
+  closestToPin Float
   golferId     String   @db.Uuid
   golfer       Golfer   @relation(fields: [golferId], references: [id], onDelete: Cascade)
   eventId      String   @db.Uuid

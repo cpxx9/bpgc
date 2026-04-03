@@ -20,25 +20,13 @@ export async function createGolfer(prevState: unknown, formData: FormData) {
       hci: Number(formData.get("hci")),
     });
 
-    const newGolfer = await prisma.golfer.create({
+    await prisma.golfer.create({
       data: {
         firstName: golfer.firstName,
         lastName: golfer.lastName,
         hci: golfer.hci,
       },
     });
-
-    const events = await prisma.event.findMany();
-    if (events) {
-      events.forEach(async (event) => {
-        await prisma.score.create({
-          data: {
-            eventId: event.id,
-            golferId: newGolfer.id,
-          },
-        });
-      });
-    }
 
     revalidatePath("/admin/users");
 
