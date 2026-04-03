@@ -40,25 +40,25 @@ const CreateScoreForm = ({ eventId, golferId }: PropTypes) => {
   };
 
   return (
-    <div className="grid gap-4">
+    <div className="">
       <form id="create-score-form" action={action}>
         <input type="hidden" name="callbackUrl" value={callbackUrl} />
         <input type="hidden" name="eventId" value={eventId} />
         <input type="hidden" name="golferId" value={golferId} />
-        <div className="space-y-6">
-          <div>
+        <div className="flex gap-3">
+          <div className="flex justify-center items-center gap-2">
             <Label htmlFor="score">Score</Label>
             <Input id="score" name="score" type="number" required></Input>
           </div>
-          <div>
+          <div className="flex justify-center items-center gap-2">
             <Label htmlFor="birdies">Birdies</Label>
             <Input id="birdies" name="birdies" type="number" required></Input>
           </div>
-          <div>
+          <div className="flex justify-center items-center gap-2">
             <Label htmlFor="snowmen">Snowmen</Label>
             <Input id="snowmen" name="snowmen" type="number" required></Input>
           </div>
-          <div>
+          <div className="flex justify-center items-center gap-2">
             <Label htmlFor="closestToPin">Closest To Pin</Label>
             <Input
               id="closestToPin"
@@ -72,9 +72,9 @@ const CreateScoreForm = ({ eventId, golferId }: PropTypes) => {
           {data && !data.success && (
             <div className="text-center text-destructive">{data.message}</div>
           )}
-        </div>
-        <div>
-          <CreateButton />
+          <div className="flex justify-center items-center gap-2">
+            <CreateButton />
+          </div>
         </div>
       </form>
     </div>

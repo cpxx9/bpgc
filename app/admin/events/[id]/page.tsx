@@ -1,3 +1,4 @@
+import CreateScoreForm from "@/components/admin/create-score-form";
 import EventScoreWinners from "@/components/admin/event-score-winners";
 import UpdateScoreForm from "@/components/admin/update-score-form";
 import { Badge } from "@/components/ui/badge";
@@ -70,7 +71,7 @@ const EventInfo = async ({ params }: PropTypes) => {
                 {golfer.scores[0] ? (
                   <UpdateScoreForm score={golfer.scores[0]} />
                 ) : (
-                  <div>test</div>
+                  <CreateScoreForm eventId={id} golferId={golfer.id} />
                 )}
               </div>
             ))}
