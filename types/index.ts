@@ -54,14 +54,13 @@ export type Golfer = {
 export type Score = {
   id: string;
   score: number;
-  year: number;
   birdies: number;
   snowmen: number;
   closestToPin: number;
   golferId: string;
   eventId: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
 export type GolferWithScores = Golfer & {
