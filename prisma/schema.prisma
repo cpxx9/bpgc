@@ -70,7 +70,6 @@ model Score {
   createdAt    DateTime @default(now()) @db.Timestamp(6)
   updatedAt    DateTime @updatedAt
   score        Int
-  year         Int
   birdies      Int
   snowmen      Int
   closestToPin Float
