@@ -34,7 +34,7 @@ const CreateScoreForm = ({ eventId, golferId }: PropTypes) => {
         className="w-full"
         variant="default"
       >
-        {pending ? "Creating..." : "Save"}
+        {pending ? "Creating..." : "Add Score"}
       </Button>
     );
   };
@@ -48,21 +48,40 @@ const CreateScoreForm = ({ eventId, golferId }: PropTypes) => {
         <div className="flex gap-3">
           <div className="flex justify-center items-center gap-2">
             <Label htmlFor="score">Score</Label>
-            <Input id="score" name="score" type="number" required></Input>
+            <Input
+              id="score"
+              name="score"
+              type="number"
+              className="!m-0 !w-[5rem] text-center"
+              required
+            ></Input>
           </div>
           <div className="flex justify-center items-center gap-2">
             <Label htmlFor="birdies">Birdies</Label>
-            <Input id="birdies" name="birdies" type="number" required></Input>
+            <Input
+              id="birdies"
+              name="birdies"
+              type="number"
+              className="!m-0 !w-[5rem] text-center"
+              required
+            ></Input>
           </div>
           <div className="flex justify-center items-center gap-2">
             <Label htmlFor="snowmen">Snowmen</Label>
-            <Input id="snowmen" name="snowmen" type="number" required></Input>
+            <Input
+              id="snowmen"
+              name="snowmen"
+              type="number"
+              className="!m-0 !w-[5rem] text-center"
+              required
+            ></Input>
           </div>
           <div className="flex justify-center items-center gap-2">
             <Label htmlFor="closestToPin">Closest To Pin</Label>
             <Input
               id="closestToPin"
               name="closestToPin"
+              className="!m-0 !w-[5rem] text-center"
               type="number"
               step="any"
               required

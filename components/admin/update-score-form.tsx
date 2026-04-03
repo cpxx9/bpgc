@@ -76,7 +76,7 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
                     placeholder="Enter score"
                     {...field}
                     type="decimal"
-                    className="!m-0 !w-[4rem]"
+                    className="!m-0 !w-[5rem] text-center"
                   ></Input>
                 </FormControl>
               </FormItem>
@@ -99,7 +99,7 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
                     placeholder="Enter birdies"
                     {...field}
                     type="decimal"
-                    className="!m-0 !w-[4rem]"
+                    className="!m-0 !w-[5rem] text-center"
                   ></Input>
                 </FormControl>
               </FormItem>
@@ -122,7 +122,7 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
                     placeholder="Enter snowmen"
                     {...field}
                     type="decimal"
-                    className="!m-0 !w-[4rem]"
+                    className="!m-0 !w-[5rem] text-center"
                   ></Input>
                 </FormControl>
               </FormItem>
@@ -145,7 +145,7 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
                     placeholder="Enter closest to the pin"
                     {...field}
                     type="decimal"
-                    className="!m-0 !w-[4rem]"
+                    className="!m-0 !w-[5rem] text-center"
                   ></Input>
                 </FormControl>
               </FormItem>
