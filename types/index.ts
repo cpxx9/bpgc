@@ -64,7 +64,7 @@ export type Score = {
   updatedAt: Date;
 };
 
-export type GolferWithEventScores = Golfer & {
+export type GolferWithScores = Golfer & {
   scores: Score[];
 };
 
