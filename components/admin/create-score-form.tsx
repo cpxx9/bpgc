@@ -63,6 +63,7 @@ const CreateScoreForm = ({ eventId, golferId }: PropTypes) => {
               name="birdies"
               type="number"
               className="!m-0 !w-[5rem] text-center"
+              defaultValue={0}
               required
             ></Input>
           </div>
@@ -72,6 +73,7 @@ const CreateScoreForm = ({ eventId, golferId }: PropTypes) => {
               id="snowmen"
               name="snowmen"
               type="number"
+              defaultValue={0}
               className="!m-0 !w-[5rem] text-center"
               required
             ></Input>
@@ -83,6 +85,7 @@ const CreateScoreForm = ({ eventId, golferId }: PropTypes) => {
               name="closestToPin"
               className="!m-0 !w-[5rem] text-center"
               type="number"
+              defaultValue={99}
               step="any"
               required
             ></Input>
