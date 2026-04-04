@@ -33,6 +33,7 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
 
   const onSubmit = async (values: UpdateScore) => {
     try {
+      console.log(`Client: ${values.closestToPin}`);
       const res = await updateScore({ ...values, id: score.id });
 
       if (!res.success) {
@@ -75,7 +76,7 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
                   <Input
                     placeholder="Enter score"
                     {...field}
-                    type="decimal"
+                    type="number"
                     className="!m-0 !w-[5rem] text-center"
                   ></Input>
                 </FormControl>
@@ -98,7 +99,7 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
                   <Input
                     placeholder="Enter birdies"
                     {...field}
-                    type="decimal"
+                    type="number"
                     className="!m-0 !w-[5rem] text-center"
                   ></Input>
                 </FormControl>
@@ -121,7 +122,7 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
                   <Input
                     placeholder="Enter snowmen"
                     {...field}
-                    type="decimal"
+                    type="number"
                     className="!m-0 !w-[5rem] text-center"
                   ></Input>
                 </FormControl>
@@ -145,7 +146,8 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
                     placeholder="Enter closest to the pin"
                     {...field}
                     value={field.value ?? ""}
-                    type="decimal"
+                    type="number"
+                    step="any"
                     className="!m-0 !w-[5rem] text-center"
                   ></Input>
                 </FormControl>

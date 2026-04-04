@@ -11,7 +11,6 @@ export async function createScore(prevState: unknown, formData: FormData) {
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
-    console.log(formData);
     const score = createScoreSchema.parse({
       eventId: formData.get("eventId"),
       golferId: formData.get("golferId"),
@@ -23,8 +22,6 @@ export async function createScore(prevState: unknown, formData: FormData) {
           ? undefined
           : formData.get("closestToPin"),
     });
-
-    console.log(score);
 
     await prisma.score.create({
       data: {
@@ -155,6 +152,7 @@ export async function getEventScoreWinners(eventId: string) {
 }
 
 export async function updateScore(score: UpdateScore) {
+  console.log(`Server: ${score.closestToPin}`);
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
