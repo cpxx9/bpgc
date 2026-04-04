@@ -56,7 +56,7 @@ export type Score = {
   score: number;
   birdies: number;
   snowmen: number;
-  closestToPin: number;
+  closestToPin: number | null;
   golferId: string;
   eventId: string;
   createdAt?: Date;

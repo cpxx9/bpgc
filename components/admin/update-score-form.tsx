@@ -144,6 +144,7 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
                   <Input
                     placeholder="Enter closest to the pin"
                     {...field}
+                    value={field.value ?? ""}
                     type="decimal"
                     className="!m-0 !w-[5rem] text-center"
                   ></Input>

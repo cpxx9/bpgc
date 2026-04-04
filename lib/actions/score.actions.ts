@@ -11,14 +11,20 @@ export async function createScore(prevState: unknown, formData: FormData) {
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
+    console.log(formData);
     const score = createScoreSchema.parse({
       eventId: formData.get("eventId"),
       golferId: formData.get("golferId"),
       score: formData.get("score"),
       birdies: formData.get("birdies"),
       snowmen: formData.get("snowmen"),
-      closestToPin: formData.get("closestToPin"),
+      closestToPin:
+        formData.get("closestToPin") === ""
+          ? undefined
+          : formData.get("closestToPin"),
     });
+
+    console.log(score);
 
     await prisma.score.create({
       data: {

@@ -85,9 +85,9 @@ const CreateScoreForm = ({ eventId, golferId }: PropTypes) => {
               name="closestToPin"
               className="!m-0 !w-[5rem] text-center"
               type="number"
-              defaultValue={99}
+              // defaultValue={99}
               step="any"
-              required
+              // required
             ></Input>
           </div>
 

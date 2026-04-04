@@ -72,7 +72,7 @@ model Score {
   score        Int
   birdies      Int
   snowmen      Int
-  closestToPin Float
+  closestToPin Float?
   golferId     String   @db.Uuid
   golfer       Golfer   @relation(fields: [golferId], references: [id], onDelete: Cascade)
   eventId      String   @db.Uuid
