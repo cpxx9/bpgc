@@ -25,6 +25,7 @@ model Event {
   leagueWeek    Int
   isTwoManMatch Boolean
   scores        Score[]
+  match         Match?
 }
 
 model Golfer {
@@ -52,6 +53,8 @@ model Match {
   createdAt DateTime   @default(now()) @db.Timestamp(6)
   updatedAt DateTime   @updatedAt
   teams     Matchups[]
+  event     Event      @relation(fields: [eventId], references: [id])
+  eventId   String     @unique @db.Uuid
 }
 
 model Matchups {
