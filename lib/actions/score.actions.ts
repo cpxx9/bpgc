@@ -17,10 +17,7 @@ export async function createScore(prevState: unknown, formData: FormData) {
       score: formData.get("score"),
       birdies: formData.get("birdies"),
       snowmen: formData.get("snowmen"),
-      closestToPin:
-        formData.get("closestToPin") === ""
-          ? undefined
-          : formData.get("closestToPin"),
+      closestToPin: formData.get("closestToPin"),
     });
 
     await prisma.score.create({

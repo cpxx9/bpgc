@@ -89,11 +89,10 @@ export const createScoreSchema = z.object({
   score: z.coerce.number({ message: `Score${isRequiredError}` }),
   birdies: z.coerce.number({ message: `Birdies${isRequiredError}` }),
   snowmen: z.coerce.number({ message: `Snowmen${isRequiredError}` }),
-  closestToPin: z.coerce
-    .number({
-      message: `Closest To the Pin${isRequiredError}`,
-    })
-    .nullish(),
+  closestToPin: z.preprocess(
+    (v) => (v === "" ? null : v),
+    z.number().nullable(),
+  ),
 });
 
 export const updateScoreSchema = z.object({
