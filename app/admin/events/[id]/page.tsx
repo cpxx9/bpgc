@@ -5,10 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getEventById } from "@/lib/actions/event.actions";
-import {
-  getAllGolfersList,
-  getAllGolfersWithEventScoreList,
-} from "@/lib/actions/golfer.actions";
+import { getAllGolfersWithEventScoreList } from "@/lib/actions/golfer.actions";
 import { requireAdmin } from "@/lib/auth-guard";
 import { GolferWithScores } from "@/types";
 import Link from "next/link";
