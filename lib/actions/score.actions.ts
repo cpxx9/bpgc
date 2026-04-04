@@ -64,17 +64,76 @@ export async function getEventScoreWinners(eventId: string) {
         },
       },
       orderBy: {
-        score: "desc",
+        score: "asc",
+      },
+    });
+
+    const closestToPin = await prisma.score.findFirst({
+      where: {
+        eventId: eventId,
+      },
+      include: {
+        golfer: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
+      },
+      orderBy: {
+        closestToPin: "asc",
+      },
+    });
+
+    const mostBirdies = await prisma.score.findFirst({
+      where: {
+        eventId: eventId,
+      },
+      include: {
+        golfer: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
+      },
+      orderBy: {
+        birdies: "desc",
+      },
+    });
+
+    const mostSnowmen = await prisma.score.findFirst({
+      where: {
+        eventId: eventId,
+      },
+      include: {
+        golfer: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
+      },
+      orderBy: {
+        snowmen: "desc",
       },
     });
 
     return {
       success: true,
       data: {
-        lowestScore,
+        lowestScore: `${lowestScore?.golfer.firstName} ${lowestScore?.golfer.lastName}`,
+        closestToPin: `${closestToPin?.golfer.firstName} ${closestToPin?.golfer.lastName}`,
+        mostBirdies: `${mostBirdies?.golfer.firstName} ${mostBirdies?.golfer.lastName}`,
+        mostSnowmen: `${mostSnowmen?.golfer.firstName} ${mostSnowmen?.golfer.lastName}`,
       },
     };
-  } catch (err) {}
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
 }
 
 export async function updateScore(score: UpdateScore) {

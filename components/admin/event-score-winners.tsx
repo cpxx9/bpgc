@@ -5,8 +5,11 @@ interface PropTypes {
 }
 
 const EventScoreWinners = async ({ eventId }: PropTypes) => {
-  const winners = await getEventScoreWinners(eventId);
-  console.log(winners);
+  const { data: winners } = await getEventScoreWinners(eventId);
+  console.log(`Lowest Score: ${winners?.lowestScore}`);
+  console.log(`Closest To Pin: ${winners?.closestToPin}`);
+  console.log(`Most Birdies: ${winners?.mostBirdies}`);
+  console.log(`Most Snowmen: ${winners?.mostSnowmen}`);
   return (
     <>
       <p>test</p>

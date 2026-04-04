@@ -28,7 +28,7 @@ const CreateScoreForm = ({ eventId, golferId }: PropTypes) => {
 
     return (
       <Button
-        form="create-score-form"
+        form={`create-${golferId}-score-form`}
         type="submit"
         disabled={pending}
         className="w-full"
@@ -41,7 +41,7 @@ const CreateScoreForm = ({ eventId, golferId }: PropTypes) => {
 
   return (
     <div className="">
-      <form id="create-score-form" action={action}>
+      <form id={`create-${golferId}-score-form`} action={action}>
         <input type="hidden" name="callbackUrl" value={callbackUrl} />
         <input type="hidden" name="eventId" value={eventId} />
         <input type="hidden" name="golferId" value={golferId} />
