@@ -6,15 +6,24 @@ interface PropTypes {
 
 const EventScoreWinners = async ({ eventId }: PropTypes) => {
   const { data: winners } = await getEventScoreWinners(eventId);
-  console.log(`Lowest Score: ${winners?.lowestScore}`);
-  console.log(`Closest To Pin: ${winners?.closestToPin}`);
-  console.log(`Most Birdies: ${winners?.mostBirdies}`);
-  console.log(`Most Snowmen: ${winners?.mostSnowmen}`);
   return (
     <>
-      <p>test</p>
-      <p>test</p>
-      <p>test</p>
+      <p>
+        <b>Lowest Score:</b>
+        {` ${winners?.lowestScore}`}
+      </p>
+      <p>
+        <b>Closest To Pin:</b>
+        {` ${winners?.closestToPin}`}
+      </p>
+      <p>
+        <b>Most Birdies:</b>
+        {` ${winners?.mostBirdies}`}
+      </p>
+      <p>
+        <b>Most Snowmen:</b>
+        {` ${winners?.mostSnowmen}`}
+      </p>
     </>
   );
 };
