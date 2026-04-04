@@ -10,19 +10,19 @@ const EventScoreWinners = async ({ eventId }: PropTypes) => {
     <>
       <p>
         <b>Lowest Score:</b>
-        {` ${winners?.lowestScore}`}
+        {` ${winners?.lowestScore.name} (${winners?.lowestScore.score})`}
       </p>
       <p>
         <b>Closest To Pin:</b>
-        {` ${winners?.closestToPin}`}
+        {` ${winners?.closestToPin.name} (${winners?.closestToPin.score})`}
       </p>
       <p>
         <b>Most Birdies:</b>
-        {` ${winners?.mostBirdies}`}
+        {` ${winners?.mostBirdies.name} (${winners?.mostBirdies.score})`}
       </p>
       <p>
         <b>Most Snowmen:</b>
-        {` ${winners?.mostSnowmen}`}
+        {` ${winners?.mostSnowmen.name} (${winners?.mostSnowmen.score})`}
       </p>
     </>
   );

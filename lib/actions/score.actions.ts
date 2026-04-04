@@ -122,10 +122,22 @@ export async function getEventScoreWinners(eventId: string) {
     return {
       success: true,
       data: {
-        lowestScore: `${lowestScore?.golfer.firstName} ${lowestScore?.golfer.lastName}`,
-        closestToPin: `${closestToPin?.golfer.firstName} ${closestToPin?.golfer.lastName}`,
-        mostBirdies: `${mostBirdies?.golfer.firstName} ${mostBirdies?.golfer.lastName}`,
-        mostSnowmen: `${mostSnowmen?.golfer.firstName} ${mostSnowmen?.golfer.lastName}`,
+        lowestScore: {
+          name: `${lowestScore?.golfer.firstName} ${lowestScore?.golfer.lastName}`,
+          score: lowestScore?.score,
+        },
+        closestToPin: {
+          name: `${closestToPin?.golfer.firstName} ${closestToPin?.golfer.lastName}`,
+          score: closestToPin?.closestToPin,
+        },
+        mostBirdies: {
+          name: `${mostBirdies?.golfer.firstName} ${mostBirdies?.golfer.lastName}`,
+          score: mostBirdies?.birdies,
+        },
+        mostSnowmen: {
+          name: `${mostSnowmen?.golfer.firstName} ${mostSnowmen?.golfer.lastName}`,
+          score: mostSnowmen?.snowmen,
+        },
       },
     };
   } catch (err) {
