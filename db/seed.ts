@@ -24,5 +24,9 @@ import sampleData from "./sample-data";
     console.log("Database seeding failed...");
   });
 
+  await prisma.golfer.createMany({ data: sampleData.golfers }).catch((e) => {
+    console.log("Database seeding failed...");
+  });
+
   console.log("Database seeded successfully");
 })();
