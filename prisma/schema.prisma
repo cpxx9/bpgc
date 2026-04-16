@@ -52,9 +52,9 @@ model Match {
   id        String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt DateTime   @default(now()) @db.Timestamp(6)
   updatedAt DateTime   @updatedAt
-  teams     Matchups[]
   event     Event      @relation(fields: [eventId], references: [id])
   eventId   String     @unique @db.Uuid
+  teams     Matchups[]
 }
 
 model Matchups {
@@ -65,7 +65,7 @@ model Matchups {
   twoManTeamId String     @db.Uuid
   match        Match      @relation(fields: [matchId], references: [id])
   matchId      String     @db.Uuid
-  score        Float
+  score        Float      @default(0)
 }
 
 model Score {

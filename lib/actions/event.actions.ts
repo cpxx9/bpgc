@@ -27,7 +27,10 @@ export async function createEvent(prevState: unknown, formData: FormData) {
     });
 
     await prisma.event.create({
-      data: event,
+      data: {
+        ...event,
+        match: { ...(event.isTwoManMatch ? { create: {} } : {}) },
+      },
     });
 
     revalidatePath("/admin/events");
