@@ -62,6 +62,12 @@ export const createTwoManTeamSchema = z.object({
   golferTwoID: z.string().min(1, `ID${isRequiredError}`).uuid().trim(),
 });
 
+export const createMatchSchema = z.object({
+  eventID: z.string().min(1, `ID${isRequiredError}`).uuid().trim(),
+  twoManTeamOneID: z.string().min(1, `ID${isRequiredError}`).uuid().trim(),
+  twoManTeamTwoID: z.string().min(1, `ID${isRequiredError}`).uuid().trim(),
+});
+
 export const createEventSchema = z.object({
   date: z
     .date()

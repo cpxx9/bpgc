@@ -1,5 +1,6 @@
 import { z } from "zod";
 import {
+  createMatchSchema,
   createTwoManTeamSchema,
   updateEventSchema,
   updateGolferSchema,
@@ -10,6 +11,7 @@ import {
 export type UpdateUser = z.infer<typeof updateUserSchema>;
 export type UpdateGolfer = z.infer<typeof updateGolferSchema>;
 export type TwoManTeam = z.infer<typeof createTwoManTeamSchema>;
+export type Match = z.infer<typeof createMatchSchema>;
 export type UpdateEvent = z.infer<typeof updateEventSchema>;
 export type UpdateScore = z.infer<typeof updateScoreSchema>;
 

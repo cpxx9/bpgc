@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/collapsible";
 import { getEventById } from "@/lib/actions/event.actions";
 import { getAllGolfersWithEventScoreList } from "@/lib/actions/golfer.actions";
+import { getAllTwoManTeamsList } from "@/lib/actions/two-man-team.actions";
 import { requireAdmin } from "@/lib/auth-guard";
 import { GolferWithScores } from "@/types";
 import { ChevronsUpDown } from "lucide-react";
@@ -26,6 +27,7 @@ const EventInfo = async ({ params }: PropTypes) => {
   const { id } = await params;
   const { event } = await getEventById(id);
   const { data: golfers } = await getAllGolfersWithEventScoreList(id);
+  const { data: twoManTeams } = await getAllTwoManTeamsList();
 
   return (
     <div className="flex flex-col gap-3">
