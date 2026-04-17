@@ -28,7 +28,7 @@ import z from "zod";
 
 interface PropTypes {
   eventID: string;
-  teams: TwoManTeamList[];
+  teams?: TwoManTeamList[];
 }
 
 const CreateMatchupForm = ({ eventID, teams }: PropTypes) => {
@@ -61,10 +61,10 @@ const CreateMatchupForm = ({ eventID, teams }: PropTypes) => {
     }
   };
 
-  return (
+  return teams ? (
     <Form {...form}>
       <form
-        className="flex p-2 gap-2 items-end border-2 rounded-sm"
+        className="flex pl-6 pb-6 gap-2 items-end"
         method="POST"
         onSubmit={form.handleSubmit(onSubmit)}
       >
@@ -78,7 +78,7 @@ const CreateMatchupForm = ({ eventID, teams }: PropTypes) => {
               field: ControllerRenderProps<Match, "twoManTeamOneID">;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>Golfer One</FormLabel>
+                <FormLabel>Team One</FormLabel>
                 <Select onValueChange={field.onChange}>
                   <FormControl>
                     <SelectTrigger>
@@ -108,7 +108,7 @@ const CreateMatchupForm = ({ eventID, teams }: PropTypes) => {
               field: ControllerRenderProps<Match, "twoManTeamOneID">;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>Golfer Two</FormLabel>
+                <FormLabel>Team Two</FormLabel>
                 <Select onValueChange={field.onChange}>
                   <FormControl>
                     <SelectTrigger>
@@ -134,11 +134,13 @@ const CreateMatchupForm = ({ eventID, teams }: PropTypes) => {
             className="w-full"
             disabled={form.formState.isSubmitting}
           >
-            {form.formState.isSubmitting ? "Submitting..." : "Create Team"}
+            {form.formState.isSubmitting ? "Submitting..." : "Create Match"}
           </Button>
         </div>
       </form>
     </Form>
+  ) : (
+    <></>
   );
 };
 

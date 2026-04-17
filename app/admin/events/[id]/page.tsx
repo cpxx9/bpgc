@@ -1,3 +1,4 @@
+import CreateMatchupForm from "@/components/admin/create-matchup-form";
 import CreateScoreForm from "@/components/admin/create-score-form";
 import CreateScoreFormSection from "@/components/admin/create-score-form-section";
 import EventScoreWinners from "@/components/admin/event-score-winners";
@@ -82,14 +83,12 @@ const EventInfo = async ({ params }: PropTypes) => {
         <Collapsible>
           <Card>
             <CollapsibleTrigger className="w-full">
-              <CardHeader className="flex flex-row justify-between">
+              <CardHeader className="flex flex-row justify-between pb-3">
                 <CardTitle>Matches</CardTitle>
                 <ChevronsUpDown />
               </CardHeader>
             </CollapsibleTrigger>
-            <Button asChild className="ml-6 mb-6">
-              <Link href={``}>Create Matchup</Link>
-            </Button>
+            <CreateMatchupForm eventID={id} teams={twoManTeams} />
             <CollapsibleContent>
               <CardContent className="flex flex-col">
                 <h1>test</h1>
