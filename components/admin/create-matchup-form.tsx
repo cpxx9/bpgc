@@ -53,7 +53,7 @@ const CreateMatchupForm = ({ eventID, teams }: PropTypes) => {
       toast({
         description: res.message,
       });
-      router.push(`/admin/events${eventID}`);
+      router.push(`/admin/events/${eventID}`);
     } catch (err) {
       toast({
         variant: "destructive",

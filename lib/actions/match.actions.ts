@@ -9,10 +9,10 @@ import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 
 export async function createMatch(matchInfo: Match) {
-  const admin = await requireAdminAction();
   try {
+    const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
-    if (matchInfo.twoManTeamOneID === matchInfo.twoManTeamOneID)
+    if (matchInfo.twoManTeamOneID === matchInfo.twoManTeamTwoID)
       throw new Error("Opponents cannot be the same team!");
 
     await prisma.$transaction(async (tx) => {
