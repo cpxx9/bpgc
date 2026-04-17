@@ -20,6 +20,14 @@ import sampleData from "./sample-data";
     console.log("Database seeding failed...");
   });
 
+  await prisma.golfer.deleteMany().catch((e) => {
+    console.log("Database seeding failed...");
+  });
+
+  await prisma.event.deleteMany().catch((e) => {
+    console.log("Database seeding failed...");
+  });
+
   await prisma.user.createMany({ data: sampleData.users }).catch((e) => {
     console.log("Database seeding failed...");
   });
