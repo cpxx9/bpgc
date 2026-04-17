@@ -5,10 +5,16 @@ import UpdateScoreForm from "@/components/admin/update-score-form";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { getEventById } from "@/lib/actions/event.actions";
 import { getAllGolfersWithEventScoreList } from "@/lib/actions/golfer.actions";
 import { requireAdmin } from "@/lib/auth-guard";
 import { GolferWithScores } from "@/types";
+import { ChevronsUpDown } from "lucide-react";
 import Link from "next/link";
 
 interface PropTypes {
@@ -20,6 +26,7 @@ const EventInfo = async ({ params }: PropTypes) => {
   const { id } = await params;
   const { event } = await getEventById(id);
   const { data: golfers } = await getAllGolfersWithEventScoreList(id);
+
   return (
     <div className="flex flex-col gap-3">
       <header className="flex justify-between">
@@ -55,7 +62,21 @@ const EventInfo = async ({ params }: PropTypes) => {
         </Card>
       </section>
       <section>
-        <CreateScoreFormSection id={id} golfers={golfers} />
+        <Collapsible>
+          <Card>
+            <CollapsibleTrigger className="w-full">
+              <CardHeader className="flex flex-row justify-between">
+                <CardTitle>Scores</CardTitle>
+                <ChevronsUpDown />
+              </CardHeader>
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <CardContent className="flex flex-col">
+                <CreateScoreFormSection id={id} golfers={golfers} />
+              </CardContent>
+            </CollapsibleContent>
+          </Card>
+        </Collapsible>
       </section>
     </div>
   );
