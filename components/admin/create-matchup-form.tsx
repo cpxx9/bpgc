@@ -17,28 +17,30 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { createMatch } from "@/lib/actions/match.actions";
 import { createTwoManTeam } from "@/lib/actions/two-man-team.actions";
-import { createTwoManTeamSchema } from "@/lib/validators";
-import { TwoManTeam, Golfer } from "@/types";
+import { createMatchSchema } from "@/lib/validators";
+import { TwoManTeam, Match, TwoManTeamList } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { ControllerRenderProps, useForm } from "react-hook-form";
 import z from "zod";
 
 interface PropTypes {
-  golfers: Golfer[];
+  eventID: string;
+  teams: TwoManTeamList[];
 }
 
-const CreateMatchupForm = ({ golfers }: PropTypes) => {
+const CreateMatchupForm = ({ eventID, teams }: PropTypes) => {
   const router = useRouter();
   const { toast } = useToast();
-  const form = useForm<TwoManTeam>({
-    resolver: zodResolver(createTwoManTeamSchema),
+  const form = useForm<Match>({
+    resolver: zodResolver(createMatchSchema),
   });
 
-  const onSubmit = async (values: TwoManTeam) => {
+  const onSubmit = async (values: Match) => {
     try {
-      const res = await createTwoManTeam({ ...values });
+      const res = await createMatch({ ...values, eventID });
 
       if (!res?.success) {
         return toast({
@@ -50,7 +52,7 @@ const CreateMatchupForm = ({ golfers }: PropTypes) => {
       toast({
         description: res.message,
       });
-      router.push("/admin/two-man-teams");
+      router.push(`/admin/events${eventID}`);
     } catch (err) {
       toast({
         variant: "destructive",
@@ -69,29 +71,26 @@ const CreateMatchupForm = ({ golfers }: PropTypes) => {
         <div>
           <FormField
             control={form.control}
-            name="golferOneID"
+            name="twoManTeamOneID"
             render={({
               field,
             }: {
-              field: ControllerRenderProps<TwoManTeam, "golferOneID">;
+              field: ControllerRenderProps<Match, "twoManTeamOneID">;
             }) => (
               <FormItem className="w-full">
                 <FormLabel>Golfer One</FormLabel>
                 <Select onValueChange={field.onChange}>
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select a golfer" />
+                      <SelectValue placeholder="Select a team" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {golfers.map(
-                      (golfer) =>
-                        !golfer.twoManTeamId && (
-                          <SelectItem key={golfer.id} value={golfer.id}>
-                            {golfer.firstName} {golfer.lastName}
-                          </SelectItem>
-                        ),
-                    )}
+                    {teams.map((team) => (
+                      <SelectItem key={team.id} value={team.id}>
+                        {team.id}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -102,29 +101,26 @@ const CreateMatchupForm = ({ golfers }: PropTypes) => {
         <div>
           <FormField
             control={form.control}
-            name="golferTwoID"
+            name="twoManTeamOneID"
             render={({
               field,
             }: {
-              field: ControllerRenderProps<TwoManTeam, "golferTwoID">;
+              field: ControllerRenderProps<Match, "twoManTeamOneID">;
             }) => (
               <FormItem className="w-full">
                 <FormLabel>Golfer Two</FormLabel>
                 <Select onValueChange={field.onChange}>
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select a golfer" />
+                      <SelectValue placeholder="Select a team" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {golfers.map(
-                      (golfer) =>
-                        !golfer.twoManTeamId && (
-                          <SelectItem key={golfer.id} value={golfer.id}>
-                            {golfer.firstName} {golfer.lastName}
-                          </SelectItem>
-                        ),
-                    )}
+                    {teams.map((team) => (
+                      <SelectItem key={team.id} value={team.id}>
+                        {team.id}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 <FormMessage />

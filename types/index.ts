@@ -15,6 +15,21 @@ export type Match = z.infer<typeof createMatchSchema>;
 export type UpdateEvent = z.infer<typeof updateEventSchema>;
 export type UpdateScore = z.infer<typeof updateScoreSchema>;
 
+export type TwoManTeamList = {
+  golfers: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    hci: number;
+    createdAt: Date;
+    updatedAt: Date;
+    twoManTeamId: string | null;
+  }[];
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 export type Event = {
   id: string;
   createdAt: Date;
