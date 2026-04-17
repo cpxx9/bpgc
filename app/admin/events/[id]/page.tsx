@@ -61,7 +61,7 @@ const EventInfo = async ({ params }: PropTypes) => {
           </CardContent>
         </Card>
       </section>
-      <section>
+      <section className="flex flex-col gap-3">
         <Collapsible>
           <Card>
             <CollapsibleTrigger className="w-full">
@@ -73,6 +73,24 @@ const EventInfo = async ({ params }: PropTypes) => {
             <CollapsibleContent>
               <CardContent className="flex flex-col">
                 <CreateScoreFormSection id={id} golfers={golfers} />
+              </CardContent>
+            </CollapsibleContent>
+          </Card>
+        </Collapsible>
+        <Collapsible>
+          <Card>
+            <CollapsibleTrigger className="w-full">
+              <CardHeader className="flex flex-row justify-between">
+                <CardTitle>Matches</CardTitle>
+                <ChevronsUpDown />
+              </CardHeader>
+            </CollapsibleTrigger>
+            <Button asChild className="ml-6 mb-6">
+              <Link href={``}>Create Matchup</Link>
+            </Button>
+            <CollapsibleContent>
+              <CardContent className="flex flex-col">
+                <h1>test</h1>
               </CardContent>
             </CollapsibleContent>
           </Card>
