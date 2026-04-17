@@ -38,8 +38,9 @@ const CreateMatchupForm = ({ eventID, teams }: PropTypes) => {
   });
 
   const onSubmit = async (values: Match) => {
+    console.log(values);
     try {
-      const res = await createMatch({ ...values, eventID });
+      const res = await createMatch({ ...values });
 
       if (!res?.success) {
         return toast({
@@ -87,7 +88,7 @@ const CreateMatchupForm = ({ eventID, teams }: PropTypes) => {
                   <SelectContent>
                     {teams.map((team) => (
                       <SelectItem key={team.id} value={team.id}>
-                        {team.id}
+                        {team.golfers[0].lastName}/{team.golfers[1].lastName}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -117,7 +118,7 @@ const CreateMatchupForm = ({ eventID, teams }: PropTypes) => {
                   <SelectContent>
                     {teams.map((team) => (
                       <SelectItem key={team.id} value={team.id}>
-                        {team.id}
+                        {team.golfers[0].lastName}/{team.golfers[1].lastName}
                       </SelectItem>
                     ))}
                   </SelectContent>
