@@ -18,9 +18,8 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { createMatch } from "@/lib/actions/match.actions";
-import { createTwoManTeam } from "@/lib/actions/two-man-team.actions";
 import { createMatchSchema } from "@/lib/validators";
-import { TwoManTeam, Match, TwoManTeamList } from "@/types";
+import { Match, TwoManTeamList } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { ControllerRenderProps, useForm } from "react-hook-form";
