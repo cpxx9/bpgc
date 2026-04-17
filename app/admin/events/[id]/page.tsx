@@ -1,4 +1,5 @@
 import CreateScoreForm from "@/components/admin/create-score-form";
+import CreateScoreFormSection from "@/components/admin/create-score-form-section";
 import EventScoreWinners from "@/components/admin/event-score-winners";
 import UpdateScoreForm from "@/components/admin/update-score-form";
 import { Badge } from "@/components/ui/badge";
@@ -54,26 +55,7 @@ const EventInfo = async ({ params }: PropTypes) => {
         </Card>
       </section>
       <section>
-        <Card>
-          <CardHeader>
-            <CardTitle>Scores</CardTitle>
-          </CardHeader>
-          <CardContent className="flex flex-col">
-            {golfers?.map((golfer) => (
-              <div
-                key={golfer.id}
-                className="flex items-center justify-between border-t-2 pt-2 pb-2"
-              >
-                <h4>{`${golfer.firstName} ${golfer.lastName}`}</h4>
-                {golfer.scores[0] ? (
-                  <UpdateScoreForm score={golfer.scores[0]} />
-                ) : (
-                  <CreateScoreForm eventId={id} golferId={golfer.id} />
-                )}
-              </div>
-            ))}
-          </CardContent>
-        </Card>
+        <CreateScoreFormSection id={id} golfers={golfers} />
       </section>
     </div>
   );
