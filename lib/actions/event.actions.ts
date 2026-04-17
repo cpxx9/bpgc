@@ -26,27 +26,9 @@ export async function createEvent(prevState: unknown, formData: FormData) {
       isTwoManMatch: isTwoManMatch ? true : false,
     });
 
-    if (event.isTwoManMatch) {
-      (event as any).match = { create: {} };
-    } else {
-      (event as any).match = {};
-    }
-
-    console.log(event);
-
-    const test = await prisma.event.create({
-      data: {
-        date: event.date,
-        time: event.time,
-        location: event.location,
-        description: event.description,
-        leagueWeek: event.leagueWeek,
-        isTwoManMatch: event.isTwoManMatch,
-        match: (event as any).match,
-      },
+    await prisma.event.create({
+      data: event,
     });
-
-    console.log(test);
 
     revalidatePath("/admin/events");
 
