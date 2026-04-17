@@ -35,6 +35,7 @@ const CreateMatchupForm = ({ eventID, teams }: PropTypes) => {
   const { toast } = useToast();
   const form = useForm<Match>({
     resolver: zodResolver(createMatchSchema),
+    defaultValues: { eventID },
   });
 
   const onSubmit = async (values: Match) => {
@@ -101,11 +102,11 @@ const CreateMatchupForm = ({ eventID, teams }: PropTypes) => {
         <div>
           <FormField
             control={form.control}
-            name="twoManTeamOneID"
+            name="twoManTeamTwoID"
             render={({
               field,
             }: {
-              field: ControllerRenderProps<Match, "twoManTeamOneID">;
+              field: ControllerRenderProps<Match, "twoManTeamTwoID">;
             }) => (
               <FormItem className="w-full">
                 <FormLabel>Team Two</FormLabel>
@@ -131,6 +132,9 @@ const CreateMatchupForm = ({ eventID, teams }: PropTypes) => {
         <div className="">
           <Button
             type="submit"
+            onClick={(e) => {
+              console.log("test click");
+            }}
             className="w-full"
             disabled={form.formState.isSubmitting}
           >
