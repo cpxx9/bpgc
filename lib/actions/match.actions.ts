@@ -15,10 +15,14 @@ export async function createMatch(matchInfo: Match) {
     if (matchInfo.twoManTeamOneID === matchInfo.twoManTeamTwoID)
       throw new Error("Opponents cannot be the same team!");
 
+    console.log(`server: ${matchInfo}`);
+
     await prisma.$transaction(async (tx) => {
       const newMatch = await tx.match.create({
         data: { eventId: matchInfo.eventID },
       });
+
+      console.log(newMatch);
 
       await tx.matchups.create({
         data: {

@@ -1,8 +1,6 @@
 import CreateMatchupForm from "@/components/admin/create-matchup-form";
-import CreateScoreForm from "@/components/admin/create-score-form";
 import CreateScoreFormSection from "@/components/admin/create-score-form-section";
 import EventScoreWinners from "@/components/admin/event-score-winners";
-import UpdateScoreForm from "@/components/admin/update-score-form";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
