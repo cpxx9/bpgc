@@ -78,7 +78,7 @@ const EventInfo = async ({ params }: PropTypes) => {
             </CollapsibleContent>
           </Card>
         </Collapsible>
-        <Collapsible>
+        <Collapsible defaultOpen={true}>
           <Card>
             <CollapsibleTrigger className="w-full">
               <CardHeader className="flex flex-row justify-between pb-3">
