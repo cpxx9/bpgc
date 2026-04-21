@@ -50,3 +50,13 @@ export async function createMatch(matchInfo: Match) {
     return { success: false, message: formatError(err) };
   }
 }
+
+export async function getAllMatchesList(eventId: string) {
+  try {
+  } catch (err) {
+    if (isRedirectError(err)) {
+      throw err;
+    }
+    return { success: false, message: formatError(err) };
+  }
+}
