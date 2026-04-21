@@ -55,8 +55,8 @@ export async function getEventCount() {
 }
 
 export async function getEventById(eventId: string | undefined) {
-  if (!eventId) throw new Error("No id passed");
   try {
+    if (!eventId) throw new Error("No id passed");
     const event = await prisma.event.findFirst({
       where: { id: eventId },
     });

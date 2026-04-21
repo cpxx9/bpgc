@@ -24,6 +24,22 @@ import sampleData from "./sample-data";
     console.log("Database seeding failed...");
   });
 
+  await prisma.score.deleteMany().catch((e) => {
+    console.log("Database seeding failed...");
+  });
+
+  await prisma.matchups.deleteMany().catch((e) => {
+    console.log("Database seeding failed...");
+  });
+
+  await prisma.match.deleteMany().catch((e) => {
+    console.log("Database seeding failed...");
+  });
+
+  await prisma.twoManTeam.deleteMany().catch((e) => {
+    console.log("Database seeding failed...");
+  });
+
   await prisma.event.deleteMany().catch((e) => {
     console.log("Database seeding failed...");
   });

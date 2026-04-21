@@ -1,6 +1,7 @@
 import CreateMatchupForm from "@/components/admin/create-matchup-form";
 import CreateScoreFormSection from "@/components/admin/create-score-form-section";
 import EventScoreWinners from "@/components/admin/event-score-winners";
+import MatchupsList from "@/components/admin/matchups-list";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -89,7 +90,7 @@ const EventInfo = async ({ params }: PropTypes) => {
             <CreateMatchupForm eventID={id} teams={twoManTeams} />
             <CollapsibleContent>
               <CardContent className="flex flex-col">
-                <h1>test</h1>
+                <MatchupsList eventId={id} />
               </CardContent>
             </CollapsibleContent>
           </Card>

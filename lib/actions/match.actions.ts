@@ -12,8 +12,9 @@ export async function createMatch(matchInfo: Match) {
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
-    if (matchInfo.twoManTeamOneID === matchInfo.twoManTeamTwoID)
+    if (matchInfo.twoManTeamOneID === matchInfo.twoManTeamTwoID) {
       throw new Error("Opponents cannot be the same team!");
+    }
 
     console.log(`server: ${matchInfo}`);
 
@@ -51,8 +52,31 @@ export async function createMatch(matchInfo: Match) {
   }
 }
 
-export async function getAllMatchesList(eventId: string) {
+export async function getMatchesByEventId(eventId: string) {
   try {
+    if (!eventId) throw new Error("No id passed");
+    const matches = await prisma.match.findMany({
+      where: {
+        eventId: eventId,
+      },
+      include: {
+        teams: {
+          include: {
+            twoManTeam: {
+              include: {
+                golfers: {
+                  select: {
+                    lastName: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return { success: true, data: matches };
   } catch (err) {
     if (isRedirectError(err)) {
       throw err;

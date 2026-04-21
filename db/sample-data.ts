@@ -50,6 +50,161 @@ const sampleData = {
       lastName: "Breski",
       hci: 15.2,
     },
+    {
+      firstName: "Don",
+      lastName: "Hulk",
+      hci: 16.7,
+    },
+    {
+      firstName: "Bill",
+      lastName: "Hulk",
+      hci: 21.7,
+    },
+    {
+      firstName: "Mike",
+      lastName: "Flye",
+      hci: 15.2,
+    },
+    {
+      firstName: "Dave",
+      lastName: "Pelletier",
+      hci: 15.2,
+    },
+    {
+      firstName: "Marcel",
+      lastName: "Oullette",
+      hci: 15.2,
+    },
+    {
+      firstName: "George",
+      lastName: "Teed",
+      hci: 15.2,
+    },
+    {
+      firstName: "Chris",
+      lastName: "McDermott",
+      hci: 15.2,
+    },
+    {
+      firstName: "Adrian",
+      lastName: "Aborowski",
+      hci: 15.2,
+    },
+    {
+      firstName: "Tom",
+      lastName: "Vendetta",
+      hci: 15.2,
+    },
+    {
+      firstName: "Mike",
+      lastName: "Luneau",
+      hci: 15.2,
+    },
+    {
+      firstName: "Richard",
+      lastName: "Bilodeau",
+      hci: 15.2,
+    },
+    {
+      firstName: "Scott",
+      lastName: "McDermott",
+      hci: 15.2,
+    },
+    {
+      firstName: "Richard",
+      lastName: "Macrina",
+      hci: 15.2,
+    },
+    {
+      firstName: "Lee",
+      lastName: "Keokoummane",
+      hci: 15.2,
+    },
+    {
+      firstName: "John",
+      lastName: "Wentworth",
+      hci: 15.2,
+    },
+    {
+      firstName: "Don",
+      lastName: "Rotundo",
+      hci: 15.2,
+    },
+    {
+      firstName: "Phil",
+      lastName: "Stpierre",
+      hci: 15.2,
+    },
+    {
+      firstName: "John",
+      lastName: "Ackley",
+      hci: 15.2,
+    },
+    {
+      firstName: "Jim",
+      lastName: "Baronowski",
+      hci: 15.2,
+    },
+    {
+      firstName: "Don",
+      lastName: "Connolly",
+      hci: 15.2,
+    },
+    {
+      firstName: "Terry",
+      lastName: "Forsberg",
+      hci: 15.2,
+    },
+    {
+      firstName: "Jim",
+      lastName: "Garcia",
+      hci: 15.2,
+    },
+    {
+      firstName: "Chris",
+      lastName: "Gilbert",
+      hci: 15.2,
+    },
+    {
+      firstName: "Bill",
+      lastName: "Hall",
+      hci: 15.2,
+    },
+    {
+      firstName: "Ed",
+      lastName: "Johansen",
+      hci: 15.2,
+    },
+    {
+      firstName: "Kurt",
+      lastName: "Kunst",
+      hci: 15.2,
+    },
+    {
+      firstName: "Ted",
+      lastName: "Lemay",
+      hci: 15.2,
+    },
+    {
+      firstName: "Bob",
+      lastName: "Lyder",
+      hci: 15.2,
+    },
+    {
+      firstName: "Ron",
+      lastName: "Magliano",
+      hci: 15.2,
+    },
+    {
+      firstName: "Jim",
+      lastName: "Noonan",
+      hci: 15.2,
+    },
+    {
+      firstName: "Josh",
+      lastName: "Pyle",
+      hci: 15.2,
+    },
   ],
   events: [
     {
