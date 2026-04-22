@@ -17,13 +17,16 @@ import { UpdateMatchup } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { ControllerRenderProps, useForm } from "react-hook-form";
-import z from "zod";
 
 interface PropTypes {
   matchups: UpdateMatchup;
+  displayNames: {
+    teamOne: string;
+    teamTwo: string;
+  };
 }
 
-const UpdateMatchupsForm = ({ matchups }: PropTypes) => {
+const UpdateMatchupsForm = ({ matchups, displayNames }: PropTypes) => {
   const router = useRouter();
   const { toast } = useToast();
   const form = useForm<UpdateMatchup>({
@@ -45,7 +48,7 @@ const UpdateMatchupsForm = ({ matchups }: PropTypes) => {
       toast({
         description: res.message,
       });
-      router.push("/admin/golfers");
+      router.push(`/admin/events/${matchups.eventId}`);
     } catch (err) {
       toast({
         variant: "destructive",
@@ -56,7 +59,11 @@ const UpdateMatchupsForm = ({ matchups }: PropTypes) => {
 
   return (
     <Form {...form}>
-      <form method="POST" onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        className="p-3 flex items-center gap-5 rounded-sm border"
+        method="POST"
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
         <div>
           <FormField
             control={form.control}
@@ -66,8 +73,8 @@ const UpdateMatchupsForm = ({ matchups }: PropTypes) => {
             }: {
               field: ControllerRenderProps<UpdateMatchup, "matchupOneScore">;
             }) => (
-              <FormItem className="w-full">
-                <FormLabel>First Name</FormLabel>
+              <FormItem className="">
+                <FormLabel>{displayNames.teamOne}</FormLabel>
                 <FormControl>
                   <Input placeholder="Enter team's score" {...field}></Input>
                 </FormControl>
@@ -75,6 +82,9 @@ const UpdateMatchupsForm = ({ matchups }: PropTypes) => {
               </FormItem>
             )}
           />
+        </div>
+        <div>
+          <h1>vs.</h1>
         </div>
         <div>
           <FormField
@@ -85,8 +95,8 @@ const UpdateMatchupsForm = ({ matchups }: PropTypes) => {
             }: {
               field: ControllerRenderProps<UpdateMatchup, "matchupTwoScore">;
             }) => (
-              <FormItem className="w-full">
-                <FormLabel>Last Name</FormLabel>
+              <FormItem className="">
+                <FormLabel>{displayNames.teamTwo}</FormLabel>
                 <FormControl>
                   <Input placeholder="Enter team's score" {...field}></Input>
                 </FormControl>
@@ -95,10 +105,10 @@ const UpdateMatchupsForm = ({ matchups }: PropTypes) => {
             )}
           />
         </div>
-        <div className="flex-between mt-4">
+        <div className="self-end">
           <Button
             type="submit"
-            className="w-full"
+            className=""
             disabled={form.formState.isSubmitting}
           >
             {form.formState.isSubmitting ? "Submitting..." : "Update Scores"}

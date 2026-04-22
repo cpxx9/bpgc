@@ -1,5 +1,7 @@
+import UpdateMatchupsForm from "@/components/admin/update-matchups-form";
 import { getMatchesByEventId } from "@/lib/actions/match.actions";
 import { abbrevName } from "@/lib/utils";
+import { UpdateMatchup } from "@/types";
 
 interface PropTypes {
   eventId: string;
@@ -14,23 +16,29 @@ const MatchupsList = async ({ eventId }: PropTypes) => {
   return (
     <ul>
       {matches.map((match) => {
-        const teamOne = {
-          name: `${abbrevName(
+        const displayNames = {
+          teamOne: `${abbrevName(
             match.teams[0].twoManTeam.golfers[0],
           )} / ${abbrevName(match.teams[0].twoManTeam.golfers[1])}`,
-          score: match.teams[0].score,
-        };
-
-        const teamTwo = {
-          name: `${abbrevName(
+          teamTwo: `${abbrevName(
             match.teams[1].twoManTeam.golfers[0],
           )} / ${abbrevName(match.teams[1].twoManTeam.golfers[1])}`,
-          score: match.teams[1].score,
+        };
+
+        const matchups: UpdateMatchup = {
+          eventId: eventId,
+          matchupOneId: match.teams[0].id,
+          matchupOneScore: match.teams[0].score,
+          matchupTwoId: match.teams[1].id,
+          matchupTwoScore: match.teams[1].score,
         };
 
         return (
           <li key={match.id}>
-            {teamOne.name} vs. {teamTwo.name}
+            <UpdateMatchupsForm
+              matchups={matchups}
+              displayNames={displayNames}
+            />
           </li>
         );
       })}
