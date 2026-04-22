@@ -30,6 +30,7 @@ const AdminGolfersPage = async ({ searchParams }: PropTypes) => {
   const { page = "1" } = await searchParams;
   const pageParam = Number(page);
   const golfers = await getAllGolfers({ page: pageParam });
+  console.log(golfers);
   if (!golfers.totalPages) golfers.totalPages = 1;
 
   return (

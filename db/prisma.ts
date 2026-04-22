@@ -3,8 +3,10 @@ import { CLIENT_PUBLIC_FILES_PATH } from "next/dist/shared/lib/constants";
 
 let prisma: PrismaClient;
 
-if (process.env.NODE_ENV === "production") {
-  // ✅ Neon ONLY in production
+console.log(process.env.NODE_ENV);
+
+if (process.env.NODE_ENV === "production" && process.env.LOCATION !== "local") {
+  // ✅ Neon ONLY in production/preview
   const { Pool, neonConfig } = require("@neondatabase/serverless");
   const { PrismaNeon } = require("@prisma/adapter-neon");
   const ws = require("ws");
