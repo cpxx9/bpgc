@@ -35,6 +35,7 @@ model Golfer {
   firstName    String
   lastName     String
   hci          Float
+  active       Boolean     @default(true)
   twoManTeam   TwoManTeam? @relation(fields: [twoManTeamId], references: [id])
   twoManTeamId String?     @db.Uuid
   scores       Score[]

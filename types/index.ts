@@ -57,6 +57,7 @@ export type Golfer = {
   hci: number;
   createdAt: Date;
   updatedAt: Date;
+  active: boolean;
   twoManTeamId: string | null;
 };
 
