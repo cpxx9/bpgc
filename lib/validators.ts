@@ -123,3 +123,14 @@ export const updateScoreSchema = z.object({
     return value;
   }, z.number().nullable()),
 });
+
+export const updateMatchupSchema = z.object({
+  matchupOneId: z.string().min(1, `MatchupOne ID${isRequiredError}`).trim(),
+  matchupTwoId: z.string().min(1, `MatchupTwo ID${isRequiredError}`).trim(),
+  matchupOneScore: z.coerce.number({
+    message: `MatchupOne Score${isRequiredError}`,
+  }),
+  matchupTwoScore: z.coerce.number({
+    message: `MatchupTwo Score${isRequiredError}`,
+  }),
+});
