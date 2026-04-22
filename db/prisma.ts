@@ -5,7 +5,7 @@ let prisma: PrismaClient;
 
 console.log(process.env.NODE_ENV);
 
-if (process.env.NODE_ENV === "production" && process.env.LOCATION !== "local") {
+if (process.env.LOCATION !== "local") {
   // ✅ Neon ONLY in production/preview
   const { Pool, neonConfig } = require("@neondatabase/serverless");
   const { PrismaNeon } = require("@prisma/adapter-neon");
