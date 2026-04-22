@@ -125,6 +125,7 @@ export const updateScoreSchema = z.object({
 });
 
 export const updateMatchupSchema = z.object({
+  eventId: z.string().min(1, `Event ID${isRequiredError}`).trim(),
   matchupOneId: z.string().min(1, `MatchupOne ID${isRequiredError}`).trim(),
   matchupTwoId: z.string().min(1, `MatchupTwo ID${isRequiredError}`).trim(),
   matchupOneScore: z.coerce.number({

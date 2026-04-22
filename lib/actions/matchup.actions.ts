@@ -8,7 +8,7 @@ import { UpdateMatchup } from "@/types";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 
-export async function updateMatchups(matchups: UpdateMatchup, eventId: string) {
+export async function updateMatchups(matchups: UpdateMatchup) {
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
@@ -33,7 +33,7 @@ export async function updateMatchups(matchups: UpdateMatchup, eventId: string) {
       });
     });
 
-    revalidatePath(`/admin/events/${eventId}`);
+    revalidatePath(`/admin/events/${matchups.eventId}`);
 
     return {
       success: true,
