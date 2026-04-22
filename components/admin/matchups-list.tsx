@@ -14,7 +14,7 @@ const MatchupsList = async ({ eventId }: PropTypes) => {
   }
 
   return (
-    <ul>
+    <ul className="flex flex-col gap-2">
       {matches.map((match) => {
         const displayNames = {
           teamOne: `${abbrevName(
