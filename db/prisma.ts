@@ -13,9 +13,17 @@ if (process.env.LOCATION !== "local") {
 
   neonConfig.webSocketConstructor = ws;
 
-  const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-  });
+  let pool: any;
+
+  if (process.env.NODE_ENV === "production") {
+    pool = new Pool({
+      connectionString: process.env.DATABASE_URL,
+    });
+  } else {
+    pool = new Pool({
+      connectionString: process.env.DEVDB_DATABASE_URL,
+    });
+  }
 
   const adapter = new PrismaNeon(pool);
   prisma = new PrismaClient({ adapter });
