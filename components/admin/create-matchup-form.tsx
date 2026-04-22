@@ -39,7 +39,6 @@ const CreateMatchupForm = ({ eventID, teams }: PropTypes) => {
   });
 
   const onSubmit = async (values: Match) => {
-    console.log(values);
     try {
       const res = await createMatch({ ...values });
 
@@ -132,9 +131,6 @@ const CreateMatchupForm = ({ eventID, teams }: PropTypes) => {
         <div className="">
           <Button
             type="submit"
-            onClick={(e) => {
-              console.log("test click");
-            }}
             className="w-full"
             disabled={form.formState.isSubmitting}
           >

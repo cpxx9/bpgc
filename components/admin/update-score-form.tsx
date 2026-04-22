@@ -33,7 +33,6 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
 
   const onSubmit = async (values: UpdateScore) => {
     try {
-      console.log(`Client: ${values.closestToPin}`);
       const res = await updateScore({ ...values, id: score.id });
 
       if (!res.success) {

@@ -149,7 +149,6 @@ export async function getEventScoreWinners(eventId: string) {
 }
 
 export async function updateScore(score: UpdateScore) {
-  console.log(`Server: ${score.closestToPin}`);
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");

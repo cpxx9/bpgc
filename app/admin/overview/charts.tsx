@@ -12,7 +12,6 @@ interface PropTypes {
 }
 
 const Charts = ({ data: { salesData } }: PropTypes) => {
-  console.log(salesData);
   return (
     <ResponsiveContainer width="100%" height={350}>
       <BarChart data={salesData}>
