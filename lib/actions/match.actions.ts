@@ -38,7 +38,7 @@ export async function createMatch(matchInfo: Match) {
 
     revalidatePath(`/admin/events/${matchInfo.eventID}`);
 
-    return { success: true, message: "Matchup created successfully." };
+    return { success: true, message: "Match created successfully." };
   } catch (err) {
     if (isRedirectError(err)) {
       throw err;
