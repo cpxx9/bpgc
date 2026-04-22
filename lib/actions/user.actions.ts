@@ -13,7 +13,7 @@ import { requireAdminAction } from "@/lib/auth-guard";
 
 export async function signInWithCredentials(
   previousState: unknown,
-  formData: FormData
+  formData: FormData,
 ) {
   try {
     const user = signInFormSchema.parse({
