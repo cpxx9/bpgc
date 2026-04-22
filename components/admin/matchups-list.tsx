@@ -5,10 +5,24 @@ interface PropTypes {
 }
 
 const MatchupsList = async ({ eventId }: PropTypes) => {
-  const matches = await getMatchesByEventId(eventId);
-  console.log(matches.data);
+  let { data: matches } = await getMatchesByEventId(eventId);
+  if (!matches) {
+    matches = [];
+  }
+  console.log(matches);
 
-  return <div>MatchupsList</div>;
+  return (
+    <ul>
+      {matches.map((match) => (
+        <li key={match.id}>
+          {match.teams[0].twoManTeam.golfers[0].lastName}/
+          {match.teams[0].twoManTeam.golfers[1].lastName} vs.{" "}
+          {match.teams[1].twoManTeam.golfers[0].lastName}/
+          {match.teams[1].twoManTeam.golfers[1].lastName}
+        </li>
+      ))}
+    </ul>
+  );
 };
 
 export default MatchupsList;

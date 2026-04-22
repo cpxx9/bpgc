@@ -62,6 +62,7 @@ export async function getMatchesByEventId(eventId: string) {
               include: {
                 golfers: {
                   select: {
+                    firstName: true,
                     lastName: true,
                   },
                 },
