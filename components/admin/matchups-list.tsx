@@ -1,4 +1,5 @@
 import { getMatchesByEventId } from "@/lib/actions/match.actions";
+import { abbrevName } from "@/lib/utils";
 
 interface PropTypes {
   eventId: string;
@@ -12,14 +13,27 @@ const MatchupsList = async ({ eventId }: PropTypes) => {
 
   return (
     <ul>
-      {matches.map((match) => (
-        <li key={match.id}>
-          {match.teams[0].twoManTeam.golfers[0].lastName}/
-          {match.teams[0].twoManTeam.golfers[1].lastName} vs.{" "}
-          {match.teams[1].twoManTeam.golfers[0].lastName}/
-          {match.teams[1].twoManTeam.golfers[1].lastName}
-        </li>
-      ))}
+      {matches.map((match) => {
+        const teamOne = {
+          name: `${abbrevName(
+            match.teams[0].twoManTeam.golfers[0],
+          )} / ${abbrevName(match.teams[0].twoManTeam.golfers[1])}`,
+          score: match.teams[0].score,
+        };
+
+        const teamTwo = {
+          name: `${abbrevName(
+            match.teams[1].twoManTeam.golfers[0],
+          )} / ${abbrevName(match.teams[1].twoManTeam.golfers[1])}`,
+          score: match.teams[1].score,
+        };
+
+        return (
+          <li key={match.id}>
+            {teamOne.name} vs. {teamTwo.name}
+          </li>
+        );
+      })}
     </ul>
   );
 };

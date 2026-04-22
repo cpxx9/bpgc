@@ -159,7 +159,13 @@ export function convertToFormTime(time: Date): string {
   return `${parsedTimeArr[0]}:${parsedTimeArr[1]}:${parsedTimeArr[2]}`;
 }
 
-export function abbrevName(firstName: string, lastName: string): string {
+export function abbrevName({
+  firstName,
+  lastName,
+}: {
+  firstName: string;
+  lastName: string;
+}): string {
   const firstInitial = firstName[0];
   return `${lastName} ${firstInitial}.`;
 }
