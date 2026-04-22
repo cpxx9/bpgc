@@ -21,7 +21,7 @@ export function formatNumberWithDecimal(num: number): string {
 export function formatError(error: any) {
   if (error.name === "ZodError") {
     const fieldErrors = Object.keys(error.errors).map(
-      (field) => error.errors[field].message
+      (field) => error.errors[field].message,
     );
 
     return fieldErrors.join(". ");
@@ -93,15 +93,15 @@ export function formatDateTime(dateString: Date) {
   };
   const formattedDateTime: string = new Date(dateString).toLocaleString(
     "en-US",
-    dateTimeOptions
+    dateTimeOptions,
   );
   const formattedDate: string = new Date(dateString).toLocaleString(
     "en-US",
-    dateOptions
+    dateOptions,
   );
   const formatteTime: string = new Date(dateString).toLocaleString(
     "en-US",
-    timeOptions
+    timeOptions,
   );
 
   return {
@@ -127,7 +127,7 @@ export function formUrlQuery({
       url: window.location.pathname,
       query,
     },
-    { skipNull: true }
+    { skipNull: true },
   );
 }
 
@@ -157,4 +157,9 @@ export function convertToFormTime(time: Date): string {
     }
   });
   return `${parsedTimeArr[0]}:${parsedTimeArr[1]}:${parsedTimeArr[2]}`;
+}
+
+export function abbrevName(firstName: string, lastName: string): string {
+  const firstInitial = firstName[0];
+  return `${lastName} ${firstInitial}.`;
 }
