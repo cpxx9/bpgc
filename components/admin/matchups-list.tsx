@@ -9,7 +9,6 @@ const MatchupsList = async ({ eventId }: PropTypes) => {
   if (!matches) {
     matches = [];
   }
-  console.log(matches);
 
   return (
     <ul>
