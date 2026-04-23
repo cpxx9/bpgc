@@ -81,3 +81,21 @@ export async function getMatchesByEventId(eventId: string) {
     return { success: false, message: formatError(err) };
   }
 }
+
+export async function deleteMatch(eventId: string) {
+  try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
+    await prisma.match.delete({ where: { id: eventId } });
+    revalidatePath(`/admin/events/${eventId}`);
+    return {
+      success: true,
+      message: "Match deleted successfully",
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
+}
