@@ -1,5 +1,7 @@
 import UpdateMatchupsForm from "@/components/admin/update-matchups-form";
-import { getMatchesByEventId } from "@/lib/actions/match.actions";
+import DeleteDialog from "@/components/shared/delete-dialog";
+import { Button } from "@/components/ui/button";
+import { deleteMatch, getMatchesByEventId } from "@/lib/actions/match.actions";
 import { abbrevName } from "@/lib/utils";
 import { UpdateMatchup } from "@/types";
 
@@ -38,6 +40,7 @@ const MatchupsList = async ({ eventId }: PropTypes) => {
             <UpdateMatchupsForm
               matchups={matchups}
               displayNames={displayNames}
+              matchId={match.id}
             />
           </li>
         );

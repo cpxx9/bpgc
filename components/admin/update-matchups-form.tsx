@@ -1,5 +1,6 @@
 "use client";
 
+import DeleteDialog from "@/components/shared/delete-dialog";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -11,6 +12,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { deleteMatch } from "@/lib/actions/match.actions";
 import { updateMatchups } from "@/lib/actions/matchup.actions";
 import { updateMatchupSchema } from "@/lib/validators";
 import { UpdateMatchup } from "@/types";
@@ -24,9 +26,10 @@ interface PropTypes {
     teamOne: string;
     teamTwo: string;
   };
+  matchId: string;
 }
 
-const UpdateMatchupsForm = ({ matchups, displayNames }: PropTypes) => {
+const UpdateMatchupsForm = ({ matchups, displayNames, matchId }: PropTypes) => {
   const router = useRouter();
   const { toast } = useToast();
   const form = useForm<UpdateMatchup>({
@@ -112,6 +115,11 @@ const UpdateMatchupsForm = ({ matchups, displayNames }: PropTypes) => {
             disabled={form.formState.isSubmitting}
           >
             {form.formState.isSubmitting ? "Submitting..." : "Update Scores"}
+          </Button>
+        </div>
+        <div className="ml-auto">
+          <Button type="button" asChild>
+            <DeleteDialog id={matchId} action={deleteMatch} />
           </Button>
         </div>
       </form>
