@@ -73,6 +73,10 @@ export async function getMatchesByEventId(eventId: string) {
       },
     });
 
+    matches.sort(
+      (a, b) => a.teams[0].twoManTeam.number - b.teams[0].twoManTeam.number,
+    );
+
     return { success: true, data: matches };
   } catch (err) {
     if (isRedirectError(err)) {

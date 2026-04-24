@@ -35,7 +35,7 @@ const CreateMatchupForm = ({ eventID, teams }: PropTypes) => {
   const { toast } = useToast();
   const form = useForm<Match>({
     resolver: zodResolver(createMatchSchema),
-    defaultValues: { eventID },
+    defaultValues: { eventID, twoManTeamOneID: "", twoManTeamTwoID: "" },
   });
 
   const onSubmit = async (values: Match) => {
@@ -52,6 +52,13 @@ const CreateMatchupForm = ({ eventID, teams }: PropTypes) => {
       toast({
         description: res.message,
       });
+
+      form.reset({
+        eventID,
+        twoManTeamOneID: "",
+        twoManTeamTwoID: "",
+      });
+
       router.push(`/admin/events/${eventID}`);
     } catch (err) {
       toast({
@@ -79,7 +86,10 @@ const CreateMatchupForm = ({ eventID, teams }: PropTypes) => {
             }) => (
               <FormItem className="w-full">
                 <FormLabel>Team One</FormLabel>
-                <Select onValueChange={field.onChange}>
+                <Select
+                  onValueChange={field.onChange}
+                  value={field.value ?? ""}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select a team" />
@@ -110,7 +120,10 @@ const CreateMatchupForm = ({ eventID, teams }: PropTypes) => {
             }) => (
               <FormItem className="w-full">
                 <FormLabel>Team Two</FormLabel>
-                <Select onValueChange={field.onChange}>
+                <Select
+                  onValueChange={field.onChange}
+                  value={field.value ?? ""}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select a team" />
