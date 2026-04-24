@@ -88,7 +88,8 @@ const CreateMatchupForm = ({ eventID, teams }: PropTypes) => {
                   <SelectContent>
                     {teams.map((team) => (
                       <SelectItem key={team.id} value={team.id}>
-                        {team.golfers[0].lastName}/{team.golfers[1].lastName}
+                        {team.number}. {team.golfers[0].lastName}/
+                        {team.golfers[1].lastName}
                       </SelectItem>
                     ))}
                   </SelectContent>

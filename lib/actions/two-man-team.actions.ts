@@ -84,7 +84,7 @@ export async function getAllTwoManTeams({
       include: {
         golfers: true,
       },
-      orderBy: { createdAt: "desc" },
+      orderBy: { number: "asc" },
       take: limit,
       skip: (page - 1) * limit,
     });
@@ -109,7 +109,7 @@ export async function getAllTwoManTeamsList() {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
     const data = await prisma.twoManTeam.findMany({
-      orderBy: { createdAt: "desc" },
+      orderBy: { number: "asc" },
       include: { golfers: true },
     });
 
