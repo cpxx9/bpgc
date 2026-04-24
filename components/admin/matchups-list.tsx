@@ -22,7 +22,7 @@ const MatchupsList = async ({ eventId }: PropTypes) => {
           teamOne: `${match.teams[0].twoManTeam.number}. ${abbrevName(
             match.teams[0].twoManTeam.golfers[0],
           )} / ${abbrevName(match.teams[0].twoManTeam.golfers[1])}`,
-          teamTwo: `${match.teams[0].twoManTeam.number}. ${abbrevName(
+          teamTwo: `${match.teams[1].twoManTeam.number}. ${abbrevName(
             match.teams[1].twoManTeam.golfers[0],
           )} / ${abbrevName(match.teams[1].twoManTeam.golfers[1])}`,
         };
