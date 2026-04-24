@@ -174,7 +174,18 @@ export async function deleteTwoManTeam(id: string) {
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
-    await prisma.twoManTeam.delete({ where: { id } });
+    await prisma.$transaction(async (tx) => {
+      await tx.match.deleteMany({
+        where: {
+          teams: {
+            some: {
+              twoManTeamId: id,
+            },
+          },
+        },
+      });
+      await tx.twoManTeam.delete({ where: { id } });
+    });
     revalidatePath("/admin/two-man-teams");
     return {
       success: true,

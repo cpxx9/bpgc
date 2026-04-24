@@ -1,0 +1,5 @@
+Admin
+- figure out how to handle teams disbanding
+--- Want to preserve data of old matches, but not be an option when creating new matches
+- Figure out how to handle golfer going inactive/deleted
+--- default should be making a golder inactive and preserving all past data
