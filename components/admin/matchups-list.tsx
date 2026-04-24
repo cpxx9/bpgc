@@ -19,10 +19,10 @@ const MatchupsList = async ({ eventId }: PropTypes) => {
     <ul className="flex flex-col gap-2">
       {matches.map((match) => {
         const displayNames = {
-          teamOne: `${abbrevName(
+          teamOne: `${match.teams[0].twoManTeam.number}. ${abbrevName(
             match.teams[0].twoManTeam.golfers[0],
           )} / ${abbrevName(match.teams[0].twoManTeam.golfers[1])}`,
-          teamTwo: `${abbrevName(
+          teamTwo: `${match.teams[0].twoManTeam.number}. ${abbrevName(
             match.teams[1].twoManTeam.golfers[0],
           )} / ${abbrevName(match.teams[1].twoManTeam.golfers[1])}`,
         };
