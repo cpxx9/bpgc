@@ -26,7 +26,7 @@ const EventInfo = async ({ params }: PropTypes) => {
   const { id } = await params;
   const { event } = await getEventById(id);
   const { data: golfers } = await getAllGolfersWithEventScoreList(id);
-  const { data: twoManTeams } = await getAllTwoManTeamsList();
+  const { data: twoManTeams } = await getAllTwoManTeamsList(id);
 
   return (
     <div className="flex flex-col gap-3">

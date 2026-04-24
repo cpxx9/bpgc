@@ -104,11 +104,20 @@ export async function getAllTwoManTeams({
   }
 }
 
-export async function getAllTwoManTeamsList() {
+export async function getAllTwoManTeamsList(eventId: string) {
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
     const data = await prisma.twoManTeam.findMany({
+      where: {
+        scores: {
+          none: {
+            match: {
+              eventId,
+            },
+          },
+        },
+      },
       orderBy: { number: "asc" },
       include: { golfers: true },
     });
