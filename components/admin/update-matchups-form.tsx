@@ -63,64 +63,68 @@ const UpdateMatchupsForm = ({ matchups, displayNames, matchId }: PropTypes) => {
   return (
     <Form {...form}>
       <form
-        className="p-3 flex items-center gap-5 rounded-sm border"
+        className="p-3 flex items-center justify-between gap-5 rounded-sm border"
         method="POST"
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        <div>
-          <FormField
-            control={form.control}
-            name="matchupOneScore"
-            render={({
-              field,
-            }: {
-              field: ControllerRenderProps<UpdateMatchup, "matchupOneScore">;
-            }) => (
-              <FormItem className="">
-                <FormLabel>{displayNames.teamOne}</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter team's score" {...field}></Input>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <div className="flex items-center gap-3">
+          <div>
+            <FormField
+              control={form.control}
+              name="matchupOneScore"
+              render={({
+                field,
+              }: {
+                field: ControllerRenderProps<UpdateMatchup, "matchupOneScore">;
+              }) => (
+                <FormItem className="">
+                  <FormLabel>{displayNames.teamOne}</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter team's score" {...field}></Input>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div>
+            <h1>vs.</h1>
+          </div>
+          <div>
+            <FormField
+              control={form.control}
+              name="matchupTwoScore"
+              render={({
+                field,
+              }: {
+                field: ControllerRenderProps<UpdateMatchup, "matchupTwoScore">;
+              }) => (
+                <FormItem className="">
+                  <FormLabel>{displayNames.teamTwo}</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter team's score" {...field}></Input>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
         </div>
-        <div>
-          <h1>vs.</h1>
-        </div>
-        <div>
-          <FormField
-            control={form.control}
-            name="matchupTwoScore"
-            render={({
-              field,
-            }: {
-              field: ControllerRenderProps<UpdateMatchup, "matchupTwoScore">;
-            }) => (
-              <FormItem className="">
-                <FormLabel>{displayNames.teamTwo}</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter team's score" {...field}></Input>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <div className="self-end">
-          <Button
-            type="submit"
-            className=""
-            disabled={form.formState.isSubmitting}
-          >
-            {form.formState.isSubmitting ? "Submitting..." : "Update Scores"}
-          </Button>
-        </div>
-        <div className="ml-auto">
-          <Button type="button" asChild>
-            <DeleteDialog id={matchId} action={deleteMatch} />
-          </Button>
+        <div className="flex gap-2">
+          <div className="">
+            <Button
+              type="submit"
+              className=""
+              disabled={form.formState.isSubmitting}
+            >
+              {form.formState.isSubmitting ? "Submitting..." : "Update Scores"}
+            </Button>
+          </div>
+          <div className="">
+            <Button type="button" asChild>
+              <DeleteDialog id={matchId} action={deleteMatch} />
+            </Button>
+          </div>
         </div>
       </form>
     </Form>
