@@ -5,7 +5,7 @@ import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
 import { formatError } from "@/lib/utils";
 import { createTwoManTeamSchema } from "@/lib/validators";
-import { TwoManTeam } from "@/types";
+import { TwoManTeam, UpdateTwoManTeam } from "@/types";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 
@@ -113,8 +113,6 @@ export async function getAllTwoManTeamsList() {
       include: { golfers: true },
     });
 
-    console.log(data);
-
     return {
       success: true,
       data,
@@ -127,17 +125,17 @@ export async function getAllTwoManTeamsList() {
   }
 }
 
-export async function updateTwoManTeamNumber(teamId: string, number: number) {
+export async function updateTwoManTeam(data: UpdateTwoManTeam) {
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
 
     await prisma.twoManTeam.update({
       where: {
-        id: teamId,
+        id: data.teamId,
       },
       data: {
-        number: number,
+        number: data.number,
       },
     });
 

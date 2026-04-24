@@ -135,3 +135,8 @@ export const updateMatchupSchema = z.object({
     message: `MatchupTwo Score${isRequiredError}`,
   }),
 });
+
+export const updateTwoManTeamSchema = z.object({
+  teamId: z.string().min(1, `Team ID${isRequiredError}`).trim(),
+  number: z.coerce.number({ message: `Team Number${isRequiredError}` }),
+});

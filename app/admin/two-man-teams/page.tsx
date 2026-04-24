@@ -21,6 +21,7 @@ import {
 } from "@/lib/actions/two-man-team.actions";
 import { getAllGolfersList } from "@/lib/actions/golfer.actions";
 import { notFound } from "next/navigation";
+import UpdateTwoManTeamForm from "@/components/admin/update-twomanteam-form";
 
 export const metadata: Metadata = {
   title: "Admin Two Man Teams",
@@ -35,7 +36,6 @@ const AdminTwoManTeamsPage = async ({ searchParams }: PropTypes) => {
   const { page = "1" } = await searchParams;
   const pageParam = Number(page);
   const twoManTeams = await getAllTwoManTeams({ page: pageParam });
-  console.log(twoManTeams);
   const { data } = await getAllGolfersList();
   if (!data) notFound();
   if (!twoManTeams.totalPages) twoManTeams.totalPages = 1;
@@ -69,7 +69,14 @@ const AdminTwoManTeamsPage = async ({ searchParams }: PropTypes) => {
             {twoManTeams.data?.map((twoManTeam) => (
               <TableRow key={twoManTeam.id}>
                 <TableCell>{shortenUuid(twoManTeam.id)}</TableCell>
-                <TableCell>{twoManTeam.number}</TableCell>
+                <TableCell>
+                  <UpdateTwoManTeamForm
+                    updateInfo={{
+                      teamId: twoManTeam.id,
+                      number: twoManTeam.number,
+                    }}
+                  />
+                </TableCell>
                 <TableCell>
                   {twoManTeam?.golfers[0]?.firstName}{" "}
                   {twoManTeam?.golfers[0]?.lastName}
