@@ -13,7 +13,7 @@ export const config = {
   },
   session: {
     strategy: "jwt" as const,
-    maxAge: 60 * 60 * 24 * 30,
+    maxAge: 60 * 60 * 24 * 14,
   },
   adapter: PrismaAdapter(prisma),
   providers: [
