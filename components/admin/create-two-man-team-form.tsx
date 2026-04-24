@@ -84,14 +84,11 @@ const CreateTwoManTeamForm = ({ golfers }: PropTypes) => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {golfers.map(
-                      (golfer) =>
-                        !golfer.twoManTeamId && (
-                          <SelectItem key={golfer.id} value={golfer.id}>
-                            {golfer.firstName} {golfer.lastName}
-                          </SelectItem>
-                        )
-                    )}
+                    {golfers.map((golfer) => (
+                      <SelectItem key={golfer.id} value={golfer.id}>
+                        {golfer.firstName} {golfer.lastName}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -117,14 +114,11 @@ const CreateTwoManTeamForm = ({ golfers }: PropTypes) => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {golfers.map(
-                      (golfer) =>
-                        !golfer.twoManTeamId && (
-                          <SelectItem key={golfer.id} value={golfer.id}>
-                            {golfer.firstName} {golfer.lastName}
-                          </SelectItem>
-                        )
-                    )}
+                    {golfers.map((golfer) => (
+                      <SelectItem key={golfer.id} value={golfer.id}>
+                        {golfer.firstName} {golfer.lastName}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 <FormMessage />

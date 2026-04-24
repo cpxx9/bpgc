@@ -66,8 +66,10 @@ export async function getAllGolfersList() {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
     const data: Golfer[] = await prisma.golfer.findMany({
+      where: { twoManTeamId: null },
       orderBy: { lastName: "asc" },
     });
+    console.log(data);
 
     return {
       success: true,

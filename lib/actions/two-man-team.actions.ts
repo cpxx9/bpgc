@@ -156,6 +156,11 @@ export async function updateTwoManTeam(data: UpdateTwoManTeam) {
   }
 }
 
+/*
+  Make sure matches are handled when a team is deleted
+  Currently, if a team is deleted, all matches they are in are left with only 1 matchup, 
+  causing all kinds of issues
+*/
 export async function deleteTwoManTeam(id: string) {
   try {
     const admin = await requireAdminAction();
