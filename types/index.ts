@@ -22,6 +22,7 @@ export type TwoManTeamList = {
   id: string;
   createdAt: Date;
   updatedAt: Date;
+  number: number;
 };
 
 export type Event = {

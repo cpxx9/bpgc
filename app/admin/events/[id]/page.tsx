@@ -14,7 +14,6 @@ import { getEventById } from "@/lib/actions/event.actions";
 import { getAllGolfersWithEventScoreList } from "@/lib/actions/golfer.actions";
 import { getAllTwoManTeamsList } from "@/lib/actions/two-man-team.actions";
 import { requireAdmin } from "@/lib/auth-guard";
-import { GolferWithScores } from "@/types";
 import { ChevronsUpDown } from "lucide-react";
 import Link from "next/link";
 

@@ -45,6 +45,7 @@ model TwoManTeam {
   id        String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt DateTime   @default(now()) @db.Timestamp(6)
   updatedAt DateTime   @updatedAt
+  number    Int        @default(1)
   golfers   Golfer[]
   scores    Matchups[]
 }

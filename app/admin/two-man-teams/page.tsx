@@ -35,6 +35,7 @@ const AdminTwoManTeamsPage = async ({ searchParams }: PropTypes) => {
   const { page = "1" } = await searchParams;
   const pageParam = Number(page);
   const twoManTeams = await getAllTwoManTeams({ page: pageParam });
+  console.log(twoManTeams);
   const { data } = await getAllGolfersList();
   if (!data) notFound();
   if (!twoManTeams.totalPages) twoManTeams.totalPages = 1;
@@ -58,6 +59,7 @@ const AdminTwoManTeamsPage = async ({ searchParams }: PropTypes) => {
           <TableHeader>
             <TableRow>
               <TableHead>ID</TableHead>
+              <TableHead>Team Number</TableHead>
               <TableHead>Golfer 1</TableHead>
               <TableHead>Golfer 2</TableHead>
               <TableHead>ACTIONS</TableHead>
@@ -67,6 +69,7 @@ const AdminTwoManTeamsPage = async ({ searchParams }: PropTypes) => {
             {twoManTeams.data?.map((twoManTeam) => (
               <TableRow key={twoManTeam.id}>
                 <TableCell>{shortenUuid(twoManTeam.id)}</TableCell>
+                <TableCell>{twoManTeam.number}</TableCell>
                 <TableCell>
                   {twoManTeam?.golfers[0]?.firstName}{" "}
                   {twoManTeam?.golfers[0]?.lastName}

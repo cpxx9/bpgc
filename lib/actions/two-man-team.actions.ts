@@ -113,11 +113,44 @@ export async function getAllTwoManTeamsList() {
       include: { golfers: true },
     });
 
+    console.log(data);
+
     return {
       success: true,
       data,
     };
   } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
+}
+
+export async function updateTwoManTeamNumber(teamId: string, number: number) {
+  try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
+
+    await prisma.twoManTeam.update({
+      where: {
+        id: teamId,
+      },
+      data: {
+        number: number,
+      },
+    });
+
+    revalidatePath("/admin/two-man-teams");
+
+    return {
+      success: true,
+      message: "TwoManTeam number updated successfully",
+    };
+  } catch (err) {
+    if (isRedirectError(err)) {
+      throw err;
+    }
     return {
       success: false,
       message: formatError(err),
