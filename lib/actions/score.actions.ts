@@ -49,6 +49,10 @@ export async function getScoreById(scoreId: string | undefined) {
   return score;
 }
 
+/* TO-DO
+Checks for Null
+return readable text if there is no contest winner yet
+*/
 export async function getEventScoreWinners(eventId: string) {
   try {
     const lowestScore = await prisma.score.findFirst({
