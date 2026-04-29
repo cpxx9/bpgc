@@ -46,6 +46,7 @@ model TwoManTeam {
   createdAt DateTime   @default(now()) @db.Timestamp(6)
   updatedAt DateTime   @updatedAt
   number    Int        @default(1)
+  active    Boolean    @default(true)
   golfers   Golfer[]
   scores    Matchups[]
 }
