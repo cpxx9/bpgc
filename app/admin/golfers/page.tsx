@@ -51,6 +51,7 @@ const AdminGolfersPage = async ({ searchParams }: PropTypes) => {
           <TableHeader>
             <TableRow>
               <TableHead>ID</TableHead>
+              <TableHead>STATUS</TableHead>
               <TableHead>NAME</TableHead>
               <TableHead>HCI</TableHead>
               <TableHead>TEAMMATE</TableHead>
@@ -61,6 +62,11 @@ const AdminGolfersPage = async ({ searchParams }: PropTypes) => {
             {golfers.data?.map((golfer) => (
               <TableRow key={golfer.id}>
                 <TableCell>{shortenUuid(golfer.id)}</TableCell>
+                <TableCell>
+                  <Badge variant={golfer.active ? "default" : "secondary"}>
+                    {golfer.active ? "Active" : "Inactive"}
+                  </Badge>
+                </TableCell>
                 <TableCell>
                   {golfer.firstName} {golfer.lastName}
                 </TableCell>
