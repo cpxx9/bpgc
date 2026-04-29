@@ -70,7 +70,6 @@ export async function getAllGolfersList() {
       where: { twoManTeamId: null },
       orderBy: { lastName: "asc" },
     });
-    console.log(data);
 
     return {
       success: true,
