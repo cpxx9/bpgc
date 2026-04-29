@@ -17,6 +17,7 @@ import Link from "next/link";
 import CreateTwoManTeamForm from "@/components/admin/create-two-man-team-form";
 import {
   deleteTwoManTeam,
+  disbandTwoManTeam,
   getAllTwoManTeams,
 } from "@/lib/actions/two-man-team.actions";
 import { getAllGolfersList } from "@/lib/actions/golfer.actions";
@@ -85,12 +86,13 @@ const AdminTwoManTeamsPage = async ({ searchParams }: PropTypes) => {
                   {twoManTeam?.golfers[1]?.firstName}{" "}
                   {twoManTeam?.golfers[1]?.lastName}
                 </TableCell>
-                <TableCell>
-                  {/* <Button className="mr-1" asChild variant="outline" size="sm">
-                    <Link href={`/admin/two-man-teams/${twoManTeam.id}`}>
-                      Edit
-                    </Link>
-                  </Button> */}
+                <TableCell className="flex gap-2">
+                  <DeleteDialog
+                    id={twoManTeam.id}
+                    action={disbandTwoManTeam}
+                    variant="secondary"
+                    text="DISBAND"
+                  />
                   <DeleteDialog id={twoManTeam.id} action={deleteTwoManTeam} />
                 </TableCell>
               </TableRow>

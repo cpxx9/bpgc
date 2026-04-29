@@ -26,9 +26,15 @@ interface PropTypes {
     | "ghost"
     | null
     | undefined;
+  text?: string;
 }
 
-const DeleteDialog = ({ id, action, variant = "destructive" }: PropTypes) => {
+const DeleteDialog = ({
+  id,
+  action,
+  variant = "destructive",
+  text = "DELETE",
+}: PropTypes) => {
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
@@ -49,7 +55,7 @@ const DeleteDialog = ({ id, action, variant = "destructive" }: PropTypes) => {
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
         <Button size="sm" variant={variant}>
-          DELETE
+          {text}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
