@@ -17,9 +17,18 @@ import {
 interface PropTypes {
   id: string;
   action: (id: string) => Promise<{ success: boolean; message: string }>;
+  variant?:
+    | "link"
+    | "default"
+    | "destructive"
+    | "outline"
+    | "secondary"
+    | "ghost"
+    | null
+    | undefined;
 }
 
-const DeleteDialog = ({ id, action }: PropTypes) => {
+const DeleteDialog = ({ id, action, variant = "destructive" }: PropTypes) => {
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
@@ -39,7 +48,7 @@ const DeleteDialog = ({ id, action }: PropTypes) => {
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <Button size="sm" variant="destructive">
+        <Button size="sm" variant={variant}>
           DELETE
         </Button>
       </AlertDialogTrigger>
