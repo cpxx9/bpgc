@@ -56,6 +56,7 @@ export const updateGolferSchema = z.object({
   firstName: nameString,
   lastName: nameString,
   hci: z.coerce.number({ message: "HCI must be a number!" }),
+  active: z.boolean({ message: `Active status${isRequiredError}` }),
 });
 
 export const createTwoManTeamSchema = z.object({

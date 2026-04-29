@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -118,6 +119,28 @@ const UpdateGolferForm = ({ golfer }: PropTypes) => {
                     {...field}
                     type="decimal"
                   ></Input>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div>
+          <FormField
+            control={form.control}
+            name="active"
+            render={({
+              field,
+            }: {
+              field: ControllerRenderProps<UpdateGolfer, "active">;
+            }) => (
+              <FormItem className="w-full">
+                <FormLabel>Active?</FormLabel>
+                <FormControl>
+                  <Checkbox
+                    onCheckedChange={field.onChange}
+                    checked={field.value}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
