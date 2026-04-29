@@ -165,6 +165,33 @@ export async function updateTwoManTeam(data: UpdateTwoManTeam) {
   }
 }
 
+export async function disbandTwoManTeam(id: string) {
+  try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
+    await prisma.twoManTeam.update({
+      where: {
+        id: id,
+      },
+      data: {
+        active: false,
+        number: 999,
+      },
+    });
+    revalidatePath("/admin/two-man-teams");
+
+    return {
+      success: true,
+      message: "Two man team disbanded successfully!",
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
+}
+
 /*
   Make sure matches are handled when a team is deleted
   Currently, if a team is deleted, all matches they are in are left with only 1 matchup, 
