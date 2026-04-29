@@ -2,6 +2,7 @@
 
 import { prisma } from "@/db/prisma";
 import { getAllEvents } from "@/lib/actions/event.actions";
+import { deleteTwoManTeam } from "@/lib/actions/two-man-team.actions";
 import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
 import { formatError } from "@/lib/utils";
@@ -184,11 +185,26 @@ export async function updateGolfer(golfer: UpdateGolfer) {
   }
 }
 
+/*
+Delete two man team when golfer is deleted
+*/
 export async function deleteGolfer(id: string) {
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
-    await prisma.golfer.delete({ where: { id } });
+    await prisma.$transaction(async (tx) => {
+      const twoManTeamToDelete = await tx.twoManTeam.findFirst({
+        where: {
+          golfers: {
+            some: {
+              id: id,
+            },
+          },
+        },
+      });
+      twoManTeamToDelete?.id && (await deleteTwoManTeam(twoManTeamToDelete.id));
+      await tx.golfer.delete({ where: { id } });
+    });
     revalidatePath("/admin/golfers");
     return {
       success: true,
