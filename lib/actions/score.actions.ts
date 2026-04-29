@@ -127,20 +127,28 @@ export async function getEventScoreWinners(eventId: string) {
       success: true,
       data: {
         lowestScore: {
-          name: `${lowestScore?.golfer.firstName} ${lowestScore?.golfer.lastName}`,
-          score: lowestScore?.score,
+          name: lowestScore?.score
+            ? `${lowestScore?.golfer.firstName} ${lowestScore?.golfer.lastName}`
+            : "No winner",
+          score: lowestScore?.score ? lowestScore.score : "",
         },
         closestToPin: {
-          name: `${closestToPin?.golfer.firstName} ${closestToPin?.golfer.lastName}`,
-          score: closestToPin?.closestToPin,
+          name: closestToPin?.closestToPin
+            ? `${closestToPin?.golfer.firstName} ${closestToPin?.golfer.lastName}`
+            : "No winner",
+          score: closestToPin?.closestToPin ? closestToPin?.closestToPin : "",
         },
         mostBirdies: {
-          name: `${mostBirdies?.golfer.firstName} ${mostBirdies?.golfer.lastName}`,
-          score: mostBirdies?.birdies,
+          name: mostBirdies?.birdies
+            ? `${mostBirdies?.golfer.firstName} ${mostBirdies?.golfer.lastName}`
+            : "No winner",
+          score: mostBirdies?.birdies ? mostBirdies.birdies : "",
         },
         mostSnowmen: {
-          name: `${mostSnowmen?.golfer.firstName} ${mostSnowmen?.golfer.lastName}`,
-          score: mostSnowmen?.snowmen,
+          name: mostSnowmen?.snowmen
+            ? `${mostSnowmen?.golfer.firstName} ${mostSnowmen?.golfer.lastName}`
+            : "No winner",
+          score: mostSnowmen?.snowmen ? mostSnowmen.snowmen : "",
         },
       },
     };
