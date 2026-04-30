@@ -5,10 +5,7 @@ import { Mail, Phone } from "lucide-react";
 const Footer = () => {
   return (
     <footer className="border-t relative">
-      <div className="wrapper flex-center flex-col">
-        <div className="flexcolepratte@aol.com">
-          <p className="">Contact us</p>
-        </div>
+      <div className="wrapper flex-center flex-col gap-2">
         <div className="flex-center items-center gap-4">
           <div className="flex-1">
             <p>P.O. Box 1463</p>
