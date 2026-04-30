@@ -74,6 +74,23 @@ export async function getEventById(eventId: string | undefined) {
   }
 }
 
+export async function getNextEvent() {
+  try {
+    const nextEvent = await prisma.event.findFirst({
+      where: {
+        date: {
+          gte: new Date();
+        }
+      },
+      orderBy: {
+        date: 'asc'
+      }
+    })
+  } catch (err) {
+    return formatError(err)
+  }
+}
+
 export async function getAllEvents({
   limit = PAGE_SIZE,
   page,
