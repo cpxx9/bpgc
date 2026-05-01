@@ -79,15 +79,22 @@ export async function getNextEvent() {
     const nextEvent = await prisma.event.findFirst({
       where: {
         date: {
-          gte: new Date();
-        }
+          gte: new Date(),
+        },
       },
       orderBy: {
-        date: 'asc'
-      }
-    })
+        date: "asc",
+      },
+    });
+
+    if (!nextEvent) throw new Error("Event not found");
+
+    return {
+      success: true,
+      data: nextEvent as Event,
+    };
   } catch (err) {
-    return formatError(err)
+    return formatError(err);
   }
 }
 
