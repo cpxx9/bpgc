@@ -94,7 +94,7 @@ export async function getNextEvent() {
       data: nextEvent as Event,
     };
   } catch (err) {
-    return formatError(err);
+    return { success: false, message: formatError(err) };
   }
 }
 
