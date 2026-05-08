@@ -1,11 +1,12 @@
 import splash from "@/assets/homepagesplash.avif";
+import card from "@/assets/homepagecard.avif";
 import Image from "next/image";
 import NextEventCard from "@/components/home/next-event-card";
 import { Button } from "@/components/ui/button";
 
 const Homepage = async () => {
   return (
-    <div className="flex flex-col items-center gap-3">
+    <div className="flex flex-col items-center gap-3 mb-12">
       <div className="w-full flex flex-col items-center pt-32 pb-10 gap-4 tracking-widest relative">
         <Image
           src={splash}
@@ -28,16 +29,24 @@ const Homepage = async () => {
       </div>
       {/* Cards */}
       <div className="flex gap-2">
-        <div className="bg-blue-300 w-[350px] text-center">
+        <div className="bg-blue-300 text-center py-4 px-10">
           <h3 className="text-2xl font-semibold">BPGC VIDEO OF THE WEEK</h3>
+          <Image src={card} width={400} height={100} alt="winners" />
+          <p className="mt-1">Looks like a normal BPGC outing...</p>
         </div>
-        <div className="bg-blue-300 w-[350px] text-center">
+        <div className="bg-blue-300 text-center py-4 px-10">
           <h3 className="text-2xl font-semibold">
             {new Date().getFullYear() - 1} TWO MAN CHAMPS!!
           </h3>
+          <Image src={card} width={400} height={100} alt="winners" />
+          <p className="mt-1">ANOTHER CHAMPIONSHIP!</p>
         </div>
-        <div className="bg-blue-300 w-[350px] text-center">
+        <div className="bg-blue-300 text-center py-4 px-10">
           <h3 className="text-2xl font-semibold">BPGC TV</h3>
+          <Image src={card} width={400} height={100} alt="winners" />
+          <p className="mt-1">
+            Random videos, media and other content.... Check it out!
+          </p>
         </div>
       </div>
     </div>
