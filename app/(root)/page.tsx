@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 const Homepage = async () => {
   return (
     <div className="flex flex-col items-center gap-3">
-      <div className="w-full flex flex-col items-center p-7 pb-10 gap-4 tracking-widest relative">
+      <div className="w-full flex flex-col items-center pt-32 pb-10 gap-4 tracking-widest relative">
         <Image
           src={splash}
           alt="golf course"
@@ -14,14 +14,14 @@ const Homepage = async () => {
           sizes="100vw"
           style={{ objectFit: "cover", zIndex: -1 }}
         />
-        <div className="bg-slate-400/75 py-5 px-10 pb-14">
-          <h2 className="text-4xl font-bold tracking-[0.2em] text-center px-10">
+        <div className="bg-gray-600/75 py-5 px-10 pb-14">
+          <h2 className="text-5xl text-white font-black tracking-[0.2em] text-center px-10">
             NEXT OUTING
           </h2>
           <NextEventCard />
         </div>
         <div>
-          <Button className="rounded-3xl tracking-[0.4em] font-semibold">
+          <Button className="rounded-full tracking-[0.4em] font-semibold py-8 px-7 text-md">
             REGISTER ONLINE HERE
           </Button>
         </div>
