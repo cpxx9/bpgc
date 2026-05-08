@@ -1,11 +1,30 @@
+import splash from "@/assets/homepagesplash.avif";
+import Image from "next/image";
 import NextEventCard from "@/components/home/next-event-card";
+import { Button } from "@/components/ui/button";
 
 const Homepage = async () => {
   return (
     <div className="flex flex-col items-center gap-3">
-      <div className="bg-slate-400 w-full flex flex-col items-center">
-        <h2 className="text-4xl font-bold">NEXT OUTING</h2>
-        <NextEventCard />
+      <div className="w-full flex flex-col items-center p-7 pb-10 gap-4 tracking-widest relative">
+        <Image
+          src={splash}
+          alt="golf course"
+          fill
+          sizes="100vw"
+          style={{ objectFit: "cover", zIndex: -1 }}
+        />
+        <div className="bg-slate-400/75 py-5 px-10 pb-14">
+          <h2 className="text-4xl font-bold tracking-[0.2em] text-center px-10">
+            NEXT OUTING
+          </h2>
+          <NextEventCard />
+        </div>
+        <div>
+          <Button className="rounded-3xl tracking-[0.4em] font-semibold">
+            REGISTER ONLINE HERE
+          </Button>
+        </div>
       </div>
       {/* Cards */}
       <div className="flex gap-2">
