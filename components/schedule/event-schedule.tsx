@@ -222,7 +222,7 @@ const EventSchedule = async () => {
         })}
         <TableRow className="border-none">
           <TableCell className="p-0">
-            <br />
+            <br></br>
           </TableCell>
         </TableRow>
         {eventSchedule?.october.map((event) => {
