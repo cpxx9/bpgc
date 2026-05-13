@@ -4,7 +4,7 @@ import Image from "next/image";
 import NextEventCard from "@/components/home/next-event-card";
 import { Button } from "@/components/ui/button";
 
-const Homepage = async () => {
+const Homepage = () => {
   return (
     <div className="flex flex-col items-center gap-3 mb-12">
       <div className="w-full flex flex-col items-center pt-32 pb-10 gap-4 tracking-widest relative">

@@ -8,6 +8,7 @@ import { createEventSchema } from "@/lib/validators";
 import { Event, FormEvent, UpdateEvent } from "@/types";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
+import { date } from "zod";
 
 export async function createEvent(prevState: unknown, formData: FormData) {
   try {
@@ -121,6 +122,26 @@ export async function getAllEvents({
       data,
       totalPages: Math.ceil(dataCount / limit),
     };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
+}
+
+export async function getEventSchedule() {
+  const currentYear = new Date().getFullYear();
+  try {
+    const events = await prisma.event.findMany({
+      where: {
+        date: {
+          gte: new Date(currentYear),
+          lt: new Date(currentYear + 1),
+        },
+      },
+    });
+    console.log(events);
   } catch (err) {
     return {
       success: false,
