@@ -133,23 +133,68 @@ export async function getAllEvents({
 export async function getEventSchedule() {
   const currentYearOnly = new Date().getFullYear();
   const currentYear = new Date(currentYearOnly, 0, 1);
-  let nextYear = new Date();
+  const nextYear = new Date();
   nextYear.setFullYear(nextYear.getFullYear() + 1);
 
-  (console.log(currentYear), console.log(nextYear));
   try {
-    const events = await prisma.event.findMany({
-      where: {
-        date: {
-          gte: currentYear,
-          lt: nextYear,
-        },
-      },
-      orderBy: {
-        date: "asc",
-      },
+    const schedule = await prisma.$transaction(async (tx) => {
+      const april: Event[] = await prisma.$queryRaw`
+        SELECT * FROM "Event"
+        WHERE EXTRACT(MONTH FROM "date") = 4
+        ORDER BY "date" ASC
+      `;
+
+      const may: Event[] = await prisma.$queryRaw`
+        SELECT * FROM "Event"
+        WHERE EXTRACT(MONTH FROM "date") = 5
+        ORDER BY "date" ASC
+      `;
+
+      const june: Event[] = await prisma.$queryRaw`
+        SELECT * FROM "Event"
+        WHERE EXTRACT(MONTH FROM "date") = 6
+        ORDER BY "date" ASC
+      `;
+
+      const july: Event[] = await prisma.$queryRaw`
+        SELECT * FROM "Event"
+        WHERE EXTRACT(MONTH FROM "date") = 7
+        ORDER BY "date" ASC
+      `;
+
+      const august: Event[] = await prisma.$queryRaw`
+        SELECT * FROM "Event"
+        WHERE EXTRACT(MONTH FROM "date") = 8
+        ORDER BY "date" ASC
+      `;
+
+      const september: Event[] = await prisma.$queryRaw`
+        SELECT * FROM "Event"
+        WHERE EXTRACT(MONTH FROM "date") = 9
+        ORDER BY "date" ASC
+      `;
+
+      const october: Event[] = await prisma.$queryRaw`
+        SELECT * FROM "Event"
+        WHERE EXTRACT(MONTH FROM "date") = 10
+        ORDER BY "date" ASC
+      `;
+
+      return {
+        april,
+        may,
+        june,
+        july,
+        august,
+        september,
+        october,
+      };
     });
-    console.log(events);
+
+    return {
+      success: true,
+      data: schedule,
+    };
   } catch (err) {
     return {
       success: false,
