@@ -131,14 +131,22 @@ export async function getAllEvents({
 }
 
 export async function getEventSchedule() {
-  const currentYear = new Date().getFullYear();
+  const currentYearOnly = new Date().getFullYear();
+  const currentYear = new Date(currentYearOnly, 0, 1);
+  let nextYear = new Date();
+  nextYear.setFullYear(nextYear.getFullYear() + 1);
+
+  (console.log(currentYear), console.log(nextYear));
   try {
     const events = await prisma.event.findMany({
       where: {
         date: {
-          gte: new Date(currentYear),
-          lt: new Date(currentYear + 1),
+          gte: currentYear,
+          lt: nextYear,
         },
+      },
+      orderBy: {
+        date: "asc",
       },
     });
     console.log(events);
