@@ -10,7 +10,7 @@ const Header = () => {
         <div className="flex-start">
           <Link className="flex-start" href="/">
             <Logo />
-            <span className="hidden md:block font-bold text-2xl ml-3">
+            <span className="hidden md:block font-bold text-3xl ml-3">
               {APP_NAME}
             </span>
             <span className="block font-bold text-2xl ml-3 md:hidden">
