@@ -82,9 +82,9 @@ const AdminEventsPage = async ({ searchParams }: PropTypes) => {
                 </TableCell>
                 <TableCell>
                   <Badge
-                    variant={event.isClubChampionship ? "default" : "secondary"}
+                    variant={event.isChampionship ? "default" : "secondary"}
                   >
-                    {event.isClubChampionship ? "Yes" : "No"}
+                    {event.isChampionship ? "Yes" : "No"}
                   </Badge>
                 </TableCell>
                 <TableCell>

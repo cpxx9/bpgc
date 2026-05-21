@@ -15,18 +15,18 @@ datasource db {
 }
 
 model Event {
-  id                 String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt          DateTime @default(now()) @db.Timestamp(6)
-  updatedAt          DateTime @updatedAt
-  date               DateTime @db.Date
-  time               DateTime @db.Time
-  location           String
-  description        String
-  leagueWeek         Int
-  isTwoManMatch      Boolean
-  isClubChampionship Boolean  @default(false)
-  scores             Score[]
-  match              Match[]
+  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt      DateTime @default(now()) @db.Timestamp(6)
+  updatedAt      DateTime @updatedAt
+  date           DateTime @db.Date
+  time           DateTime @db.Time
+  location       String
+  description    String
+  leagueWeek     Int
+  isTwoManMatch  Boolean
+  isChampionship Boolean  @default(false)
+  scores         Score[]
+  match          Match[]
 }
 
 model Golfer {

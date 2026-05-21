@@ -193,11 +193,11 @@ const UpdateEventForm = ({ event }: PropTypes) => {
         <div>
           <FormField
             control={form.control}
-            name="isClubChampionship"
+            name="isChampionship"
             render={({
               field,
             }: {
-              field: ControllerRenderProps<UpdateEvent, "isClubChampionship">;
+              field: ControllerRenderProps<UpdateEvent, "isChampionship">;
             }) => (
               <FormItem className="mt-2 flex justify-between">
                 <FormLabel>Is this a Club Championship Round?</FormLabel>

@@ -120,12 +120,12 @@ const CreateEventForm = () => {
                   />
                 </div>
                 <div className="flex justify-between">
-                  <Label htmlFor="isClubChampionship">
+                  <Label htmlFor="isChampionship">
                     Is this a Club Championship round?
                   </Label>
                   <Checkbox
-                    id="isClubChampionship"
-                    name="isClubChampionship"
+                    id="isChampionship"
+                    name="isChampionship"
                     value="true"
                   />
                 </div>

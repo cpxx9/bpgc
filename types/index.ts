@@ -37,7 +37,7 @@ export type Event = {
   description: string;
   leagueWeek: number;
   isTwoManMatch: boolean;
-  isClubChampionship: boolean;
+  isChampionship: boolean;
 };
 
 export type FormEvent = Omit<Event, "date" | "time"> & {

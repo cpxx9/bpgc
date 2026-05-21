@@ -36,8 +36,8 @@ const EventSchedule = async () => {
               className={cn(
                 "border-none",
                 `${event.date < new Date() ? "text-gray-500" : "text-white"}`,
-                `${!event.isTwoManMatch && !event.isClubChampionship ? "text-blue-600" : ""}`,
-                `${event.isClubChampionship ? "text-orange-500" : ""}`,
+                `${!event.isTwoManMatch && !event.isChampionship ? "text-blue-600" : ""}`,
+                `${event.isChampionship ? "text-orange-500" : ""}`,
               )}
               key={event.id}
             >
@@ -75,8 +75,8 @@ const EventSchedule = async () => {
               className={cn(
                 "border-none",
                 `${event.date < new Date() ? "text-gray-500" : "text-white"}`,
-                `${!event.isTwoManMatch && !event.isClubChampionship ? "text-blue-600" : ""}`,
-                `${event.isClubChampionship ? "text-orange-500" : ""}`,
+                `${!event.isTwoManMatch && !event.isChampionship ? "text-blue-600" : ""}`,
+                `${event.isChampionship ? "text-orange-500" : ""}`,
               )}
               key={event.id}
             >
@@ -114,8 +114,8 @@ const EventSchedule = async () => {
               className={cn(
                 "border-none",
                 `${event.date < new Date() ? "text-gray-500" : "text-white"}`,
-                `${!event.isTwoManMatch && !event.isClubChampionship ? "text-blue-600" : ""}`,
-                `${event.isClubChampionship ? "text-orange-500" : ""}`,
+                `${!event.isTwoManMatch && !event.isChampionship ? "text-blue-600" : ""}`,
+                `${event.isChampionship ? "text-orange-500" : ""}`,
               )}
               key={event.id}
             >
@@ -153,8 +153,8 @@ const EventSchedule = async () => {
               className={cn(
                 "border-none",
                 `${event.date < new Date() ? "text-gray-500" : "text-white"}`,
-                `${!event.isTwoManMatch && !event.isClubChampionship ? "text-blue-600" : ""}`,
-                `${event.isClubChampionship ? "text-orange-500" : ""}`,
+                `${!event.isTwoManMatch && !event.isChampionship ? "text-blue-600" : ""}`,
+                `${event.isChampionship ? "text-orange-500" : ""}`,
               )}
               key={event.id}
             >
@@ -192,8 +192,8 @@ const EventSchedule = async () => {
               className={cn(
                 "border-none",
                 `${event.date < new Date() ? "text-gray-500" : "text-white"}`,
-                `${!event.isTwoManMatch && !event.isClubChampionship ? "text-blue-600" : ""}`,
-                `${event.isClubChampionship ? "text-orange-500" : ""}`,
+                `${!event.isTwoManMatch && !event.isChampionship ? "text-blue-600" : ""}`,
+                `${event.isChampionship ? "text-orange-500" : ""}`,
               )}
               key={event.id}
             >
@@ -231,8 +231,8 @@ const EventSchedule = async () => {
               className={cn(
                 "border-none",
                 `${event.date < new Date() ? "text-gray-500" : "text-white"}`,
-                `${!event.isTwoManMatch && !event.isClubChampionship ? "text-blue-600" : ""}`,
-                `${event.isClubChampionship ? "text-orange-500" : ""}`,
+                `${!event.isTwoManMatch && !event.isChampionship ? "text-blue-600" : ""}`,
+                `${event.isChampionship ? "text-orange-500" : ""}`,
               )}
               key={event.id}
             >
@@ -270,8 +270,8 @@ const EventSchedule = async () => {
               className={cn(
                 "border-none",
                 `${event.date < new Date() ? "text-gray-500" : "text-white"}`,
-                `${!event.isTwoManMatch && !event.isClubChampionship ? "text-blue-600" : ""}`,
-                `${event.isClubChampionship ? "text-orange-500" : ""}`,
+                `${!event.isTwoManMatch && !event.isChampionship ? "text-blue-600" : ""}`,
+                `${event.isChampionship ? "text-orange-500" : ""}`,
               )}
               key={event.id}
             >
