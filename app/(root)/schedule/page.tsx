@@ -4,7 +4,7 @@ const SchedulePage = () => {
   return (
     <div className="bg-blue-300 h-full flex justify-center items-start p-8">
       <div className="bg-gray-400/80 p-2">
-        <h3 className="text-xl font-bold">
+        <h3 className="text-xl font-bold text-white">
           {new Date().getFullYear()} BPGC Schedule
         </h3>
         <EventSchedule />
