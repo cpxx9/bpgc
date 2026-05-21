@@ -8,6 +8,20 @@ const SchedulePage = () => {
           {new Date().getFullYear()} BPGC Schedule
         </h3>
         <EventSchedule />
+        <ul className="mt-5">
+          <li className="text-white">
+            <i>- Two man Match</i>
+          </li>
+          <li className="text-white">
+            <i>* Two Man Playoff Rounds</i>
+          </li>
+          <li className="text-blue-600">
+            <i>- Special Event!</i>
+          </li>
+          <li className="text-orange-500">
+            <i>- Club Championship</i>
+          </li>
+        </ul>
       </div>
     </div>
   );

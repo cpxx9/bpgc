@@ -56,8 +56,8 @@ const AdminEventsPage = async ({ searchParams }: PropTypes) => {
               <TableHead>LOCATION</TableHead>
               <TableHead>DESCRIPTION</TableHead>
               <TableHead>LEAGUE WEEK</TableHead>
-              <TableHead>TWO MAN MATCH</TableHead>
-              <TableHead>CLUB CHAMPIONSHIP</TableHead>
+              <TableHead>TWO MAN MATCH?</TableHead>
+              <TableHead>CHAMPIONSHIP?</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
