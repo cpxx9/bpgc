@@ -57,6 +57,7 @@ const AdminEventsPage = async ({ searchParams }: PropTypes) => {
               <TableHead>DESCRIPTION</TableHead>
               <TableHead>LEAGUE WEEK</TableHead>
               <TableHead>TWO MAN MATCH</TableHead>
+              <TableHead>CLUB CHAMPIONSHIP</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -77,6 +78,13 @@ const AdminEventsPage = async ({ searchParams }: PropTypes) => {
                     variant={event.isTwoManMatch ? "default" : "secondary"}
                   >
                     {event.isTwoManMatch ? "Yes" : "No"}
+                  </Badge>
+                </TableCell>
+                <TableCell>
+                  <Badge
+                    variant={event.isClubChampionship ? "default" : "secondary"}
+                  >
+                    {event.isClubChampionship ? "Yes" : "No"}
                   </Badge>
                 </TableCell>
                 <TableCell>

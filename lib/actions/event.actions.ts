@@ -15,6 +15,7 @@ export async function createEvent(prevState: unknown, formData: FormData) {
     let timeString = String(formData.get("time"));
     timeString = String(`2000-01-01T${timeString}:00-05:00`);
     const isTwoManMatch = formData.get("isTwoManMatch");
+    const isClubChampionship = formData.get("isClubChampionship");
 
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
@@ -25,6 +26,7 @@ export async function createEvent(prevState: unknown, formData: FormData) {
       description: formData.get("description"),
       leagueWeek: Number(formData.get("leagueWeek")),
       isTwoManMatch: isTwoManMatch ? true : false,
+      isClubChampionship: isClubChampionship ? true : false,
     });
 
     await prisma.event.create({
@@ -218,6 +220,7 @@ export async function updateEvent(event: UpdateEvent) {
         description: event.description,
         leagueWeek: event.leagueWeek,
         isTwoManMatch: event.isTwoManMatch,
+        isClubChampionship: event.isClubChampionship,
       },
     });
 

@@ -79,6 +79,9 @@ export const createEventSchema = z.object({
   description: z.string().min(1, `Description${isRequiredError}`).trim(),
   leagueWeek: z.coerce.number().min(1, `League Week${isRequiredError}`),
   isTwoManMatch: z.boolean({ message: `Two Man Match${isRequiredError}` }),
+  isClubChampionship: z.boolean({
+    message: `Club Championship${isRequiredError}`,
+  }),
 });
 
 export const updateEventSchema = z.object({
@@ -89,6 +92,9 @@ export const updateEventSchema = z.object({
   description: z.string().min(1, `Description${isRequiredError}`).trim(),
   leagueWeek: z.coerce.number({ message: `League Week${isRequiredError}` }),
   isTwoManMatch: z.boolean({ message: `Two Man Match${isRequiredError}` }),
+  isClubChampionship: z.boolean({
+    message: `Club Championship${isRequiredError}`,
+  }),
 });
 
 export const createScoreSchema = z.object({

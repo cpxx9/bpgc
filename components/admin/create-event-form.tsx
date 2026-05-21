@@ -119,6 +119,16 @@ const CreateEventForm = () => {
                     value="true"
                   />
                 </div>
+                <div className="flex justify-between">
+                  <Label htmlFor="isClubChampionship">
+                    Is this a Club Championship round?
+                  </Label>
+                  <Checkbox
+                    id="isClubChampionship"
+                    name="isClubChampionship"
+                    value="true"
+                  />
+                </div>
 
                 {data && !data.success && (
                   <div className="text-center text-destructive">

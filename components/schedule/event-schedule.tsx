@@ -7,6 +7,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { getEventSchedule } from "@/lib/actions/event.actions";
+import { cn } from "@/lib/utils";
 
 const EventSchedule = async () => {
   const { data: eventSchedule } = await getEventSchedule();
@@ -32,7 +33,12 @@ const EventSchedule = async () => {
           });
           return (
             <TableRow
-              className={`border-none ${event.date < new Date() ? "text-gray-200" : event.isTwoManMatch ? "text-white" : "text-blue-600"}`}
+              className={cn(
+                "border-none",
+                `${event.date < new Date() ? "text-gray-500" : "text-white"}`,
+                `${!event.isTwoManMatch && !event.isClubChampionship ? "text-blue-600" : ""}`,
+                `${event.isClubChampionship ? "text-orange-500" : ""}`,
+              )}
               key={event.id}
             >
               <TableCell className="py-1 pl-0 pr-4 text-lg font-semibold">
@@ -66,7 +72,12 @@ const EventSchedule = async () => {
           });
           return (
             <TableRow
-              className={`border-none ${event.date < new Date() ? "text-gray-200" : event.isTwoManMatch ? "text-white" : "text-blue-600"}`}
+              className={cn(
+                "border-none",
+                `${event.date < new Date() ? "text-gray-500" : "text-white"}`,
+                `${!event.isTwoManMatch && !event.isClubChampionship ? "text-blue-600" : ""}`,
+                `${event.isClubChampionship ? "text-orange-500" : ""}`,
+              )}
               key={event.id}
             >
               <TableCell className="py-1 pl-0 pr-4 text-lg font-semibold">
@@ -100,7 +111,12 @@ const EventSchedule = async () => {
           });
           return (
             <TableRow
-              className={`border-none ${event.date < new Date() ? "text-gray-200" : event.isTwoManMatch ? "text-white" : "text-blue-600"}`}
+              className={cn(
+                "border-none",
+                `${event.date < new Date() ? "text-gray-500" : "text-white"}`,
+                `${!event.isTwoManMatch && !event.isClubChampionship ? "text-blue-600" : ""}`,
+                `${event.isClubChampionship ? "text-orange-500" : ""}`,
+              )}
               key={event.id}
             >
               <TableCell className="py-1 pl-0 pr-4 text-lg font-semibold">
@@ -134,7 +150,12 @@ const EventSchedule = async () => {
           });
           return (
             <TableRow
-              className={`border-none ${event.date < new Date() ? "text-gray-200" : event.isTwoManMatch ? "text-white" : "text-blue-600"}`}
+              className={cn(
+                "border-none",
+                `${event.date < new Date() ? "text-gray-500" : "text-white"}`,
+                `${!event.isTwoManMatch && !event.isClubChampionship ? "text-blue-600" : ""}`,
+                `${event.isClubChampionship ? "text-orange-500" : ""}`,
+              )}
               key={event.id}
             >
               <TableCell className="py-1 pl-0 pr-4 text-lg font-semibold">
@@ -168,7 +189,12 @@ const EventSchedule = async () => {
           });
           return (
             <TableRow
-              className={`border-none ${event.date < new Date() ? "text-gray-200" : event.isTwoManMatch ? "text-white" : "text-blue-600"}`}
+              className={cn(
+                "border-none",
+                `${event.date < new Date() ? "text-gray-500" : "text-white"}`,
+                `${!event.isTwoManMatch && !event.isClubChampionship ? "text-blue-600" : ""}`,
+                `${event.isClubChampionship ? "text-orange-500" : ""}`,
+              )}
               key={event.id}
             >
               <TableCell className="py-1 pl-0 pr-4 text-lg font-semibold">
@@ -202,7 +228,12 @@ const EventSchedule = async () => {
           });
           return (
             <TableRow
-              className={`border-none ${event.date < new Date() ? "text-gray-200" : event.isTwoManMatch ? "text-white" : "text-blue-600"}`}
+              className={cn(
+                "border-none",
+                `${event.date < new Date() ? "text-gray-500" : "text-white"}`,
+                `${!event.isTwoManMatch && !event.isClubChampionship ? "text-blue-600" : ""}`,
+                `${event.isClubChampionship ? "text-orange-500" : ""}`,
+              )}
               key={event.id}
             >
               <TableCell className="py-1 pl-0 pr-4 text-lg font-semibold">
@@ -236,7 +267,12 @@ const EventSchedule = async () => {
           });
           return (
             <TableRow
-              className={`border-none ${event.date < new Date() ? "text-gray-200" : event.isTwoManMatch ? "text-white" : "text-blue-600"}`}
+              className={cn(
+                "border-none",
+                `${event.date < new Date() ? "text-gray-500" : "text-white"}`,
+                `${!event.isTwoManMatch && !event.isClubChampionship ? "text-blue-600" : ""}`,
+                `${event.isClubChampionship ? "text-orange-500" : ""}`,
+              )}
               key={event.id}
             >
               <TableCell className="py-1 pl-0 pr-4 text-lg font-semibold">

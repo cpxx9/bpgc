@@ -190,6 +190,28 @@ const UpdateEventForm = ({ event }: PropTypes) => {
             )}
           />
         </div>
+        <div>
+          <FormField
+            control={form.control}
+            name="isClubChampionship"
+            render={({
+              field,
+            }: {
+              field: ControllerRenderProps<UpdateEvent, "isClubChampionship">;
+            }) => (
+              <FormItem className="mt-2 flex justify-between">
+                <FormLabel>Is this a Club Championship Round?</FormLabel>
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <div className="flex-between mt-4">
           <Button
             type="submit"
