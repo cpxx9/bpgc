@@ -66,9 +66,10 @@ const links = [
 
 interface PropTypes {
   withSheetClose?: boolean;
+  onNavigate?: () => void;
 }
 
-const Links = ({ withSheetClose = false }: PropTypes) => {
+const Links = ({ withSheetClose = false, onNavigate }: PropTypes) => {
   const [SheetCloseWrapper, sheetCloseWrapperProps] = withSheetClose
     ? [SheetClose, { asChild: true }]
     : [React.Fragment, {}];
@@ -113,7 +114,11 @@ const Links = ({ withSheetClose = false }: PropTypes) => {
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 {link.links.map((sublink) => (
-                  <DropdownMenuItem asChild key={sublink.href}>
+                  <DropdownMenuItem
+                    asChild
+                    key={sublink.href}
+                    onSelect={() => onNavigate?.()}
+                  >
                     <Button className="p-2" asChild variant="ghost">
                       <Link href={sublink.href}>{sublink.title}</Link>
                     </Button>
@@ -121,17 +126,6 @@ const Links = ({ withSheetClose = false }: PropTypes) => {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
-            {/* <Button
-              className="p-2"
-              asChild
-              variant={
-                link.title.toLowerCase().includes(pathname)
-                  ? "default"
-                  : "ghost"
-              }
-            >
-              <Link href={link.href}>{link.title}</Link>
-            </Button> */}
           </SheetCloseWrapper>
         ) : (
           <SheetCloseWrapper {...sheetCloseWrapperProps} key={link.href}>
@@ -144,7 +138,9 @@ const Links = ({ withSheetClose = false }: PropTypes) => {
                   : "ghost"
               }
             >
-              <Link href={link.href}>{link.title}</Link>
+              <Link href={link.href} onClick={onNavigate}>
+                {link.title}
+              </Link>
             </Button>
           </SheetCloseWrapper>
         ),
