@@ -1,3 +1,4 @@
+import EventScheduleMonths from "@/components/schedule/event-schedule-months";
 import {
   Table,
   TableBody,
@@ -8,9 +9,21 @@ import {
 } from "@/components/ui/table";
 import { getEventSchedule } from "@/lib/actions/event.actions";
 import { cn } from "@/lib/utils";
+import { Event } from "@/types";
 
 const EventSchedule = async () => {
-  const { data: eventSchedule } = await getEventSchedule();
+  let { data: eventSchedule } = await getEventSchedule();
+  if (!eventSchedule) {
+    eventSchedule = {} as {
+      april: Event[];
+      may: Event[];
+      june: Event[];
+      july: Event[];
+      august: Event[];
+      september: Event[];
+      october: Event[];
+    };
+  }
   return (
     <Table>
       <TableHeader className="border-none">
@@ -22,274 +35,13 @@ const EventSchedule = async () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {eventSchedule?.april.map((event) => {
-          const month = event.date.toLocaleDateString("en-US", {
-            month: "long",
-            timeZone: "UTC",
-          });
-          const day = event.date.toLocaleDateString("en-US", {
-            day: "2-digit",
-            timeZone: "UTC",
-          });
-          return (
-            <TableRow
-              className={cn(
-                "border-none",
-                `${event.date < new Date() ? "text-gray-500" : "text-white"}`,
-                `${!event.isTwoManMatch && !event.isChampionship ? "text-blue-600" : ""}`,
-                `${event.isChampionship ? "text-orange-500" : ""}`,
-              )}
-              key={event.id}
-            >
-              <TableCell className="py-1 pl-0 pr-4 text-lg font-semibold">
-                {month} {day}
-              </TableCell>
-              <TableCell className="py-1 px-5 text-lg font-semibold">
-                {event.time.toLocaleTimeString("en-US", { timeZone: "EST" })}
-              </TableCell>
-              <TableCell className="py-1 px-5 text-lg font-semibold">
-                {event.location}
-              </TableCell>
-              <TableCell className="py-1 pr-5 pl-8 text-lg font-semibold">
-                {event.description}
-              </TableCell>
-            </TableRow>
-          );
-        })}
-        <TableRow className="border-none">
-          <TableCell className="p-0">
-            <br />
-          </TableCell>
-        </TableRow>
-        {eventSchedule?.may.map((event) => {
-          const month = event.date.toLocaleDateString("en-US", {
-            month: "long",
-            timeZone: "UTC",
-          });
-          const day = event.date.toLocaleDateString("en-US", {
-            day: "2-digit",
-            timeZone: "UTC",
-          });
-          return (
-            <TableRow
-              className={cn(
-                "border-none",
-                `${event.date < new Date() ? "text-gray-500" : "text-white"}`,
-                `${!event.isTwoManMatch && !event.isChampionship ? "text-blue-600" : ""}`,
-                `${event.isChampionship ? "text-orange-500" : ""}`,
-              )}
-              key={event.id}
-            >
-              <TableCell className="py-1 pl-0 pr-4 text-lg font-semibold">
-                {month} {day}
-              </TableCell>
-              <TableCell className="py-1 px-5 text-lg font-semibold">
-                {event.time.toLocaleTimeString("en-US", { timeZone: "EST" })}
-              </TableCell>
-              <TableCell className="py-1 px-5 text-lg font-semibold">
-                {event.location}
-              </TableCell>
-              <TableCell className="py-1 pr-5 pl-8 text-lg font-semibold">
-                {event.description}
-              </TableCell>
-            </TableRow>
-          );
-        })}
-        <TableRow className="border-none">
-          <TableCell className="p-0">
-            <br />
-          </TableCell>
-        </TableRow>
-        {eventSchedule?.june.map((event) => {
-          const month = event.date.toLocaleDateString("en-US", {
-            month: "long",
-            timeZone: "UTC",
-          });
-          const day = event.date.toLocaleDateString("en-US", {
-            day: "2-digit",
-            timeZone: "UTC",
-          });
-          return (
-            <TableRow
-              className={cn(
-                "border-none",
-                `${event.date < new Date() ? "text-gray-500" : "text-white"}`,
-                `${!event.isTwoManMatch && !event.isChampionship ? "text-blue-600" : ""}`,
-                `${event.isChampionship ? "text-orange-500" : ""}`,
-              )}
-              key={event.id}
-            >
-              <TableCell className="py-1 pl-0 pr-4 text-lg font-semibold">
-                {month} {day}
-              </TableCell>
-              <TableCell className="py-1 px-5 text-lg font-semibold">
-                {event.time.toLocaleTimeString("en-US", { timeZone: "EST" })}
-              </TableCell>
-              <TableCell className="py-1 px-5 text-lg font-semibold">
-                {event.location}
-              </TableCell>
-              <TableCell className="py-1 pr-5 pl-8 text-lg font-semibold">
-                {event.description}
-              </TableCell>
-            </TableRow>
-          );
-        })}
-        <TableRow className="border-none">
-          <TableCell className="p-0">
-            <br />
-          </TableCell>
-        </TableRow>
-        {eventSchedule?.july.map((event) => {
-          const month = event.date.toLocaleDateString("en-US", {
-            month: "long",
-            timeZone: "UTC",
-          });
-          const day = event.date.toLocaleDateString("en-US", {
-            day: "2-digit",
-            timeZone: "UTC",
-          });
-          return (
-            <TableRow
-              className={cn(
-                "border-none",
-                `${event.date < new Date() ? "text-gray-500" : "text-white"}`,
-                `${!event.isTwoManMatch && !event.isChampionship ? "text-blue-600" : ""}`,
-                `${event.isChampionship ? "text-orange-500" : ""}`,
-              )}
-              key={event.id}
-            >
-              <TableCell className="py-1 pl-0 pr-4 text-lg font-semibold">
-                {month} {day}
-              </TableCell>
-              <TableCell className="py-1 px-5 text-lg font-semibold">
-                {event.time.toLocaleTimeString("en-US", { timeZone: "EST" })}
-              </TableCell>
-              <TableCell className="py-1 px-5 text-lg font-semibold">
-                {event.location}
-              </TableCell>
-              <TableCell className="py-1 pr-5 pl-8 text-lg font-semibold">
-                {event.description}
-              </TableCell>
-            </TableRow>
-          );
-        })}
-        <TableRow className="border-none">
-          <TableCell className="p-0">
-            <br />
-          </TableCell>
-        </TableRow>
-        {eventSchedule?.august.map((event) => {
-          const month = event.date.toLocaleDateString("en-US", {
-            month: "long",
-            timeZone: "UTC",
-          });
-          const day = event.date.toLocaleDateString("en-US", {
-            day: "2-digit",
-            timeZone: "UTC",
-          });
-          return (
-            <TableRow
-              className={cn(
-                "border-none",
-                `${event.date < new Date() ? "text-gray-500" : "text-white"}`,
-                `${!event.isTwoManMatch && !event.isChampionship ? "text-blue-600" : ""}`,
-                `${event.isChampionship ? "text-orange-500" : ""}`,
-              )}
-              key={event.id}
-            >
-              <TableCell className="py-1 pl-0 pr-4 text-lg font-semibold">
-                {month} {day}
-              </TableCell>
-              <TableCell className="py-1 px-5 text-lg font-semibold">
-                {event.time.toLocaleTimeString("en-US", { timeZone: "EST" })}
-              </TableCell>
-              <TableCell className="py-1 px-5 text-lg font-semibold">
-                {event.location}
-              </TableCell>
-              <TableCell className="py-1 pr-5 pl-8 text-lg font-semibold">
-                {event.description}
-              </TableCell>
-            </TableRow>
-          );
-        })}
-        <TableRow className="border-none">
-          <TableCell className="p-0">
-            <br />
-          </TableCell>
-        </TableRow>
-        {eventSchedule?.september.map((event) => {
-          const month = event.date.toLocaleDateString("en-US", {
-            month: "long",
-            timeZone: "UTC",
-          });
-          const day = event.date.toLocaleDateString("en-US", {
-            day: "2-digit",
-            timeZone: "UTC",
-          });
-          return (
-            <TableRow
-              className={cn(
-                "border-none",
-                `${event.date < new Date() ? "text-gray-500" : "text-white"}`,
-                `${!event.isTwoManMatch && !event.isChampionship ? "text-blue-600" : ""}`,
-                `${event.isChampionship ? "text-orange-500" : ""}`,
-              )}
-              key={event.id}
-            >
-              <TableCell className="py-1 pl-0 pr-4 text-lg font-semibold">
-                {month} {day}
-              </TableCell>
-              <TableCell className="py-1 px-5 text-lg font-semibold">
-                {event.time.toLocaleTimeString("en-US", { timeZone: "EST" })}
-              </TableCell>
-              <TableCell className="py-1 px-5 text-lg font-semibold">
-                {event.location}
-              </TableCell>
-              <TableCell className="py-1 pr-5 pl-8 text-lg font-semibold">
-                {event.description}
-              </TableCell>
-            </TableRow>
-          );
-        })}
-        <TableRow className="border-none">
-          <TableCell className="p-0">
-            <br></br>
-          </TableCell>
-        </TableRow>
-        {eventSchedule?.october.map((event) => {
-          const month = event.date.toLocaleDateString("en-US", {
-            month: "long",
-            timeZone: "UTC",
-          });
-          const day = event.date.toLocaleDateString("en-US", {
-            day: "2-digit",
-            timeZone: "UTC",
-          });
-          return (
-            <TableRow
-              className={cn(
-                "border-none",
-                `${event.date < new Date() ? "text-gray-500" : "text-white"}`,
-                `${!event.isTwoManMatch && !event.isChampionship ? "text-blue-600" : ""}`,
-                `${event.isChampionship ? "text-orange-500" : ""}`,
-              )}
-              key={event.id}
-            >
-              <TableCell className="py-1 pl-0 pr-4 text-lg font-semibold">
-                {month} {day}
-              </TableCell>
-              <TableCell className="py-1 px-5 text-lg font-semibold">
-                {event.time.toLocaleTimeString("en-US", { timeZone: "EST" })}
-              </TableCell>
-              <TableCell className="py-1 px-5 text-lg font-semibold">
-                {event.location}
-              </TableCell>
-              <TableCell className="py-1 pr-5 pl-8 text-lg font-semibold">
-                {event.description}
-              </TableCell>
-            </TableRow>
-          );
-        })}
+        <EventScheduleMonths events={eventSchedule?.april} />
+        <EventScheduleMonths events={eventSchedule?.may} />
+        <EventScheduleMonths events={eventSchedule?.june} />
+        <EventScheduleMonths events={eventSchedule?.july} />
+        <EventScheduleMonths events={eventSchedule?.august} />
+        <EventScheduleMonths events={eventSchedule?.september} />
+        <EventScheduleMonths events={eventSchedule?.october} />
       </TableBody>
     </Table>
   );
