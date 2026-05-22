@@ -15,8 +15,8 @@ const links = [
     title: "SCORING INFO",
     href: "/scoring-info",
     links: [
-      { title: "SCORING AVERAGES", href: "/scoring-info/scoring-averages" },
       { title: "WEEKLY SCORES", href: "/scoring-info/weekly-scores" },
+      { title: "SCORING AVERAGES", href: "/scoring-info/scoring-averages" },
     ],
   },
   {
