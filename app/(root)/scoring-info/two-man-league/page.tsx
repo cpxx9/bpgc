@@ -1,5 +1,5 @@
-const TwoManScoresPage = () => {
+const ScoringInfoTwoManPage = () => {
   return <div>Two Man Scores</div>;
 };
 
-export default TwoManScoresPage;
+export default ScoringInfoTwoManPage;

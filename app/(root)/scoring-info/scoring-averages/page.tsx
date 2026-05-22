@@ -1,5 +1,5 @@
-const ScoringAveragesPage = () => {
+const ScoringInfoAveragesPage = () => {
   return <div>Scoring Averages</div>;
 };
 
-export default ScoringAveragesPage;
+export default ScoringInfoAveragesPage;
