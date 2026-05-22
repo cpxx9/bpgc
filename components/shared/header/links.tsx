@@ -31,18 +31,28 @@ const links = [
     href: "/scoring-info",
     links: [
       {
-        title: "WEEKLY SCORES",
-        href: "/scoring-info/weekly-scores",
-      },
-      {
         title: "SCORING AVERAGES",
         href: "/scoring-info/scoring-averages",
+      },
+      {
+        title: "WEEKLY SCORES",
+        href: "/scoring-info/weekly-scores",
       },
     ],
   },
   {
     title: "EVENTS",
     href: "/events",
+    links: [
+      {
+        title: "TWO MAN LEAGUE",
+        href: "/events/two-man-league",
+      },
+      {
+        title: "CLUB CHAMPIONSHIP",
+        href: "/events/club-championship",
+      },
+    ],
   },
   {
     title: "CONTESTS",
@@ -88,7 +98,7 @@ const Links = ({ withSheetClose = false }: PropTypes) => {
       {links.map((link) =>
         link.links ? (
           <SheetCloseWrapper {...sheetCloseWrapperProps} key={link.href}>
-            <DropdownMenu>
+            <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>
                 <Button
                   className="p-2"
