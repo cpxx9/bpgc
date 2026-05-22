@@ -5,7 +5,7 @@ import Logo from "@/components/shared/logo";
 
 const Header = () => {
   return (
-    <header className="w-full border-b">
+    <header className="w-full border-b pb-5">
       <div className="wrapper flex-between">
         <div className="flex-start">
           <Link className="flex-start" href="/">

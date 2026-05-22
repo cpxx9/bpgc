@@ -112,7 +112,10 @@ const Links = ({ withSheetClose = false }: PropTypes) => {
     >
       {links.map((link) =>
         link.links ? (
-          <div key={link.href} className="flex flex-col relative">
+          <div
+            key={link.href}
+            className="flex flex-col relative gap-3 md:gap-0"
+          >
             <Button
               className="p-2 justify-start"
               variant={
@@ -134,7 +137,7 @@ const Links = ({ withSheetClose = false }: PropTypes) => {
             </Button>
 
             {openMenus[link.href] && (
-              <div className="flex flex-col bg-white md:absolute top-10">
+              <div className="flex flex-col gap-2 bg-white md:gap-0 md:absolute md:top-10 md:mt-1 md:left-1/2 md:-translate-x-1/2">
                 {link.links.map((sublink) => (
                   <SheetCloseWrapper
                     {...sheetCloseWrapperProps}
