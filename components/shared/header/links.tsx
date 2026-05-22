@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { SheetClose } from "@/components/ui/sheet";
-import React from "react";
+import React, { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -69,6 +69,12 @@ interface PropTypes {
 }
 
 const Links = ({ withSheetClose = false }: PropTypes) => {
+  const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({});
+
+  const toggleMenu = (key: string) => {
+    setOpenMenus({ [key]: !openMenus[key] });
+  };
+
   const [SheetCloseWrapper, sheetCloseWrapperProps] = withSheetClose
     ? [SheetClose, { asChild: true }]
     : [React.Fragment, {}];
@@ -97,46 +103,50 @@ const Links = ({ withSheetClose = false }: PropTypes) => {
     >
       {links.map((link) =>
         link.links ? (
-          <SheetCloseWrapper {...sheetCloseWrapperProps} key={link.href}>
-            <DropdownMenu modal={false}>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  className="p-2"
-                  variant={
-                    pathname.includes(link.title.toLowerCase())
-                      ? "default"
-                      : "ghost"
-                  }
-                >
-                  {link.title}
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                {link.links.map((sublink) => (
-                  <DropdownMenuItem asChild key={sublink.href}>
-                    <Button className="p-2" asChild variant="ghost">
-                      <Link href={sublink.href}>{sublink.title}</Link>
-                    </Button>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-            {/* <Button
-              className="p-2"
-              asChild
+          <div key={link.href} className="flex flex-col relative">
+            <Button
+              className="p-2 justify-start"
               variant={
-                link.title.toLowerCase().includes(pathname)
+                pathname.includes(link.title.toLowerCase())
                   ? "default"
                   : "ghost"
               }
+              onClick={() => toggleMenu(link.href)}
             >
-              <Link href={link.href}>{link.title}</Link>
-            </Button> */}
-          </SheetCloseWrapper>
+              <span
+                className={cn(
+                  "transition-transform",
+                  openMenus[link.href] && "rotate-180",
+                )}
+              >
+                {openMenus[link.href] ? "-" : "+"}
+              </span>{" "}
+              {link.title}
+            </Button>
+
+            {openMenus[link.href] && (
+              <div className="flex flex-col gap-1 md:absolute top-10">
+                {link.links.map((sublink) => (
+                  <SheetCloseWrapper
+                    {...sheetCloseWrapperProps}
+                    key={sublink.href}
+                  >
+                    <Button
+                      className="p-2 justify-start"
+                      asChild
+                      variant="ghost"
+                    >
+                      <Link href={sublink.href}>{sublink.title}</Link>
+                    </Button>
+                  </SheetCloseWrapper>
+                ))}
+              </div>
+            )}
+          </div>
         ) : (
           <SheetCloseWrapper {...sheetCloseWrapperProps} key={link.href}>
             <Button
-              className="p-2"
+              className="p-2 justify-start"
               asChild
               variant={
                 link.title.toLowerCase().includes(pathname)
