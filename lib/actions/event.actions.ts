@@ -101,6 +101,28 @@ export async function getNextEvent() {
   }
 }
 
+export async function getPreviousEvent() {
+  try {
+    const previousEvent: Event = await prisma.event.findFirstOrThrow({
+      where: {
+        date: {
+          lte: new Date(),
+        },
+      },
+    });
+
+    return {
+      success: true,
+      data: previousEvent,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
+}
+
 export async function getAllEvents({
   limit = PAGE_SIZE,
   page,
