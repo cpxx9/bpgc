@@ -2,7 +2,6 @@ import Link from "next/link";
 import { APP_NAME, APP_NAME_ABR } from "@/lib/constants";
 import Menu from "@/components/shared/header/menu";
 import Logo from "@/components/shared/logo";
-import UserButton from "@/components/shared/header/user-button";
 
 const Header = () => {
   return (
@@ -21,7 +20,6 @@ const Header = () => {
         </div>
         <div className="flex">
           <Menu />
-          <UserButton />
         </div>
       </div>
     </header>

@@ -1,7 +1,6 @@
-"use client";
-
 import Links from "@/components/shared/header/links";
 import ModeToggle from "@/components/shared/header/ModeToggle";
+import UserButton from "@/components/shared/header/user-button";
 import {
   Sheet,
   SheetContent,
@@ -11,19 +10,17 @@ import {
 } from "@/components/ui/sheet";
 import { APP_NAME } from "@/lib/constants";
 import { Menu as MenuIcon } from "lucide-react";
-import { useState } from "react";
 
 const Menu = () => {
-  const [open, setOpen] = useState(false);
-
   return (
     <div className="flex gap-3">
       <nav className="hidden md:flex w-full gap-1">
         <ModeToggle />
         <Links />
+        <UserButton />
       </nav>
       <nav className={"md:hidden"}>
-        <Sheet open={open} onOpenChange={setOpen}>
+        <Sheet>
           <SheetTrigger className="align-middle">
             <MenuIcon size={40} />
           </SheetTrigger>
@@ -31,8 +28,9 @@ const Menu = () => {
             <SheetTitle>Beaver Point Golf Club</SheetTitle>
             <div className="flex self-stretch justify-between">
               <ModeToggle />
+              <UserButton />
             </div>
-            <Links withSheetClose onNavigate={() => setOpen(false)} />
+            <Links withSheetClose />
             <SheetDescription className="flex-center self-center flex-col">
               Est. 1989 | {APP_NAME}
               <span className="italic">
