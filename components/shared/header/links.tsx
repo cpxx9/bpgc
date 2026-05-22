@@ -23,6 +23,16 @@ const links = [
   {
     title: "SCORING INFO",
     href: "/scoring-info",
+    links: [
+      {
+        title: "TWO MAN LEAGUE",
+        href: "/scoring-info/two-man-league",
+      },
+      {
+        title: "SCORING AVERAGES",
+        href: "/scoring-info/scoring-averages",
+      },
+    ],
   },
   {
     title: "EVENTS",
@@ -69,19 +79,37 @@ const Links = ({ withSheetClose = false }: PropTypes) => {
           : "mx-auto flex gap-2 flex-col md:flex-row"
       }
     >
-      {links.map((link) => (
-        <SheetCloseWrapper {...sheetCloseWrapperProps} key={link.href}>
-          <Button
-            className="p-2"
-            asChild
-            variant={
-              link.title.toLowerCase().includes(pathname) ? "default" : "ghost"
-            }
-          >
-            <Link href={link.href}>{link.title}</Link>
-          </Button>
-        </SheetCloseWrapper>
-      ))}
+      {links.map((link) =>
+        link.links ? (
+          <SheetCloseWrapper {...sheetCloseWrapperProps} key={link.href}>
+            <Button
+              className="p-2"
+              asChild
+              variant={
+                link.title.toLowerCase().includes(pathname)
+                  ? "default"
+                  : "ghost"
+              }
+            >
+              <Link href={link.href}>{link.title}</Link>
+            </Button>
+          </SheetCloseWrapper>
+        ) : (
+          <SheetCloseWrapper {...sheetCloseWrapperProps} key={link.href}>
+            <Button
+              className="p-2"
+              asChild
+              variant={
+                link.title.toLowerCase().includes(pathname)
+                  ? "default"
+                  : "ghost"
+              }
+            >
+              <Link href={link.href}>{link.title}</Link>
+            </Button>
+          </SheetCloseWrapper>
+        ),
+      )}
     </div>
   );
 };
