@@ -126,18 +126,20 @@ const Links = ({ withSheetClose = false }: PropTypes) => {
             </Button>
 
             {openMenus[link.href] && (
-              <div className="flex flex-col gap-1 md:absolute top-10">
+              <div className="flex flex-col md:absolute top-7">
                 {link.links.map((sublink) => (
                   <SheetCloseWrapper
                     {...sheetCloseWrapperProps}
                     key={sublink.href}
                   >
                     <Button
-                      className="p-2 justify-start"
+                      className="p-1 justify-start bg-white"
                       asChild
                       variant="ghost"
                     >
-                      <Link href={sublink.href}>{sublink.title}</Link>
+                      <Link className="h-auto" href={sublink.href}>
+                        {sublink.title}
+                      </Link>
                     </Button>
                   </SheetCloseWrapper>
                 ))}
