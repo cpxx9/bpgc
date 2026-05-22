@@ -5,63 +5,30 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { SheetClose } from "@/components/ui/sheet";
-import React, { useEffect, useState } from "react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import React, { useEffect, useMemo, useState } from "react";
 
 const links = [
-  {
-    title: "HOME",
-    href: "/",
-  },
-  {
-    title: "ABOUT",
-    href: "/about",
-  },
-  {
-    title: "SCHEDULE",
-    href: "/schedule",
-  },
+  { title: "HOME", href: "/" },
+  { title: "ABOUT", href: "/about" },
+  { title: "SCHEDULE", href: "/schedule" },
   {
     title: "SCORING INFO",
     href: "/scoring-info",
     links: [
-      {
-        title: "SCORING AVERAGES",
-        href: "/scoring-info/scoring-averages",
-      },
-      {
-        title: "WEEKLY SCORES",
-        href: "/scoring-info/weekly-scores",
-      },
+      { title: "SCORING AVERAGES", href: "/scoring-info/scoring-averages" },
+      { title: "WEEKLY SCORES", href: "/scoring-info/weekly-scores" },
     ],
   },
   {
     title: "EVENTS",
     href: "/events",
     links: [
-      {
-        title: "TWO MAN LEAGUE",
-        href: "/events/two-man-league",
-      },
-      {
-        title: "CLUB CHAMPIONSHIP",
-        href: "/events/club-championship",
-      },
+      { title: "TWO MAN LEAGUE", href: "/events/two-man-league" },
+      { title: "CLUB CHAMPIONSHIP", href: "/events/club-championship" },
     ],
   },
-  {
-    title: "CONTESTS",
-    href: "/contests",
-  },
-  {
-    title: "GALLERY",
-    href: "/gallery",
-  },
+  { title: "CONTESTS", href: "/contests" },
+  { title: "GALLERY", href: "/gallery" },
 ];
 
 interface PropTypes {
@@ -69,15 +36,40 @@ interface PropTypes {
 }
 
 const Links = ({ withSheetClose = false }: PropTypes) => {
-  const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({});
+  const closeTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
-  const toggleMenu = (key: string) => {
-    setOpenMenus({ [key]: !openMenus[key] });
+  const startCloseTimer = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+    }
+
+    closeTimeoutRef.current = setTimeout(() => {
+      setOpenMenu(null);
+    }, 1500); // 👈 adjust (ms)
   };
 
-  const closeMenus = () => {
-    setOpenMenus({});
+  const cancelCloseTimer = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
   };
+
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
+
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener?.("change", update);
+    return () => mq.removeEventListener?.("change", update);
+  }, []);
+
+  const closeMenus = () => setOpenMenu(null);
+  const toggleMenu = (key: string) =>
+    setOpenMenu((prev) => (prev === key ? null : key));
 
   const [SheetCloseWrapper, sheetCloseWrapperProps] = withSheetClose
     ? [SheetClose, { asChild: true }]
@@ -89,17 +81,11 @@ const Links = ({ withSheetClose = false }: PropTypes) => {
   if (pathname.length < 1) pathname = "home";
   if (pathname.includes("-")) {
     const pathnameSplit = pathname.split("-");
-    pathnameSplit.forEach((word, i) => {
-      if (i === 0) {
-        pathname = word;
-      } else {
-        pathname = pathname + ` ${word}`;
-      }
-    });
+    pathname = pathnameSplit.join(" ");
   }
 
   useEffect(() => {
-    setOpenMenus({});
+    closeMenus();
   }, [pathnameRaw]);
 
   return (
@@ -115,6 +101,17 @@ const Links = ({ withSheetClose = false }: PropTypes) => {
           <div
             key={link.href}
             className="flex flex-col relative gap-3 md:gap-0"
+            onMouseEnter={() => {
+              if (isDesktop) {
+                cancelCloseTimer();
+                setOpenMenu(link.href);
+              }
+            }}
+            onMouseLeave={() => {
+              if (isDesktop) {
+                startCloseTimer();
+              }
+            }}
           >
             <Button
               className="p-2 justify-start"
@@ -123,21 +120,34 @@ const Links = ({ withSheetClose = false }: PropTypes) => {
                   ? "default"
                   : "ghost"
               }
-              onClick={() => toggleMenu(link.href)}
+              onClick={() => {
+                if (!isDesktop) toggleMenu(link.href);
+              }}
             >
               <span
                 className={cn(
-                  "transition-transform",
-                  openMenus[link.href] && "rotate-180",
+                  "transition-transform md:hidden",
+                  openMenu === link.href && "rotate-180",
                 )}
               >
-                {openMenus[link.href] ? "-" : "+"}
+                {openMenu === link.href ? "-" : "+"}
               </span>{" "}
               {link.title}
             </Button>
 
-            {openMenus[link.href] && (
-              <div className="flex flex-col gap-2 bg-white md:gap-0 md:absolute md:top-10 md:mt-1 md:left-1/2 md:-translate-x-1/2">
+            {openMenu === link.href && (
+              <div
+                className={cn(
+                  "flex flex-col gap-2 bg-white",
+                  "md:gap-0 md:mt-1 md:absolute md:top-full md:left-1/2 md:-translate-x-1/2 md:z-50",
+                )}
+                onMouseEnter={() => {
+                  if (isDesktop) cancelCloseTimer();
+                }}
+                onMouseLeave={() => {
+                  if (isDesktop) startCloseTimer();
+                }}
+              >
                 {link.links.map((sublink) => (
                   <SheetCloseWrapper
                     {...sheetCloseWrapperProps}
@@ -168,6 +178,7 @@ const Links = ({ withSheetClose = false }: PropTypes) => {
                   ? "default"
                   : "ghost"
               }
+              onClick={closeMenus}
             >
               <Link href={link.href}>{link.title}</Link>
             </Button>
