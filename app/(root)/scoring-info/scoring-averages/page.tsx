@@ -1,5 +1,10 @@
 const ScoringInfoAveragesPage = () => {
-  return <div>Scoring Averages</div>;
+  return (
+    <>
+      <h2>Scoring Info</h2>
+      <div>Averages</div>
+    </>
+  );
 };
 
 export default ScoringInfoAveragesPage;
