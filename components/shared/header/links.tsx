@@ -31,8 +31,8 @@ const links = [
     href: "/scoring-info",
     links: [
       {
-        title: "TWO MAN LEAGUE",
-        href: "/scoring-info/two-man-league",
+        title: "WEEKLY SCORES",
+        href: "/scoring-info/weekly-scores",
       },
       {
         title: "SCORING AVERAGES",
