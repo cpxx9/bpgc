@@ -6,6 +6,12 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { SheetClose } from "@/components/ui/sheet";
 import React from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const links = [
   {
@@ -82,7 +88,30 @@ const Links = ({ withSheetClose = false }: PropTypes) => {
       {links.map((link) =>
         link.links ? (
           <SheetCloseWrapper {...sheetCloseWrapperProps} key={link.href}>
-            <Button
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  className="p-2"
+                  variant={
+                    pathname.includes(link.title.toLowerCase())
+                      ? "default"
+                      : "ghost"
+                  }
+                >
+                  {link.title}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                {link.links.map((sublink) => (
+                  <DropdownMenuItem asChild key={sublink.href}>
+                    <Button className="p-2" asChild variant="ghost">
+                      <Link href={sublink.href}>{sublink.title}</Link>
+                    </Button>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+            {/* <Button
               className="p-2"
               asChild
               variant={
@@ -92,7 +121,7 @@ const Links = ({ withSheetClose = false }: PropTypes) => {
               }
             >
               <Link href={link.href}>{link.title}</Link>
-            </Button>
+            </Button> */}
           </SheetCloseWrapper>
         ) : (
           <SheetCloseWrapper {...sheetCloseWrapperProps} key={link.href}>
