@@ -36,11 +36,41 @@ const EventSchedule = async () => {
       </TableHeader>
       <TableBody>
         <EventScheduleMonths events={eventSchedule?.april} />
+        <TableRow className="border-none">
+          <TableCell className="p-0">
+            <br />
+          </TableCell>
+        </TableRow>
         <EventScheduleMonths events={eventSchedule?.may} />
+        <TableRow className="border-none">
+          <TableCell className="p-0">
+            <br />
+          </TableCell>
+        </TableRow>
         <EventScheduleMonths events={eventSchedule?.june} />
+        <TableRow className="border-none">
+          <TableCell className="p-0">
+            <br />
+          </TableCell>
+        </TableRow>
         <EventScheduleMonths events={eventSchedule?.july} />
+        <TableRow className="border-none">
+          <TableCell className="p-0">
+            <br />
+          </TableCell>
+        </TableRow>
         <EventScheduleMonths events={eventSchedule?.august} />
+        <TableRow className="border-none">
+          <TableCell className="p-0">
+            <br />
+          </TableCell>
+        </TableRow>
         <EventScheduleMonths events={eventSchedule?.september} />
+        <TableRow className="border-none">
+          <TableCell className="p-0">
+            <br />
+          </TableCell>
+        </TableRow>
         <EventScheduleMonths events={eventSchedule?.october} />
       </TableBody>
     </Table>

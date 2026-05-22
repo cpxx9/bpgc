@@ -28,16 +28,16 @@ const EventScheduleMonths = ({ events }: PropTypes) => {
             )}
             key={event.id}
           >
-            <TableCell className="py-1 pl-0 pr-4 text-lg font-semibold">
+            <TableCell className="py-0 pl-0 pr-4 text-lg font-semibold">
               {month} {day}
             </TableCell>
-            <TableCell className="py-1 px-5 text-lg font-semibold">
+            <TableCell className="py-0 px-5 text-lg font-semibold">
               {event.time.toLocaleTimeString("en-US", { timeZone: "EST" })}
             </TableCell>
-            <TableCell className="py-1 px-5 text-lg font-semibold">
+            <TableCell className="py-0 px-5 text-lg font-semibold">
               {event.location}
             </TableCell>
-            <TableCell className="py-1 pr-5 pl-8 text-lg font-semibold">
+            <TableCell className="py-0 pr-5 pl-8 text-lg font-semibold">
               {event.description}
             </TableCell>
           </TableRow>
