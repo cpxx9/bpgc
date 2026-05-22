@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { SheetClose } from "@/components/ui/sheet";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -66,7 +66,6 @@ const links = [
 
 interface PropTypes {
   withSheetClose?: boolean;
-  onNavigate?: () => void;
 }
 
 const Links = ({ withSheetClose = false }: PropTypes) => {
@@ -84,6 +83,7 @@ const Links = ({ withSheetClose = false }: PropTypes) => {
     ? [SheetClose, { asChild: true }]
     : [React.Fragment, {}];
 
+  const pathnameRaw = usePathname();
   let pathname = usePathname();
   pathname = pathname.slice(1);
   if (pathname.length < 1) pathname = "home";
@@ -97,6 +97,10 @@ const Links = ({ withSheetClose = false }: PropTypes) => {
       }
     });
   }
+
+  useEffect(() => {
+    setOpenMenus({});
+  }, [pathnameRaw]);
 
   return (
     <div
