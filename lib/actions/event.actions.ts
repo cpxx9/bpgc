@@ -109,6 +109,9 @@ export async function getPreviousEvent() {
           lte: new Date(),
         },
       },
+      orderBy: {
+        date: "desc",
+      },
     });
 
     return {
