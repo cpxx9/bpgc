@@ -31,9 +31,9 @@ const Menu = () => {
               <UserButton />
             </div>
             <Links withSheetClose />
-            <SheetDescription className="flex-center self-center flex-col">
-              Est. 1989 | {APP_NAME}
-              <span className="italic">
+            <SheetDescription className="flex-center self-center flex-col justify-center items-center">
+              <span>Est. 1989 | {APP_NAME}</span>
+              <span className="italic text-center">
                 Connecticut's First Golf Club Without Real Estate
               </span>
             </SheetDescription>

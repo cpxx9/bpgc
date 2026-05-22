@@ -114,7 +114,7 @@ const Links = ({ withSheetClose = false }: PropTypes) => {
             }}
           >
             <Button
-              className="p-2 justify-start"
+              className="p-2 justify-center"
               variant={
                 pathname.includes(link.title.toLowerCase())
                   ? "default"
@@ -154,7 +154,7 @@ const Links = ({ withSheetClose = false }: PropTypes) => {
                     key={sublink.href}
                   >
                     <Button
-                      className="p-1 justify-start"
+                      className="p-1 px-2 justify-center"
                       asChild
                       variant="ghost"
                       onClick={closeMenus}
@@ -171,7 +171,7 @@ const Links = ({ withSheetClose = false }: PropTypes) => {
         ) : (
           <SheetCloseWrapper {...sheetCloseWrapperProps} key={link.href}>
             <Button
-              className="p-2 justify-start"
+              className="p-2 justify-center"
               asChild
               variant={
                 link.title.toLowerCase().includes(pathname)
