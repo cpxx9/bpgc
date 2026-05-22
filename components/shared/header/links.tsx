@@ -76,6 +76,10 @@ const Links = ({ withSheetClose = false }: PropTypes) => {
     setOpenMenus({ [key]: !openMenus[key] });
   };
 
+  const closeMenus = () => {
+    setOpenMenus({});
+  };
+
   const [SheetCloseWrapper, sheetCloseWrapperProps] = withSheetClose
     ? [SheetClose, { asChild: true }]
     : [React.Fragment, {}];
@@ -126,16 +130,17 @@ const Links = ({ withSheetClose = false }: PropTypes) => {
             </Button>
 
             {openMenus[link.href] && (
-              <div className="flex flex-col md:absolute top-7">
+              <div className="flex flex-col bg-white md:absolute top-10">
                 {link.links.map((sublink) => (
                   <SheetCloseWrapper
                     {...sheetCloseWrapperProps}
                     key={sublink.href}
                   >
                     <Button
-                      className="p-1 justify-start bg-white"
+                      className="p-1 justify-start"
                       asChild
                       variant="ghost"
+                      onClick={closeMenus}
                     >
                       <Link className="h-auto" href={sublink.href}>
                         {sublink.title}
