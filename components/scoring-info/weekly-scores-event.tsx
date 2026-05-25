@@ -22,7 +22,7 @@ const WeeklyScoresEvent = async () => {
 
   return (
     <section className="flex flex-col gap-3 w-[800px]">
-      <section className="text-center bg-blue-400/50 p-5">
+      <section className="text-center bg-blue-400/50 p-6">
         <h2 className="text-3xl text-white font-bold">{event.description}</h2>
         <h2 className="text-3xl text-white font-semibold">
           <i>{event.location}</i>
