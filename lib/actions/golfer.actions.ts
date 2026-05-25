@@ -96,12 +96,10 @@ export async function getAllGolfersWithEventScoreList(eventId: string) {
     const data = await prisma.golfer.findMany({
       orderBy: [
         {
-          scores: {
-            _count: "desc",
-          },
+          lastName: "asc",
         },
         {
-          createdAt: "desc",
+          firstName: "asc",
         },
       ],
       include: {
