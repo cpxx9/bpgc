@@ -200,7 +200,9 @@ const UpdateEventForm = ({ event }: PropTypes) => {
               field: ControllerRenderProps<UpdateEvent, "isChampionship">;
             }) => (
               <FormItem className="mt-2 flex justify-between">
-                <FormLabel>Is this a Club Championship Round?</FormLabel>
+                <FormLabel>
+                  Is this a Club/Two Man Championship Round?
+                </FormLabel>
                 <FormControl>
                   <Checkbox
                     checked={field.value}
