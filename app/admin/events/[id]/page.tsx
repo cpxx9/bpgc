@@ -63,7 +63,7 @@ const EventInfo = async ({ params }: PropTypes) => {
         </Card>
       </section>
       <section className="flex flex-col gap-3">
-        <Collapsible>
+        <Collapsible defaultOpen={event.isTwoManMatch ? false : true}>
           <Card>
             <CollapsibleTrigger className="w-full">
               <CardHeader className="flex flex-row justify-between">
@@ -78,7 +78,10 @@ const EventInfo = async ({ params }: PropTypes) => {
             </CollapsibleContent>
           </Card>
         </Collapsible>
-        <Collapsible defaultOpen={true}>
+        <Collapsible
+          className={event.isTwoManMatch ? "" : "invisible"}
+          defaultOpen={true}
+        >
           <Card>
             <CollapsibleTrigger className="w-full">
               <CardHeader className="flex flex-row justify-between pb-3">
