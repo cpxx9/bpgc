@@ -91,3 +91,7 @@ export type GolferWithTeammate = Golfer & {
     golfers: Golfer[];
   };
 };
+
+export type EventWithScores = Event & {
+  scores: Score[];
+};
