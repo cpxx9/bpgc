@@ -80,7 +80,7 @@ const EventInfo = async ({ params }: PropTypes) => {
         </Collapsible>
         <Collapsible
           className={event.isTwoManMatch ? "" : "invisible"}
-          defaultOpen={true}
+          defaultOpen={event.isTwoManMatch ? true : false}
         >
           <Card>
             <CollapsibleTrigger className="w-full">
