@@ -112,17 +112,24 @@ export async function getAllGolfersWithScoreAverages(): Promise<
     const avgById = new Map(avgs.map((a) => [a.golferId, a._avg.score]));
 
     const data = golfers
+
       .map((g) => ({
         id: g.id,
         firstName: g.firstName,
         lastName: g.lastName,
-        avgScore: avgById.get(g.id)!,
+        avgScore: avgById.get(g.id)!, // safe because we filtered to only golfers in avgs
       }))
-      .sort(
-        (a, b) =>
+      .sort((a, b) => {
+        // lowest avg first
+        const diff = a.avgScore - b.avgScore;
+        if (diff !== 0) return diff;
+
+        // tie-breakers (optional): lastName, then firstName
+        return (
           a.lastName.localeCompare(b.lastName) ||
-          a.firstName.localeCompare(b.firstName),
-      );
+          a.firstName.localeCompare(b.firstName)
+        );
+      });
 
     return {
       success: true,
