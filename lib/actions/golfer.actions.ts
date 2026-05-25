@@ -7,7 +7,13 @@ import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
 import { formatError } from "@/lib/utils";
 import { createGolferSchema } from "@/lib/validators";
-import { Golfer, GolferWithTeammate, UpdateGolfer } from "@/types";
+import {
+  ActionResult,
+  Golfer,
+  GolferWithScoreAverage,
+  GolferWithTeammate,
+  UpdateGolfer,
+} from "@/types";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 
@@ -76,6 +82,47 @@ export async function getAllGolfersList() {
       // where: { twoManTeamId: null, active: true },
       orderBy: { lastName: "asc" },
     });
+
+    return {
+      success: true,
+      data,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
+}
+
+export async function getAllGolfersWithScoreAverages(): Promise<
+  ActionResult<GolferWithScoreAverage[]>
+> {
+  try {
+    const avgs = await prisma.score.groupBy({
+      by: ["golferId"],
+      _avg: { score: true },
+    });
+
+    const golfers = await prisma.golfer.findMany({
+      where: { id: { in: avgs.map((a) => a.golferId) } },
+      select: { id: true, firstName: true, lastName: true },
+    });
+
+    const avgById = new Map(avgs.map((a) => [a.golferId, a._avg.score]));
+
+    const data = golfers
+      .map((g) => ({
+        id: g.id,
+        firstName: g.firstName,
+        lastName: g.lastName,
+        avgScore: avgById.get(g.id)!,
+      }))
+      .sort(
+        (a, b) =>
+          a.lastName.localeCompare(b.lastName) ||
+          a.firstName.localeCompare(b.firstName),
+      );
 
     return {
       success: true,

@@ -87,6 +87,13 @@ export type ScoreWithGolfer = Score & {
   golfer: { firstName: string; lastName: string };
 };
 
+export type GolferWithScoreAverage = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  avgScore: number;
+};
+
 export type GolferWithScores = Golfer & {
   scores: Score[];
 };
