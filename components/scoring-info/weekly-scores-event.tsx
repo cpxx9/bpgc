@@ -2,6 +2,9 @@ import { getPreviousEvent } from "@/lib/actions/event.actions";
 import React from "react";
 
 const WeeklyScoresEvent = async () => {
+  // Uncomment for delay to test suspense layout
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
+
   const { data: event } = await getPreviousEvent();
   if (!event) {
     return <></>;
