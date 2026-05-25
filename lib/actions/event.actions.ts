@@ -126,7 +126,6 @@ export async function getPreviousEvent(): Promise<
                 lastName: true,
               },
             },
-            score: true,
           },
         },
       },
@@ -134,8 +133,6 @@ export async function getPreviousEvent(): Promise<
         date: "desc",
       },
     });
-
-    console.log(previousEvent);
 
     return {
       success: true,
