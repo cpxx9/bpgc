@@ -14,6 +14,7 @@ import { getEventById } from "@/lib/actions/event.actions";
 import { getAllGolfersWithEventScoreList } from "@/lib/actions/golfer.actions";
 import { getAllTwoManTeamsList } from "@/lib/actions/two-man-team.actions";
 import { requireAdmin } from "@/lib/auth-guard";
+import { convertToFormDate } from "@/lib/utils";
 import { ChevronsUpDown } from "lucide-react";
 import Link from "next/link";
 
@@ -24,7 +25,7 @@ interface PropTypes {
 const EventInfo = async ({ params }: PropTypes) => {
   await requireAdmin();
   const { id } = await params;
-  const { event } = await getEventById(id);
+  const { data: event } = await getEventById(id);
   const { data: golfers } = await getAllGolfersWithEventScoreList(id);
   const { data: twoManTeams } = await getAllTwoManTeamsList(id);
 
@@ -42,8 +43,8 @@ const EventInfo = async ({ params }: PropTypes) => {
             <CardTitle>{event.location}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>Date: {event.date}</p>
-            <p>Time: {event.time}</p>
+            <p>Date: {convertToFormDate(event.date)}</p>
+            <p>Time: {convertToFormDate(event.time)}</p>
             <p>Week: {event.leagueWeek}</p>
             {event.isTwoManMatch ? (
               <Badge variant="default">Two Man Match</Badge>

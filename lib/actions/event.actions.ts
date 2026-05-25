@@ -5,7 +5,7 @@ import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
 import { convertToFormDate, convertToFormTime, formatError } from "@/lib/utils";
 import { createEventSchema } from "@/lib/validators";
-import { Event, EventWithScores, FormEvent, UpdateEvent } from "@/types";
+import { Event, FormEvent, UpdateEvent } from "@/types";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { date } from "zod";
@@ -65,13 +65,8 @@ export async function getEventById(eventId: string | undefined) {
     });
 
     if (!event) throw new Error("Event not found");
-    const parsedEvent: FormEvent = {
-      ...event,
-      date: convertToFormDate(event.date),
-      time: convertToFormTime(event.time),
-    };
 
-    return { success: true, event: parsedEvent };
+    return { success: true, data: event };
   } catch (err) {
     return formatError(err);
   }
@@ -103,7 +98,7 @@ export async function getNextEvent() {
 
 export async function getPreviousEvent() {
   try {
-    const previousEvent: EventWithScores = await prisma.event.findFirstOrThrow({
+    const previousEvent: Event = await prisma.event.findFirstOrThrow({
       where: {
         date: {
           lte: new Date(),
@@ -121,7 +116,7 @@ export async function getPreviousEvent() {
       },
     });
 
-    console.log(previousEvent.scores);
+    console.log(previousEvent);
 
     return {
       success: true,
