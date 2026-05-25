@@ -83,6 +83,10 @@ export type Score = {
   updatedAt?: Date;
 };
 
+export type ScoreWithGolfer = Score & {
+  golfer: { firstName: string; lastName: string };
+};
+
 export type GolferWithScores = Golfer & {
   scores: Score[];
 };
@@ -97,5 +101,5 @@ export type GolferWithTeammate = Golfer & {
 };
 
 export type EventWithScores = Event & {
-  scores: Score[];
+  scores: ScoreWithGolfer[];
 };
