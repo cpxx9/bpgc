@@ -21,10 +21,10 @@ const EventScheduleMonths = ({ events }: PropTypes) => {
         return (
           <TableRow
             className={cn(
-              "border-none",
-              `${event.date < new Date() ? "text-gray-500" : "text-white"}`,
+              "border-none text-white",
               `${!event.isTwoManMatch && !event.isChampionship ? "text-blue-600" : ""}`,
               `${event.isChampionship && !event.isTwoManMatch ? "text-orange-500" : ""}`,
+              `${event.date < new Date() ? "text-gray-500" : ""}`,
             )}
             key={event.id}
           >
