@@ -25,9 +25,14 @@ interface PropTypes {
 const EventInfo = async ({ params }: PropTypes) => {
   await requireAdmin();
   const { id } = await params;
-  const { data: event } = await getEventById(id);
+  const result = await getEventById(id);
   const { data: golfers } = await getAllGolfersWithEventScoreList(id);
   const { data: twoManTeams } = await getAllTwoManTeamsList(id);
+  if (!result.success) {
+    return <></>;
+  }
+
+  const event = result.data;
 
   return (
     <div className="flex flex-col gap-3">

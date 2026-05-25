@@ -10,6 +10,10 @@ import {
   updateUserSchema,
 } from "@/lib/validators";
 
+export type ActionResult<T> =
+  | { success: true; data: T; totalPages?: number }
+  | { success: false; message: string };
+
 export type UpdateUser = z.infer<typeof updateUserSchema>;
 export type UpdateGolfer = z.infer<typeof updateGolferSchema>;
 export type TwoManTeam = z.infer<typeof createTwoManTeamSchema>;

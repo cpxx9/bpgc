@@ -5,7 +5,7 @@ import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
 import { convertToFormDate, convertToFormTime, formatError } from "@/lib/utils";
 import { createEventSchema } from "@/lib/validators";
-import { Event, FormEvent, UpdateEvent } from "@/types";
+import { ActionResult, Event, FormEvent, UpdateEvent } from "@/types";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { date } from "zod";
@@ -57,7 +57,9 @@ export async function getEventCount() {
   }
 }
 
-export async function getEventById(eventId: string | undefined) {
+export async function getEventById(
+  eventId: string | undefined,
+): Promise<ActionResult<Event>> {
   try {
     if (!eventId) throw new Error("No id passed");
     const event = await prisma.event.findFirst({
@@ -68,7 +70,7 @@ export async function getEventById(eventId: string | undefined) {
 
     return { success: true, data: event };
   } catch (err) {
-    return formatError(err);
+    return { success: false, message: formatError(err) };
   }
 }
 

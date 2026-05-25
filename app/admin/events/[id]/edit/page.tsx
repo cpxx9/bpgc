@@ -4,6 +4,7 @@ import UpdateEventForm from "@/components/admin/update-event-form";
 import { requireAdmin } from "@/lib/auth-guard";
 import { getEventById } from "@/lib/actions/event.actions";
 import { convertToFormDate, convertToFormTime } from "@/lib/utils";
+import { FormEvent } from "@/types";
 
 export const metadata: Metadata = {
   title: "Update Event",
@@ -17,13 +18,18 @@ const AdminEventUpdatePage = async ({ params }: PropTypes) => {
   await requireAdmin();
   const { id } = await params;
 
-  const { data: event } = await getEventById(id);
-  console.log(event);
-  const formDate = event.date;
-  const formTime = event.time;
-  event.date = convertToFormDate(formDate);
-  event.time = convertToFormTime(formTime);
-  console.log(event);
+  const result = await getEventById(id);
+  if (!result.success) {
+    return <></>;
+  }
+
+  const resultEvent = result.data;
+
+  const event: FormEvent = {
+    ...resultEvent,
+    date: convertToFormDate(resultEvent.date),
+    time: convertToFormTime(resultEvent.time),
+  };
 
   if (!event) notFound();
 
