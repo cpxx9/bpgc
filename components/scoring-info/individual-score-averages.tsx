@@ -6,11 +6,30 @@ const IndividualScoreAverages = async () => {
     return <></>;
   }
   const golfers = result.data;
-  console.log(golfers);
+  const chunkSize = Math.ceil(golfers.length / 3);
+
+  const columns = [
+    golfers.slice(0, chunkSize),
+    golfers.slice(chunkSize, chunkSize * 2),
+    golfers.slice(chunkSize * 2),
+  ];
+
   return (
-    <div>
-      <div>scores</div>
-    </div>
+    <section className="flex justify-between">
+      {columns.map((col, i) => (
+        <div key={i} className="">
+          {col.map((golfer) => (
+            <div
+              key={golfer.id}
+              className="flex justify-between text-white font-semibold text-lg"
+            >
+              <p>{`${golfer.firstName} ${golfer.lastName}`}</p>
+              <p className="ml-3">{golfer.avgScore}</p>
+            </div>
+          ))}
+        </div>
+      ))}
+    </section>
   );
 };
 
