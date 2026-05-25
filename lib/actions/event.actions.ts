@@ -111,6 +111,15 @@ export async function getPreviousEvent() {
           orderBy: {
             score: "asc",
           },
+          include: {
+            golfer: {
+              select: {
+                firstName: true,
+                lastName: true,
+              },
+            },
+            score: true,
+          },
         },
       },
       orderBy: {
