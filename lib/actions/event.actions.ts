@@ -5,7 +5,13 @@ import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
 import { convertToFormDate, convertToFormTime, formatError } from "@/lib/utils";
 import { createEventSchema } from "@/lib/validators";
-import { ActionResult, Event, FormEvent, UpdateEvent } from "@/types";
+import {
+  ActionResult,
+  Event,
+  EventWithScores,
+  FormEvent,
+  UpdateEvent,
+} from "@/types";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { date } from "zod";
@@ -98,9 +104,11 @@ export async function getNextEvent() {
   }
 }
 
-export async function getPreviousEvent() {
+export async function getPreviousEvent(): Promise<
+  ActionResult<EventWithScores>
+> {
   try {
-    const previousEvent: Event = await prisma.event.findFirstOrThrow({
+    const previousEvent = await prisma.event.findFirstOrThrow({
       where: {
         date: {
           lte: new Date(),

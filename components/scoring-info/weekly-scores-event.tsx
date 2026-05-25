@@ -5,20 +5,20 @@ const WeeklyScoresEvent = async () => {
   // Uncomment for delay to test suspense layout
   // await new Promise((resolve) => setTimeout(resolve, 3000));
 
-  const { data: event } = await getPreviousEvent();
-  if (!event) {
+  const result = await getPreviousEvent();
+  if (!result.success) {
     return <></>;
-  } else {
-    return (
-      <div>
-        <div>
-          <h2>{event.description}</h2>
-          <h2>{event.location}</h2>
-        </div>
-        <div>bottom</div>
-      </div>
-    );
   }
+  const event = result.data;
+  return (
+    <div>
+      <div>
+        <h2>{event.description}</h2>
+        <h2>{event.location}</h2>
+      </div>
+      <div>bottom</div>
+    </div>
+  );
 };
 
 export default WeeklyScoresEvent;
