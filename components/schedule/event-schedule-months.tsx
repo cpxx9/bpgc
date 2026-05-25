@@ -24,12 +24,13 @@ const EventScheduleMonths = ({ events }: PropTypes) => {
               "border-none",
               `${event.date < new Date() ? "text-gray-500" : "text-white"}`,
               `${!event.isTwoManMatch && !event.isChampionship ? "text-blue-600" : ""}`,
-              `${event.isChampionship ? "text-orange-500" : ""}`,
+              `${event.isChampionship && !event.isTwoManMatch ? "text-orange-500" : ""}`,
             )}
             key={event.id}
           >
             <TableCell className="py-0 pl-0 pr-4 text-lg font-semibold">
               {month} {day}
+              {`${event.isTwoManMatch && event.isChampionship ? "*" : ""}`}
             </TableCell>
             <TableCell className="py-0 px-5 text-lg font-semibold">
               {event.time.toLocaleTimeString("en-US", { timeZone: "EST" })}
