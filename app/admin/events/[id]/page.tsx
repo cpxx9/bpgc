@@ -14,7 +14,7 @@ import { getEventById } from "@/lib/actions/event.actions";
 import { getAllGolfersWithEventScoreList } from "@/lib/actions/golfer.actions";
 import { getAllTwoManTeamsList } from "@/lib/actions/two-man-team.actions";
 import { requireAdmin } from "@/lib/auth-guard";
-import { convertToFormDate } from "@/lib/utils";
+import { convertToFormDate, convertToFormTime } from "@/lib/utils";
 import { ChevronsUpDown } from "lucide-react";
 import Link from "next/link";
 
@@ -44,7 +44,7 @@ const EventInfo = async ({ params }: PropTypes) => {
           </CardHeader>
           <CardContent>
             <p>Date: {convertToFormDate(event.date)}</p>
-            <p>Time: {convertToFormDate(event.time)}</p>
+            <p>Time: {convertToFormTime(event.time)}</p>
             <p>Week: {event.leagueWeek}</p>
             {event.isTwoManMatch ? (
               <Badge variant="default">Two Man Match</Badge>
