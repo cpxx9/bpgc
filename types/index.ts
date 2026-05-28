@@ -91,7 +91,8 @@ export type EventWithScoreAverage = {
   id: string;
   leagueWeek: number;
   location: string;
-  avgScore: number;
+  avgScore: number | "dnp";
+  date: Date;
 };
 
 export type GolferWithScoreAverage = {
