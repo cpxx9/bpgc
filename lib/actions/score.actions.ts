@@ -3,9 +3,15 @@ import { prisma } from "@/db/prisma";
 import { requireAdminAction } from "@/lib/auth-guard";
 import { formatError } from "@/lib/utils";
 import { createScoreSchema } from "@/lib/validators";
-import { UpdateScore } from "@/types";
+import { ActionResult, EventWithScoreAverage, UpdateScore } from "@/types";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
+import { eventNames } from "process";
+
+const _currentYear = new Date().getFullYear();
+
+const startOfYear = new Date(new Date().getFullYear(), 0, 1);
+const endOfYear = new Date(new Date().getFullYear(), 11, 31);
 
 export async function createScore(prevState: unknown, formData: FormData) {
   try {
@@ -47,6 +53,45 @@ export async function getScoreById(scoreId: string | undefined) {
   });
   if (!score) throw new Error("Score not found");
   return score;
+}
+
+export async function getScoreAveragesForEvents(): Promise<
+  ActionResult<EventWithScoreAverage[]>
+> {
+  try {
+    const data = await prisma.$queryRaw<EventWithScoreAverage[]>`
+      SELECT
+        e.id,
+        e.location,
+        e.date,
+        e."leagueWeek",
+        AVG(s.score)::float AS "avgScore"
+      FROM "Event" e
+      LEFT JOIN "Score" s
+        ON s."eventId" = e.id
+      WHERE e."date" >= date_trunc('year', CURRENT_DATE)
+        AND e."date" < date_trunc('year', CURRENT_DATE) + INTERVAL '1 year'
+      GROUP BY e.id, e.location, e."leagueWeek"
+      ORDER BY e."date";
+    `;
+
+    if (!data) throw new Error("No Event averages found!");
+    data.forEach((event) => {
+      if (event.avgScore === null && event.date < new Date()) {
+        event.avgScore = "dnp";
+      }
+    });
+
+    return {
+      success: true,
+      data,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
 }
 
 /* TO-DO
