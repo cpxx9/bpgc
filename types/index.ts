@@ -87,6 +87,13 @@ export type ScoreWithGolfer = Score & {
   golfer: { firstName: string; lastName: string };
 };
 
+export type EventWithScoreAverage = {
+  id: string;
+  leagueWeek: number;
+  location: string;
+  avgScore: number;
+};
+
 export type GolferWithScoreAverage = {
   id: string;
   firstName: string;
