@@ -1,6 +1,6 @@
 {
   "name": "bpgc-site",
-  "version": "0.7.8",
+  "version": "0.8.5",
   "private": true,
   "scripts": {
     "preinstall": "npx only-allow pnpm",
