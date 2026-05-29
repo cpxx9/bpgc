@@ -156,7 +156,11 @@ const Links = ({ withSheetClose = false }: PropTypes) => {
                     <Button
                       className="p-1 px-2 justify-center"
                       asChild
-                      variant="ghost"
+                      variant={
+                        pathname.includes(sublink.title.toLowerCase())
+                          ? "default"
+                          : "ghost"
+                      }
                       onClick={closeMenus}
                     >
                       <Link className="h-auto" href={sublink.href}>
