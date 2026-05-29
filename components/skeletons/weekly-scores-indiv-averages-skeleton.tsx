@@ -1,5 +1,3 @@
-import React from "react";
-
 const WeeklyScoresIndivAveragesSkeleton = () => {
   return (
     <section className="flex justify-between min-h-[265px]">
