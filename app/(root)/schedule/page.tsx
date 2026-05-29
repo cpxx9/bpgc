@@ -1,6 +1,7 @@
 import splash from "@/assets/homepagesplash.avif";
 import EventSchedule from "@/components/schedule/event-schedule";
 import Image from "next/image";
+import { Suspense } from "react";
 
 const SchedulePage = () => {
   return (
@@ -16,7 +17,9 @@ const SchedulePage = () => {
         <h3 className="text-xl font-bold text-white">
           {new Date().getFullYear()} BPGC Schedule
         </h3>
-        <EventSchedule />
+        <Suspense fallback={<></>}>
+          <EventSchedule />
+        </Suspense>
         <ul className="mt-5">
           <li className="text-white">
             <i>- Two man Match</i>
