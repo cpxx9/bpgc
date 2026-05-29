@@ -1,6 +1,7 @@
 import splash from "@/assets/homepagesplash.avif";
 import EventScoreAverages from "@/components/scoring-info/event-score-averages";
 import IndividualScoreAverages from "@/components/scoring-info/individual-score-averages";
+import WeeklyScoresEventAveragesSkeleton from "@/components/skeletons/weekly-scores-event-averages-skeleton";
 import WeeklyScoresIndivAveragesSkeleton from "@/components/skeletons/weekly-scores-indiv-averages-skeleton";
 import Image from "next/image";
 import { Suspense } from "react";
@@ -28,7 +29,7 @@ const ScoringInfoAveragesPage = () => {
           <h2 className="mb-5 text-2xl text-white font-bold">
             Weekly League Scoring Averages
           </h2>
-          <Suspense fallback={<></>}>
+          <Suspense fallback={<WeeklyScoresEventAveragesSkeleton />}>
             <EventScoreAverages />
           </Suspense>
         </section>
