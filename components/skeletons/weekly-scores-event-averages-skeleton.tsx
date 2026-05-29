@@ -3,8 +3,8 @@ const WeeklyScoresEventAveragesSkeleton = () => {
     <section className="flex justify-between min-h-[265px]">
       <div className="">
         <div className="flex justify-between text-white font-semibold text-lg">
-          <p>...</p>
-          <p className="ml-3">...</p>
+          <p>Loading...</p>
+          <p className="ml-3">Loading...</p>
         </div>
       </div>
     </section>
