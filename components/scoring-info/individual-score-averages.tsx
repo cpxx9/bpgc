@@ -1,6 +1,9 @@
 import { getAllGolfersWithScoreAverages } from "@/lib/actions/golfer.actions";
 
 const IndividualScoreAverages = async () => {
+  // Uncomment for delay to test suspense layout
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
+
   const result = await getAllGolfersWithScoreAverages();
   if (!result.success) {
     return <></>;

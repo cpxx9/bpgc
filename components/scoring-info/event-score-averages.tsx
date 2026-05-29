@@ -1,6 +1,9 @@
 import { getScoreAveragesForEvents } from "@/lib/actions/score.actions";
 
 const EventScoreAverages = async () => {
+  // Uncomment for delay to test suspense layout
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
+
   const result = await getScoreAveragesForEvents();
   if (!result.success) {
     return <></>;
