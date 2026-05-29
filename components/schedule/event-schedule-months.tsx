@@ -24,7 +24,7 @@ const EventScheduleMonths = ({ events }: PropTypes) => {
               "border-none text-white",
               `${!event.isTwoManMatch && !event.isChampionship ? "text-blue-600" : ""}`,
               `${event.isChampionship && !event.isTwoManMatch ? "text-orange-500" : ""}`,
-              `${event.date < new Date() ? "text-gray-500" : ""}`,
+              `${event.date < new Date() ? "text-gray-400" : ""}`,
             )}
             key={event.id}
           >

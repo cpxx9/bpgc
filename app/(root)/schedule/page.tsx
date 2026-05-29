@@ -1,9 +1,18 @@
+import splash from "@/assets/homepagesplash.avif";
 import EventSchedule from "@/components/schedule/event-schedule";
+import Image from "next/image";
 
 const SchedulePage = () => {
   return (
-    <div className="bg-blue-300 h-full flex justify-center items-start p-8">
-      <div className="bg-gray-400/80 p-2">
+    <div className="h-full flex justify-center items-start p-8 relative">
+      <Image
+        src={splash}
+        alt="golf course"
+        fill
+        sizes="100vw"
+        style={{ objectFit: "cover", zIndex: -1 }}
+      />
+      <div className="bg-slate-500/90 p-2">
         <h3 className="text-xl font-bold text-white">
           {new Date().getFullYear()} BPGC Schedule
         </h3>
