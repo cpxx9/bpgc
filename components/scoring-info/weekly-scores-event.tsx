@@ -22,13 +22,13 @@ const WeeklyScoresEvent = async () => {
 
   return (
     <section className="flex flex-col gap-3 w-[800px]">
-      <section className="text-center bg-blue-400/50 p-6">
+      <section className="text-center bg-blue-400/80 p-6">
         <h2 className="text-3xl text-white font-bold">{event.description}</h2>
         <h2 className="text-3xl text-white font-semibold">
           <i>{event.location}</i>
         </h2>
       </section>
-      <section className={cn("bg-slate-500/70 p-5 flex justify-between")}>
+      <section className={cn("bg-slate-600/80 p-5 flex justify-between")}>
         {columns.map((col, i) => (
           <div key={i} className="">
             {col.map((score) => (
