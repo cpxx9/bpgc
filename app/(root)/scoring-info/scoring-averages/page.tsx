@@ -1,6 +1,7 @@
 import splash from "@/assets/homepagesplash.avif";
 import EventScoreAverages from "@/components/scoring-info/event-score-averages";
 import IndividualScoreAverages from "@/components/scoring-info/individual-score-averages";
+import WeeklyScoresIndivAveragesSkeleton from "@/components/skeletons/weekly-scores-indiv-averages-skeleton";
 import Image from "next/image";
 import { Suspense } from "react";
 
@@ -19,7 +20,7 @@ const ScoringInfoAveragesPage = () => {
           <h2 className="mb-5 text-2xl text-white font-bold">
             2026 Individual Scoring Averages
           </h2>
-          <Suspense fallback={<></>}>
+          <Suspense fallback={<WeeklyScoresIndivAveragesSkeleton />}>
             <IndividualScoreAverages />
           </Suspense>
         </section>
