@@ -1,10 +1,19 @@
+import splash from "@/assets/homepagesplash.avif";
 import EventScoreAverages from "@/components/scoring-info/event-score-averages";
 import IndividualScoreAverages from "@/components/scoring-info/individual-score-averages";
+import Image from "next/image";
 import { Suspense } from "react";
 
 const ScoringInfoAveragesPage = () => {
   return (
-    <article className="bg-orange-50 h-full p-3">
+    <article className="p-3 relative">
+      <Image
+        src={splash}
+        alt="golf course"
+        fill
+        sizes="100vw"
+        style={{ objectFit: "cover", zIndex: -1 }}
+      />
       <div className="flex flex-col items-center gap-4">
         <section className="bg-blue-300/70 p-5 min-w-[800px]">
           <h2 className="mb-5 text-2xl text-white font-bold">
@@ -14,8 +23,10 @@ const ScoringInfoAveragesPage = () => {
             <IndividualScoreAverages />
           </Suspense>
         </section>
-        <section className="bg-slate-300/70 p-5 min-w-[800px]">
-          <h2>Weekly League Scoring Averages</h2>
+        <section className="bg-slate-600/70 p-5 min-w-[800px]">
+          <h2 className="mb-5 text-2xl text-white font-bold">
+            Weekly League Scoring Averages
+          </h2>
           <Suspense fallback={<></>}>
             <EventScoreAverages />
           </Suspense>
