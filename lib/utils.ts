@@ -133,7 +133,7 @@ export function formUrlQuery({
 
 export function convertToFormDate(date: Date): string {
   const parsedDateArr = date
-    .toLocaleDateString("en-US", { timeZone: "UTC" })
+    .toLocaleDateString("en-US", { timeZone: "EST" })
     .split("/");
   let newStringArr: string[] = [];
   parsedDateArr.forEach((element) => {
@@ -147,7 +147,9 @@ export function convertToFormDate(date: Date): string {
 }
 
 export function convertToFormTime(time: Date): string {
-  const parsedTime = time.toLocaleTimeString().split(" ")[0];
+  const parsedTime = time
+    .toLocaleTimeString("en-US", { timeZone: "EST" })
+    .split(" ")[0];
   const parsedTimeArr = parsedTime.split(":");
   parsedTimeArr.forEach((element, index) => {
     if (element.length > 1) {
