@@ -2,6 +2,9 @@ import { getNextEvent } from "@/lib/actions/event.actions";
 import { convertToFormDate, convertToFormTime } from "@/lib/utils";
 
 const NextEventCard = async () => {
+  // Uncomment for delay to test suspense layout
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
+
   const { data: event } = await getNextEvent();
   if (!event) {
     return <></>;

@@ -3,6 +3,8 @@ import card from "@/assets/homepagecard.avif";
 import Image from "next/image";
 import NextEventCard from "@/components/home/next-event-card";
 import { Button } from "@/components/ui/button";
+import { Suspense } from "react";
+import NextEventCardSkeleton from "@/components/skeletons/next-event-card-skeleton";
 
 const Homepage = () => {
   return (
@@ -19,7 +21,9 @@ const Homepage = () => {
           <h2 className="text-5xl text-white font-black tracking-[0.2em] text-center px-10">
             NEXT OUTING
           </h2>
-          <NextEventCard />
+          <Suspense fallback={<NextEventCardSkeleton />}>
+            <NextEventCard />
+          </Suspense>
         </div>
         <div>
           <Button className="rounded-full tracking-[0.4em] font-semibold py-8 px-7 text-md">
