@@ -14,7 +14,15 @@ import { Event } from "@/types";
 const EventSchedule = async () => {
   let { data: eventSchedule } = await getEventSchedule();
   if (!eventSchedule) {
-    eventSchedule = {} as {
+    eventSchedule = {
+      april: [],
+      may: [],
+      june: [],
+      july: [],
+      august: [],
+      september: [],
+      october: [],
+    } as {
       april: Event[];
       may: Event[];
       june: Event[];
