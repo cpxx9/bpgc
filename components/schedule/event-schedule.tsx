@@ -12,6 +12,9 @@ import { cn } from "@/lib/utils";
 import { Event } from "@/types";
 
 const EventSchedule = async () => {
+  // Uncomment for delay to test suspense layout
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
+
   let { data: eventSchedule } = await getEventSchedule();
   if (!eventSchedule) {
     eventSchedule = {

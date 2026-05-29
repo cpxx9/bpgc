@@ -1,5 +1,6 @@
 import splash from "@/assets/homepagesplash.avif";
 import EventSchedule from "@/components/schedule/event-schedule";
+import EventScheduleSkeleton from "@/components/skeletons/event-schedule-skeleton";
 import Image from "next/image";
 import { Suspense } from "react";
 
@@ -17,7 +18,7 @@ const SchedulePage = () => {
         <h3 className="text-xl font-bold text-white">
           {new Date().getFullYear()} BPGC Schedule
         </h3>
-        <Suspense fallback={<></>}>
+        <Suspense fallback={<EventScheduleSkeleton />}>
           <EventSchedule />
         </Suspense>
         <ul className="mt-5">
