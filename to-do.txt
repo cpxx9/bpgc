@@ -8,3 +8,6 @@ Admin
 --- default should be making a golder inactive and preserving all past data
 --- if golfer goes inactive, make team inactive
 --- stop displaying in lists for events/teams
+
+Main Site
+- Club championship page logic
