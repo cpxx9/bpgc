@@ -11,19 +11,23 @@ interface PropTypes {
 
 const ScoresList = ({ golfers }: PropTypes) => {
   return (
-    <div>
+    <div className="w-fit mx-auto">
       {golfers.map((golfer) => (
         <div
           key={golfer.id}
-          className={`grid grid-cols-[1fr_40px_40px] py-1 ${
-            golfer.highlight ? "text-green-400" : ""
+          className={`text-lg grid grid-cols-[auto_32px_32px] gap-x-4 py-1 ${
+            golfer.highlight ? "text-green-400" : "text-white"
           }`}
         >
           <span>
             {golfer.firstName} {golfer.lastName}
           </span>
-          <span className="text-right">{golfer.scoreOne ?? "--"}</span>
-          <span className="text-right">{golfer.scoreTwo ?? "--"}</span>
+          <span className="text-right tabular-nums">
+            {golfer.scoreOne ?? "--"}
+          </span>
+          <span className="text-right tabular-nums">
+            {golfer.scoreTwo ?? "--"}
+          </span>
         </div>
       ))}
     </div>
