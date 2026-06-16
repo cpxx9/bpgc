@@ -1,3 +1,4 @@
+import ThreeColList from "@/components/shared/three-col-list";
 import { getAllGolfersWithScoreAverages } from "@/lib/actions/golfer.actions";
 
 const IndividualScoreAverages = async () => {
@@ -17,23 +18,7 @@ const IndividualScoreAverages = async () => {
     golfers.slice(chunkSize * 2),
   ];
 
-  return (
-    <section className="flex justify-between">
-      {columns.map((col, i) => (
-        <div key={i} className="">
-          {col.map((golfer) => (
-            <div
-              key={golfer.id}
-              className="flex justify-between text-white font-semibold text-lg"
-            >
-              <p>{`${golfer.firstName} ${golfer.lastName}`}</p>
-              <p className="ml-3">{golfer.avgScore}</p>
-            </div>
-          ))}
-        </div>
-      ))}
-    </section>
-  );
+  return <ThreeColList columns={columns} />;
 };
 
 export default IndividualScoreAverages;
