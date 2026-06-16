@@ -1,4 +1,5 @@
 import splash from "@/assets/homepagesplash.avif";
+import CcScoresList from "@/components/events/cc-scores-list";
 import Image from "next/image";
 
 const EventsClubChampionshipPage = () => {
@@ -27,6 +28,7 @@ const EventsClubChampionshipPage = () => {
             <h4 className="text-lg font-semibold mb-4 text-center">
               CLUB CHAMPIONSHIP
             </h4>
+            <CcScoresList />
           </section>
           <section className="bg-slate-600/70 p-6 rounded">
             <h4 className="text-lg font-semibold mb-4 text-center">
