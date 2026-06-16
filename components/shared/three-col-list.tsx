@@ -2,9 +2,14 @@ import { Columns } from "lucide-react";
 import { string } from "zod";
 
 interface PropTypes {
-  columns:
-    | { id: string; firstName: string; lastName: string; avgScore: number }[][]
-    | { id: string; firstName: string; lastName: string; score: number }[][];
+  columns: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    avgScore?: number;
+    score?: number;
+    highlight?: boolean;
+  }[][];
 }
 
 const ThreeColList = ({ columns }: PropTypes) => {
@@ -15,11 +20,14 @@ const ThreeColList = ({ columns }: PropTypes) => {
           {col.map((golfer) => (
             <div
               key={golfer.id}
-              className="flex justify-between text-white font-semibold text-lg"
+              className={`flex justify-between text-white font-semibold text-lg 
+                ${golfer.highlight ? "text-green-400" : "text-white"}`}
             >
               <p>{`${golfer.firstName} ${golfer.lastName}`}</p>
               <p className="ml-3">
-                {"avgScore" in golfer ? golfer.avgScore : golfer.score}
+                {"avgScore" in golfer
+                  ? (golfer.avgScore ?? "--")
+                  : (golfer.score ?? "--")}
               </p>
             </div>
           ))}
