@@ -3,8 +3,8 @@ interface PropTypes {
     id: string;
     firstName: string;
     lastName: string;
-    scoreOne: number;
-    scoreTwo: number;
+    scoreOne?: number;
+    scoreTwo?: number;
     highlight?: boolean;
   }[];
 }
@@ -22,8 +22,8 @@ const ScoresList = ({ golfers }: PropTypes) => {
           <span>
             {golfer.firstName} {golfer.lastName}
           </span>
-          <span className="text-right">{golfer.scoreOne}</span>
-          <span className="text-right">{golfer.scoreTwo}</span>
+          <span className="text-right">{golfer.scoreOne ?? "--"}</span>
+          <span className="text-right">{golfer.scoreTwo ?? "--"}</span>
         </div>
       ))}
     </div>
