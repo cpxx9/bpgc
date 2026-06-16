@@ -27,20 +27,20 @@ const EventsClubChampionshipPage = () => {
         </section>
         <div className="grid md:grid-cols-2 gap-6">
           <section className="bg-slate-600/70 p-6 rounded">
-            <h4 className="text-lg font-semibold mb-4 text-center">
+            <h4 className="text-xl font-semibold mb-4 text-center">
               CLUB CHAMPIONSHIP
             </h4>
             <CcScoresList />
           </section>
           <section className="bg-slate-600/70 p-6 rounded">
-            <h4 className="text-lg font-semibold mb-4 text-center">
+            <h4 className="text-xl font-semibold mb-4 text-center">
               SENIOR CLUB CHAMPIONSHIP
             </h4>
             <CcSeniorScoresList />
           </section>
         </div>
         <section className="bg-slate-600/70 p-6 rounded text-center">
-          <h4 className="text-lg font-semibold mb-4">NET CLUB CHAMPIONSHIP</h4>
+          <h4 className="text-xl font-semibold mb-4">NET CLUB CHAMPIONSHIP</h4>
           <CcNetScoresList />
         </section>
       </div>
