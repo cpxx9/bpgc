@@ -20,8 +20,9 @@ const ThreeColList = ({ columns }: PropTypes) => {
           {col.map((golfer) => (
             <div
               key={golfer.id}
-              className={`flex justify-between text-white font-semibold text-lg 
-                ${golfer.highlight ? "text-green-400" : "text-white"}`}
+              className={`flex justify-between text-white text-lg 
+                ${golfer.highlight ? "text-green-400" : "text-white"}
+                ${golfer.avgScore ? "font-semibold" : ""}`}
             >
               <p>{`${golfer.firstName} ${golfer.lastName}`}</p>
               <p className="ml-6">
