@@ -1,4 +1,5 @@
 import splash from "@/assets/homepagesplash.avif";
+import CcNetScoresList from "@/components/events/cc-net-scores-list";
 import CcScoresList from "@/components/events/cc-scores-list";
 import CcSeniorScoresList from "@/components/events/cc-senior-scores-list";
 import Image from "next/image";
@@ -40,6 +41,7 @@ const EventsClubChampionshipPage = () => {
         </div>
         <section className="bg-slate-600/70 p-6 rounded text-center">
           <h4 className="text-lg font-semibold mb-4">NET CLUB CHAMPIONSHIP</h4>
+          <CcNetScoresList />
         </section>
       </div>
     </article>

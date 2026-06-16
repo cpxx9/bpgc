@@ -24,7 +24,7 @@ const ThreeColList = ({ columns }: PropTypes) => {
                 ${golfer.highlight ? "text-green-400" : "text-white"}`}
             >
               <p>{`${golfer.firstName} ${golfer.lastName}`}</p>
-              <p className="ml-3">
+              <p className="ml-6">
                 {"avgScore" in golfer
                   ? (golfer.avgScore ?? "--")
                   : (golfer.score ?? "--")}

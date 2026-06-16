@@ -3,7 +3,13 @@ import ThreeColList from "@/components/shared/three-col-list";
 const CcNetScoresList = () => {
   const columns = [
     [
-      { id: "1", firstName: "Dave", lastName: "Sowalsky", score: 138 },
+      {
+        id: "1",
+        firstName: "Dave",
+        lastName: "Sowalsky",
+        score: 138,
+        highlight: true,
+      },
       { id: "2", firstName: "Marcel", lastName: "Ouellette", score: 138 },
       { id: "3", firstName: "Don", lastName: "Hulk", score: 139 },
       { id: "4", firstName: "Dale", lastName: "Laprise", score: 141 },
