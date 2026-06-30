@@ -73,13 +73,17 @@ export async function getAllGolfersList() {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
     const data: Golfer[] = await prisma.golfer.findMany({
+      // new changes, change where statement
+      // where: {
+      //   OR: [
+      //     { twoManTeamId: null, active: true },
+      //     { twoManTeam: { active: false }, active: true },
+      //   ],
+      // },
       where: {
-        OR: [
-          { twoManTeamId: null, active: true },
-          { twoManTeam: { active: false }, active: true },
-        ],
+        active: true,
+        memberships: { none: { endDate: null } },
       },
-      // where: { twoManTeamId: null, active: true },
       orderBy: { lastName: "asc" },
     });
 
@@ -185,24 +189,63 @@ export async function getAllGolfers({
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
-    const data: Golfer[] = await prisma.golfer.findMany({
+    // new changes, getAllGolfers with new memberships relation
+    // const data: Golfer[] = await prisma.golfer.findMany({
+    //   orderBy: [{ active: "desc" }, { lastName: "asc" }, { firstName: "asc" }],
+    //   take: limit,
+    //   skip: (page - 1) * limit,
+    //   include: {
+    //     twoManTeam: {
+    //       include: {
+    //         golfers: true,
+    //       },
+    //     },
+    //   },
+    // });
+
+    // const dataCount = await prisma.golfer.count();
+
+    // return {
+    //   success: true,
+    //   data: data as GolferWithTeammate[],
+    //   totalPages: Math.ceil(dataCount / limit),
+    // };
+    const raw = await prisma.golfer.findMany({
       orderBy: [{ active: "desc" }, { lastName: "asc" }, { firstName: "asc" }],
       take: limit,
       skip: (page - 1) * limit,
       include: {
-        twoManTeam: {
+        memberships: {
+          where: { endDate: null },
           include: {
-            golfers: true,
+            twoManTeam: {
+              include: {
+                memberships: {
+                  where: { endDate: null },
+                  include: { golfer: true },
+                },
+              },
+            },
           },
         },
       },
+    });
+
+    const data = raw.map((golfer) => {
+      const team = golfer.memberships[0]?.twoManTeam ?? null;
+      return {
+        ...golfer,
+        twoManTeam: team
+          ? { ...team, golfers: team.memberships.map((m) => m.golfer) }
+          : null,
+      };
     });
 
     const dataCount = await prisma.golfer.count();
 
     return {
       success: true,
-      data: data as GolferWithTeammate[],
+      data: data as unknown as GolferWithTeammate[],
       totalPages: Math.ceil(dataCount / limit),
     };
   } catch (err) {
@@ -248,19 +291,30 @@ export async function deleteGolfer(id: string) {
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
+    // new changes, different delete logic
+    // await prisma.$transaction(async (tx) => {
+    //   const twoManTeamToDelete = await tx.twoManTeam.findFirst({
+    //     where: {
+    //       golfers: {
+    //         some: {
+    //           id: id,
+    //         },
+    //       },
+    //     },
+    //   });
+    //   twoManTeamToDelete?.id && (await deleteTwoManTeam(twoManTeamToDelete.id));
+    //   await tx.golfer.delete({ where: { id } });
+    // });
+
     await prisma.$transaction(async (tx) => {
-      const twoManTeamToDelete = await tx.twoManTeam.findFirst({
-        where: {
-          golfers: {
-            some: {
-              id: id,
-            },
-          },
-        },
+      const currentMembership = await tx.teamMembership.findFirst({
+        where: { golferId: id, endDate: null },
       });
-      twoManTeamToDelete?.id && (await deleteTwoManTeam(twoManTeamToDelete.id));
+      currentMembership?.twoManTeamId &&
+        (await deleteTwoManTeam(currentMembership.twoManTeamId));
       await tx.golfer.delete({ where: { id } });
     });
+
     revalidatePath("/admin/golfers");
     return {
       success: true,
