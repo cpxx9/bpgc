@@ -40,7 +40,7 @@ model Golfer {
   twoManTeam   TwoManTeam?      @relation(fields: [twoManTeamId], references: [id])
   twoManTeamId String?          @db.Uuid
   scores       Score[]
-  // new
+  // new changes
   memberships  TeamMembership[]
 }
 
@@ -52,11 +52,11 @@ model TwoManTeam {
   active      Boolean          @default(true)
   golfers     Golfer[]
   scores      Matchups[]
-  // new
+  // new changes
   memberships TeamMembership[]
 }
 
-// new
+// new changes
 model TeamMembership {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt DateTime @default(now()) @db.Timestamp(6)

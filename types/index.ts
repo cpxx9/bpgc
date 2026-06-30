@@ -68,7 +68,8 @@ export type Golfer = {
   createdAt: Date;
   updatedAt: Date;
   active: boolean;
-  twoManTeamId: string | null;
+  // new changes, remove twoManTeam
+  // twoManTeamId: string | null;
 };
 
 export type Score = {
@@ -112,7 +113,8 @@ export type GolferWithTeammate = Golfer & {
     createdAt: Date;
     updatedAt: Date;
     golfers: Golfer[];
-  };
+  } | null;
+  // new changes, added | null
 };
 
 export type EventWithScores = Event & {
