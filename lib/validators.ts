@@ -47,7 +47,8 @@ export const createGolferSchema = z.object({
   firstName: nameString,
   lastName: nameString,
   hci: z.number({ message: "HCI must be a number!" }),
-  twoManTeam: z.string().uuid("Must be a valid UUID!").trim().optional(),
+  // new changes, remove twoManTeam
+  // twoManTeam: z.string().uuid("Must be a valid UUID!").trim().optional(),
   active: z.boolean().optional(),
 });
 
