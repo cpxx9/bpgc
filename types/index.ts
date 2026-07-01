@@ -129,6 +129,7 @@ export type EventWithScores = Event & {
 
 export type WeeklyMatchupsPublic = {
   week: number;
+  completed: boolean;
   matchups: {
     id: string;
     teamOne: number;

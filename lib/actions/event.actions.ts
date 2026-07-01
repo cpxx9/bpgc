@@ -260,11 +260,13 @@ export async function getWeeklyMatchesPublic(
     const events = await prisma.event.findMany({
       where: {
         isTwoManMatch: true,
+        isChampionship: false,
         date: { gte: start, lt: end },
       },
       orderBy: { leagueWeek: "asc" },
       select: {
         id: true,
+        date: true,
         leagueWeek: true,
         match: {
           select: {
@@ -281,8 +283,9 @@ export async function getWeeklyMatchesPublic(
       },
     });
 
-    const data = events.map((event) => ({
-      week: event.leagueWeek,
+    const data = events.map((event, index) => ({
+      week: index + 1,
+      completed: event.date < new Date(),
       matchups: event.match
         .map((m) => {
           const nums = m.teams
