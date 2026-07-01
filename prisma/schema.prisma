@@ -30,18 +30,18 @@ model Event {
 }
 
 model Golfer {
-  id           String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt    DateTime         @default(now()) @db.Timestamp(6)
-  updatedAt    DateTime         @updatedAt
-  firstName    String
-  lastName     String
-  hci          Float
-  active       Boolean          @default(true)
-  twoManTeam   TwoManTeam?      @relation(fields: [twoManTeamId], references: [id])
-  twoManTeamId String?          @db.Uuid
-  scores       Score[]
+  id          String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt   DateTime         @default(now()) @db.Timestamp(6)
+  updatedAt   DateTime         @updatedAt
+  firstName   String
+  lastName    String
+  hci         Float
+  active      Boolean          @default(true)
+  // twoManTeam   TwoManTeam?      @relation(fields: [twoManTeamId], references: [id])
+  // twoManTeamId String?          @db.Uuid
+  scores      Score[]
   // new changes
-  memberships  TeamMembership[]
+  memberships TeamMembership[]
 }
 
 model TwoManTeam {
@@ -50,7 +50,7 @@ model TwoManTeam {
   updatedAt   DateTime         @updatedAt
   number      Int              @default(1)
   active      Boolean          @default(true)
-  golfers     Golfer[]
+  // golfers     Golfer[]
   scores      Matchups[]
   // new changes
   memberships TeamMembership[]
