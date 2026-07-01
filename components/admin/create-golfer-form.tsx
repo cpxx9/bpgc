@@ -92,16 +92,6 @@ const CreateGolferForm = () => {
                     autoComplete="hci"
                   ></Input>
                 </div>
-                {/* <div>
-                  <Label htmlFor="twoManTeam">Two Man Team</Label>
-                  <Input
-                    id="twoManTeam"
-                    name="twoManTeam"
-                    type="text"
-                    autoComplete="twoManTeam"
-                  ></Input>
-                </div> */}
-
                 {data && !data.success && (
                   <div className="text-center text-destructive">
                     {data.message}
