@@ -11,7 +11,7 @@ import {
 } from "@/lib/validators";
 
 export type ActionResult<T> =
-  | { success: true; data: T; totalPages?: number }
+  | { success: true; data: T; totalPages?: number; year?: number }
   | { success: false; message: string };
 
 export type UpdateUser = z.infer<typeof updateUserSchema>;

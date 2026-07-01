@@ -3,18 +3,17 @@
 import { prisma } from "@/db/prisma";
 import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
-import { convertToFormDate, convertToFormTime, formatError } from "@/lib/utils";
+import { formatError } from "@/lib/utils";
 import { createEventSchema } from "@/lib/validators";
 import {
   ActionResult,
   Event,
   EventWithScores,
-  FormEvent,
   UpdateEvent,
+  WeeklyMatchupsPublic,
 } from "@/types";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
-import { date } from "zod";
 
 export async function createEvent(prevState: unknown, formData: FormData) {
   try {
@@ -247,6 +246,60 @@ export async function getEventSchedule() {
       success: false,
       message: formatError(err),
     };
+  }
+}
+
+export async function getWeeklyMatchesPublic(
+  year?: number,
+): Promise<ActionResult<WeeklyMatchupsPublic[]>> {
+  try {
+    const targetYear = year ?? new Date().getFullYear();
+    const start = new Date(Date.UTC(targetYear, 0, 1));
+    const end = new Date(Date.UTC(targetYear + 1, 0, 1));
+
+    const events = await prisma.event.findMany({
+      where: {
+        isTwoManMatch: true,
+        date: { gte: start, lt: end },
+      },
+      orderBy: { leagueWeek: "asc" },
+      select: {
+        id: true,
+        leagueWeek: true,
+        match: {
+          select: {
+            id: true,
+            teams: {
+              select: {
+                twoManTeam: {
+                  select: { number: true },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+
+    const data = events.map((event) => ({
+      week: event.leagueWeek,
+      matchups: event.match
+        .map((m) => {
+          const nums = m.teams
+            .map((t) => t.twoManTeam.number)
+            .sort((a, b) => a - b);
+          return {
+            id: m.id,
+            teamOne: nums[0],
+            teamTwo: nums[1],
+          };
+        })
+        .sort((a, b) => a.teamOne - b.teamOne),
+    }));
+
+    return { success: true, data, year: targetYear };
+  } catch (err) {
+    return { success: false, message: formatError(err) };
   }
 }
 
