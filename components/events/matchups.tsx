@@ -10,10 +10,10 @@ const Matchups = async () => {
   }
 
   return (
-    <section>
-      <div>Matchups</div>
-      <div>Teams</div>
-    </section>
+    <>
+      <article>data</article>
+      <article>data</article>
+    </>
   );
 };
 
