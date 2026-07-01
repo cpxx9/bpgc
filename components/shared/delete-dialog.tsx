@@ -35,7 +35,7 @@ const DeleteDialog = ({
   action,
   variant = "destructive",
   text = "DELETE",
-  description = "This action can't be undone!",
+  description,
 }: PropTypes) => {
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -65,7 +65,11 @@ const DeleteDialog = ({
           <AlertDialogTitle>
             Are you sure you want to delete this?
           </AlertDialogTitle>
-          <AlertDialogDescription>{description}</AlertDialogDescription>
+          <AlertDialogDescription>
+            This action cannot be undone!
+            <br />
+            {description}
+          </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>

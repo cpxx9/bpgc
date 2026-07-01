@@ -92,7 +92,11 @@ const AdminTwoManTeamsPage = async ({ searchParams }: PropTypes) => {
                     id={twoManTeam.id}
                     action={disbandTwoManTeam}
                   />
-                  <DeleteDialog id={twoManTeam.id} action={deleteTwoManTeam} />
+                  <DeleteDialog
+                    id={twoManTeam.id}
+                    action={deleteTwoManTeam}
+                    description="This will delete the team completely, removing all previous matches and scores from history. USE WITH CAUTION!"
+                  />
                 </TableCell>
               </TableRow>
             ))}
