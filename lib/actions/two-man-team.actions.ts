@@ -205,6 +205,7 @@ export async function getTwoManTeamsPublic(): Promise<
     const teams = await prisma.twoManTeam.findMany({
       where: { active: true },
       select: {
+        id: true,
         number: true,
         memberships: {
           select: {
@@ -221,6 +222,7 @@ export async function getTwoManTeamsPublic(): Promise<
     });
 
     const parsed = teams.map((t) => ({
+      id: t.id,
       number: t.number,
       golfers: t.memberships.map((m) => m.golfer),
     }));

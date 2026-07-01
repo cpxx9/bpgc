@@ -12,7 +12,13 @@ const Matchups = async () => {
   return (
     <>
       <article>data</article>
-      <article>data</article>
+      <article>
+        <ul>
+          {result.data.map((team) => (
+            <li key={team.id}>{team.number}</li>
+          ))}
+        </ul>
+      </article>
     </>
   );
 };
