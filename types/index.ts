@@ -31,6 +31,11 @@ export type TwoManTeamList = {
   number: number;
 };
 
+export type TwoManTeamPublic = {
+  number: number;
+  golfers: { firstName: string; lastName: string }[];
+};
+
 export type Event = {
   id: string;
   createdAt: Date;
