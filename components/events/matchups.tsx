@@ -16,8 +16,6 @@ const Matchups = async () => {
     return <>No data found</>;
   }
 
-  console.log(matchResult);
-
   return (
     <>
       <article className="grid grid-cols-10 gap-x-4">
