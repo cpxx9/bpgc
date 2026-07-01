@@ -60,10 +60,11 @@ export async function getMatchesByEventId(eventId: string) {
           include: {
             twoManTeam: {
               include: {
-                golfers: {
-                  select: {
-                    firstName: true,
-                    lastName: true,
+                memberships: {
+                  include: {
+                    golfer: {
+                      select: { firstName: true, lastName: true },
+                    },
                   },
                 },
               },
@@ -73,11 +74,22 @@ export async function getMatchesByEventId(eventId: string) {
       },
     });
 
-    matches.sort(
+    const shaped = matches.map((m) => ({
+      ...m,
+      teams: m.teams.map((t) => ({
+        ...t,
+        twoManTeam: {
+          ...t.twoManTeam,
+          golfers: t.twoManTeam.memberships.map((mem) => mem.golfer),
+        },
+      })),
+    }));
+
+    shaped.sort(
       (a, b) => a.teams[0].twoManTeam.number - b.teams[0].twoManTeam.number,
     );
 
-    return { success: true, data: matches };
+    return { success: true, data: shaped };
   } catch (err) {
     if (isRedirectError(err)) {
       throw err;
