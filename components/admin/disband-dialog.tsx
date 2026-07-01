@@ -27,6 +27,7 @@ interface PropTypes {
     | null
     | undefined;
   text?: string;
+  description?: string;
 }
 
 const DisbandDialog = ({
@@ -34,6 +35,7 @@ const DisbandDialog = ({
   action,
   variant = "secondary",
   text = "DISBAND",
+  description = "This will preserve all data for the team, but free up the golfers to be added to new teams. This is the best option to use, rather than delete. The team can be re-instated later.",
 }: PropTypes) => {
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -63,11 +65,7 @@ const DisbandDialog = ({
           <AlertDialogTitle>
             Are you sure you want to disband this team?
           </AlertDialogTitle>
-          <AlertDialogDescription>
-            This will preserve all data for the team, but free up the golfers to
-            be added to new teams. This is the best option to use, rather than
-            delete. The team can be re-instated later.
-          </AlertDialogDescription>
+          <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>

@@ -88,10 +88,19 @@ const AdminTwoManTeamsPage = async ({ searchParams }: PropTypes) => {
                   {twoManTeam?.golfers[1]?.lastName}
                 </TableCell>
                 <TableCell className="flex gap-2">
-                  <DisbandDialog
-                    id={twoManTeam.id}
-                    action={disbandTwoManTeam}
-                  />
+                  {twoManTeam.active ? (
+                    <DisbandDialog
+                      id={twoManTeam.id}
+                      action={disbandTwoManTeam}
+                    />
+                  ) : (
+                    <DisbandDialog
+                      id={twoManTeam.id}
+                      action={disbandTwoManTeam}
+                      text="REINSTATE"
+                      description="This will re-instate a team that has been disbanded. Use rather than re-creating the team again. Golfers must not be on any other active team!"
+                    />
+                  )}
                   <DeleteDialog
                     id={twoManTeam.id}
                     action={deleteTwoManTeam}
