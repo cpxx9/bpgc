@@ -284,7 +284,7 @@ export async function reinstateTwoManTeam(id: string) {
       // 4. Mark the team active
       await tx.twoManTeam.update({
         where: { id },
-        data: { active: true },
+        data: { active: true, number: 1 },
       });
 
       revalidatePath("/admin/two-man-teams");
