@@ -1,5 +1,6 @@
 import splash from "@/assets/homepagesplash.avif";
-import WeeklyScoresEventAveragesSkeleton from "@/components/skeletons/weekly-scores-event-averages-skeleton";
+import Matchups from "@/components/events/matchups";
+import MatchupsSkeleton from "@/components/skeletons/matchups-skeleton";
 import WeeklyScoresIndivAveragesSkeleton from "@/components/skeletons/weekly-scores-indiv-averages-skeleton";
 import Image from "next/image";
 import { Suspense } from "react";
@@ -24,7 +25,10 @@ const EventsTwoManLeaguePage = () => {
         </section>
         <section className="bg-blue-400/70 p-5 min-w-[800px]">
           <h2 className="mb-5 text-2xl text-white font-bold">Matchups</h2>
-          <Suspense fallback={<WeeklyScoresEventAveragesSkeleton />}></Suspense>
+          <h2 className="mb-5 text-2xl text-white font-bold">Teams</h2>
+          <Suspense fallback={<MatchupsSkeleton />}>
+            <Matchups />
+          </Suspense>
         </section>
       </div>
     </article>
