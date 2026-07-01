@@ -72,10 +72,18 @@ const AdminGolfersPage = async ({ searchParams }: PropTypes) => {
                 </TableCell>
                 <TableCell>{golfer.hci}</TableCell>
                 <TableCell>
-                  <Badge
+                  {/* new changes, fix for TwoManTeam member showing with new memberships */}
+                  {/* <Badge
                     variant={golfer.twoManTeamId ? "default" : "secondary"}
                   >
                     {golfer.twoManTeamId
+                      ? golfer.twoManTeam.golfers[0].id === golfer.id
+                        ? `${golfer.twoManTeam.golfers[1].firstName} ${golfer.twoManTeam.golfers[1].lastName}`
+                        : `${golfer.twoManTeam.golfers[0].firstName} ${golfer.twoManTeam.golfers[0].lastName}`
+                      : "Solo Player"}
+                  </Badge> */}
+                  <Badge variant={golfer.twoManTeam ? "default" : "secondary"}>
+                    {golfer.twoManTeam
                       ? golfer.twoManTeam.golfers[0].id === golfer.id
                         ? `${golfer.twoManTeam.golfers[1].firstName} ${golfer.twoManTeam.golfers[1].lastName}`
                         : `${golfer.twoManTeam.golfers[0].firstName} ${golfer.twoManTeam.golfers[0].lastName}`

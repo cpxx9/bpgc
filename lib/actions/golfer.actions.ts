@@ -221,7 +221,6 @@ export async function getAllGolfers({
             twoManTeam: {
               include: {
                 memberships: {
-                  where: { endDate: null },
                   include: { golfer: true },
                 },
               },
