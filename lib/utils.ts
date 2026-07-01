@@ -169,5 +169,5 @@ export function abbrevName({
   lastName: string;
 }): string {
   const firstInitial = firstName[0];
-  return `${lastName} ${firstInitial}.`;
+  return `${firstInitial}. ${lastName}`;
 }

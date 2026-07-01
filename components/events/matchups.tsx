@@ -1,4 +1,5 @@
 import { getTwoManTeamsPublic } from "@/lib/actions/two-man-team.actions";
+import { abbrevName } from "@/lib/utils";
 
 const Matchups = async () => {
   // Uncomment for delay to test suspense layout
@@ -15,7 +16,10 @@ const Matchups = async () => {
       <article>
         <ul>
           {result.data.map((team) => (
-            <li key={team.id}>{team.number}</li>
+            <li key={team.id} className="text-white flex gap-2">
+              <span className="w-6">{team.number}</span>
+              <span>{`${abbrevName(team.golfers[0])}/${abbrevName(team.golfers[1])}`}</span>
+            </li>
           ))}
         </ul>
       </article>
