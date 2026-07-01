@@ -62,6 +62,7 @@ const AdminTwoManTeamsPage = async ({ searchParams }: PropTypes) => {
           <TableHeader>
             <TableRow>
               <TableHead>ID</TableHead>
+              <TableHead>STATUS</TableHead>
               <TableHead>Team Number</TableHead>
               <TableHead>Golfer 1</TableHead>
               <TableHead>Golfer 2</TableHead>
@@ -72,6 +73,11 @@ const AdminTwoManTeamsPage = async ({ searchParams }: PropTypes) => {
             {twoManTeams.data?.map((twoManTeam) => (
               <TableRow key={twoManTeam.id}>
                 <TableCell>{shortenUuid(twoManTeam.id)}</TableCell>
+                <TableCell>
+                  <Badge variant={twoManTeam.active ? "default" : "secondary"}>
+                    <span>{twoManTeam.active ? "Active" : "Disbanded"}</span>
+                  </Badge>
+                </TableCell>
                 <TableCell>
                   <UpdateTwoManTeamForm
                     updateInfo={{
