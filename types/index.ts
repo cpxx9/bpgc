@@ -126,3 +126,12 @@ export type GolferWithTeammate = Golfer & {
 export type EventWithScores = Event & {
   scores: ScoreWithGolfer[];
 };
+
+export type WeeklyMatchupsPublic = {
+  week: number;
+  matchups: {
+    id: string;
+    teamOne: number;
+    teamTwo: number;
+  }[];
+};
