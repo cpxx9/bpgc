@@ -27,6 +27,7 @@ interface PropTypes {
     | null
     | undefined;
   text?: string;
+  description?: string;
 }
 
 const DeleteDialog = ({
@@ -34,6 +35,7 @@ const DeleteDialog = ({
   action,
   variant = "destructive",
   text = "DELETE",
+  description,
 }: PropTypes) => {
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();

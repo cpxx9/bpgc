@@ -66,7 +66,7 @@ const DisbandDialog = ({
           <AlertDialogDescription>
             This will preserve all data for the team, but free up the golfers to
             be added to new teams. This is the best option to use, rather than
-            delete.
+            delete. The team can be re-instated later.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
