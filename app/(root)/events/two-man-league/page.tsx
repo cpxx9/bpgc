@@ -23,9 +23,9 @@ const EventsTwoManLeaguePage = () => {
           </h2>
           <Suspense fallback={<WeeklyScoresIndivAveragesSkeleton />}></Suspense>
         </section>
-        <section className="bg-blue-400/70 p-5 min-w-[800px] grid grid-cols-[1fr_auto] gap-x-8 gap-y-3">
-          <h2 className="mb-5 text-2xl text-white font-bold">Matchups</h2>
-          <h2 className="mb-5 text-2xl text-white font-bold">Teams</h2>
+        <section className="bg-blue-400/70 p-5 min-w-[800px] grid grid-cols-[1fr_auto] gap-x-8">
+          <h2 className="text-2xl text-white font-bold">Matchups</h2>
+          <h2 className="text-2xl text-white font-bold">Teams</h2>
           <Suspense fallback={<MatchupsSkeleton />}>
             <Matchups />
           </Suspense>
