@@ -5,7 +5,12 @@ import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
 import { formatError } from "@/lib/utils";
 import { createTwoManTeamSchema } from "@/lib/validators";
-import { TwoManTeam, UpdateTwoManTeam } from "@/types";
+import {
+  ActionResult,
+  TwoManTeam,
+  TwoManTeamPublic,
+  UpdateTwoManTeam,
+} from "@/types";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 
@@ -184,6 +189,44 @@ export async function getAllTwoManTeamsList(eventId: string) {
     return {
       success: true,
       data,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
+}
+
+export async function getTwoManTeamsPublic(): Promise<
+  ActionResult<TwoManTeamPublic[]>
+> {
+  try {
+    const teams = await prisma.twoManTeam.findMany({
+      select: {
+        number: true,
+        memberships: {
+          select: {
+            golfer: {
+              select: {
+                firstName: true,
+                lastName: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: { number: "asc" },
+    });
+
+    const parsed = teams.map((t) => ({
+      number: t.number,
+      golfers: t.memberships.map((m) => m.golfer),
+    }));
+
+    return {
+      success: true,
+      data: parsed,
     };
   } catch (err) {
     return {
