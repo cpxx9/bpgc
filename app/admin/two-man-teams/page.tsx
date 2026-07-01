@@ -23,6 +23,7 @@ import {
 import { getFreeAgents } from "@/lib/actions/golfer.actions";
 import { notFound } from "next/navigation";
 import UpdateTwoManTeamForm from "@/components/admin/update-twomanteam-form";
+import DisbandDialog from "@/components/admin/disband-dialog";
 
 export const metadata: Metadata = {
   title: "Admin Two Man Teams",
@@ -87,11 +88,9 @@ const AdminTwoManTeamsPage = async ({ searchParams }: PropTypes) => {
                   {twoManTeam?.golfers[1]?.lastName}
                 </TableCell>
                 <TableCell className="flex gap-2">
-                  <DeleteDialog
+                  <DisbandDialog
                     id={twoManTeam.id}
                     action={disbandTwoManTeam}
-                    variant="secondary"
-                    text="DISBAND"
                   />
                   <DeleteDialog id={twoManTeam.id} action={deleteTwoManTeam} />
                 </TableCell>
