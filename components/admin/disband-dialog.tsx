@@ -75,7 +75,7 @@ const DisbandDialog = ({
             disabled={isPending}
             onClick={handleDeleteClick}
           >
-            {isPending ? "Disbanding..." : "Disband"}
+            {isPending ? `${text}ing...` : text}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>

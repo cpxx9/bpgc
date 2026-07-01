@@ -224,6 +224,81 @@ export async function updateTwoManTeam(data: UpdateTwoManTeam) {
   }
 }
 
+export async function reinstateTwoManTeam(id: string) {
+  try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
+
+    return await prisma.$transaction(async (tx) => {
+      // 1. Load the team and its memberships
+      const team = await tx.twoManTeam.findUnique({
+        where: { id },
+        include: {
+          memberships: {
+            include: { golfer: true },
+          },
+        },
+      });
+
+      if (!team) throw new Error("Team not found.");
+      if (team.active) throw new Error("Team is already active.");
+      if (team.memberships.length === 0)
+        throw new Error("Team has no roster to reinstate.");
+      if (team.memberships.length < 2)
+        throw new Error(
+          "Cannot reinstate team: original roster is incomplete.",
+        );
+
+      const golferIds = team.memberships.map((m) => m.golferId);
+
+      // 2. Check that none of these golfers currently belong to another active team
+      const conflicts = await tx.teamMembership.findMany({
+        where: {
+          golferId: { in: golferIds },
+          endDate: null,
+          twoManTeamId: { not: id },
+          twoManTeam: { active: true },
+        },
+        include: {
+          golfer: { select: { firstName: true, lastName: true } },
+          twoManTeam: { select: { number: true } },
+        },
+      });
+
+      if (conflicts.length > 0) {
+        const details = conflicts
+          .map(
+            (c) =>
+              `${c.golfer.firstName} ${c.golfer.lastName} is on active team #${c.twoManTeam.number}`,
+          )
+          .join("; ");
+        throw new Error(`Cannot reinstate team: ${details}.`);
+      }
+
+      // 3. Reopen this team's memberships
+      await tx.teamMembership.updateMany({
+        where: { twoManTeamId: id },
+        data: { endDate: null },
+      });
+
+      // 4. Mark the team active
+      await tx.twoManTeam.update({
+        where: { id },
+        data: { active: true },
+      });
+
+      revalidatePath("/admin/two-man-teams");
+      revalidatePath("/admin/golfers");
+      return {
+        success: true,
+        message: "Two man team reinstated successfully!",
+      };
+    });
+  } catch (err) {
+    return { success: false, message: formatError(err) };
+  }
+}
+
 export async function disbandTwoManTeam(id: string) {
   try {
     const admin = await requireAdminAction();

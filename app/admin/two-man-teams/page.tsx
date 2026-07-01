@@ -19,6 +19,7 @@ import {
   deleteTwoManTeam,
   disbandTwoManTeam,
   getAllTwoManTeams,
+  reinstateTwoManTeam,
 } from "@/lib/actions/two-man-team.actions";
 import { getFreeAgents } from "@/lib/actions/golfer.actions";
 import { notFound } from "next/navigation";
@@ -96,7 +97,7 @@ const AdminTwoManTeamsPage = async ({ searchParams }: PropTypes) => {
                   ) : (
                     <DisbandDialog
                       id={twoManTeam.id}
-                      action={disbandTwoManTeam}
+                      action={reinstateTwoManTeam}
                       text="REINSTATE"
                       description="This will re-instate a team that has been disbanded. Use rather than re-creating the team again. Golfers must not be on any other active team!"
                     />
