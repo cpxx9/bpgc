@@ -203,6 +203,7 @@ export async function getTwoManTeamsPublic(): Promise<
 > {
   try {
     const teams = await prisma.twoManTeam.findMany({
+      where: { active: true },
       select: {
         number: true,
         memberships: {
