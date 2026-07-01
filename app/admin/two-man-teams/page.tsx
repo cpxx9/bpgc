@@ -20,7 +20,7 @@ import {
   disbandTwoManTeam,
   getAllTwoManTeams,
 } from "@/lib/actions/two-man-team.actions";
-import { getAllGolfersList } from "@/lib/actions/golfer.actions";
+import { getFreeAgents } from "@/lib/actions/golfer.actions";
 import { notFound } from "next/navigation";
 import UpdateTwoManTeamForm from "@/components/admin/update-twomanteam-form";
 
@@ -37,7 +37,7 @@ const AdminTwoManTeamsPage = async ({ searchParams }: PropTypes) => {
   const { page = "1" } = await searchParams;
   const pageParam = Number(page);
   const twoManTeams = await getAllTwoManTeams({ page: pageParam });
-  const { data } = await getAllGolfersList();
+  const { data } = await getFreeAgents();
   if (!data) notFound();
   if (!twoManTeams.totalPages) twoManTeams.totalPages = 1;
 

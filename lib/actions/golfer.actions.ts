@@ -68,7 +68,7 @@ export async function getGolferById(golferId: string | undefined) {
   return golfer;
 }
 
-export async function getAllGolfersList() {
+export async function getFreeAgents() {
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
