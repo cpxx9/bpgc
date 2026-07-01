@@ -16,24 +16,44 @@ export async function createTwoManTeam(golfers: TwoManTeam) {
     if (golfers.golferOneID === golfers.golferTwoID)
       throw new Error("Teammates cannot be the same golfer!");
 
+    // new changes, update transaction to work with new memberships
+    // await prisma.$transaction(async (tx) => {
+    //   const newTwoManTeam = await tx.twoManTeam.create({ data: {} });
+    //   await tx.golfer.update({
+    //     where: {
+    //       id: golfers.golferOneID,
+    //     },
+    //     data: {
+    //       twoManTeamId: newTwoManTeam.id,
+    //     },
+    //   });
+
+    //   await tx.golfer.update({
+    //     where: {
+    //       id: golfers.golferTwoID,
+    //     },
+    //     data: {
+    //       twoManTeamId: newTwoManTeam.id,
+    //     },
+    //   });
+    // });
+
     await prisma.$transaction(async (tx) => {
       const newTwoManTeam = await tx.twoManTeam.create({ data: {} });
-      await tx.golfer.update({
+
+      await tx.teamMembership.updateMany({
         where: {
-          id: golfers.golferOneID,
+          golferId: { in: [golfers.golferOneID, golfers.golferTwoID] },
+          endDate: null,
         },
-        data: {
-          twoManTeamId: newTwoManTeam.id,
-        },
+        data: { endDate: new Date() },
       });
 
-      await tx.golfer.update({
-        where: {
-          id: golfers.golferTwoID,
-        },
-        data: {
-          twoManTeamId: newTwoManTeam.id,
-        },
+      await tx.teamMembership.createMany({
+        data: [
+          { golferId: golfers.golferOneID, twoManTeamId: newTwoManTeam.id },
+          { golferId: golfers.golferTwoID, twoManTeamId: newTwoManTeam.id },
+        ],
       });
     });
 
@@ -80,14 +100,32 @@ export async function getAllTwoManTeams({
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
-    const data = await prisma.twoManTeam.findMany({
+
+    // new changes, get all teams with new memberships model
+    // const data = await prisma.twoManTeam.findMany({
+    //   include: {
+    //     golfers: true,
+    //   },
+    //   orderBy: { number: "asc" },
+    //   take: limit,
+    //   skip: (page - 1) * limit,
+    // });
+
+    const raw = await prisma.twoManTeam.findMany({
       include: {
-        golfers: true,
+        memberships: {
+          include: { golfer: true },
+        },
       },
       orderBy: { number: "asc" },
       take: limit,
       skip: (page - 1) * limit,
     });
+
+    const data = raw.map((t) => ({
+      ...t,
+      golfers: t.memberships.map((m) => m.golfer),
+    }));
 
     const dataCount = await prisma.twoManTeam.count();
 
@@ -108,20 +146,40 @@ export async function getAllTwoManTeamsList(eventId: string) {
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
-    const data = await prisma.twoManTeam.findMany({
+
+    // new changes, get all teams list with new memberships model
+    // const data = await prisma.twoManTeam.findMany({
+    //   where: {
+    //     active: true,
+    //     scores: {
+    //       none: {
+    //         match: {
+    //           eventId,
+    //         },
+    //       },
+    //     },
+    //   },
+    //   orderBy: { number: "asc" },
+    //   include: { golfers: true },
+    // });
+
+    const raw = await prisma.twoManTeam.findMany({
       where: {
         active: true,
-        scores: {
-          none: {
-            match: {
-              eventId,
-            },
-          },
-        },
+        scores: { none: { match: { eventId } } },
       },
       orderBy: { number: "asc" },
-      include: { golfers: true },
+      include: {
+        memberships: {
+          include: { golfer: true },
+        },
+      },
     });
+
+    const data = raw.map((t) => ({
+      ...t,
+      golfers: t.memberships.map((m) => m.golfer),
+    }));
 
     return {
       success: true,
@@ -170,15 +228,29 @@ export async function disbandTwoManTeam(id: string) {
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
-    await prisma.twoManTeam.update({
-      where: {
-        id: id,
-      },
-      data: {
-        active: false,
-        number: 999,
-      },
+
+    // new changes, fix disband logic with new membership model
+    // await prisma.twoManTeam.update({
+    //   where: {
+    //     id: id,
+    //   },
+    //   data: {
+    //     active: false,
+    //     number: 999,
+    //   },
+    // });
+
+    await prisma.$transaction(async (tx) => {
+      await tx.twoManTeam.update({
+        where: { id },
+        data: { active: false, number: 999 },
+      });
+      await tx.teamMembership.updateMany({
+        where: { twoManTeamId: id, endDate: null },
+        data: { endDate: new Date() },
+      });
     });
+
     revalidatePath("/admin/two-man-teams");
 
     return {
