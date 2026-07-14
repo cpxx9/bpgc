@@ -9,6 +9,7 @@ import {
   ActionResult,
   TwoManTeam,
   TwoManTeamPublic,
+  TwoManTeamStandingsPublic,
   UpdateTwoManTeam,
 } from "@/types";
 import { revalidatePath } from "next/cache";
@@ -230,6 +231,90 @@ export async function getTwoManTeamsPublic(): Promise<
     return {
       success: true,
       data: parsed,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
+}
+
+export async function getTwoManTeamsStandingsPublic(): Promise<
+  ActionResult<TwoManTeamPublic[]>
+> {
+  try {
+    const targetYear = new Date().getFullYear();
+    const start = new Date(Date.UTC(targetYear, 0, 1));
+    const end = new Date(Date.UTC(targetYear + 1, 0, 1));
+
+    const teams = await prisma.twoManTeam.findMany({
+      where: { active: true },
+      orderBy: { number: "asc" },
+      select: {
+        id: true,
+        number: true,
+        memberships: {
+          where: { endDate: null },
+          select: {
+            golfer: {
+              select: {
+                firstName: true,
+                lastName: true,
+              },
+            },
+          },
+        },
+        scores: {
+          where: {
+            match: {
+              event: {
+                date: {
+                  gte: start,
+                  lt: end,
+                },
+              },
+            },
+          },
+          select: {
+            score: true,
+            match: {
+              select: {
+                event: {
+                  select: { leagueWeek: true },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+
+    const data: TwoManTeamStandingsPublic[] = teams.map((team) => {
+      const weekMap = new Map<number, number>();
+      for (const m of team.scores) {
+        const week = m.match.event.leagueWeek;
+        weekMap.set(week, (weekMap.get(week) ?? 0) + m.score);
+      }
+
+      const weeklyScores = Array.from({ length: 10 }, (_, i) => {
+        const week = i + 1;
+        return { week, score: weekMap.has(week) ? weekMap.get(week)! : null };
+      });
+      const total = weeklyScores.reduce((sum, w) => sum + (w.score ?? 0), 0);
+
+      return {
+        id: team.id,
+        number: team.number,
+        golfers: team.memberships.map((member) => member.golfer),
+        weeklyScores,
+        total,
+      };
+    });
+
+    return {
+      success: true,
+      data,
     };
   } catch (err) {
     return {
