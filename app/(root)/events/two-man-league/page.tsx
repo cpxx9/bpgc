@@ -19,7 +19,7 @@ const EventsTwoManLeaguePage = () => {
       <div className="-z-10 absolute inset-0 bg-black/30" />
       <div className="flex flex-col items-center">
         <div className="flex flex-col gap-4 w-fit">
-          <section className="w-full bg-slate-600/70 p-5 max-w-[1000px] flex flex-col gap-5">
+          <section className="w-full bg-slate-600/70 p-5 max-w-[1000px] flex flex-col gap-5 text-white">
             <h2 className="text-2xl text-white font-bold">
               2026 Two Man Leage Standings
             </h2>

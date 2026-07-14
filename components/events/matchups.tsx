@@ -18,7 +18,7 @@ const Matchups = async () => {
 
   return (
     <>
-      <article className="grid grid-cols-10 gap-x-4">
+      <section className="grid grid-cols-10 gap-x-4">
         {matchResult.data?.map((w) => (
           <div key={w.week}>
             <h3 className="text-white">Wk. {w.week}</h3>
@@ -31,9 +31,9 @@ const Matchups = async () => {
             </ul>
           </div>
         ))}
-      </article>
+      </section>
 
-      <article>
+      <section>
         <ul>
           {teamResult.data.map((team) => (
             <li key={team.id} className="text-white flex gap-2">
@@ -42,7 +42,7 @@ const Matchups = async () => {
             </li>
           ))}
         </ul>
-      </article>
+      </section>
     </>
   );
 };
