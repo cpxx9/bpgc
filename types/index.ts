@@ -46,7 +46,7 @@ export type TwoManTeamStandingsPublic = {
     score: number | null;
   }[];
   total: number;
-}[];
+};
 
 export type Event = {
   id: string;
