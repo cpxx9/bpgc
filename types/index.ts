@@ -37,6 +37,17 @@ export type TwoManTeamPublic = {
   golfers: { firstName: string; lastName: string }[];
 };
 
+export type TwoManTeamStandingsPublic = {
+  id: string;
+  number: number;
+  golfers: { firstName: string; lastName: string }[];
+  weeklyScores: {
+    week: number;
+    score: number | null;
+  }[];
+  total: number;
+}[];
+
 export type Event = {
   id: string;
   createdAt: Date;
