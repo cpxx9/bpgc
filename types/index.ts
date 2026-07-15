@@ -43,7 +43,7 @@ export type TwoManTeamStandingsPublic = {
   golfers: { firstName: string; lastName: string }[];
   weeklyScores: {
     week: number;
-    score: number | null;
+    score: number | null | "DNP";
   }[];
   total: number;
 };

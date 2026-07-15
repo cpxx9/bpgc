@@ -316,71 +316,136 @@ export async function getTwoManTeamsStandingsPublic(): Promise<
     const end = new Date(Date.UTC(targetYear + 1, 0, 1));
     const now = new Date(0);
 
-    const teams = await prisma.twoManTeam.findMany({
-      where: { active: true },
-      orderBy: { number: "asc" },
+    const events = await prisma.event.findMany({
+      where: { isTwoManMatch: true, date: { gte: start, lt: end } },
+      orderBy: { leagueWeek: "asc" },
       select: {
         id: true,
-        number: true,
-        memberships: {
-          where: { endDate: null },
+        date: true,
+        match: {
           select: {
-            golfer: {
-              select: {
-                firstName: true,
-                lastName: true,
-              },
-            },
-          },
-        },
-        scores: {
-          where: {
-            match: {
-              event: {
-                date: {
-                  gte: start,
-                  lt: end,
-                },
-              },
-            },
-          },
-          select: {
-            score: true,
-            match: {
-              select: {
-                event: {
-                  select: { leagueWeek: true },
-                },
-              },
-            },
+            teams: { select: { twoManTeamId: true, score: true } },
           },
         },
       },
     });
 
-    const data: TwoManTeamStandingsPublic[] = teams.map((team) => {
-      const weekMap = new Map<number, number>();
-      for (const m of team.scores) {
-        const week = m.match.event.leagueWeek;
-        weekMap.set(week, (weekMap.get(week) ?? 0) + m.score);
-      }
+    const weeksByEvent = new Map<string, number>();
+    events.forEach((e, i) => weeksByEvent.set(e.id, i + 1));
 
-      const weeklyScores = Array.from({ length: 10 }, (_, i) => {
+    const scoreLookup = new Map<string, number>();
+    for (const e of events) {
+      for (const match of e.match) {
+        for (const t of match.teams) {
+          const key = `${e.id}::${t.twoManTeamId}`;
+          scoreLookup.set(key, (scoreLookup.get(key) ?? 0) + t.score);
+        }
+      }
+    }
+
+    const teams = await prisma.twoManTeam.findMany({
+      where: { active: true },
+      select: {
+        id: true,
+        number: true,
+        memberships: {
+          where: { endDate: null },
+          select: { golfer: { select: { firstName: true, lastName: true } } },
+        },
+      },
+    });
+
+    const data: TwoManTeamStandingsPublic[] = teams.map((team) => {
+      const weeklyScores = events.map((e, i) => {
         const week = i + 1;
-        return { week, score: weekMap.has(week) ? weekMap.get(week)! : null };
+        const raw = scoreLookup.get(`${e.id}::${team.id}`) ?? 0;
+
+        if (raw > 0) return { week, score: raw };
+        if (e.date < now) return { week, score: "DNP" as const };
+        return { week, score: null };
       });
-      const total = weeklyScores.reduce((sum, w) => sum + (w.score ?? 0), 0);
+
+      const total = weeklyScores.reduce(
+        (sum, w) => sum + (typeof w.score === "number" ? w.score : 0),
+        0,
+      );
 
       return {
         id: team.id,
         number: team.number,
-        golfers: team.memberships.map((member) => member.golfer),
+        golfers: team.memberships.map((m) => m.golfer),
         weeklyScores,
         total,
       };
     });
 
     data.sort((a, b) => b.total - a.total);
+
+    // const teams = await prisma.twoManTeam.findMany({
+    //   where: { active: true },
+    //   orderBy: { number: "asc" },
+    //   select: {
+    //     id: true,
+    //     number: true,
+    //     memberships: {
+    //       where: { endDate: null },
+    //       select: {
+    //         golfer: {
+    //           select: {
+    //             firstName: true,
+    //             lastName: true,
+    //           },
+    //         },
+    //       },
+    //     },
+    //     scores: {
+    //       where: {
+    //         match: {
+    //           event: {
+    //             date: {
+    //               gte: start,
+    //               lt: end,
+    //             },
+    //           },
+    //         },
+    //       },
+    //       select: {
+    //         score: true,
+    //         match: {
+    //           select: {
+    //             event: {
+    //               select: { leagueWeek: true },
+    //             },
+    //           },
+    //         },
+    //       },
+    //     },
+    //   },
+    // });
+
+    // const data: TwoManTeamStandingsPublic[] = teams.map((team) => {
+    //   const weekMap = new Map<number, number>();
+    //   for (const m of team.scores) {
+    //     const week = m.match.event.leagueWeek;
+    //     weekMap.set(week, (weekMap.get(week) ?? 0) + m.score);
+    //   }
+
+    //   const weeklyScores = Array.from({ length: 10 }, (_, i) => {
+    //     const week = i + 1;
+    //     return { week, score: weekMap.has(week) ? weekMap.get(week)! : null };
+    //   });
+    //   const total = weeklyScores.reduce((sum, w) => sum + (w.score ?? 0), 0);
+
+    //   return {
+    //     id: team.id,
+    //     number: team.number,
+    //     golfers: team.memberships.map((member) => member.golfer),
+    //     weeklyScores,
+    //     total,
+    //   };
+    // });
+
+    // data.sort((a, b) => b.total - a.total);
 
     return {
       success: true,
