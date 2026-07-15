@@ -6,7 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getTwoManTeamsStandingsPublic } from "@/lib/actions/two-man-team.actions";
+import { getTwoManTeamsStandingsPublic } from "@/lib/actions/event.actions";
 import { abbrevName } from "@/lib/utils";
 
 const WEEKS = 10;
@@ -19,19 +19,21 @@ const TwoManStandings = async () => {
 
   const teams = result.data;
 
+  console.log(teams);
+
   return (
     <section className="">
       <Table className="">
         <TableHeader>
-          <TableRow className="">
-            <TableHead className="">TEAM</TableHead>
+          <TableRow className="text-white">
+            <TableHead className="text-white">TEAM</TableHead>
             {Array.from({ length: WEEKS }, (_, i) => (
-              <TableHead key={i + 1} className="">
+              <TableHead key={i + 1} className="text-white">
                 {" "}
                 Wk. {i + 1}
               </TableHead>
             ))}
-            <TableHead className="">* Total</TableHead>
+            <TableHead className="text-white">* Total</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
