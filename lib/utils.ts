@@ -171,3 +171,18 @@ export function abbrevName({
   const firstInitial = firstName[0];
   return `${firstInitial}. ${lastName}`;
 }
+
+export function computeTotal(
+  weeklyScores: { week: number; score: number | "DNP" | null }[],
+): number {
+  const occurred = weeklyScores
+    .filter((w) => w.score !== null)
+    .map((w) => (typeof w.score === "number" ? w.score : 0));
+
+  if (occurred.length <= 6) {
+    return occurred.reduce((sum, v) => sum + v, 0);
+  }
+
+  const sorted = [...occurred].sort((a, b) => a - b);
+  return sorted.slice(2).reduce((sum, v) => sum + v, 0);
+}
