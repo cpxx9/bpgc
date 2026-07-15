@@ -317,7 +317,11 @@ export async function getTwoManTeamsStandingsPublic(): Promise<
     const now = new Date(0);
 
     const events = await prisma.event.findMany({
-      where: { isTwoManMatch: true, date: { gte: start, lt: end } },
+      where: {
+        isTwoManMatch: true,
+        isChampionship: false,
+        date: { gte: start, lt: end },
+      },
       orderBy: { leagueWeek: "asc" },
       select: {
         id: true,
