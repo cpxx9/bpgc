@@ -44,7 +44,11 @@ const TwoManStandings = async () => {
               </TableCell>
               {team.weeklyScores.map((w) => (
                 <TableCell key={w.week} className="">
-                  {w.score === null ? "-" : w.score.toFixed(1)}
+                  {w.score === null
+                    ? "-"
+                    : w.score === "DNP"
+                      ? "DNP"
+                      : w.score.toFixed(1)}
                 </TableCell>
               ))}
               <TableCell className="">{team.total.toFixed(1)}</TableCell>
