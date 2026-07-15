@@ -241,7 +241,7 @@ export async function getTwoManTeamsPublic(): Promise<
 }
 
 export async function getTwoManTeamsStandingsPublic(): Promise<
-  ActionResult<TwoManTeamPublic[]>
+  ActionResult<TwoManTeamStandingsPublic[]>
 > {
   try {
     const targetYear = new Date().getFullYear();
