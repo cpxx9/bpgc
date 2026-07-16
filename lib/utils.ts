@@ -187,3 +187,11 @@ export function computeTotal(
   const sorted = [...occurred].sort((a, b) => a - b);
   return sorted.slice(2).reduce((sum, v) => sum + v, 0);
 }
+
+export function isPhantomGolfer(g: { firstName: string; lastName: string }) {
+  if (g.firstName === "Phantom" && g.lastName === "Phantom") {
+    return true;
+  } else {
+    return false;
+  }
+}
