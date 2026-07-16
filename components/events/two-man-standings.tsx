@@ -19,21 +19,26 @@ const TwoManStandings = async () => {
 
   const teams = result.data;
 
-  console.log(teams);
-
   return (
     <section className="">
       <Table className="">
         <TableHeader>
-          <TableRow className="text-white">
-            <TableHead className="text-white">TEAM</TableHead>
+          <TableRow className="text-white text-lg font-semibold">
+            <TableHead className="text-white text-lg font-semibold">
+              TEAM
+            </TableHead>
             {Array.from({ length: WEEKS }, (_, i) => (
-              <TableHead key={i + 1} className="text-white">
+              <TableHead
+                key={i + 1}
+                className="text-white text-lg font-semibold"
+              >
                 {" "}
                 Wk. {i + 1}
               </TableHead>
             ))}
-            <TableHead className="text-white">* Total</TableHead>
+            <TableHead className="text-white text-lg font-semibold">
+              * Total
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

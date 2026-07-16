@@ -3,7 +3,7 @@
 import { prisma } from "@/db/prisma";
 import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
-import { formatError } from "@/lib/utils";
+import { computeTotal, formatError } from "@/lib/utils";
 import { createEventSchema } from "@/lib/validators";
 import {
   ActionResult,
@@ -314,7 +314,7 @@ export async function getTwoManTeamsStandingsPublic(): Promise<
     const targetYear = new Date().getFullYear();
     const start = new Date(Date.UTC(targetYear, 0, 1));
     const end = new Date(Date.UTC(targetYear + 1, 0, 1));
-    const now = new Date(0);
+    const now = new Date();
 
     const events = await prisma.event.findMany({
       where: {
@@ -332,6 +332,14 @@ export async function getTwoManTeamsStandingsPublic(): Promise<
           },
         },
       },
+    });
+
+    const playedWeeks = new Set<number>();
+    events.forEach((event, i) => {
+      const anyScored = event.match.some((m) =>
+        m.teams.some((t) => t.score > 0),
+      );
+      if (anyScored) playedWeeks.add(i + 1);
     });
 
     const weeksByEvent = new Map<string, number>();
@@ -369,10 +377,7 @@ export async function getTwoManTeamsStandingsPublic(): Promise<
         return { week, score: null };
       });
 
-      const total = weeklyScores.reduce(
-        (sum, w) => sum + (typeof w.score === "number" ? w.score : 0),
-        0,
-      );
+      const total = computeTotal(weeklyScores, playedWeeks);
 
       return {
         id: team.id,

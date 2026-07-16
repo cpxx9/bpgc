@@ -174,9 +174,10 @@ export function abbrevName({
 
 export function computeTotal(
   weeklyScores: { week: number; score: number | "DNP" | null }[],
+  playedWeeks: Set<number>,
 ): number {
   const occurred = weeklyScores
-    .filter((w) => w.score !== null)
+    .filter((w) => playedWeeks.has(w.week))
     .map((w) => (typeof w.score === "number" ? w.score : 0));
 
   if (occurred.length <= 6) {
