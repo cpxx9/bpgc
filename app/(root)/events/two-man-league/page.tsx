@@ -50,8 +50,12 @@ const EventsTwoManLeaguePage = () => {
             </section>
           </section>
           <section className="w-full flex flex-col bg-blue-400/70 p-5 max-w-[1100px] md:gap-0 md:grid md:grid-cols-[1fr_auto] md:gap-x-8">
-            <h2 className="text-2xl text-white font-bold">Matchups</h2>
-            <h2 className="text-2xl text-white font-bold">Teams</h2>
+            <h2 className="text-2xl text-white font-bold order-1 md:order-none">
+              Matchups
+            </h2>
+            <h2 className="text-2xl text-white font-bold order-3 md:order-none">
+              Teams
+            </h2>
             <Suspense fallback={<MatchupsSkeleton />}>
               <Matchups />
             </Suspense>
