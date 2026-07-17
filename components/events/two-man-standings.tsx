@@ -28,7 +28,7 @@ const TwoManStandings = async () => {
             {Array.from({ length: WEEKS }, (_, i) => (
               <TableHead
                 key={i + 1}
-                className="px-1 text-right font-bold whitespace-nowrap text-white"
+                className="hidden text-white md:table-cell md:px-1 md:text-right md:font-bold md:whitespace-nowrap"
               >
                 Wk. {i + 1}
               </TableHead>
@@ -47,7 +47,7 @@ const TwoManStandings = async () => {
               {team.weeklyScores.map((w) => (
                 <TableCell
                   key={w.week}
-                  className="px-0 py-0 text-center whitespace-nowrap"
+                  className="hidden md:table-cell md:px-0 md:py-0 md:text-center md:whitespace-nowrap"
                 >
                   {w.score === null
                     ? "-"
