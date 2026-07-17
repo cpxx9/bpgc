@@ -20,35 +20,35 @@ const TwoManStandings = async () => {
   const teams = result.data;
 
   return (
-    <section className="">
-      <Table className="">
-        <TableHeader>
-          <TableRow className="text-white text-lg font-semibold">
-            <TableHead className="text-white text-lg font-semibold">
-              TEAM
-            </TableHead>
+    <section className="overflow-x-auto">
+      <Table className="text-white border-collapse w-full text-lg">
+        <TableHeader className="text-xl">
+          <TableRow className="text-left">
+            <TableHead className="px-0 font-bold text-white">TEAM</TableHead>
             {Array.from({ length: WEEKS }, (_, i) => (
               <TableHead
                 key={i + 1}
-                className="text-white text-lg font-semibold"
+                className="px-1 text-right font-bold whitespace-nowrap text-white"
               >
-                {" "}
                 Wk. {i + 1}
               </TableHead>
             ))}
-            <TableHead className="text-white text-lg font-semibold">
+            <TableHead className="px-0 text-right font-bold whitespace-nowrap text-white">
               * Total
             </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {teams.map((team) => (
-            <TableRow key={team.id}>
-              <TableCell className="">
+            <TableRow key={team.id} className="border-white/50">
+              <TableCell className="px-0 py-1 font-bold whitespace-nowrap">
                 {team.golfers.map((g) => abbrevName(g)).join("/")}
               </TableCell>
               {team.weeklyScores.map((w) => (
-                <TableCell key={w.week} className="">
+                <TableCell
+                  key={w.week}
+                  className="px-0 py-0 text-center whitespace-nowrap"
+                >
                   {w.score === null
                     ? "-"
                     : w.score === "DNP"
@@ -56,7 +56,9 @@ const TwoManStandings = async () => {
                       : w.score.toFixed(1)}
                 </TableCell>
               ))}
-              <TableCell className="">{team.total.toFixed(1)}</TableCell>
+              <TableCell className="px-0 py-0 text-right font-bold">
+                {team.total.toFixed(1)}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
