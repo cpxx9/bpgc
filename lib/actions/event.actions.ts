@@ -342,9 +342,6 @@ export async function getTwoManTeamsStandingsPublic(): Promise<
       if (anyScored) playedWeeks.add(i + 1);
     });
 
-    const weeksByEvent = new Map<string, number>();
-    events.forEach((e, i) => weeksByEvent.set(e.id, i + 1));
-
     const scoreLookup = new Map<string, number>();
     for (const e of events) {
       for (const match of e.match) {
