@@ -9,9 +9,7 @@ const ScoreCardsSkeleton = () => {
             <p className="font-semibold">Clubhouse Leader</p>
           </div>
 
-          <div className="bg-neutral-700 p-4 text-white">
-            {/* standings list */}
-          </div>
+          <div className="bg-neutral-700 p-4 text-white">Loading...</div>
         </article>
 
         <article className="flex flex-col">
@@ -20,9 +18,7 @@ const ScoreCardsSkeleton = () => {
             <p className="font-semibold">Clubhouse Leader</p>
           </div>
 
-          <div className="bg-neutral-700 p-4 text-white">
-            {/* standings list */}
-          </div>
+          <div className="bg-neutral-700 p-4 text-white">Loading...</div>
         </article>
 
         <article className="flex flex-col">
@@ -31,9 +27,7 @@ const ScoreCardsSkeleton = () => {
             <p className="font-semibold">Clubhouse Leader</p>
           </div>
 
-          <div className="bg-neutral-700 p-4 text-white">
-            {/* standings list */}
-          </div>
+          <div className="bg-neutral-700 p-4 text-white">Loading...</div>
         </article>
       </div>
     </section>
