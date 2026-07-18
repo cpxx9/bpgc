@@ -23,6 +23,27 @@ export type UpdateScore = z.infer<typeof updateScoreSchema>;
 export type UpdateMatchup = z.infer<typeof updateMatchupSchema>;
 export type UpdateTwoManTeam = z.infer<typeof updateTwoManTeamSchema>;
 
+export type ContestWinnersPublic = {
+  birdies: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    average: number;
+  }[];
+  closestToPin: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    lowest: number;
+  }[];
+  snowmen: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    average: number;
+  }[];
+};
+
 export type TwoManTeamList = {
   golfers: Golfer[];
   id: string;
