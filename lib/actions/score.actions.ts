@@ -3,7 +3,12 @@ import { prisma } from "@/db/prisma";
 import { requireAdminAction } from "@/lib/auth-guard";
 import { formatError } from "@/lib/utils";
 import { createScoreSchema } from "@/lib/validators";
-import { ActionResult, EventWithScoreAverage, UpdateScore } from "@/types";
+import {
+  ActionResult,
+  ContestWinnersPublic,
+  EventWithScoreAverage,
+  UpdateScore,
+} from "@/types";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { eventNames } from "process";
@@ -196,6 +201,35 @@ export async function getEventScoreWinners(eventId: string) {
           score: mostSnowmen?.snowmen ? mostSnowmen.snowmen : "",
         },
       },
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
+}
+
+export async function getContestWinnersPublic(): Promise<
+  ActionResult<ContestWinnersPublic>
+> {
+  const targetYear = new Date().getFullYear();
+  const start = new Date(Date.UTC(targetYear, 0, 1));
+  const end = new Date(Date.UTC(targetYear + 1, 0, 1));
+  const now = new Date();
+
+  try {
+    const birdies = prisma.score.aggregate({
+      _avg: { birdies: true },
+      where: { event: { date: { gte: start, lt: end } } },
+    });
+
+    console.log(birdies);
+
+    const data = {} as ContestWinnersPublic;
+    return {
+      success: true,
+      data,
     };
   } catch (err) {
     return {
