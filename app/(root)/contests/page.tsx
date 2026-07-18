@@ -1,5 +1,24 @@
+import splash from "@/assets/homepagesplash.avif";
+import ScoreCards from "@/components/contests/score-cards";
+import ScoreCardsSkeleton from "@/components/skeletons/score-cards-skeleton";
+import Image from "next/image";
+import { Suspense } from "react";
+
 const ContestsPage = () => {
-  return <div>Contests</div>;
+  return (
+    <article className="p-3 relative">
+      <Image
+        src={splash}
+        alt="golf course"
+        fill
+        sizes="100vw"
+        style={{ objectFit: "cover", zIndex: -20 }}
+      />
+      <Suspense fallback={<ScoreCardsSkeleton />}>
+        <ScoreCards />
+      </Suspense>
+    </article>
+  );
 };
 
 export default ContestsPage;
