@@ -1,4 +1,13 @@
+import { getContestWinnersPublic } from "@/lib/actions/score.actions";
+
 const ScoreCards = async () => {
+  const contests = await getContestWinnersPublic();
+  if (!contests.success) {
+    return <>No data found</>;
+  }
+
+  console.log(contests.data);
+
   return (
     <section className="mx-auto max-w-5xl">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

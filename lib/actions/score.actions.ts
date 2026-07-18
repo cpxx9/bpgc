@@ -216,20 +216,70 @@ export async function getContestWinnersPublic(): Promise<
   const targetYear = new Date().getFullYear();
   const start = new Date(Date.UTC(targetYear, 0, 1));
   const end = new Date(Date.UTC(targetYear + 1, 0, 1));
-  const now = new Date();
 
   try {
-    const birdies = prisma.score.aggregate({
-      _avg: { birdies: true },
-      where: { event: { date: { gte: start, lt: end } } },
+    const yearFilter = {
+      event: { date: { gte: start, lt: end } },
+    };
+
+    const averages = await prisma.score.groupBy({
+      by: ["golferId"],
+      where: yearFilter,
+      _avg: { birdies: true, snowmen: true },
+      _sum: { birdies: true, snowmen: true },
     });
 
-    console.log(birdies);
+    const closestGroups = await prisma.score.groupBy({
+      by: ["golferId"],
+      where: { ...yearFilter, closestToPin: { not: null } },
+      _min: { closestToPin: true },
+    });
 
-    const data = {} as ContestWinnersPublic;
+    const golferIds = Array.from(
+      new Set([
+        ...averages.map((a) => a.golferId),
+        ...closestGroups.map((c) => c.golferId),
+      ]),
+    );
+
+    const golfers = await prisma.golfer.findMany({
+      where: {
+        id: { in: golferIds },
+      },
+      select: { id: true, firstName: true, lastName: true },
+    });
+
+    const golferById = new Map(golfers.map((g) => [g.id, g]));
+
+    const birdies = averages
+      .filter((a) => (a._sum.birdies ?? 0) > 0)
+      .flatMap((a) => {
+        const g = golferById.get(a.golferId);
+        if (!g) return [];
+        return [{ ...g, average: a._avg.birdies ?? 0 }];
+      })
+      .sort((a, b) => b.average - a.average);
+
+    const snowmen = averages
+      .filter((a) => (a._sum.snowmen ?? 0) > 0)
+      .flatMap((a) => {
+        const g = golferById.get(a.golferId);
+        if (!g) return [];
+        return [{ ...g, average: a._avg.snowmen ?? 0 }];
+      })
+      .sort((a, b) => b.average - a.average);
+
+    const closestToPin = closestGroups
+      .flatMap((c) => {
+        const g = golferById.get(c.golferId);
+        if (!g || c._min.closestToPin === null) return [];
+        return [{ ...g, lowest: c._min.closestToPin }];
+      })
+      .sort((a, b) => a.lowest - b.lowest);
+
     return {
       success: true,
-      data,
+      data: { birdies, closestToPin, snowmen },
     };
   } catch (err) {
     return {
