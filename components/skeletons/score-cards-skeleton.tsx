@@ -6,6 +6,7 @@ const ScoreCardsSkeleton = () => {
         <article className="flex flex-col">
           <div className="bg-sky-600/70 h-44 flex flex-col justify-between p-4 text-center text-white">
             <h2 className="font-bold text-2xl">Birdie Busters</h2>
+            <p>Loading...</p>
             <p className="font-semibold">Clubhouse Leader</p>
           </div>
 
@@ -15,6 +16,7 @@ const ScoreCardsSkeleton = () => {
         <article className="flex flex-col">
           <div className="bg-sky-600/70 h-44 flex flex-col justify-between p-4 text-center text-white">
             <h2 className="font-bold text-2xl">Closest-to-Pin / Hole-in-One</h2>
+            <p>Loading...</p>
             <p className="font-semibold">Clubhouse Leader</p>
           </div>
 
@@ -24,6 +26,7 @@ const ScoreCardsSkeleton = () => {
         <article className="flex flex-col">
           <div className="bg-sky-600/70 h-44 flex flex-col justify-between p-4 text-center text-white">
             <h2 className="font-bold text-2xl">Snowmen</h2>
+            <p>Loading...</p>
             <p className="font-semibold">Clubhouse Leader</p>
           </div>
 
