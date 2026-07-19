@@ -28,17 +28,17 @@ const EventScheduleMonths = ({ events }: PropTypes) => {
             )}
             key={event.id}
           >
-            <TableCell className="py-0 pl-0 pr-4 text-lg font-semibold">
+            <TableCell className="text-[1.11em] md:font-semibold py-0 px-0 md:text-lg md:pl-0 md:pr-4">
               {month} {day}
               {`${event.isTwoManMatch && event.isChampionship ? "*" : ""}`}
             </TableCell>
-            <TableCell className="py-0 px-5 text-lg font-semibold">
+            <TableCell className="text-[1.1em] md:font-semibold py-0 px-0 md:px-5 md:text-lg">
               {event.time.toLocaleTimeString("en-US", { timeZone: "EST" })}
             </TableCell>
-            <TableCell className="py-0 px-5 text-lg font-semibold">
+            <TableCell className="text-[1.1em] md:font-semibold py-0 px-0 md:px-5 md:text-lg">
               {event.location}
             </TableCell>
-            <TableCell className="py-0 pr-5 pl-8 text-lg font-semibold">
+            <TableCell className="hidden text-[1.1em] md:font-semibold py-0 px-0 md:pr-5 md:pl-8 md:table-cell md:text-lg">
               {event.description}
             </TableCell>
           </TableRow>

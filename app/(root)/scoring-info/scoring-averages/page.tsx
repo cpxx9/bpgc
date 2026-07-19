@@ -18,7 +18,7 @@ const ScoringInfoAveragesPage = () => {
       />
       <div className="-z-10 absolute inset-0 bg-black/30" />
       <div className="flex flex-col items-center gap-4">
-        <section className="bg-blue-400/70 p-5 min-w-[800px]">
+        <section className="bg-blue-400/70 p-5 md:min-w-[800px]">
           <h2 className="mb-5 text-2xl text-white font-bold">
             2026 Individual Scoring Averages
           </h2>
@@ -26,7 +26,7 @@ const ScoringInfoAveragesPage = () => {
             <IndividualScoreAverages />
           </Suspense>
         </section>
-        <section className="bg-slate-600/70 p-5 min-w-[800px]">
+        <section className="bg-slate-600/70 p-5 md:min-w-[800px]">
           <h2 className="mb-5 text-2xl text-white font-bold">
             Weekly League Scoring Averages
           </h2>

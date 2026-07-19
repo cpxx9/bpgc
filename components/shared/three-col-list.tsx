@@ -14,7 +14,7 @@ interface PropTypes {
 
 const ThreeColList = ({ columns }: PropTypes) => {
   return (
-    <section className="flex justify-between">
+    <section className="flex flex-col md:flex-row justify-between">
       {columns.map((col, i) => (
         <div key={i}>
           {col.map((golfer) => (

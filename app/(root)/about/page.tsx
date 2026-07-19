@@ -15,7 +15,7 @@ const AboutPage = () => {
           <h4 className="pb-3 text-[1.8em]/[1.8rem]">EST. 1989</h4>
         </div>
       </section>
-      <section className="py-6 px-44 flex flex-col gap-2 md:flex-row md:gap-6 lg:gap-6 lg:mx-10">
+      <section className="flex flex-col gap-2 p-5 md:py-6 md:px-44 md:flex-row md:gap-6 lg:gap-6 lg:mx-10">
         <div className="md:flex-none md:w-[250px] lg:w-[350px]">
           <h3 className="text-[1.6em] font-semibold">
             {currentYear} Officers/Board

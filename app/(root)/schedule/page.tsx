@@ -6,7 +6,7 @@ import { Suspense } from "react";
 
 const SchedulePage = () => {
   return (
-    <div className="min-h-[100%] flex justify-center items-start p-8 relative">
+    <div className="min-h-[100%] flex justify-center items-start p-1 md:p-8 relative">
       <Image
         src={splash}
         alt="golf course"
@@ -15,7 +15,7 @@ const SchedulePage = () => {
         style={{ objectFit: "cover", zIndex: -1 }}
       />
       <div className="bg-slate-500/90 p-2">
-        <h3 className="text-xl font-bold text-white">
+        <h3 className="text-2xl font-bold text-white">
           {new Date().getFullYear()} BPGC Schedule
         </h3>
         <Suspense fallback={<EventScheduleSkeleton />}>

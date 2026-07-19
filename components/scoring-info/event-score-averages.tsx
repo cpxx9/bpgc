@@ -14,7 +14,7 @@ const EventScoreAverages = async () => {
 
   const columns = [events.slice(0, chunkSize), events.slice(chunkSize)];
   return (
-    <section className="flex justify-between">
+    <section className="flex justify-between flex-col md:flex-row">
       {columns.map((col, i) => (
         <div key={i}>
           {col.map((event) => (

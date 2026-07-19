@@ -36,13 +36,13 @@ const EventSchedule = async () => {
     };
   }
   return (
-    <Table>
+    <Table className="table-fixed mt-4 md:table-auto">
       <TableHeader className="border-none">
         <TableRow className="border-none flex gap-5">
-          <TableHead></TableHead>
-          <TableHead></TableHead>
-          <TableHead></TableHead>
-          <TableHead></TableHead>
+          <TableHead className="hidden"></TableHead>
+          <TableHead className="hidden"></TableHead>
+          <TableHead className="hidden"></TableHead>
+          <TableHead className="hidden"></TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

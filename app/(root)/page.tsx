@@ -32,7 +32,7 @@ const Homepage = () => {
         </div>
       </div>
       {/* Cards */}
-      <div className="flex gap-2">
+      <div className="flex flex-col gap-2 md:flex-row">
         <div className="bg-blue-300 text-center py-4 px-10">
           <h3 className="text-2xl font-semibold">BPGC VIDEO OF THE WEEK</h3>
           <Image src={card} width={400} height={100} alt="winners" />
