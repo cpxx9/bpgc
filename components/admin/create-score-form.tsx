@@ -83,7 +83,7 @@ const CreateScoreForm = ({ eventId, golferId }: PropTypes) => {
             <Input
               id="closestToPinFeet"
               name="closestToPinFeet"
-              className="!m-0 !w-[5rem] text-center"
+              className="!m-0 !w-[5rem] text-center px-0"
               type="number"
               placeholder="feet"
               // defaultValue={99}
@@ -93,7 +93,7 @@ const CreateScoreForm = ({ eventId, golferId }: PropTypes) => {
             <Input
               id="closestToPin"
               name="closestToPin"
-              className="!m-0 !w-[5rem] text-center"
+              className="!m-0 !w-[5rem] text-center px-0"
               type="number"
               placeholder="inches"
               // defaultValue={99}

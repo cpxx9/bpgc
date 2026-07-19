@@ -147,7 +147,7 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
                     value={field.value ?? ""}
                     type="number"
                     step="any"
-                    className="!m-0 !w-[5rem] text-center"
+                    className="!m-0 !w-[5rem] text-center px-0"
                   ></Input>
                 </FormControl>
               </FormItem>
@@ -169,7 +169,7 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
                     value={field.value ?? ""}
                     type="number"
                     step="any"
-                    className="!m-0 !w-[5rem] text-center"
+                    className="!m-0 !w-[5rem] text-center px-0"
                   ></Input>
                 </FormControl>
               </FormItem>
