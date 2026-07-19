@@ -27,7 +27,9 @@ const ThreeColList = ({ columns }: PropTypes) => {
               <p>{`${golfer.firstName} ${golfer.lastName}`}</p>
               <p className="ml-6">
                 {"avgScore" in golfer
-                  ? (golfer.avgScore ?? "--")
+                  ? golfer.avgScore
+                    ? Math.round(golfer.avgScore * 100) / 100
+                    : "--"
                   : (golfer.score ?? "--")}
               </p>
             </div>
