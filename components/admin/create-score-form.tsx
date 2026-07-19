@@ -47,7 +47,7 @@ const CreateScoreForm = ({ eventId, golferId }: PropTypes) => {
         <input type="hidden" name="golferId" value={golferId} />
         <div className="flex gap-3">
           <div className="flex justify-center items-center gap-2">
-            <Label htmlFor="score">Score</Label>
+            <Label htmlFor="score">Score:</Label>
             <Input
               id="score"
               name="score"
@@ -57,7 +57,7 @@ const CreateScoreForm = ({ eventId, golferId }: PropTypes) => {
             ></Input>
           </div>
           <div className="flex justify-center items-center gap-2">
-            <Label htmlFor="birdies">Birdies</Label>
+            <Label htmlFor="birdies">Birdies:</Label>
             <Input
               id="birdies"
               name="birdies"
@@ -68,7 +68,7 @@ const CreateScoreForm = ({ eventId, golferId }: PropTypes) => {
             ></Input>
           </div>
           <div className="flex justify-center items-center gap-2">
-            <Label htmlFor="snowmen">Snowmen</Label>
+            <Label htmlFor="snowmen">Snowmen:</Label>
             <Input
               id="snowmen"
               name="snowmen"
@@ -79,7 +79,7 @@ const CreateScoreForm = ({ eventId, golferId }: PropTypes) => {
             ></Input>
           </div>
           <div className="flex justify-center items-center gap-2">
-            <Label htmlFor="closestToPinFeet">Closest To Pin</Label>
+            <Label htmlFor="closestToPinFeet">Closest To Pin:</Label>
             <Input
               id="closestToPinFeet"
               name="closestToPinFeet"
