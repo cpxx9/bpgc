@@ -7,9 +7,13 @@ const ScoreCards = async () => {
     return <>No data found</>;
   }
 
-  const feetAndInchesWinner = convertFloatToFeet(
-    contests.data.closestToPin[0].lowest,
-  );
+  const birdiesLeader = contests.data.birdies[0];
+  const closestToPinLeader = contests.data.closestToPin[0];
+  const snowmenLeader = contests.data.snowmen[0];
+
+  const feetAndInchesWinner = closestToPinLeader
+    ? convertFloatToFeet(contests.data.closestToPin[0].lowest)
+    : null;
 
   return (
     <section className="mx-auto max-w-5xl">
@@ -18,9 +22,9 @@ const ScoreCards = async () => {
           <div className="bg-sky-600 flex flex-col gap-4 justify-between p-4 text-center text-white">
             <h2 className="font-bold text-3xl">Birdie Busters</h2>
             <div className="text-gray-600 hidden md:block">
-              <h3 className="text-2xl font-semibold">{`${contests.data.birdies[0].firstName} ${contests.data.birdies[0].lastName}`}</h3>
+              <h3 className="text-2xl font-semibold">{`${birdiesLeader.firstName} ${birdiesLeader.lastName}`}</h3>
               <h3 className="text-xl font-semibold">
-                {contests.data.birdies[0].average.toFixed(2)}
+                {birdiesLeader.average.toFixed(2)}
               </h3>
             </div>
             <p className="font-semibold hidden md:block">Clubhouse Leader</p>
@@ -45,10 +49,18 @@ const ScoreCards = async () => {
           <div className="bg-sky-600 flex flex-col gap-4 justify-between p-4 text-center text-white">
             <h2 className="font-bold text-3xl">Closest-to-Pin / Hole-in-One</h2>
             <div className="text-gray-600 hidden md:block">
-              <h3 className="text-2xl font-semibold">{`${contests.data.closestToPin[0].firstName} ${contests.data.closestToPin[0].lastName}`}</h3>
-              <h3 className="text-xl font-semibold">
-                {`${feetAndInchesWinner.feet}' ${feetAndInchesWinner.inches}"`}
-              </h3>
+              {closestToPinLeader && feetAndInchesWinner ? (
+                <>
+                  <h3 className="text-2xl font-semibold">
+                    {`${closestToPinLeader.firstName} ${closestToPinLeader.lastName}`}
+                  </h3>
+                  <h3 className="text-xl font-semibold">
+                    {`${feetAndInchesWinner.feet}' ${feetAndInchesWinner.inches}"`}
+                  </h3>
+                </>
+              ) : (
+                <h3 className="text-xl font-semibold">No winner yet</h3>
+              )}
             </div>
             <p className="font-semibold hidden md:block">Clubhouse Leader</p>
           </div>
@@ -76,9 +88,9 @@ const ScoreCards = async () => {
           <div className="bg-sky-600 flex flex-col gap-4 justify-between p-4 text-center text-white">
             <h2 className="font-bold text-3xl">Snowmen</h2>
             <div className="text-gray-600 hidden md:block">
-              <h3 className="text-2xl font-semibold">{`${contests.data.snowmen[0].firstName} ${contests.data.snowmen[0].lastName}`}</h3>
+              <h3 className="text-2xl font-semibold">{`${snowmenLeader.firstName} ${snowmenLeader.lastName}`}</h3>
               <h3 className="text-xl font-semibold">
-                {contests.data.snowmen[0].average.toFixed(2)}
+                {snowmenLeader.average.toFixed(2)}
               </h3>
             </div>
             <p className="font-semibold hidden md:block">Clubhouse Leader</p>
