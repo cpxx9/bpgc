@@ -195,3 +195,23 @@ export function isPhantomGolfer(g: { firstName: string; lastName: string }) {
     return false;
   }
 }
+
+export function convertFeetToFloat({
+  feet,
+  inches,
+}: {
+  feet: number;
+  inches: number;
+}) {
+  const decimal = inches / 12;
+  return feet + decimal;
+}
+export function convertFloatToFeet(float: number) {
+  const feet = Math.trunc(float);
+  const inches = (float - feet) * 12;
+
+  return {
+    feet,
+    inches,
+  };
+}
