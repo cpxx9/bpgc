@@ -8,7 +8,7 @@ import { Suspense } from "react";
 
 const ScoringInfoWeeklyScoresPage = () => {
   return (
-    <div className="h-[500px] flex flex-col justify-center items-center gap-3 relative">
+    <div className="min-h-[100%] flex flex-col justify-center items-center gap-3 relative">
       <Image
         src={splash}
         alt="golf course"

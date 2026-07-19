@@ -6,7 +6,7 @@ import { Suspense } from "react";
 
 const ContestsPage = () => {
   return (
-    <article className="p-3 relative">
+    <article className="p-3 relative min-h-[100%]">
       <Image
         src={splash}
         alt="golf course"

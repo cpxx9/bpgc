@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const EventsClubChampionshipPage = () => {
   return (
-    <article className="p-3 relative flex items-center justify-center text-white">
+    <article className="p-3 relative flex items-center justify-center text-white min-h-[100%]">
       <Image
         src={splash}
         alt="golf course"

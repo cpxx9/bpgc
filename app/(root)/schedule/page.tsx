@@ -6,7 +6,7 @@ import { Suspense } from "react";
 
 const SchedulePage = () => {
   return (
-    <div className="h-full flex justify-center items-start p-8 relative">
+    <div className="min-h-[100%] flex justify-center items-start p-8 relative">
       <Image
         src={splash}
         alt="golf course"
