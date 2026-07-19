@@ -129,20 +129,42 @@ const UpdateScoreForm = ({ score }: PropTypes) => {
             )}
           />
         </div>
-        <div>
+        <div className="flex gap-2">
           <FormField
             control={form.control}
-            name="closestToPin"
+            name="closestToPinFeet"
             render={({
               field,
             }: {
-              field: ControllerRenderProps<UpdateScore, "closestToPin">;
+              field: ControllerRenderProps<UpdateScore, "closestToPinFeet">;
             }) => (
               <FormItem className="flex justify-center items-center gap-2">
                 <FormLabel>Closest To the Pin:</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Enter closest to the pin"
+                    placeholder="feet"
+                    {...field}
+                    value={field.value ?? ""}
+                    type="number"
+                    step="any"
+                    className="!m-0 !w-[5rem] text-center"
+                  ></Input>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="closestToPinInches"
+            render={({
+              field,
+            }: {
+              field: ControllerRenderProps<UpdateScore, "closestToPinInches">;
+            }) => (
+              <FormItem className="flex justify-center items-center gap-2">
+                <FormControl>
+                  <Input
+                    placeholder="inches"
                     {...field}
                     value={field.value ?? ""}
                     type="number"

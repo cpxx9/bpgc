@@ -79,12 +79,23 @@ const CreateScoreForm = ({ eventId, golferId }: PropTypes) => {
             ></Input>
           </div>
           <div className="flex justify-center items-center gap-2">
-            <Label htmlFor="closestToPin">Closest To Pin</Label>
+            <Label htmlFor="closestToPinFeet">Closest To Pin</Label>
+            <Input
+              id="closestToPinFeet"
+              name="closestToPinFeet"
+              className="!m-0 !w-[5rem] text-center"
+              type="number"
+              placeholder="feet"
+              // defaultValue={99}
+              step="any"
+              // required
+            ></Input>
             <Input
               id="closestToPin"
               name="closestToPin"
               className="!m-0 !w-[5rem] text-center"
               type="number"
+              placeholder="inches"
               // defaultValue={99}
               step="any"
               // required

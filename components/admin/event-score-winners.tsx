@@ -1,4 +1,5 @@
 import { getEventScoreWinners } from "@/lib/actions/score.actions";
+import { convertFloatToFeet } from "@/lib/utils";
 
 interface PropTypes {
   eventId: string;
@@ -6,6 +7,7 @@ interface PropTypes {
 
 const EventScoreWinners = async ({ eventId }: PropTypes) => {
   const { data: winners } = await getEventScoreWinners(eventId);
+  const feetAndInches = convertFloatToFeet(winners?.closestToPin.score ?? 0);
   return (
     <>
       <p>
@@ -14,7 +16,7 @@ const EventScoreWinners = async ({ eventId }: PropTypes) => {
       </p>
       <p>
         <b>Closest To Pin:</b>
-        {` ${winners?.closestToPin.name} (${winners?.closestToPin.score})`}
+        {` ${winners?.closestToPin.name} (${feetAndInches.feet}' ${feetAndInches.inches}")`}
       </p>
       <p>
         <b>Most Birdies:</b>

@@ -104,7 +104,16 @@ export const createScoreSchema = z.object({
   score: z.coerce.number({ message: `Score${isRequiredError}` }),
   birdies: z.coerce.number({ message: `Birdies${isRequiredError}` }),
   snowmen: z.coerce.number({ message: `Snowmen${isRequiredError}` }),
-  closestToPin: z.preprocess((value) => {
+  closestToPinFeet: z.preprocess((value) => {
+    if (value === "" || value === undefined || value === null) {
+      return null;
+    }
+    if (typeof value === "string") {
+      return Number(value);
+    }
+    return value;
+  }, z.number().nullable()),
+  closestToPinInches: z.preprocess((value) => {
     if (value === "" || value === undefined || value === null) {
       return null;
     }
@@ -121,7 +130,16 @@ export const updateScoreSchema = z.object({
   score: z.coerce.number({ message: `Score${isRequiredError}` }),
   birdies: z.coerce.number({ message: `Birdies${isRequiredError}` }),
   snowmen: z.coerce.number({ message: `Snowmen${isRequiredError}` }),
-  closestToPin: z.preprocess((value) => {
+  closestToPinFeet: z.preprocess((value) => {
+    if (value === "" || value === undefined || value === null) {
+      return null;
+    }
+    if (typeof value === "string") {
+      return Number(value);
+    }
+    return value;
+  }, z.number().nullable()),
+  closestToPinInches: z.preprocess((value) => {
     if (value === "" || value === undefined || value === null) {
       return null;
     }

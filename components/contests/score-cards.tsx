@@ -1,10 +1,15 @@
 import { getContestWinnersPublic } from "@/lib/actions/score.actions";
+import { convertFloatToFeet } from "@/lib/utils";
 
 const ScoreCards = async () => {
   const contests = await getContestWinnersPublic();
   if (!contests.success) {
     return <>No data found</>;
   }
+
+  const feetAndInchesWinner = convertFloatToFeet(
+    contests.data.closestToPin[0].lowest,
+  );
 
   return (
     <section className="mx-auto max-w-5xl">
@@ -42,7 +47,7 @@ const ScoreCards = async () => {
             <div className="text-gray-600">
               <h3 className="text-2xl font-semibold">{`${contests.data.closestToPin[0].firstName} ${contests.data.closestToPin[0].lastName}`}</h3>
               <h3 className="text-xl font-semibold">
-                {contests.data.closestToPin[0].lowest}
+                {`${feetAndInchesWinner.feet}' ${feetAndInchesWinner.inches}"`}
               </h3>
             </div>
             <p className="font-semibold">Clubhouse Leader</p>
@@ -50,15 +55,19 @@ const ScoreCards = async () => {
 
           <div className="bg-neutral-700 p-4 text-white">
             <ul>
-              {contests.data.closestToPin.map((golfer) => (
-                <li
-                  key={golfer.id}
-                  className="flex justify-between font-semibold text-lg"
-                >
-                  <p>{`${golfer.firstName} ${golfer.lastName}`}</p>
-                  <p>{Math.round(golfer.lowest * 100) / 100}</p>
-                </li>
-              ))}
+              {contests.data.closestToPin.map((golfer) => {
+                const feetAndInches = convertFloatToFeet(golfer.lowest);
+
+                return (
+                  <li
+                    key={golfer.id}
+                    className="flex justify-between font-semibold text-lg"
+                  >
+                    <p>{`${golfer.firstName} ${golfer.lastName}`}</p>
+                    <p>{`${feetAndInches.feet}' ${feetAndInches.inches}"`}</p>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </article>

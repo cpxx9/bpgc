@@ -1,7 +1,7 @@
 "use server";
 import { prisma } from "@/db/prisma";
 import { requireAdminAction } from "@/lib/auth-guard";
-import { formatError } from "@/lib/utils";
+import { convertFeetToFloat, formatError } from "@/lib/utils";
 import { createScoreSchema } from "@/lib/validators";
 import {
   ActionResult,
@@ -38,7 +38,10 @@ export async function createScore(prevState: unknown, formData: FormData) {
         score: score.score,
         birdies: score.birdies,
         snowmen: score.snowmen,
-        closestToPin: score.closestToPin,
+        closestToPin: convertFeetToFloat({
+          feet: score.closestToPinFeet ?? 0,
+          inches: score.closestToPinInches ?? 0,
+        }),
       },
     });
 
@@ -186,7 +189,7 @@ export async function getEventScoreWinners(eventId: string) {
           name: closestToPin?.closestToPin
             ? `${closestToPin?.golfer.firstName} ${closestToPin?.golfer.lastName}`
             : "No winner",
-          score: closestToPin?.closestToPin ? closestToPin?.closestToPin : "",
+          score: closestToPin?.closestToPin ? closestToPin?.closestToPin : 0,
         },
         mostBirdies: {
           name: mostBirdies?.birdies
@@ -299,7 +302,10 @@ export async function updateScore(score: UpdateScore) {
         score: score.score,
         birdies: score.birdies,
         snowmen: score.snowmen,
-        closestToPin: score.closestToPin,
+        closestToPin: convertFeetToFloat({
+          feet: score.closestToPinFeet ?? 0,
+          inches: score.closestToPinInches ?? 0,
+        }),
       },
     });
 

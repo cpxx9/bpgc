@@ -212,6 +212,6 @@ export function convertFloatToFeet(float: number) {
 
   return {
     feet,
-    inches,
+    inches: Math.round(inches),
   };
 }

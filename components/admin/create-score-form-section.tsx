@@ -1,5 +1,6 @@
 import CreateScoreForm from "@/components/admin/create-score-form";
 import UpdateScoreForm from "@/components/admin/update-score-form";
+import { convertFloatToFeet } from "@/lib/utils";
 import { GolferWithScores } from "@/types";
 
 interface PropTypes {
@@ -17,7 +18,17 @@ const CreateScoreFormSection = ({ golfers, id }: PropTypes) => {
         >
           <h4>{`${golfer.firstName} ${golfer.lastName}`}</h4>
           {golfer.scores[0] ? (
-            <UpdateScoreForm score={golfer.scores[0]} />
+            <UpdateScoreForm
+              score={{
+                ...golfer.scores[0],
+                closestToPinFeet: convertFloatToFeet(
+                  golfer.scores[0].closestToPin ?? 0,
+                ).feet,
+                closestToPinInches:
+                  convertFloatToFeet(golfer.scores[0].closestToPin ?? 0)
+                    .inches ?? 0,
+              }}
+            />
           ) : (
             <CreateScoreForm eventId={id} golferId={golfer.id} />
           )}
