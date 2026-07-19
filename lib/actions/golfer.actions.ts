@@ -150,6 +150,12 @@ export async function getAllGolfersWithEventScoreList(eventId: string) {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
     const data = await prisma.golfer.findMany({
+      where: {
+        AND: [
+          { active: true },
+          { firstName: { not: { contains: "phantom" }, mode: "insensitive" } },
+        ],
+      },
       orderBy: [
         {
           lastName: "asc",
