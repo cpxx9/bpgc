@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         hostname: "utfs.io",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "*.ufs.sh", // Modern UploadThing CDN URL pattern
+        pathname: "/f/*",
+      },
     ],
   },
 };

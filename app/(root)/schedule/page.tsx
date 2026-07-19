@@ -8,7 +8,9 @@ const SchedulePage = () => {
   return (
     <div className="min-h-[100%] flex justify-center items-start p-1 md:p-8 relative">
       <Image
-        src={splash}
+        src={
+          "https://x1h2s6dbph.ufs.sh/f/TnIoxIi73IialcC47xyf1RPX6CsrjH4yGdBeLmnq5NuYiv0A"
+        }
         alt="golf course"
         fill
         sizes="100vw"

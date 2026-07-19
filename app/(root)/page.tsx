@@ -11,7 +11,9 @@ const Homepage = () => {
     <div className="flex flex-col items-center gap-3 mb-12">
       <div className="w-full flex flex-col items-center pt-32 pb-10 gap-4 tracking-widest relative">
         <Image
-          src={splash}
+          src={
+            "https://x1h2s6dbph.ufs.sh/f/TnIoxIi73IialcC47xyf1RPX6CsrjH4yGdBeLmnq5NuYiv0A"
+          }
           alt="golf course"
           fill
           sizes="100vw"
