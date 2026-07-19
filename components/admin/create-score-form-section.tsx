@@ -21,12 +21,16 @@ const CreateScoreFormSection = ({ golfers, id }: PropTypes) => {
             <UpdateScoreForm
               score={{
                 ...golfer.scores[0],
-                closestToPinFeet: convertFloatToFeet(
-                  golfer.scores[0].closestToPin ?? 0,
-                ).feet,
+                closestToPinFeet:
+                  golfer.scores[0].closestToPin === null
+                    ? null
+                    : convertFloatToFeet(golfer.scores[0].closestToPin ?? 0)
+                        .feet,
                 closestToPinInches:
-                  convertFloatToFeet(golfer.scores[0].closestToPin ?? 0)
-                    .inches ?? 0,
+                  golfer.scores[0].closestToPin === null
+                    ? null
+                    : (convertFloatToFeet(golfer.scores[0].closestToPin ?? 0)
+                        .inches ?? 0),
               }}
             />
           ) : (
