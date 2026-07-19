@@ -25,6 +25,10 @@ const links = [
     title: "Events",
     href: "/admin/events",
   },
+  {
+    title: "Gallery",
+    href: "/admin/gallery",
+  },
 ];
 
 const MainNav = ({
@@ -44,7 +48,7 @@ const MainNav = ({
           href={link.href}
           className={cn(
             "text-sm font-medium transition-colors hover:text-primary",
-            pathname.includes(link.href) ? "" : "text-muted-foreground"
+            pathname.includes(link.href) ? "" : "text-muted-foreground",
           )}
         >
           {link.title}
