@@ -3,7 +3,7 @@ import { convertFloatToFeet } from "@/lib/utils";
 
 const ScoreCards = async () => {
   const contests = await getContestWinnersPublic();
-  if (!contests.success) {
+  if (!contests.success || !contests.data) {
     return <>No data found</>;
   }
 
