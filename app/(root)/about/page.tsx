@@ -71,7 +71,7 @@ const AboutPage = () => {
             <p>
               Dave Whiting, Mike Flythe and 9 other charter members started the
               Beaver Point Golf Club (BPGC) in July of 1989. After petitioning
-              the CSGA to to officially recognize there organization, Beaver
+              the CSGA to to officially recognize their organization, Beaver
               Point became the first Golf Club Without Real Estate in
               Connecticut. The BPGC is also a member club of the USGA and
               utilizes the GHIN system for official handicapping. When members
@@ -94,15 +94,16 @@ const AboutPage = () => {
               and the club plays every Saturday during the golf season through
               September. The schedule is completed by opening day, however
               members are not obligated to play all events. If a member is
-              playing in the upcoming weekend event, they are required to call
-              into the BPGC Hotline and leave a message to reserve their spot.
-              Courses played throughout the season include Blackledge C.C.,
-              Timberlin G.C., Portland G.C., Portland West, Topstone G.C.,
-              Quarry Ridge, Stanley G.C., Cedar Knob G.C., Lyman Orchards G.C.
-              and River Ridge G.C. This season, the club will adding 3-4 "road
-              trips" during off-weeks (non two man days), where we will play
-              courses in neighboring states and in northwest CT. Additionally,
-              we'll be traveling to Vermont for a weekend golf trip.
+              playing in the upcoming weekend event, they are required to
+              call/email into the BPGC Hotline and leave a message to reserve
+              their spot. Courses played throughout the season include
+              Blackledge C.C., Timberlin G.C., Portland G.C., Portland West,
+              Topstone G.C., Quarry Ridge, Stanley G.C., Cedar Knob G.C., Lyman
+              Orchards G.C. and River Ridge G.C. This season, the club will
+              adding 3-4 "road trips" during off-weeks (non two man days), where
+              we will play courses in neighboring states and in northwest CT.
+              Additionally, we'll be traveling to Vermont for a weekend golf
+              trip.
             </p>
             <br />
             <p>
