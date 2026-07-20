@@ -20,10 +20,10 @@ const UploadImageButton = () => {
           container: {},
           allowedContent: {},
         }}
-        onClientUploadComplete={(res: { url: string }[]) => {
+        onClientUploadComplete={(res) => {
           toast({
             variant: "default",
-            description: `Image uploaded to ${res[0].url}`,
+            description: `${res[0].serverData.actionResult.message}`,
           });
         }}
         onUploadError={(error: Error) => {
