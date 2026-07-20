@@ -6,8 +6,6 @@ export async function createImage(data: {
   key: string;
 }): Promise<{ success: boolean; message: string }> {
   try {
-    const admin = await requireAdminAction();
-    if (!admin) throw new Error("You are not authorized!");
     const image = await prisma.images.create({
       data,
     });
