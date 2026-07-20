@@ -123,6 +123,14 @@ model User {
   Session       Session[]
 }
 
+model Images {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+  url       String
+  displayed Boolean  @default(false)
+}
+
 model Account {
   userId            String  @db.Uuid
   type              String
