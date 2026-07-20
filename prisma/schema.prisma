@@ -128,7 +128,7 @@ model Images {
   createdAt DateTime @default(now()) @db.Timestamp(6)
   updatedAt DateTime @updatedAt
   url       String
-  displayed Boolean  @default(false)
+  displayed Boolean  @default(true)
 }
 
 model Account {
