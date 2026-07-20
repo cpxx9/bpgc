@@ -11,7 +11,7 @@ const EventsTwoManLeaguePage = () => {
     <article className="p-3 relative min-h-[100%]">
       <Image
         src={
-          "https://x1h2s6dbph.ufs.sh/f/TnIoxIi73IialcC47xyf1RPX6CsrjH4yGdBeLmnq5NuYiv0A"
+          "https://x1h2s6dbph.ufs.sh/f/TnIoxIi73IiaIMZCNRs49rI2nUdFSRvTwcHuxe6QYoPb71kO"
         }
         alt="golf course"
         fill

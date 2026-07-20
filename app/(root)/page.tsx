@@ -12,7 +12,7 @@ const Homepage = () => {
       <div className="w-full flex flex-col items-center pt-32 pb-10 gap-4 tracking-widest relative">
         <Image
           src={
-            "https://x1h2s6dbph.ufs.sh/f/TnIoxIi73IialcC47xyf1RPX6CsrjH4yGdBeLmnq5NuYiv0A"
+            "https://x1h2s6dbph.ufs.sh/f/TnIoxIi73IiaIMZCNRs49rI2nUdFSRvTwcHuxe6QYoPb71kO"
           }
           alt="golf course"
           fill

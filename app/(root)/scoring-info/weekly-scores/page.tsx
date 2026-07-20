@@ -11,7 +11,7 @@ const ScoringInfoWeeklyScoresPage = () => {
     <div className="min-h-[100%] flex flex-col justify-center items-center gap-3 relative p-6 md:p-0">
       <Image
         src={
-          "https://x1h2s6dbph.ufs.sh/f/TnIoxIi73IialcC47xyf1RPX6CsrjH4yGdBeLmnq5NuYiv0A"
+          "https://x1h2s6dbph.ufs.sh/f/TnIoxIi73IiaIMZCNRs49rI2nUdFSRvTwcHuxe6QYoPb71kO"
         }
         alt="golf course"
         fill
