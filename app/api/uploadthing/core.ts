@@ -1,6 +1,7 @@
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
 import { auth } from "@/auth";
+import { requireAdminAction } from "@/lib/auth-guard";
 
 const f = createUploadthing();
 
@@ -13,10 +14,12 @@ export const ourFileRouter = {
   })
     .middleware(async () => {
       const session = await auth();
-      if (!session) throw new UploadThingError("Unauthorized");
+      const isAdmin = await requireAdminAction();
+      if (!session || !isAdmin) throw new UploadThingError("Unauthorized");
       return { userId: session?.user?.id };
     })
-    .onUploadComplete(async ({ metadata }) => {
+    .onUploadComplete(async ({ metadata, file }) => {
+      console.log(file.ufsUrl);
       return { uploadedBy: metadata.userId };
     }),
 } satisfies FileRouter;
