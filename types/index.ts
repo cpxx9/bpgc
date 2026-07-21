@@ -168,3 +168,10 @@ export type WeeklyMatchupsPublic = {
     teamTwo: number;
   }[];
 };
+
+export type DbImage = {
+  id: string;
+  url: string;
+  displayed: string;
+  key: string;
+};
