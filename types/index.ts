@@ -172,6 +172,6 @@ export type WeeklyMatchupsPublic = {
 export type DbImage = {
   id: string;
   url: string;
-  displayed: string;
+  displayed: boolean;
   key: string;
 };
