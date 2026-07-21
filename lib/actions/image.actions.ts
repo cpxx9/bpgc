@@ -1,5 +1,7 @@
 import { prisma } from "@/db/prisma";
 import { requireAdminAction } from "@/lib/auth-guard";
+import { formatError } from "@/lib/utils";
+import { ActionResult, DbImage } from "@/types";
 
 export async function createImage(data: {
   url: string;
@@ -17,7 +19,33 @@ export async function createImage(data: {
     console.log(err);
     return {
       success: false,
-      message: `Image was not saved to the Database! It was uploaded to storage. formatError(err)`,
+      message: `Image was not saved to the Database! It was uploaded to storage. ${formatError(err)}`,
+    };
+  }
+}
+
+export async function getAllImages(): Promise<ActionResult<DbImage[]>> {
+  try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
+    const images = await prisma.images.findMany({
+      orderBy: { createdAt: "asc" },
+      select: {
+        id: true,
+        url: true,
+        displayed: true,
+        key: true,
+      },
+    });
+
+    return {
+      success: true,
+      data: images,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
     };
   }
 }
