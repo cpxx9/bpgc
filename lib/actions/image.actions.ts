@@ -49,3 +49,32 @@ export async function getAllImages(): Promise<ActionResult<DbImage[]>> {
     };
   }
 }
+
+export async function getDisplayedImagesPublic(): Promise<
+  ActionResult<DbImage[]>
+> {
+  try {
+    const images = await prisma.images.findMany({
+      where: {
+        displayed: true,
+      },
+      orderBy: { createdAt: "asc" },
+      select: {
+        id: true,
+        url: true,
+        displayed: true,
+        key: true,
+      },
+    });
+
+    return {
+      success: true,
+      data: images,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
+}
