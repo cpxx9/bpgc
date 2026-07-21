@@ -17,7 +17,7 @@ import Link from "next/link";
 const ImageCarousel = ({ data }: { data: DbImage[] }) => {
   return (
     <Carousel
-      className="w-[90vw] max-w-[calc((100dvh-14rem)*16/9)] mx-auto"
+      className="w-[95vw] max-w-[calc((100vh-20rem)*16/9)] mx-auto"
       opts={{
         loop: true,
       }}
@@ -32,7 +32,7 @@ const ImageCarousel = ({ data }: { data: DbImage[] }) => {
       <CarouselContent>
         {data.map((DbImage: DbImage) => (
           <CarouselItem key={DbImage.id}>
-            <Link href={DbImage.url}>
+            <Link href={DbImage.url} target="_blank">
               <div className="p-1">
                 <Card>
                   <CardContent className="flex p-0 overflow-hidden round-md">
