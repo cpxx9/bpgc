@@ -39,6 +39,43 @@ export async function createImage(data: {
   }
 }
 
+export async function getImageById(
+  imageId: string | undefined,
+): Promise<ActionResult<DbImageAdmin>> {
+  try {
+    if (!imageId) throw new Error("No id passed in");
+    const image = await prisma.images.findFirst({
+      where: { id: imageId },
+      select: {
+        id: true,
+        url: true,
+        fileName: true,
+        displayed: true,
+        isScheduleSplash: true,
+        isWeeklyScoresSplash: true,
+        isScoringAveragesSplash: true,
+        isTwoManLeagueSplash: true,
+        isClubChampionshipSplash: true,
+        isContestsSplash: true,
+        isVideoOfTheWeek: true,
+        isTwoManChamps: true,
+        isBpgcTv: true,
+        key: true,
+      },
+    });
+    if (!image) throw new Error("Image not found!");
+    return {
+      success: true,
+      data: image,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
+}
+
 export async function getAllImages({
   limit = PAGE_SIZE,
   page,
