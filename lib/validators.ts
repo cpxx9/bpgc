@@ -166,3 +166,33 @@ export const updateTwoManTeamSchema = z.object({
   teamId: z.string().min(1, `Team ID${isRequiredError}`).trim(),
   number: z.coerce.number({ message: `Team Number${isRequiredError}` }),
 });
+
+export const updateImageSchema = z.object({
+  id: z.string().min(1, `Image ID${isRequiredError}`).trim(),
+  displayed: z.boolean({ message: `Displayed status${isRequiredError}` }),
+  isScheduleSplash: z.boolean({
+    message: `isScheduleSplash status${isRequiredError}`,
+  }),
+  isWeeklyScoresSplash: z.boolean({
+    message: `isWeeklyScoresSplash status${isRequiredError}`,
+  }),
+  isScoringAveragesSplash: z.boolean({
+    message: `isScoringAveragesSplash status${isRequiredError}`,
+  }),
+  isTwoManLeagueSplash: z.boolean({
+    message: `isTwoManLeagueSplash status${isRequiredError}`,
+  }),
+  isClubChampionshipSplash: z.boolean({
+    message: `isClubChampionshipSplash status${isRequiredError}`,
+  }),
+  isContestsSplash: z.boolean({
+    message: `isContestsSplash status${isRequiredError}`,
+  }),
+  isVideoOfTheWeek: z.boolean({
+    message: `isVideoOfTheWeek status${isRequiredError}`,
+  }),
+  isTwoManChamps: z.boolean({
+    message: `isTwoManChamps status${isRequiredError}`,
+  }),
+  isBpgcTv: z.boolean({ message: `isBpgcTv status${isRequiredError}` }),
+});
