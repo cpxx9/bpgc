@@ -25,6 +25,7 @@ export const ourFileRouter = {
         const actionResult = await createImage({
           url: file.ufsUrl,
           key: file.key,
+          fileName: file.name,
         });
         if (!actionResult || !actionResult.success) {
           throw new Error(actionResult?.message || "Database saving failed");

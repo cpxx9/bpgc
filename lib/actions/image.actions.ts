@@ -17,7 +17,8 @@ const utapi = new UTApi();
 export async function createImage(data: {
   url: string;
   key: string;
-}): Promise<{ success: boolean; message: string }> {
+  fileName: string;
+}): Promise<ActionResultMessage> {
   try {
     const image = await prisma.images.create({
       data,
