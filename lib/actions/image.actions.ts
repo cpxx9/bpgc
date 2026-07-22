@@ -10,6 +10,7 @@ import {
   DbImage,
   DbImageAdmin,
 } from "@/types";
+import { revalidatePath } from "next/cache";
 import { UTApi } from "uploadthing/server";
 
 const utapi = new UTApi();
@@ -69,6 +70,7 @@ export async function getAllImages({
     });
 
     const dataCount = await prisma.images.count();
+    revalidatePath("/admin/gallery");
 
     return {
       success: true,
@@ -113,10 +115,20 @@ export async function getDisplayedImagesPublic(): Promise<
   }
 }
 
-export async function deleteImage(key: string): Promise<ActionResultMessage> {
+export async function deleteImage(
+  id: string,
+  key: string,
+): Promise<ActionResultMessage> {
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
+
+    await prisma.$transaction(async (tx) => {
+      utapi.deleteFiles(key);
+      await prisma.images.delete({ where: { id } });
+    });
+
+    revalidatePath("/admin/gallery");
     return {
       success: true,
       message: "Image deleted successfully!",

@@ -75,7 +75,11 @@ const AdminGalleryPage = async ({ searchParams }: PropTypes) => {
                   </Badge>
                 </TableCell>
                 <TableCell>
-                  <DeleteDialog id={image.id} action={deleteImage} />
+                  <DeleteDialog
+                    id={image.id}
+                    action={deleteImage}
+                    options={[image.key]}
+                  />
                 </TableCell>
               </TableRow>
             ))}
