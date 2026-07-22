@@ -3,6 +3,7 @@ import { UploadThingError } from "uploadthing/server";
 import { auth } from "@/auth";
 import { requireAdminAction } from "@/lib/auth-guard";
 import { createImage } from "@/lib/actions/image.actions";
+import { formatError } from "@/lib/utils";
 
 const f = createUploadthing();
 
@@ -21,11 +22,15 @@ export const ourFileRouter = {
     })
     .onUploadComplete(async ({ metadata, file }) => {
       console.log(`uploadthing test: `, file);
-      const actionResult = await createImage({
-        url: file.ufsUrl,
-        key: file.key,
-      });
-      return { uploadedBy: metadata.userId, actionResult };
+      try {
+        const actionResult = await createImage({
+          url: file.ufsUrl,
+          key: file.key,
+        });
+        return { uploadedBy: metadata.userId, actionResult };
+      } catch (err) {
+        return formatError(err);
+      }
     }),
 } satisfies FileRouter;
 export type OurFileRouter = typeof ourFileRouter;
