@@ -124,12 +124,19 @@ model User {
 }
 
 model Images {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  createdAt DateTime @default(now()) @db.Timestamp(6)
-  updatedAt DateTime @updatedAt
-  url       String
-  key       String
-  displayed Boolean  @default(true)
+  id                       String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt                DateTime @default(now()) @db.Timestamp(6)
+  updatedAt                DateTime @updatedAt
+  url                      String
+  key                      String
+  isHomeSplash             Boolean  @default(false)
+  isScheduleSplash         Boolean  @default(false)
+  isWeeklyScoresSplash     Boolean  @default(false)
+  isScoringAveragesSplash  Boolean  @default(false)
+  isTwoManLeagueSplash     Boolean  @default(false)
+  isClubChampionshipSplash Boolean  @default(false)
+  isContestsSplash         Boolean  @default(false)
+  displayed                Boolean  @default(false)
 }
 
 model Account {
