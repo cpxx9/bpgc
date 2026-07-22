@@ -21,7 +21,6 @@ export const ourFileRouter = {
       return { userId: session?.user?.id };
     })
     .onUploadComplete(async ({ metadata, file }) => {
-      console.log(`uploadthing test: `, file);
       try {
         const actionResult = await createImage({
           url: file.ufsUrl,
