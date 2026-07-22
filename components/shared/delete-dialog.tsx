@@ -13,10 +13,12 @@ import {
   AlertDialogTrigger,
   AlertDialogCancel,
 } from "@/components/ui/alert-dialog";
+import { ActionResultMessage } from "@/types";
 
-interface PropTypes {
+interface PropTypes<TArgs extends unknown[] = []> {
   id: string;
-  action: (id: string) => Promise<{ success: boolean; message: string }>;
+  action: (id: string, ...args: TArgs) => Promise<ActionResultMessage>;
+  options?: TArgs;
   variant?:
     | "link"
     | "default"
@@ -30,20 +32,21 @@ interface PropTypes {
   description?: string;
 }
 
-const DeleteDialog = ({
+const DeleteDialog = <TArgs extends unknown[] = []>({
   id,
   action,
+  options,
   variant = "destructive",
   text = "DELETE",
   description,
-}: PropTypes) => {
+}: PropTypes<TArgs>) => {
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
 
   const handleDeleteClick = () => {
     startTransition(async () => {
-      const res = await action(id);
+      const res = await action(id, ...((options ?? []) as TArgs));
       if (!res.success) {
         toast({ variant: "destructive", description: res.message });
       } else {
