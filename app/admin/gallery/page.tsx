@@ -1,4 +1,5 @@
 import UploadImageButton from "@/components/admin/upload-image-button";
+import CopyText from "@/components/shared/copy-text";
 import DeleteDialog from "@/components/shared/delete-dialog";
 import Pagination from "@/components/shared/pagination";
 import { Badge } from "@/components/ui/badge";
@@ -51,15 +52,15 @@ const AdminGalleryPage = async ({ searchParams }: PropTypes) => {
         ) : (
           <p className="text-muted-foreground">Displaying all results...</p>
         )}
-        <Table>
+        <Table className="w-full table-fixed">
           <TableHeader>
             <TableRow>
-              <TableHead>ID</TableHead>
-              <TableHead>FILENAME</TableHead>
-              <TableHead>URL</TableHead>
-              <TableHead>KEY</TableHead>
-              <TableHead>IN GALLERY?</TableHead>
-              <TableHead>ACTIONS</TableHead>
+              <TableHead className="w-24">ID</TableHead>
+              <TableHead className="w-40">FILENAME</TableHead>
+              <TableHead className="">URL</TableHead>
+              <TableHead className="">KEY</TableHead>
+              <TableHead className="w-28">IN GALLERY?</TableHead>
+              <TableHead className="w-28">ACTIONS</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -67,7 +68,9 @@ const AdminGalleryPage = async ({ searchParams }: PropTypes) => {
               <TableRow key={image.id}>
                 <TableCell>{shortenUuid(image.id)}</TableCell>
                 <TableCell>{image.fileName}</TableCell>
-                <TableCell>{image.url}</TableCell>
+                <TableCell className="truncate">
+                  <CopyText text={image.url} />
+                </TableCell>
                 <TableCell>{image.key}</TableCell>
                 <TableCell>
                   <Badge variant={image.displayed ? "default" : "secondary"}>
