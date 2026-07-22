@@ -26,9 +26,12 @@ export const ourFileRouter = {
           url: file.ufsUrl,
           key: file.key,
         });
+        if (!actionResult || !actionResult.success) {
+          throw new Error(actionResult?.message || "Database saving failed");
+        }
         return { uploadedBy: metadata.userId, actionResult };
       } catch (err) {
-        return formatError(err);
+        throw new UploadThingError(formatError(err));
       }
     }),
 } satisfies FileRouter;
