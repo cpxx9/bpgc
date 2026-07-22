@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Images" ADD COLUMN     "isBpgcTv" BOOLEAN NOT NULL DEFAULT false,
+ADD COLUMN     "isTwoManChamps" BOOLEAN NOT NULL DEFAULT false,
+ADD COLUMN     "isVideoOfTheWeek" BOOLEAN NOT NULL DEFAULT false;
