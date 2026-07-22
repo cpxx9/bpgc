@@ -12,8 +12,9 @@ import {
 
 export type ActionResult<T> =
   | { success: true; data: T; totalPages?: number; year?: number }
-  | { success: false; message: string }
-  | { success: true; message: string };
+  | { success: false; message: string };
+
+export type ActionResultMessage<T> = { success: boolean; message: string };
 
 export type UpdateUser = z.infer<typeof updateUserSchema>;
 export type UpdateGolfer = z.infer<typeof updateGolferSchema>;
