@@ -24,12 +24,14 @@ export async function createImage(data: {
     const image = await prisma.images.create({
       data,
     });
+
+    revalidatePath("/admin/gallery");
+
     return {
       success: true,
       message: `Image uploaded successfully! (${data.url})`,
     };
   } catch (err) {
-    console.log(err);
     return {
       success: false,
       message: `Image was not saved to the Database! It was uploaded to storage. ${formatError(err)}`,
@@ -70,7 +72,6 @@ export async function getAllImages({
     });
 
     const dataCount = await prisma.images.count();
-    revalidatePath("/admin/gallery");
 
     return {
       success: true,
@@ -102,6 +103,8 @@ export async function getDisplayedImagesPublic(): Promise<
         fileName: true,
       },
     });
+
+    console.log(images);
 
     return {
       success: true,
