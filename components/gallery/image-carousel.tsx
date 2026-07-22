@@ -97,7 +97,7 @@ const ImageCarousel = ({ data }: { data: DbImage[] }) => {
               <div className="">
                 <Card
                   onClick={() => api?.scrollTo(index)}
-                  className={`rounded-sm ${current === index ? "border-2 border-blue-500" : ""}`}
+                  className={`rounded-sm ${current === index ? "border-2 border-orange-500" : ""}`}
                 >
                   <CardContent className="flex aspect-square items-center justify-center p-0">
                     <AspectRatio ratio={1 / 1} className="w-full bg-muted">
