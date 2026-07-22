@@ -9,6 +9,7 @@ import {
   ActionResultMessage,
   DbImage,
   DbImageAdmin,
+  UpdateImage,
 } from "@/types";
 import { revalidatePath } from "next/cache";
 import { UTApi } from "uploadthing/server";
@@ -146,6 +147,40 @@ export async function getDisplayedImagesPublic(): Promise<
     return {
       success: true,
       data: images,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
+}
+
+export async function updateImage(
+  image: UpdateImage,
+): Promise<ActionResultMessage> {
+  try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
+    await prisma.images.update({
+      where: { id: image.id },
+      data: {
+        displayed: image.displayed,
+        isScheduleSplash: image.isScheduleSplash,
+        isWeeklyScoresSplash: image.isWeeklyScoresSplash,
+        isScoringAveragesSplash: image.isScoringAveragesSplash,
+        isTwoManLeagueSplash: image.isTwoManLeagueSplash,
+        isClubChampionshipSplash: image.isClubChampionshipSplash,
+        isContestsSplash: image.isContestsSplash,
+        isVideoOfTheWeek: image.isVideoOfTheWeek,
+        isTwoManChamps: image.isTwoManChamps,
+        isBpgcTv: image.isBpgcTv,
+      },
+    });
+
+    return {
+      success: true,
+      message: "Image updated successfully",
     };
   } catch (err) {
     return {
