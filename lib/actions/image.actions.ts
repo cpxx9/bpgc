@@ -1,5 +1,6 @@
 import { prisma } from "@/db/prisma";
 import { requireAdminAction } from "@/lib/auth-guard";
+import { PAGE_SIZE } from "@/lib/constants";
 import { formatError } from "@/lib/utils";
 import { ActionResult, DbImage } from "@/types";
 
@@ -24,12 +25,20 @@ export async function createImage(data: {
   }
 }
 
-export async function getAllImages(): Promise<ActionResult<DbImage[]>> {
+export async function getAllImages({
+  limit = PAGE_SIZE,
+  page,
+}: {
+  limit?: number;
+  page: number;
+}): Promise<ActionResult<DbImage[]>> {
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
     const images = await prisma.images.findMany({
       orderBy: { createdAt: "asc" },
+      take: limit,
+      skip: (page - 1) * limit,
       select: {
         id: true,
         url: true,
