@@ -57,10 +57,10 @@ const AdminGalleryPage = async ({ searchParams }: PropTypes) => {
             <TableRow>
               <TableHead className="w-24">ID</TableHead>
               <TableHead className="w-40">FILENAME</TableHead>
-              <TableHead className="">URL</TableHead>
+              <TableHead className="">URL (click to copy)</TableHead>
               <TableHead className="">KEY</TableHead>
               <TableHead className="w-28">IN GALLERY?</TableHead>
-              <TableHead className="w-28">ACTIONS</TableHead>
+              <TableHead className="w-48">ACTIONS</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
