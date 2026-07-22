@@ -55,6 +55,7 @@ const AdminGalleryPage = async ({ searchParams }: PropTypes) => {
           <TableHeader>
             <TableRow>
               <TableHead>ID</TableHead>
+              <TableHead>FILENAME</TableHead>
               <TableHead>URL</TableHead>
               <TableHead>KEY</TableHead>
               <TableHead>IN GALLERY?</TableHead>
@@ -65,6 +66,7 @@ const AdminGalleryPage = async ({ searchParams }: PropTypes) => {
             {images.data?.map((image) => (
               <TableRow key={image.id}>
                 <TableCell>{shortenUuid(image.id)}</TableCell>
+                <TableCell>{image.fileName}</TableCell>
                 <TableCell>{image.url}</TableCell>
                 <TableCell>{image.key}</TableCell>
                 <TableCell>
