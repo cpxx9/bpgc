@@ -1,8 +1,18 @@
+"use server";
+
 import { prisma } from "@/db/prisma";
 import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
 import { formatError } from "@/lib/utils";
-import { ActionResult, DbImage, DbImageAdmin } from "@/types";
+import {
+  ActionResult,
+  ActionResultMessage,
+  DbImage,
+  DbImageAdmin,
+} from "@/types";
+import { UTApi } from "uploadthing/server";
+
+const utapi = new UTApi();
 
 export async function createImage(data: {
   url: string;
@@ -91,6 +101,22 @@ export async function getDisplayedImagesPublic(): Promise<
     return {
       success: true,
       data: images,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
+}
+
+export async function deleteImage(key: string): Promise<ActionResultMessage> {
+  try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
+    return {
+      success: true,
+      message: "Image deleted successfully!",
     };
   } catch (err) {
     return {

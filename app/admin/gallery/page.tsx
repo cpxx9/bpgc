@@ -2,6 +2,7 @@ import UploadImageButton from "@/components/admin/upload-image-button";
 import DeleteDialog from "@/components/shared/delete-dialog";
 import Pagination from "@/components/shared/pagination";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -10,7 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getAllImages } from "@/lib/actions/image.actions";
+import { deleteImage, getAllImages } from "@/lib/actions/image.actions";
 import { requireAdmin } from "@/lib/auth-guard";
 import { shortenUuid } from "@/lib/utils";
 
@@ -72,8 +73,7 @@ const AdminGalleryPage = async ({ searchParams }: PropTypes) => {
                   </Badge>
                 </TableCell>
                 <TableCell>
-                  <div>Delete</div>
-                  {/* <DeleteDialog id={image.id} action={() => {}} /> */}
+                  <DeleteDialog id={image.id} action={deleteImage} />
                 </TableCell>
               </TableRow>
             ))}

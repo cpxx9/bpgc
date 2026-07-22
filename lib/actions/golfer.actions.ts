@@ -1,7 +1,6 @@
 "use server";
 
 import { prisma } from "@/db/prisma";
-import { getAllEvents } from "@/lib/actions/event.actions";
 import { deleteTwoManTeam } from "@/lib/actions/two-man-team.actions";
 import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";

@@ -129,6 +129,7 @@ model Images {
   updatedAt                DateTime @updatedAt
   url                      String
   key                      String
+  fileName                 String   @default("")
   isHomeSplash             Boolean  @default(false)
   isScheduleSplash         Boolean  @default(false)
   isWeeklyScoresSplash     Boolean  @default(false)
