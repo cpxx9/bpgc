@@ -54,9 +54,9 @@ const AdminGalleryPage = async ({ searchParams }: PropTypes) => {
           <TableHeader>
             <TableRow>
               <TableHead>ID</TableHead>
-              <TableHead>IN GALLERY?</TableHead>
               <TableHead>URL</TableHead>
               <TableHead>KEY</TableHead>
+              <TableHead>IN GALLERY?</TableHead>
               <TableHead>ACTIONS</TableHead>
             </TableRow>
           </TableHeader>

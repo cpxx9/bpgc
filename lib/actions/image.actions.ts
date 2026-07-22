@@ -2,7 +2,7 @@ import { prisma } from "@/db/prisma";
 import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
 import { formatError } from "@/lib/utils";
-import { ActionResult, DbImage } from "@/types";
+import { ActionResult, DbImage, DbImageAdmin } from "@/types";
 
 export async function createImage(data: {
   url: string;
@@ -31,7 +31,7 @@ export async function getAllImages({
 }: {
   limit?: number;
   page: number;
-}): Promise<ActionResult<DbImage[]>> {
+}): Promise<ActionResult<DbImageAdmin[]>> {
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
@@ -43,6 +43,15 @@ export async function getAllImages({
         id: true,
         url: true,
         displayed: true,
+        isScheduleSplash: true,
+        isWeeklyScoresSplash: true,
+        isScoringAveragesSplash: true,
+        isTwoManLeagueSplash: true,
+        isClubChampionshipSplash: true,
+        isContestsSplash: true,
+        isVideoOfTheWeek: true,
+        isTwoManChamps: true,
+        isBpgcTv: true,
         key: true,
       },
     });

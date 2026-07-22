@@ -175,3 +175,19 @@ export type DbImage = {
   displayed: boolean;
   key: string;
 };
+
+export type DbImageAdmin = {
+  id: string;
+  url: string;
+  displayed: boolean;
+  key: string;
+  isScheduleSplash: boolean;
+  isWeeklyScoresSplash: boolean;
+  isScoringAveragesSplash: boolean;
+  isTwoManLeagueSplash: boolean;
+  isClubChampionshipSplash: boolean;
+  isContestsSplash: boolean;
+  isVideoOfTheWeek: boolean;
+  isTwoManChamps: boolean;
+  isBpgcTv: boolean;
+};
