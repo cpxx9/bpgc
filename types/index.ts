@@ -4,6 +4,7 @@ import {
   createTwoManTeamSchema,
   updateEventSchema,
   updateGolferSchema,
+  updateImageSchema,
   updateMatchupSchema,
   updateScoreSchema,
   updateTwoManTeamSchema,
@@ -24,6 +25,7 @@ export type UpdateEvent = z.infer<typeof updateEventSchema>;
 export type UpdateScore = z.infer<typeof updateScoreSchema>;
 export type UpdateMatchup = z.infer<typeof updateMatchupSchema>;
 export type UpdateTwoManTeam = z.infer<typeof updateTwoManTeamSchema>;
+export type UpdateImage = z.infer<typeof updateImageSchema>;
 
 export type ContestWinnersPublic = {
   birdies: {
