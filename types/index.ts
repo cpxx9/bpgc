@@ -176,13 +176,10 @@ export type DbImage = {
   url: string;
   displayed: boolean;
   key: string;
+  fileName: string;
 };
 
-export type DbImageAdmin = {
-  id: string;
-  url: string;
-  displayed: boolean;
-  key: string;
+export type DbImageAdmin = DbImage & {
   isScheduleSplash: boolean;
   isWeeklyScoresSplash: boolean;
   isScoringAveragesSplash: boolean;

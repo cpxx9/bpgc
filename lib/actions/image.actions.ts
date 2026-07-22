@@ -52,6 +52,7 @@ export async function getAllImages({
       select: {
         id: true,
         url: true,
+        fileName: true,
         displayed: true,
         isScheduleSplash: true,
         isWeeklyScoresSplash: true,
@@ -95,6 +96,7 @@ export async function getDisplayedImagesPublic(): Promise<
         url: true,
         displayed: true,
         key: true,
+        fileName: true,
       },
     });
 
