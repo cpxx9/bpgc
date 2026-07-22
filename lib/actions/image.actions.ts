@@ -47,9 +47,12 @@ export async function getAllImages({
       },
     });
 
+    const dataCount = await prisma.images.count();
+
     return {
       success: true,
       data: images,
+      totalPages: Math.ceil(dataCount / limit),
     };
   } catch (err) {
     return {
