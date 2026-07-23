@@ -15,6 +15,7 @@ import {
 import { deleteImage, getAllImages } from "@/lib/actions/image.actions";
 import { requireAdmin } from "@/lib/auth-guard";
 import { shortenUuid } from "@/lib/utils";
+import Image from "next/image";
 import Link from "next/link";
 
 interface PropTypes {
@@ -57,7 +58,8 @@ const AdminGalleryPage = async ({ searchParams }: PropTypes) => {
           <TableHeader>
             <TableRow>
               <TableHead className="w-24">ID</TableHead>
-              <TableHead className="w-40">FILENAME</TableHead>
+              <TableHead className="w-24">THUMBNAIL</TableHead>
+              <TableHead className="w-44">FILENAME</TableHead>
               <TableHead className="">URL (click to copy)</TableHead>
               <TableHead className="">KEY</TableHead>
               <TableHead className="w-28">IN GALLERY?</TableHead>
@@ -68,11 +70,19 @@ const AdminGalleryPage = async ({ searchParams }: PropTypes) => {
             {images.data?.map((image) => (
               <TableRow key={image.id}>
                 <TableCell>{shortenUuid(image.id)}</TableCell>
-                <TableCell>{image.fileName}</TableCell>
+                <TableCell className="p-2">
+                  <Image
+                    src={image.url}
+                    alt="thumbnail preview"
+                    width={90}
+                    height={30}
+                  />
+                </TableCell>
+                <TableCell className="truncate">{image.fileName}</TableCell>
                 <TableCell className="truncate">
                   <CopyText text={image.url} />
                 </TableCell>
-                <TableCell>{image.key}</TableCell>
+                <TableCell className="truncate">{image.key}</TableCell>
                 <TableCell>
                   <Badge variant={image.displayed ? "default" : "secondary"}>
                     {image.displayed ? "In Gallery" : "Inactive"}
