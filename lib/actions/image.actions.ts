@@ -7,6 +7,7 @@ import { formatError } from "@/lib/utils";
 import {
   ActionResult,
   ActionResultMessage,
+  BgImagesPublic,
   DbImage,
   DbImageAdmin,
   UpdateImage,
@@ -149,6 +150,109 @@ export async function getDisplayedImagesPublic(): Promise<
     return {
       success: true,
       data: images,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
+}
+
+export async function getBgImagesPublic(): Promise<
+  ActionResult<BgImagesPublic>
+> {
+  try {
+    const data = {} as BgImagesPublic;
+    await prisma.$transaction(async (tx) => {
+      const home = await prisma.images.findFirst({
+        where: { isHomeSplash: true },
+        select: {
+          id: true,
+          url: true,
+          displayed: true,
+          key: true,
+          fileName: true,
+        },
+      });
+      data.home = home as DbImage;
+
+      const schedule = await prisma.images.findFirst({
+        where: { isScheduleSplash: true },
+        select: {
+          id: true,
+          url: true,
+          displayed: true,
+          key: true,
+          fileName: true,
+        },
+      });
+      data.schedule = schedule as DbImage;
+
+      const weeklyScores = await prisma.images.findFirst({
+        where: { isWeeklyScoresSplash: true },
+        select: {
+          id: true,
+          url: true,
+          displayed: true,
+          key: true,
+          fileName: true,
+        },
+      });
+      data.weeklyScores = weeklyScores as DbImage;
+
+      const scoringAverages = await prisma.images.findFirst({
+        where: { isScoringAveragesSplash: true },
+        select: {
+          id: true,
+          url: true,
+          displayed: true,
+          key: true,
+          fileName: true,
+        },
+      });
+      data.scoringAverages = scoringAverages as DbImage;
+
+      const twoManLeague = await prisma.images.findFirst({
+        where: { isTwoManLeagueSplash: true },
+        select: {
+          id: true,
+          url: true,
+          displayed: true,
+          key: true,
+          fileName: true,
+        },
+      });
+      data.twoManLeague = twoManLeague as DbImage;
+
+      const clubChampionship = await prisma.images.findFirst({
+        where: { isClubChampionshipSplash: true },
+        select: {
+          id: true,
+          url: true,
+          displayed: true,
+          key: true,
+          fileName: true,
+        },
+      });
+      data.clubChampionship = clubChampionship as DbImage;
+
+      const contests = await prisma.images.findFirst({
+        where: { isContestsSplash: true },
+        select: {
+          id: true,
+          url: true,
+          displayed: true,
+          key: true,
+          fileName: true,
+        },
+      });
+      data.contests = contests as DbImage;
+    });
+
+    return {
+      success: true,
+      data,
     };
   } catch (err) {
     return {
