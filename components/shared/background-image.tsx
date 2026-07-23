@@ -31,7 +31,7 @@ const BackgroundImage = async ({ page }: PropTypes) => {
   return (
     <Image
       src={bgImages.data[page].url}
-      alt="golf course"
+      alt={bgImages.data[page].fileName}
       fill
       sizes="100vw"
       style={{ objectFit: "cover", zIndex: -1 }}
