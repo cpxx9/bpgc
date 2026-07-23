@@ -269,7 +269,7 @@ const UpdateImageForm = ({ image }: PropTypes) => {
               field: ControllerRenderProps<UpdateImage, "isVideoOfTheWeek">;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>Is this the Video of the Week?</FormLabel>
+                <FormLabel>Is this the Video of the Week card image?</FormLabel>
                 <FormControl>
                   <Checkbox
                     className="p-0 m-0"
@@ -292,7 +292,9 @@ const UpdateImageForm = ({ image }: PropTypes) => {
               field: ControllerRenderProps<UpdateImage, "isTwoManChamps">;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>Is this the two man league winners?</FormLabel>
+                <FormLabel>
+                  Is this the Two Man League winners card image?
+                </FormLabel>
                 <FormControl>
                   <Checkbox
                     className="p-0 m-0"
