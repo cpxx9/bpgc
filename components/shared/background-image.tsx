@@ -18,24 +18,30 @@ const BackgroundImage = async ({ page }: PropTypes) => {
 
   if (!bgImages.success) {
     return (
-      <Image
-        src={splash}
-        alt="golf course"
-        fill
-        sizes="100vw"
-        style={{ objectFit: "cover", zIndex: -1 }}
-      />
+      <>
+        <Image
+          src={splash}
+          alt="golf course"
+          fill
+          sizes="100vw"
+          style={{ objectFit: "cover", zIndex: -1 }}
+        />
+        <div className="-z-10 absolute inset-0 bg-black/30" />
+      </>
     );
   }
 
   return (
-    <Image
-      src={bgImages.data[page].url}
-      alt={bgImages.data[page].fileName}
-      fill
-      sizes="100vw"
-      style={{ objectFit: "cover", zIndex: -1 }}
-    />
+    <>
+      <Image
+        src={bgImages.data[page].url}
+        alt={bgImages.data[page].fileName}
+        fill
+        sizes="100vw"
+        style={{ objectFit: "cover", zIndex: -1 }}
+      />
+      <div className="-z-10 absolute inset-0 bg-black/30" />
+    </>
   );
 };
 
