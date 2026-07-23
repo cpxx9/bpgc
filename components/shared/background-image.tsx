@@ -1,11 +1,36 @@
+import { getBgImagesPublic } from "@/lib/actions/image.actions";
+import splash from "@/assets/homepagesplash.avif";
 import Image from "next/image";
 
-const BackgroundImage = async () => {
+interface PropTypes {
+  page:
+    | "home"
+    | "schedule"
+    | "weeklyScores"
+    | "scoringAverages"
+    | "twoManLeague"
+    | "clubChampionship"
+    | "contests";
+}
+
+const BackgroundImage = async ({ page }: PropTypes) => {
+  const bgImages = await getBgImagesPublic();
+
+  if (!bgImages.success) {
+    return (
+      <Image
+        src={splash}
+        alt="golf course"
+        fill
+        sizes="100vw"
+        style={{ objectFit: "cover", zIndex: -1 }}
+      />
+    );
+  }
+
   return (
     <Image
-      src={
-        "https://x1h2s6dbph.ufs.sh/f/TnIoxIi73IiaGUzS80xFomAuWUPYKeZ5tlNwd8bXIg02BzVc"
-      }
+      src={bgImages.data[page].url}
       alt="golf course"
       fill
       sizes="100vw"
