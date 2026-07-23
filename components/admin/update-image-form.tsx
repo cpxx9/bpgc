@@ -45,7 +45,7 @@ const UpdateImageForm = ({ image }: PropTypes) => {
       toast({
         description: res.message,
       });
-      router.push("/admin/images");
+      router.push("/admin/gallery");
     } catch (err) {
       toast({
         variant: "destructive",
