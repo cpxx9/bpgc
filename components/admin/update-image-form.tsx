@@ -90,7 +90,7 @@ const UpdateImageForm = ({ image }: PropTypes) => {
               field: ControllerRenderProps<UpdateImage, "isHomeSplash">;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>Is background for schedule page?</FormLabel>
+                <FormLabel>Is this the background for the home page?</FormLabel>
                 <FormControl>
                   <Checkbox
                     className="p-0 m-0"
@@ -113,7 +113,9 @@ const UpdateImageForm = ({ image }: PropTypes) => {
               field: ControllerRenderProps<UpdateImage, "isScheduleSplash">;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>Is background for schedule page?</FormLabel>
+                <FormLabel>
+                  Is this the background for the schedule page?
+                </FormLabel>
                 <FormControl>
                   <Checkbox
                     className="p-0 m-0"
@@ -136,7 +138,9 @@ const UpdateImageForm = ({ image }: PropTypes) => {
               field: ControllerRenderProps<UpdateImage, "isWeeklyScoresSplash">;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>IsWeeklyScoresSplash in gallery?</FormLabel>
+                <FormLabel>
+                  Is this the background for the weekly scores page?
+                </FormLabel>
                 <FormControl>
                   <Checkbox
                     className="p-0 m-0"
@@ -162,7 +166,9 @@ const UpdateImageForm = ({ image }: PropTypes) => {
               >;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>IsScoringAveragesSplash in gallery?</FormLabel>
+                <FormLabel>
+                  Is this the background for the scoring averages page?
+                </FormLabel>
                 <FormControl>
                   <Checkbox
                     className="p-0 m-0"
@@ -185,7 +191,9 @@ const UpdateImageForm = ({ image }: PropTypes) => {
               field: ControllerRenderProps<UpdateImage, "isTwoManLeagueSplash">;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>IsTwoManLeagueSplash in gallery?</FormLabel>
+                <FormLabel>
+                  Is this the background for the two man league page?
+                </FormLabel>
                 <FormControl>
                   <Checkbox
                     className="p-0 m-0"
@@ -211,7 +219,9 @@ const UpdateImageForm = ({ image }: PropTypes) => {
               >;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>IsClubChampionshipSplash in gallery?</FormLabel>
+                <FormLabel>
+                  Is this the background for the club championship page?
+                </FormLabel>
                 <FormControl>
                   <Checkbox
                     className="p-0 m-0"
@@ -234,7 +244,9 @@ const UpdateImageForm = ({ image }: PropTypes) => {
               field: ControllerRenderProps<UpdateImage, "isContestsSplash">;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>IsContestsSplash in gallery?</FormLabel>
+                <FormLabel>
+                  Is this the background for the contests page?
+                </FormLabel>
                 <FormControl>
                   <Checkbox
                     className="p-0 m-0"
@@ -257,7 +269,7 @@ const UpdateImageForm = ({ image }: PropTypes) => {
               field: ControllerRenderProps<UpdateImage, "isVideoOfTheWeek">;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>IsVideoOfTheWeek in gallery?</FormLabel>
+                <FormLabel>Is this the Video of the Week?</FormLabel>
                 <FormControl>
                   <Checkbox
                     className="p-0 m-0"
@@ -280,7 +292,7 @@ const UpdateImageForm = ({ image }: PropTypes) => {
               field: ControllerRenderProps<UpdateImage, "isTwoManChamps">;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>IsTwoManChamps in gallery?</FormLabel>
+                <FormLabel>Is this the two man league winners?</FormLabel>
                 <FormControl>
                   <Checkbox
                     className="p-0 m-0"
@@ -303,7 +315,7 @@ const UpdateImageForm = ({ image }: PropTypes) => {
               field: ControllerRenderProps<UpdateImage, "isBpgcTv">;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>IsBpgcTv in gallery?</FormLabel>
+                <FormLabel>Is this the BPGC TV card image?</FormLabel>
                 <FormControl>
                   <Checkbox
                     className="p-0 m-0"
