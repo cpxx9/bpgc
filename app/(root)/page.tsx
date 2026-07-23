@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Suspense } from "react";
 import NextEventCardSkeleton from "@/components/skeletons/next-event-card-skeleton";
 import BackgroundImage from "@/components/shared/background-image";
+import CardImage from "@/components/shared/card-image";
 
 const Homepage = () => {
   return (
@@ -29,19 +30,19 @@ const Homepage = () => {
       <div className="flex flex-col gap-2 md:flex-row px-2">
         <div className="bg-blue-300 text-center py-4 px-10">
           <h3 className="text-2xl font-semibold">BPGC VIDEO OF THE WEEK</h3>
-          <Image src={card} width={400} height={100} alt="winners" />
+          <CardImage card="isVideoOfTheWeek" />
           <p className="mt-1">Looks like a normal BPGC outing...</p>
         </div>
         <div className="bg-blue-300 text-center py-4 px-10">
           <h3 className="text-2xl font-semibold">
             {new Date().getFullYear() - 1} TWO MAN CHAMPS!!
           </h3>
-          <Image src={card} width={400} height={100} alt="winners" />
+          <CardImage card="isTwoManChamps" />
           <p className="mt-1">ANOTHER CHAMPIONSHIP!</p>
         </div>
         <div className="bg-blue-300 text-center py-4 px-10">
           <h3 className="text-2xl font-semibold">BPGC TV</h3>
-          <Image src={card} width={400} height={100} alt="winners" />
+          <CardImage card="isBpgcTv" />
           <p className="mt-1">
             Random videos, media and other content.... Check it out!
           </p>

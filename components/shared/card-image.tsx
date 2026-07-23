@@ -3,10 +3,10 @@ import card from "@/assets/homepagecard.avif";
 import Image from "next/image";
 
 interface PropTypes {
-  page: "isVideoOfTheWeek" | "isTwoManChamps" | "isBpgcTv";
+  card: "isVideoOfTheWeek" | "isTwoManChamps" | "isBpgcTv";
 }
 
-const CardImage = async ({ page }: PropTypes) => {
+const CardImage = async ({ card }: PropTypes) => {
   const bgImages = await getCardImagesPublic();
 
   if (!bgImages.success) {
@@ -21,10 +21,10 @@ const CardImage = async ({ page }: PropTypes) => {
   return (
     <>
       <Image
-        src={bgImages?.data[page]?.url ? bgImages.data[page].url : card}
+        src={bgImages?.data[card]?.url ? bgImages.data[card].url : card}
         alt={
-          bgImages?.data[page]?.fileName
-            ? bgImages.data[page].fileName
+          bgImages?.data[card]?.fileName
+            ? bgImages.data[card].fileName
             : "background card image"
         }
         width={400}
