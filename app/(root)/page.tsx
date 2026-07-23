@@ -11,7 +11,7 @@ const Homepage = () => {
   return (
     <div className="flex flex-col items-center gap-3 mb-12">
       <div className="w-full flex flex-col items-center pt-32 pb-10 gap-4 tracking-widest relative">
-        <BackgroundImage />
+        <BackgroundImage page="home" />
         <div className="bg-gray-600/75 py-5 px-10 pb-14">
           <h2 className="text-5xl text-white font-black tracking-[0.2em] text-center px-10">
             NEXT OUTING

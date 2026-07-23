@@ -193,3 +193,13 @@ export type DbImageAdmin = DbImage & {
   isTwoManChamps: boolean;
   isBpgcTv: boolean;
 };
+
+export type BgImagesPublic = {
+  home: DbImage;
+  schedule: DbImage;
+  weeklyScores: DbImage;
+  scoringAverages: DbImage;
+  twoManLeague: DbImage;
+  clubChampionship: DbImage;
+  contests: DbImage;
+};
