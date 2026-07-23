@@ -170,6 +170,9 @@ export const updateTwoManTeamSchema = z.object({
 export const updateImageSchema = z.object({
   id: z.string().min(1, `Image ID${isRequiredError}`).trim(),
   displayed: z.boolean({ message: `Displayed status${isRequiredError}` }),
+  isHomeSplash: z.boolean({
+    message: `isHomeSplash status${isRequiredError}`,
+  }),
   isScheduleSplash: z.boolean({
     message: `isScheduleSplash status${isRequiredError}`,
   }),

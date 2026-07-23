@@ -52,6 +52,7 @@ export async function getImageById(
         url: true,
         fileName: true,
         displayed: true,
+        isHomeSplash: true,
         isScheduleSplash: true,
         isWeeklyScoresSplash: true,
         isScoringAveragesSplash: true,
@@ -96,6 +97,7 @@ export async function getAllImages({
         url: true,
         fileName: true,
         displayed: true,
+        isHomeSplash: true,
         isScheduleSplash: true,
         isWeeklyScoresSplash: true,
         isScoringAveragesSplash: true,
@@ -166,6 +168,7 @@ export async function updateImage(
       where: { id: image.id },
       data: {
         displayed: image.displayed,
+        isHomeSplash: image.isHomeSplash,
         isScheduleSplash: image.isScheduleSplash,
         isWeeklyScoresSplash: image.isWeeklyScoresSplash,
         isScoringAveragesSplash: image.isScoringAveragesSplash,

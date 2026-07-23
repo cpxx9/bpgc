@@ -182,6 +182,7 @@ export type DbImage = {
 };
 
 export type DbImageAdmin = DbImage & {
+  isHomeSplash: boolean;
   isScheduleSplash: boolean;
   isWeeklyScoresSplash: boolean;
   isScoringAveragesSplash: boolean;
