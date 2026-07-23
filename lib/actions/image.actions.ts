@@ -8,6 +8,7 @@ import {
   ActionResult,
   ActionResultMessage,
   BgImagesPublic,
+  CardImagesPublic,
   DbImage,
   DbImageAdmin,
   UpdateImage,
@@ -250,6 +251,60 @@ export async function getBgImagesPublic(): Promise<
       data.contests = contests as DbImage;
     });
 
+    return {
+      success: true,
+      data,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
+}
+
+export async function getCardImagesPublic(): Promise<
+  ActionResult<CardImagesPublic>
+> {
+  try {
+    const data = {} as CardImagesPublic;
+    await prisma.$transaction(async (tx) => {
+      const isVideoOfTheWeek = await prisma.images.findFirst({
+        where: { isVideoOfTheWeek: true },
+        select: {
+          id: true,
+          url: true,
+          displayed: true,
+          key: true,
+          fileName: true,
+        },
+      });
+      data.isVideoOfTheWeek = isVideoOfTheWeek as DbImage;
+
+      const isTwoManChamps = await prisma.images.findFirst({
+        where: { isTwoManChamps: true },
+        select: {
+          id: true,
+          url: true,
+          displayed: true,
+          key: true,
+          fileName: true,
+        },
+      });
+      data.isTwoManChamps = isTwoManChamps as DbImage;
+
+      const isBpgcTv = await prisma.images.findFirst({
+        where: { isBpgcTv: true },
+        select: {
+          id: true,
+          url: true,
+          displayed: true,
+          key: true,
+          fileName: true,
+        },
+      });
+      data.isBpgcTv = isBpgcTv as DbImage;
+    });
     return {
       success: true,
       data,

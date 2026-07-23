@@ -203,3 +203,9 @@ export type BgImagesPublic = {
   clubChampionship: DbImage;
   contests: DbImage;
 };
+
+export type CardImagesPublic = {
+  isVideoOfTheWeek: DbImage;
+  isTwoManChamps: DbImage;
+  isBpgcTv: DbImage;
+};
