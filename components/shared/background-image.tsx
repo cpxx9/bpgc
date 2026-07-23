@@ -24,7 +24,7 @@ const BackgroundImage = async ({ page }: PropTypes) => {
           alt="golf course"
           fill
           sizes="100vw"
-          style={{ objectFit: "cover", zIndex: -1 }}
+          style={{ objectFit: "cover", zIndex: -20 }}
         />
         <div className="-z-10 absolute inset-0 bg-black/30" />
       </>
@@ -38,7 +38,7 @@ const BackgroundImage = async ({ page }: PropTypes) => {
         alt={bgImages.data[page].fileName}
         fill
         sizes="100vw"
-        style={{ objectFit: "cover", zIndex: -1 }}
+        style={{ objectFit: "cover", zIndex: -20 }}
       />
       <div className="-z-10 absolute inset-0 bg-black/30" />
     </>
