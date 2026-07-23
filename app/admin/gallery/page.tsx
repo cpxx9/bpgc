@@ -15,6 +15,7 @@ import {
 import { deleteImage, getAllImages } from "@/lib/actions/image.actions";
 import { requireAdmin } from "@/lib/auth-guard";
 import { shortenUuid } from "@/lib/utils";
+import Link from "next/link";
 
 interface PropTypes {
   searchParams: Promise<{ page: string }>;
@@ -78,6 +79,9 @@ const AdminGalleryPage = async ({ searchParams }: PropTypes) => {
                   </Badge>
                 </TableCell>
                 <TableCell>
+                  <Button className="mr-1" asChild variant="outline" size="sm">
+                    <Link href={`/admin/gallery/${image.id}`}>Edit</Link>
+                  </Button>
                   <DeleteDialog
                     id={image.id}
                     action={deleteImage}
