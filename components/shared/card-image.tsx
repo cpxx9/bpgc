@@ -13,7 +13,6 @@ const CardImage = async ({ card }: PropTypes) => {
     return (
       <>
         <Image src={card} alt="card image" width={400} height={100} />
-        <div className="-z-10 absolute inset-0 bg-black/30" />
       </>
     );
   }
@@ -30,7 +29,6 @@ const CardImage = async ({ card }: PropTypes) => {
         width={400}
         height={100}
       />
-      <div className="-z-10 absolute inset-0 bg-black/30" />
     </>
   );
 };
