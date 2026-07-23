@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import UpdateGolferForm from "@/components/admin/update-golfer-form";
 import { requireAdmin } from "@/lib/auth-guard";
 import { getImageById } from "@/lib/actions/image.actions";
 import UpdateImageForm from "@/components/admin/update-image-form";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Update Image",
@@ -26,6 +26,12 @@ const AdminImageUpdatePage = async ({ params }: PropTypes) => {
       <h1 className="h2-bold">
         Update image <span className="text-sm">({id})</span>
       </h1>
+      <Image
+        src={image.data.url}
+        alt="preview image for edit page"
+        width={300}
+        height={100}
+      />
       <UpdateImageForm image={image.data} />
     </div>
   );
