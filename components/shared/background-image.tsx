@@ -34,9 +34,9 @@ const BackgroundImage = async ({ page }: PropTypes) => {
   return (
     <>
       <Image
-        src={bgImages.data[page].url ? bgImages.data[page].url : splash}
+        src={bgImages?.data[page]?.url ? bgImages.data[page].url : splash}
         alt={
-          bgImages.data[page].fileName
+          bgImages?.data[page]?.fileName
             ? bgImages.data[page].fileName
             : "background splash image"
         }
