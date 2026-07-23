@@ -1,6 +1,7 @@
 import splash from "@/assets/homepagesplash.avif";
 import Matchups from "@/components/events/matchups";
 import TwoManStandings from "@/components/events/two-man-standings";
+import BackgroundImage from "@/components/shared/background-image";
 import MatchupsSkeleton from "@/components/skeletons/matchups-skeleton";
 import WeeklyScoresIndivAveragesSkeleton from "@/components/skeletons/weekly-scores-indiv-averages-skeleton";
 import Image from "next/image";
@@ -9,16 +10,7 @@ import { Suspense } from "react";
 const EventsTwoManLeaguePage = () => {
   return (
     <article className="p-3 relative min-h-[100%]">
-      <Image
-        src={
-          "https://x1h2s6dbph.ufs.sh/f/TnIoxIi73IiaGUzS80xFomAuWUPYKeZ5tlNwd8bXIg02BzVc"
-        }
-        alt="golf course"
-        fill
-        sizes="100vw"
-        style={{ objectFit: "cover", zIndex: -20 }}
-      />
-      <div className="-z-10 absolute inset-0 bg-black/30" />
+      <BackgroundImage page="twoManLeague" />
       <div className="flex flex-col items-center">
         <div className="flex flex-col gap-4 w-fit">
           <section className="w-full bg-slate-600/70 p-5 max-w-[1100px] flex flex-col gap-5 text-white">

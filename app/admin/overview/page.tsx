@@ -10,7 +10,6 @@ import Link from "next/link";
 import golferIcon from "@/assets/golfer.svg";
 import { getTwoManTeamCount } from "@/lib/actions/two-man-team.actions";
 import { getEventCount } from "@/lib/actions/event.actions";
-import UploadImageButton from "@/components/admin/upload-image-button";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",

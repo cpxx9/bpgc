@@ -5,20 +5,12 @@ import IndividualScoreAverages from "@/components/scoring-info/individual-score-
 import WeeklyScoresEventAveragesSkeleton from "@/components/skeletons/weekly-scores-event-averages-skeleton";
 import WeeklyScoresIndivAveragesSkeleton from "@/components/skeletons/weekly-scores-indiv-averages-skeleton";
 import { Suspense } from "react";
+import BackgroundImage from "@/components/shared/background-image";
 
 const ScoringInfoAveragesPage = () => {
   return (
     <article className="p-3 relative min-h-[100%]">
-      <Image
-        src={
-          "https://x1h2s6dbph.ufs.sh/f/TnIoxIi73IiaGUzS80xFomAuWUPYKeZ5tlNwd8bXIg02BzVc"
-        }
-        alt="golf course"
-        fill
-        sizes="100vw"
-        style={{ objectFit: "cover", zIndex: -20 }}
-      />
-      <div className="-z-10 absolute inset-0 bg-black/30" />
+      <BackgroundImage page="scoringAverages" />
       <div className="flex flex-col items-center gap-4">
         <section className="bg-blue-400/70 p-5 md:min-w-[800px]">
           <h2 className="mb-5 text-2xl text-white font-bold">

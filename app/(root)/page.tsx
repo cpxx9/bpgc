@@ -1,4 +1,3 @@
-import splash from "@/assets/homepagesplash.avif";
 import card from "@/assets/homepagecard.avif";
 import Image from "next/image";
 import NextEventCard from "@/components/home/next-event-card";
