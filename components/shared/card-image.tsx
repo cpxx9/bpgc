@@ -1,5 +1,5 @@
 import { getCardImagesPublic } from "@/lib/actions/image.actions";
-import card from "@/assets/homepagecard.avif";
+import cardImage from "@/assets/homepagecard.avif";
 import Image from "next/image";
 
 interface PropTypes {
@@ -12,7 +12,7 @@ const CardImage = async ({ card }: PropTypes) => {
   if (!bgImages.success) {
     return (
       <>
-        <Image src={card} alt="card image" width={400} height={100} />
+        <Image src={cardImage} alt="card image" width={400} height={100} />
       </>
     );
   }
@@ -20,7 +20,7 @@ const CardImage = async ({ card }: PropTypes) => {
   return (
     <>
       <Image
-        src={bgImages?.data[card]?.url ? bgImages.data[card].url : card}
+        src={bgImages?.data[card]?.url ? bgImages.data[card].url : cardImage}
         alt={
           bgImages?.data[card]?.fileName
             ? bgImages.data[card].fileName

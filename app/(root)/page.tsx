@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import NextEventCardSkeleton from "@/components/skeletons/next-event-card-skeleton";
 import BackgroundImage from "@/components/shared/background-image";
 import CardImage from "@/components/shared/card-image";
+import Link from "next/link";
 
 const Homepage = () => {
   return (
@@ -28,10 +29,15 @@ const Homepage = () => {
       </div>
       {/* Cards */}
       <div className="flex flex-col gap-2 md:flex-row px-2">
-        <div className="bg-blue-300 text-center py-4 px-10">
-          <h3 className="text-2xl font-semibold">BPGC VIDEO OF THE WEEK</h3>
-          <CardImage card="isVideoOfTheWeek" />
-          <p className="mt-1">Looks like a normal BPGC outing...</p>
+        <div className="bg-blue-300 text-center py-4 px-10 flex flex-col">
+          <h3 className="text-2xl font-semibold justify-self-start">
+            BPGC IMPORTANT NEWS
+          </h3>
+          <p className="w-[400px] m-auto text-lg">
+            <em>
+              ANY IMPORTANT NEWS OR UPDATES <br /> WILL BE POSTED HERE
+            </em>
+          </p>
         </div>
         <div className="bg-blue-300 text-center py-4 px-10">
           <h3 className="text-2xl font-semibold">
@@ -40,13 +46,16 @@ const Homepage = () => {
           <CardImage card="isTwoManChamps" />
           <p className="mt-1">ANOTHER CHAMPIONSHIP!</p>
         </div>
-        <div className="bg-blue-300 text-center py-4 px-10">
-          <h3 className="text-2xl font-semibold">BPGC TV</h3>
-          <CardImage card="isBpgcTv" />
-          <p className="mt-1">
-            Random videos, media and other content.... Check it out!
-          </p>
-        </div>
+        <Link href="/gallery">
+          <div className="bg-blue-300 text-center py-4 px-10">
+            <h3 className="text-2xl font-semibold">BPGC TV</h3>
+            <CardImage card="isBpgcTv" />
+            <p className="mt-1 text-wrap">
+              Random videos, media and other content.... <br />
+              Check it out!
+            </p>
+          </div>
+        </Link>
       </div>
     </div>
   );
