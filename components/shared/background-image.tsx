@@ -34,8 +34,12 @@ const BackgroundImage = async ({ page }: PropTypes) => {
   return (
     <>
       <Image
-        src={bgImages.data[page].url}
-        alt={bgImages.data[page].fileName}
+        src={bgImages.data[page].url ? bgImages.data[page].url : splash}
+        alt={
+          bgImages.data[page].fileName
+            ? bgImages.data[page].fileName
+            : "background splash image"
+        }
         fill
         sizes="100vw"
         style={{ objectFit: "cover", zIndex: -20 }}
