@@ -7,7 +7,16 @@ const NextEventCard = async () => {
 
   const { data: event } = await getNextEvent();
   if (!event) {
-    return <></>;
+    return (
+      <>
+        <h3 className="text-4xl font-black tracking-[0.2em] text-center mb-4 text-yellow-300">
+          No event scheduled yet...
+        </h3>
+        <h4 className="text-2xl font-extrabold text-[rgb(247,154,14)]">
+          Check back soon!
+        </h4>
+      </>
+    );
   } else {
     const checkIn = new Date(event.time);
     checkIn.setMinutes(checkIn.getMinutes() - 30);

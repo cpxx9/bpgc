@@ -8,7 +8,27 @@ const WeeklyScoresEvent = async () => {
 
   const result = await getPreviousEvent();
   if (!result.success) {
-    return <></>;
+    return (
+      <section className="flex flex-col gap-6 md:gap-3 w-full md:w-[800px]">
+        <section className="text-center bg-blue-400/80 p-6">
+          <h2 className="text-3xl text-white font-bold">
+            No Previous events found!
+          </h2>
+          <h2 className="text-3xl text-white font-semibold">
+            <i>Check back later...</i>
+          </h2>
+        </section>
+        <section
+          className={cn(
+            "bg-slate-600/80 p-5 flex flex-col justify-between md:flex-row",
+          )}
+        >
+          <h4 className="text-2xl font-extrabold text-[rgb(247,154,14)]">
+            No scores yet...
+          </h4>
+        </section>
+      </section>
+    );
   }
   const event = result.data;
 
