@@ -6,7 +6,7 @@ const EventScoreAverages = async () => {
 
   const result = await getScoreAveragesForEvents();
   if (!result.success) {
-    return <>No data found</>;
+    return <>No averages for the season yet!</>;
   }
 
   const events = result.data;

@@ -53,19 +53,30 @@ const WeeklyScoresEvent = async () => {
           "bg-slate-600/80 p-5 flex flex-col justify-between md:flex-row",
         )}
       >
-        {columns.map((col, i) => (
-          <div key={i} className="">
-            {col.map((score) => (
-              <div
-                key={score.id}
-                className="flex justify-between text-white font-semibold text-lg"
-              >
-                <p>{`${score.golfer.firstName} ${score.golfer.lastName}`}</p>
-                <p className="ml-3">{score.score}</p>
-              </div>
-            ))}
+        {event.scores.length < 1 ? (
+          <div className="">
+            <h4 className="text-2xl font-extrabold text-[rgb(247,154,14)]">
+              No scores have been posted yet!
+            </h4>
+            <p>
+              <em>Check back later...</em>
+            </p>
           </div>
-        ))}
+        ) : (
+          columns.map((col, i) => (
+            <div key={i} className="">
+              {col.map((score) => (
+                <div
+                  key={score.id}
+                  className="flex justify-between text-white font-semibold text-lg"
+                >
+                  <p>{`${score.golfer.firstName} ${score.golfer.lastName}`}</p>
+                  <p className="ml-3">{score.score}</p>
+                </div>
+              ))}
+            </div>
+          ))
+        )}
       </section>
     </section>
   );

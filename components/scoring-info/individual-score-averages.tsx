@@ -7,7 +7,7 @@ const IndividualScoreAverages = async () => {
 
   const result = await getAllGolfersWithScoreAverages();
   if (!result.success) {
-    return <>No data found</>;
+    return <>No averages for the season yet!</>;
   }
   const golfers = result.data;
   const chunkSize = Math.ceil(golfers.length / 3);
