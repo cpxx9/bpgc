@@ -3,13 +3,14 @@ import { getGolferCount } from "@/lib/actions/golfer.actions";
 import { getUserCount } from "@/lib/actions/user.actions";
 import { requireAdmin } from "@/lib/auth-guard";
 import { formatNumber } from "@/lib/utils";
-import { User, Users, LandPlot } from "lucide-react";
+import { User, Users, LandPlot, Image as ImageIcon } from "lucide-react";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import golferIcon from "@/assets/golfer.svg";
 import { getTwoManTeamCount } from "@/lib/actions/two-man-team.actions";
 import { getEventCount } from "@/lib/actions/event.actions";
+import { getImageCount } from "@/lib/actions/image.actions";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
@@ -21,6 +22,7 @@ const AdminOverviewPage = async () => {
   const { golferCount } = await getGolferCount();
   const { twoManTeamCount } = await getTwoManTeamCount();
   const { eventCount } = await getEventCount();
+  const { imageCount } = await getImageCount();
 
   return (
     <>
@@ -82,6 +84,19 @@ const AdminOverviewPage = async () => {
               <CardContent>
                 <div className="text-2xl font-bold">
                   {formatNumber(eventCount || 0)}
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+          <Link href={"/admin/gallery"}>
+            <Card className="hover:shadow-md">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Images</CardTitle>
+                <ImageIcon />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">
+                  {formatNumber(imageCount || 0)}
                 </div>
               </CardContent>
             </Card>

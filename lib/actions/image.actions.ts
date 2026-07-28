@@ -317,6 +317,18 @@ export async function getCardImagesPublic(): Promise<
   }
 }
 
+export async function getImageCount() {
+  try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
+    const imageCount = await prisma.images.count();
+
+    return { success: true, imageCount };
+  } catch (error) {
+    return { success: false, message: formatError(error) };
+  }
+}
+
 export async function updateImage(
   image: UpdateImage,
 ): Promise<ActionResultMessage> {
