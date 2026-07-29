@@ -27,9 +27,15 @@ interface PropTypes {
     teamTwo: string;
   };
   matchId: string;
+  eventId: string;
 }
 
-const UpdateMatchupsForm = ({ matchups, displayNames, matchId }: PropTypes) => {
+const UpdateMatchupsForm = ({
+  matchups,
+  displayNames,
+  matchId,
+  eventId,
+}: PropTypes) => {
   const router = useRouter();
   const { toast } = useToast();
   const form = useForm<UpdateMatchup>({
@@ -122,7 +128,11 @@ const UpdateMatchupsForm = ({ matchups, displayNames, matchId }: PropTypes) => {
           </div>
           <div className="">
             <Button type="button" asChild>
-              <DeleteDialog id={matchId} action={deleteMatch} />
+              <DeleteDialog
+                id={matchId}
+                options={[eventId]}
+                action={deleteMatch}
+              />
             </Button>
           </div>
         </div>

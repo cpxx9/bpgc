@@ -98,11 +98,11 @@ export async function getMatchesByEventId(eventId: string) {
   }
 }
 
-export async function deleteMatch(eventId: string) {
+export async function deleteMatch(id: string, eventId: string) {
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
-    await prisma.match.delete({ where: { id: eventId } });
+    await prisma.match.delete({ where: { id: id } });
     revalidatePath(`/admin/events/${eventId}`);
     return {
       success: true,

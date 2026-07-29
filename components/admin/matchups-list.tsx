@@ -41,6 +41,7 @@ const MatchupsList = async ({ eventId }: PropTypes) => {
               matchups={matchups}
               displayNames={displayNames}
               matchId={match.id}
+              eventId={match.eventId}
             />
           </li>
         );
