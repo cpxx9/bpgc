@@ -11,14 +11,18 @@ import {
 import { signOutUser } from "@/lib/actions/user.actions";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const UserButton = () => {
   const { data: session, status } = useSession();
+  const pathname = usePathname();
 
   if (status === "loading" || !session) {
     return null;
   }
   const firstInitial = session.user?.name?.charAt(0).toUpperCase() ?? "U";
+
+  const signOutCallbackUrl = pathname.startsWith("/admin") ? "/" : pathname;
 
   return (
     <div className="flex gap-2 items-center">
@@ -60,7 +64,7 @@ const UserButton = () => {
             className="p-0 mb-1"
             onSelect={(e) => {
               e.preventDefault();
-              signOut({ redirectTo: "/" });
+              signOut({ redirectTo: signOutCallbackUrl });
             }}
           >
             <Button
