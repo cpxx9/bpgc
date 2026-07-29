@@ -4,7 +4,7 @@ export const APP_NAME_ABR = process.env.NEXT_PUBLIC_APP_NAME_ABR || "BPGC";
 
 export const APP_DESCRIPTION =
   process.env.NEXT_PUBLIC_APP_DESCRIPTION ||
-  "E-commerce store to test payments and NextJS";
+  "Official website for the Beaver Point Golf Club. Est.1989";
 
 export const SERVER_URL =
   process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000";

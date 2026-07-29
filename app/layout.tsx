@@ -12,7 +12,10 @@ export const metadata: Metadata = {
     template: `%s | ${APP_NAME}`,
     default: APP_NAME,
   },
-  description: APP_DESCRIPTION,
+  description: `%s/n${APP_DESCRIPTION}`,
+  twitter: {
+    card: "summary_large_image",
+  },
   metadataBase: new URL(SERVER_URL),
   icons: [
     {
