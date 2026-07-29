@@ -21,7 +21,7 @@ export async function signInWithCredentials(
       password: formData.get("password"),
     });
 
-    await signIn("credentials", user);
+    await signIn("credentials", { ...user, redirect: false });
     return { success: true, message: "Sign in success." };
   } catch (error) {
     if (isRedirectError(error)) {

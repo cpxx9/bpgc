@@ -9,10 +9,10 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { signOutUser } from "@/lib/actions/user.actions";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
-const UserButton = async () => {
+const UserButton = () => {
   const { data: session, status } = useSession();
 
   if (status === "loading" || !session) {
@@ -56,15 +56,19 @@ const UserButton = async () => {
               </Link>
             </DropdownMenuItem>
           )}
-          <DropdownMenuItem className="p-0 mb-1">
-            <form action={signOutUser} className="w-full">
-              <Button
-                className="w-full py-4 px-2 h-4 justify-start"
-                variant="ghost"
-              >
-                Sign out
-              </Button>
-            </form>
+          <DropdownMenuItem
+            className="p-0 mb-1"
+            onSelect={(e) => {
+              e.preventDefault();
+              signOut({ redirectTo: "/" });
+            }}
+          >
+            <Button
+              className="w-full py-4 px-2 h-4 justify-start"
+              variant="ghost"
+            >
+              Sign out
+            </Button>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

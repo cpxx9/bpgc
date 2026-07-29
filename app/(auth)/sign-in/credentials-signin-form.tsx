@@ -5,10 +5,11 @@ import { Input } from "@/components/ui/input";
 import { signInDefaultValues } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { useFormStatus } from "react-dom";
 import { signInWithCredentials } from "@/lib/actions/user.actions";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 const CredentialsSignInForm = () => {
   const [data, action] = useActionState(signInWithCredentials, {
@@ -16,8 +17,21 @@ const CredentialsSignInForm = () => {
     message: "",
   });
 
+  const { update } = useSession();
+  const router = useRouter();
+
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
+
+  useEffect(() => {
+    if (data.success) {
+      (async () => {
+        await update();
+        router.push(callbackUrl);
+        router.refresh();
+      })();
+    }
+  }, [data.success]);
 
   const SignInButton = () => {
     const { pending } = useFormStatus();

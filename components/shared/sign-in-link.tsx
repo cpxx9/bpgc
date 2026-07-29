@@ -5,7 +5,7 @@ import { UserIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 
-const SignInLink = async () => {
+const SignInLink = () => {
   const { data: session, status } = useSession();
 
   if (status === "loading" || session) return null;
