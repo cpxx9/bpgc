@@ -1,4 +1,5 @@
-import { auth } from "@/auth";
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -8,14 +9,15 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { signOutUser } from "@/lib/actions/user.actions";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 const UserButton = async () => {
-  const session = await auth();
-  if (!session) {
-    return <></>;
-  }
+  const { data: session, status } = useSession();
 
+  if (status === "loading" || !session) {
+    return null;
+  }
   const firstInitial = session.user?.name?.charAt(0).toUpperCase() ?? "U";
 
   return (
