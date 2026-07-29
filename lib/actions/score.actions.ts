@@ -1,4 +1,7 @@
 "use server";
+
+import { revalidatePublic } from "@/lib/revalidate-public";
+
 import { prisma } from "@/db/prisma";
 import { requireAdminAction } from "@/lib/auth-guard";
 import { convertFeetToFloat, formatError } from "@/lib/utils";
@@ -11,7 +14,6 @@ import {
 } from "@/types";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
-import { eventNames } from "process";
 
 const _currentYear = new Date().getFullYear();
 
@@ -45,7 +47,10 @@ export async function createScore(prevState: unknown, formData: FormData) {
       },
     });
 
-    revalidatePath(`/admin/events/${score.eventId}`);
+    revalidatePath(`/admin/events/${score.eventId}`, "page");
+    revalidatePublic("scores");
+
+    return { success: true, message: "score created successfully." };
   } catch (err) {
     if (isRedirectError(err)) {
       throw err;
@@ -309,7 +314,8 @@ export async function updateScore(score: UpdateScore) {
       },
     });
 
-    revalidatePath(`/admin/events/${score.eventId}`);
+    revalidatePath(`/admin/events/${score.eventId}`, "page");
+    revalidatePublic("scores");
 
     return {
       success: true,

@@ -1,5 +1,7 @@
 "use server";
 
+import { revalidatePublic } from "@/lib/revalidate-public";
+
 import { prisma } from "@/db/prisma";
 import { deleteTwoManTeam } from "@/lib/actions/two-man-team.actions";
 import { requireAdminAction } from "@/lib/auth-guard";
@@ -35,6 +37,7 @@ export async function createGolfer(prevState: unknown, formData: FormData) {
     });
 
     revalidatePath("/admin/users");
+    revalidatePublic("golfers", "teams", "scores");
 
     return { success: true, message: "Golfer registered successfully." };
   } catch (err) {
@@ -275,6 +278,7 @@ export async function updateGolfer(golfer: UpdateGolfer) {
     });
 
     revalidatePath("/admin/golfers");
+    revalidatePublic("golfers", "teams", "scores");
 
     return {
       success: true,
@@ -320,6 +324,8 @@ export async function deleteGolfer(id: string) {
     });
 
     revalidatePath("/admin/golfers");
+    revalidatePublic("golfers", "teams", "scores");
+
     return {
       success: true,
       message: "Golfer deleted successfully",

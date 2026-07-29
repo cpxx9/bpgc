@@ -1,5 +1,7 @@
 "use server";
 
+import { revalidatePublic } from "@/lib/revalidate-public";
+
 import { prisma } from "@/db/prisma";
 import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
@@ -36,7 +38,8 @@ export async function createMatch(matchInfo: Match) {
       });
     });
 
-    revalidatePath(`/admin/events/${matchInfo.eventID}`);
+    revalidatePath(`/admin/events/${matchInfo.eventID}`, "page");
+    revalidatePublic("teams", "scores");
 
     return { success: true, message: "Match created successfully." };
   } catch (err) {
@@ -103,7 +106,10 @@ export async function deleteMatch(id: string, eventId: string) {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
     await prisma.match.delete({ where: { id: id } });
+
     revalidatePath(`/admin/events/${eventId}`);
+    revalidatePublic("teams", "scores");
+
     return {
       success: true,
       message: "Match deleted successfully",

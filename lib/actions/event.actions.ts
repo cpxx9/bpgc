@@ -1,5 +1,7 @@
 "use server";
 
+import { revalidatePublic } from "@/lib/revalidate-public";
+
 import { prisma } from "@/db/prisma";
 import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
@@ -40,6 +42,7 @@ export async function createEvent(prevState: unknown, formData: FormData) {
     });
 
     revalidatePath("/admin/events");
+    revalidatePublic("events", "teams", "scores");
 
     return { success: true, message: "Event created successfully." };
   } catch (err) {
@@ -423,6 +426,7 @@ export async function updateEvent(event: UpdateEvent) {
     });
 
     revalidatePath("/admin/events");
+    revalidatePublic("events", "teams", "scores");
 
     return {
       success: true,
@@ -441,7 +445,10 @@ export async function deleteEvent(id: string) {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
     await prisma.event.delete({ where: { id } });
+
     revalidatePath("/admin/events");
+    revalidatePublic("events", "teams", "scores");
+
     return {
       success: true,
       message: "Event deleted successfully",

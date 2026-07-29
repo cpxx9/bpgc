@@ -1,5 +1,7 @@
 "use server";
 
+import { revalidatePublic } from "@/lib/revalidate-public";
+
 import { prisma } from "@/db/prisma";
 import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
@@ -29,6 +31,7 @@ export async function createImage(data: {
     });
 
     revalidatePath("/admin/gallery");
+    revalidatePublic("images");
 
     return {
       success: true,
@@ -350,6 +353,9 @@ export async function updateImage(
       },
     });
 
+    revalidatePath("/admin/gallery");
+    revalidatePublic("images");
+
     return {
       success: true,
       message: "Image updated successfully",
@@ -376,6 +382,8 @@ export async function deleteImage(
     });
 
     revalidatePath("/admin/gallery");
+    revalidatePublic("images");
+
     return {
       success: true,
       message: "Image deleted successfully!",

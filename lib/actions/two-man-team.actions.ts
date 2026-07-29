@@ -1,5 +1,7 @@
 "use server";
 
+import { revalidatePublic } from "@/lib/revalidate-public";
+
 import { prisma } from "@/db/prisma";
 import { requireAdminAction } from "@/lib/auth-guard";
 import { PAGE_SIZE } from "@/lib/constants";
@@ -64,6 +66,7 @@ export async function createTwoManTeam(golfers: TwoManTeam) {
     });
 
     revalidatePath("/admin/two-man-teams");
+    revalidatePublic("teams", "scores");
 
     return { success: true, message: "Two man team created successfully." };
   } catch (err) {
@@ -255,6 +258,7 @@ export async function updateTwoManTeam(data: UpdateTwoManTeam) {
     });
 
     revalidatePath("/admin/two-man-teams");
+    revalidatePublic("teams", "scores");
 
     return {
       success: true,
@@ -336,6 +340,7 @@ export async function reinstateTwoManTeam(id: string) {
 
       revalidatePath("/admin/two-man-teams");
       revalidatePath("/admin/golfers");
+      revalidatePublic("teams", "scores");
       return {
         success: true,
         message: "Two man team reinstated successfully!",
@@ -374,6 +379,7 @@ export async function disbandTwoManTeam(id: string) {
     });
 
     revalidatePath("/admin/two-man-teams");
+    revalidatePublic("teams", "scores");
 
     return {
       success: true,
@@ -409,6 +415,7 @@ export async function deleteTwoManTeam(id: string) {
       await tx.twoManTeam.delete({ where: { id } });
     });
     revalidatePath("/admin/two-man-teams");
+    revalidatePublic("teams", "scores");
     return {
       success: true,
       message: "Two Man Team deleted successfully",

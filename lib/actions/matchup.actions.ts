@@ -1,12 +1,12 @@
 "use server";
 
+import { revalidatePublic } from "@/lib/revalidate-public";
+
 import { prisma } from "@/db/prisma";
 import { requireAdminAction } from "@/lib/auth-guard";
-import { PAGE_SIZE } from "@/lib/constants";
 import { formatError } from "@/lib/utils";
 import { UpdateMatchup } from "@/types";
 import { revalidatePath } from "next/cache";
-import { isRedirectError } from "next/dist/client/components/redirect-error";
 
 export async function updateMatchups(matchups: UpdateMatchup) {
   try {
@@ -33,7 +33,8 @@ export async function updateMatchups(matchups: UpdateMatchup) {
       });
     });
 
-    revalidatePath(`/admin/events/${matchups.eventId}`);
+    revalidatePath(`/admin/events/${matchups.eventId}`, "page");
+    revalidatePublic("teams", "scores");
 
     return {
       success: true,
