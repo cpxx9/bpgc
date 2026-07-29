@@ -23,11 +23,15 @@ const EventScoreAverages = async () => {
               className="flex justify-between text-white font-semibold text-lg"
             >
               <p>{`Week #${event.leagueWeek} - ${event.location}:`}</p>
-              <p className="ml-3">
-                {event.avgScore === "dnp"
-                  ? "DNP"
-                  : Math.round(event.avgScore * 100) / 100}
-              </p>
+              {event.date > new Date() ? (
+                <p>--</p>
+              ) : (
+                <p className="ml-3">
+                  {event.avgScore === "dnp"
+                    ? "DNP"
+                    : Math.round(event.avgScore * 100) / 100}
+                </p>
+              )}
             </div>
           ))}
         </div>
