@@ -146,8 +146,6 @@ export async function getDisplayedImagesPublic(): Promise<
       },
     });
 
-    console.log(images);
-
     return {
       success: true,
       data: images,
