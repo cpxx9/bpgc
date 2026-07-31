@@ -13,6 +13,10 @@ interface PropTypes {
 }
 
 const ThreeColList = ({ columns }: PropTypes) => {
+  if (columns[0].length < 1) {
+    return <>No averages for the season yet!</>;
+  }
+
   return (
     <section className="flex flex-col md:flex-row justify-between">
       {columns.map((col, i) => (
