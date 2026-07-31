@@ -1,11 +1,15 @@
-import splash from "@/assets/homepagesplash.avif";
 import Matchups from "@/components/events/matchups";
 import TwoManStandings from "@/components/events/two-man-standings";
 import BackgroundImage from "@/components/shared/background-image";
 import MatchupsSkeleton from "@/components/skeletons/matchups-skeleton";
 import WeeklyScoresIndivAveragesSkeleton from "@/components/skeletons/weekly-scores-indiv-averages-skeleton";
-import Image from "next/image";
+import { Metadata } from "next";
 import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "Two Man League",
+  description: "Check out the matchups and standings for our Two Man League!",
+};
 
 const EventsTwoManLeaguePage = () => {
   return (

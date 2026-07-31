@@ -1,9 +1,13 @@
-import splash from "@/assets/homepagesplash.avif";
 import EventSchedule from "@/components/schedule/event-schedule";
 import BackgroundImage from "@/components/shared/background-image";
 import EventScheduleSkeleton from "@/components/skeletons/event-schedule-skeleton";
-import Image from "next/image";
+import { Metadata } from "next";
 import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "Schedule",
+  description: `View the schedule for the ${new Date().getFullYear()} BPGC season. `,
+};
 
 const SchedulePage = () => {
   return (

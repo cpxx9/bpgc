@@ -1,11 +1,16 @@
-import splash from "@/assets/homepagesplash.avif";
-import Image from "next/image";
 import EventScoreAverages from "@/components/scoring-info/event-score-averages";
 import IndividualScoreAverages from "@/components/scoring-info/individual-score-averages";
 import WeeklyScoresEventAveragesSkeleton from "@/components/skeletons/weekly-scores-event-averages-skeleton";
 import WeeklyScoresIndivAveragesSkeleton from "@/components/skeletons/weekly-scores-indiv-averages-skeleton";
 import { Suspense } from "react";
 import BackgroundImage from "@/components/shared/background-image";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Scoring Averages",
+  description:
+    "Check out our members' scoring averages or our averages as a league across the different weeks.",
+};
 
 const ScoringInfoAveragesPage = () => {
   return (

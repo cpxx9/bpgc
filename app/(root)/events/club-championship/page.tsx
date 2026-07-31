@@ -1,9 +1,13 @@
-import splash from "@/assets/homepagesplash.avif";
 import CcNetScoresList from "@/components/events/cc-net-scores-list";
 import CcScoresList from "@/components/events/cc-scores-list";
 import CcSeniorScoresList from "@/components/events/cc-senior-scores-list";
 import BackgroundImage from "@/components/shared/background-image";
-import Image from "next/image";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Club Championship",
+  description: "View the leaderboard for last year's Club Championship!",
+};
 
 const EventsClubChampionshipPage = () => {
   return (

@@ -1,5 +1,3 @@
-import card from "@/assets/homepagecard.avif";
-import Image from "next/image";
 import NextEventCard from "@/components/home/next-event-card";
 import { Button } from "@/components/ui/button";
 import { Suspense } from "react";
@@ -7,6 +5,12 @@ import NextEventCardSkeleton from "@/components/skeletons/next-event-card-skelet
 import BackgroundImage from "@/components/shared/background-image";
 import CardImage from "@/components/shared/card-image";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  description:
+    "Check out the details for the upcoming event, or checkout some of our latest news. Register now!",
+};
 
 const Homepage = () => {
   return (

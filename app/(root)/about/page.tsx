@@ -1,5 +1,10 @@
 import Logo from "@/components/shared/logo";
-import Image from "next/image";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About",
+  description: "Check out the history of our club and meet the board memebers!",
+};
 
 const AboutPage = () => {
   const currentYear = new Date().getFullYear();

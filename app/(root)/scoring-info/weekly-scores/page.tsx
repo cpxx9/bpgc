@@ -1,11 +1,15 @@
-import splash from "@/assets/homepagesplash.avif";
-import Image from "next/image";
 import WeeklyScoresEvent from "@/components/scoring-info/weekly-scores-event";
 import WeeklyScoresEventSkeleton from "@/components/skeletons/weekly-scores-event-skeleton";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Suspense } from "react";
 import BackgroundImage from "@/components/shared/background-image";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Weekly Scores",
+  description: "Check out the scores from the previous event!",
+};
 
 const ScoringInfoWeeklyScoresPage = () => {
   return (
