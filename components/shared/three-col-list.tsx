@@ -14,7 +14,7 @@ interface PropTypes {
 
 const ThreeColList = ({ columns }: PropTypes) => {
   if (columns[0].length < 1) {
-    return <>No averages for the season yet!</>;
+    return <section>No averages for the season yet!</section>;
   }
 
   return (
