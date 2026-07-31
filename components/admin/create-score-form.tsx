@@ -91,8 +91,8 @@ const CreateScoreForm = ({ eventId, golferId }: PropTypes) => {
               // required
             ></Input>
             <Input
-              id="closestToPin"
-              name="closestToPin"
+              id="closestToPinInches"
+              name="closestToPinInches"
               className="!m-0 !w-[5rem] text-center px-0"
               type="number"
               placeholder="inches"
