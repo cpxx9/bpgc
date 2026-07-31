@@ -3,7 +3,14 @@ import Menu from "@/components/shared/header/menu";
 import MainNav from "@/app/admin/main-nav";
 import AdminSearch from "@/components/admin/admin-search";
 import Logo from "@/components/shared/logo";
-import { requireAdmin } from "@/lib/auth-guard";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function AdminLayout({
   children,
