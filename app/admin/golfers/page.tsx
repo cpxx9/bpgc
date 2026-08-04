@@ -38,13 +38,18 @@ const AdminGolfersPage = async ({ searchParams }: PropTypes) => {
         <CreateGolferForm />
       </div>
       <div className="overflow-x-auto">
-        {golfers?.totalPages > 1 ? (
-          <Pagination
-            page={Number(page) || 1}
-            totalPages={golfers?.totalPages}
-          />
-        ) : (
-          <p className="text-muted-foreground">Displaying all results...</p>
+        <div className="flex items-center justify-between gap-2 mb-2">
+          {golfers.totalCount > 0 ? (
+            <p className="text-muted-foreground">
+              {golfers.totalCount} result{golfers.totalCount === 1 ? "" : "s"}
+              {q ? ` for "${q}"` : ""}
+            </p>
+          ) : (
+            <p className="text-muted-foreground">No search results found...</p>
+          )}
+        </div>
+        {golfers.totalPages > 1 && (
+          <Pagination page={pageParam} totalPages={golfers.totalPages} />
         )}
         <Table>
           <TableHeader>
