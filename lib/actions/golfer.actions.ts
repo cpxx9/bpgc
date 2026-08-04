@@ -190,35 +190,24 @@ export async function getAllGolfersWithEventScoreList(eventId: string) {
 export async function getAllGolfers({
   limit = PAGE_SIZE,
   page,
+  query,
 }: {
   limit?: number;
   page: number;
+  query?: string;
 }) {
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
-    // new changes, getAllGolfers with new memberships relation
-    // const data: Golfer[] = await prisma.golfer.findMany({
-    //   orderBy: [{ active: "desc" }, { lastName: "asc" }, { firstName: "asc" }],
-    //   take: limit,
-    //   skip: (page - 1) * limit,
-    //   include: {
-    //     twoManTeam: {
-    //       include: {
-    //         golfers: true,
-    //       },
-    //     },
-    //   },
-    // });
-
-    // const dataCount = await prisma.golfer.count();
-
-    // return {
-    //   success: true,
-    //   data: data as GolferWithTeammate[],
-    //   totalPages: Math.ceil(dataCount / limit),
-    // };
     const raw = await prisma.golfer.findMany({
+      where: query
+        ? {
+            OR: [
+              { firstName: { contains: query, mode: "insensitive" } },
+              { lastName: { contains: query, mode: "insensitive" } },
+            ],
+          }
+        : {},
       orderBy: [{ active: "desc" }, { lastName: "asc" }, { firstName: "asc" }],
       take: limit,
       skip: (page - 1) * limit,

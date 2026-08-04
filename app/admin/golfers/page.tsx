@@ -22,14 +22,14 @@ export const metadata: Metadata = {
 };
 
 interface PropTypes {
-  searchParams: Promise<{ page: string }>;
+  searchParams: Promise<{ page: string; q?: string }>;
 }
 
 const AdminGolfersPage = async ({ searchParams }: PropTypes) => {
   await requireAdmin();
-  const { page = "1" } = await searchParams;
+  const { page = "1", q } = await searchParams;
   const pageParam = Number(page);
-  const golfers = await getAllGolfers({ page: pageParam });
+  const golfers = await getAllGolfers({ page: pageParam, query: q });
   if (!golfers.totalPages) golfers.totalPages = 1;
 
   return (

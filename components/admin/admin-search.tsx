@@ -8,13 +8,15 @@ const AdminSearch = () => {
   const pathname = usePathname();
   const formActionUrl = pathname.includes("/admin/users")
     ? "/admin/users"
-    : "/admin/overview";
+    : pathname.includes("/admin/golfers")
+      ? "/admin/golfers"
+      : "/admin/overview";
 
   const searchParams = useSearchParams();
-  const [queryValue, setQueryValue] = useState(searchParams.get("query") || "");
+  const [queryValue, setQueryValue] = useState(searchParams.get("q") || "");
 
   useEffect(() => {
-    setQueryValue(searchParams.get("query") || "");
+    setQueryValue(searchParams.get("q") || "");
   }, [searchParams]);
 
   return (
@@ -22,7 +24,7 @@ const AdminSearch = () => {
       <Input
         type="search"
         placeholder="Search..."
-        name="query"
+        name="q"
         value={queryValue}
         onChange={(e) => setQueryValue(e.target.value)}
         className="md:w-[100px] lg:w-[300px]"

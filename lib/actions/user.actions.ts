@@ -92,18 +92,31 @@ export async function getUserById(userId: string | undefined) {
 export async function getAllUsers({
   limit = PAGE_SIZE,
   page,
+  query,
 }: {
   limit?: number;
   page: number;
+  query?: string;
 }) {
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
+    console.log(query);
     const data: User[] = await prisma.user.findMany({
+      where: query
+        ? {
+            OR: [
+              { name: { contains: query, mode: "insensitive" } },
+              { email: { contains: query, mode: "insensitive" } },
+            ],
+          }
+        : {},
       orderBy: { createdAt: "desc" },
       take: limit,
       skip: (page - 1) * limit,
     });
+
+    console.log(data);
 
     const dataCount = await prisma.user.count();
 
