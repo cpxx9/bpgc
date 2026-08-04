@@ -15,6 +15,14 @@ export type ActionResult<T> =
   | { success: true; data: T; totalPages?: number; year?: number }
   | { success: false; message: string };
 
+export type PaginatedResult<T> = {
+  success: boolean;
+  message?: string;
+  data: T[];
+  totalCount: number;
+  totalPages: number;
+};
+
 export type ActionResultMessage = { success: boolean; message: string };
 
 export type UpdateUser = z.infer<typeof updateUserSchema>;
