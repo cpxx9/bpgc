@@ -30,7 +30,6 @@ const AdminUsersPage = async ({ searchParams }: PropTypes) => {
   const { page = "1", q } = await searchParams;
   const pageParam = Number(page);
   const users = await getAllUsers({ page: pageParam, query: q });
-  if (!users.totalPages) users.totalPages = 1;
 
   return (
     <div className="space-y-2 flex-1">

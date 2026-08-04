@@ -10,6 +10,7 @@ import type { UpdateUser, User } from "@/types";
 import { revalidatePath } from "next/cache";
 import { PAGE_SIZE } from "@/lib/constants";
 import { requireAdminAction } from "@/lib/auth-guard";
+import { Prisma } from "@prisma/client";
 
 export async function signInWithCredentials(
   previousState: unknown,
@@ -101,34 +102,42 @@ export async function getAllUsers({
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
-    console.log(query);
-    const data: User[] = await prisma.user.findMany({
-      where: query
-        ? {
-            OR: [
-              { name: { contains: query, mode: "insensitive" } },
-              { email: { contains: query, mode: "insensitive" } },
-            ],
-          }
-        : {},
-      orderBy: { createdAt: "desc" },
-      take: limit,
-      skip: (page - 1) * limit,
-    });
+    const queryTrimmed = query?.trim();
 
-    console.log(data);
+    const where: Prisma.UserWhereInput = queryTrimmed
+      ? {
+          OR: [
+            { name: { contains: queryTrimmed, mode: "insensitive" } },
+            { email: { contains: queryTrimmed, mode: "insensitive" } },
+          ],
+        }
+      : {};
 
-    const dataCount = await prisma.user.count();
+    const currentPage = Math.max(1, Math.floor(page) || 1);
+
+    const [data, dataCount] = await Promise.all([
+      prisma.user.findMany({
+        where,
+        orderBy: { createdAt: "desc" },
+        take: limit,
+        skip: (currentPage - 1) * limit,
+      }),
+      prisma.user.count({ where }),
+    ]);
 
     return {
       success: true,
       data,
+      totalCount: dataCount,
       totalPages: Math.ceil(dataCount / limit),
     };
   } catch (error) {
     return {
       success: false,
       message: formatError(error),
+      data: [] as User[],
+      totalCount: 0,
+      totalPages: 1,
     };
   }
 }

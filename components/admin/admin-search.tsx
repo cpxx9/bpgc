@@ -4,26 +4,25 @@ import { Input } from "@/components/ui/input";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const AdminSearch = () => {
+const AdminSearch = ({
+  placeholder = "Search...",
+}: {
+  placeholder?: string;
+}) => {
   const pathname = usePathname();
-  const formActionUrl = pathname.includes("/admin/users")
-    ? "/admin/users"
-    : pathname.includes("/admin/golfers")
-      ? "/admin/golfers"
-      : "/admin/overview";
-
   const searchParams = useSearchParams();
-  const [queryValue, setQueryValue] = useState(searchParams.get("q") || "");
+  const q = searchParams.get("q") || "";
+  const [queryValue, setQueryValue] = useState(q);
 
   useEffect(() => {
-    setQueryValue(searchParams.get("q") || "");
-  }, [searchParams]);
+    setQueryValue(q);
+  }, [q]);
 
   return (
-    <form action={formActionUrl} method="GET">
+    <form action={pathname} method="GET">
       <Input
         type="search"
-        placeholder="Search..."
+        placeholder={placeholder}
         name="q"
         value={queryValue}
         onChange={(e) => setQueryValue(e.target.value)}
