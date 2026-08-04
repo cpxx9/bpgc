@@ -23,6 +23,21 @@ export type PaginatedResult<T> = {
   totalPages: number;
 };
 
+type PaginateArgs<TData, TWhere> = {
+  page: number;
+  limit?: number;
+  query?: string;
+  searchFields?: string[];
+  buildWhere?: (q: string) => TWhere;
+  baseWhere?: TWhere;
+  findMany: (args: {
+    where: TWhere;
+    take: number;
+    skip: number;
+  }) => Promise<TData[]>;
+  count: (args: { where: TWhere }) => Promise<number>;
+};
+
 export type ActionResultMessage = { success: boolean; message: string };
 
 export type UpdateUser = z.infer<typeof updateUserSchema>;
