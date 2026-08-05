@@ -18,25 +18,27 @@ import {
 import CreateEventForm from "@/components/admin/create-event-form";
 import ResultsSummary from "@/components/admin/results-summary";
 import { resolvePageSize } from "@/lib/constants";
-import { AdminSearchParams } from "@/types";
+import { AdminSearchParams, EventSearchParams } from "@/types";
 
 export const metadata: Metadata = {
   title: "Admin Events",
 };
 
 interface PropTypes {
-  searchParams: Promise<AdminSearchParams>;
+  searchParams: Promise<EventSearchParams>;
 }
 
 const AdminEventsPage = async ({ searchParams }: PropTypes) => {
   await requireAdmin();
-  const { page = "1", q, size } = await searchParams;
+  const sp = await searchParams;
+  const { page = "1", q, size } = sp;
   const pageParam = Number(page);
   const pageSize = resolvePageSize(size);
   const events = await getAllEvents({
     page: pageParam,
     query: q,
     limit: pageSize,
+    filters: sp,
   });
 
   return (

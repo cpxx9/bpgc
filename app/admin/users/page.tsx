@@ -19,25 +19,27 @@ import { resolvePageSize } from "@/lib/constants";
 import { shortenUuid } from "@/lib/utils";
 import { Metadata } from "next";
 import Link from "next/link";
-import { AdminSearchParams } from "@/types";
+import { UserSearchParams } from "@/types";
 
 export const metadata: Metadata = {
   title: "Admin Users",
 };
 
 interface PropTypes {
-  searchParams: Promise<AdminSearchParams>;
+  searchParams: Promise<UserSearchParams>;
 }
 
 const AdminUsersPage = async ({ searchParams }: PropTypes) => {
   await requireAdmin();
-  const { page = "1", q, size } = await searchParams;
+  const sp = await searchParams;
+  const { page = "1", q, size } = sp;
   const pageParam = Number(page);
   const pageSize = resolvePageSize(size);
   const users = await getAllUsers({
     page: pageParam,
     query: q,
     limit: pageSize,
+    filters: sp,
   });
 
   return (

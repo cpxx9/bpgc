@@ -18,25 +18,27 @@ import Link from "next/link";
 import CreateGolferForm from "@/components/admin/create-golfer-form";
 import { PAGE_SIZE, resolvePageSize } from "@/lib/constants";
 import ResultsSummary from "@/components/admin/results-summary";
-import { AdminSearchParams } from "@/types";
+import { AdminSearchParams, GolferSearchParams } from "@/types";
 
 export const metadata: Metadata = {
   title: "Admin Golfers",
 };
 
 interface PropTypes {
-  searchParams: Promise<AdminSearchParams>;
+  searchParams: Promise<GolferSearchParams>;
 }
 
 const AdminGolfersPage = async ({ searchParams }: PropTypes) => {
   await requireAdmin();
-  const { page = "1", q, size } = await searchParams;
+  const sp = await searchParams;
+  const { page = "1", q, size } = sp;
   const pageParam = Number(page);
   const pageSize = resolvePageSize(size);
   const golfers = await getAllGolfers({
     page: pageParam,
     query: q,
     limit: pageSize,
+    filters: sp,
   });
 
   return (

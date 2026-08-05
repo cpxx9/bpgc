@@ -17,23 +17,25 @@ import { deleteImage, getAllImages } from "@/lib/actions/image.actions";
 import { requireAdmin } from "@/lib/auth-guard";
 import { resolvePageSize } from "@/lib/constants";
 import { shortenUuid } from "@/lib/utils";
-import { AdminSearchParams } from "@/types";
+import { AdminSearchParams, ImageSearchParams } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 
 interface PropTypes {
-  searchParams: Promise<AdminSearchParams>;
+  searchParams: Promise<ImageSearchParams>;
 }
 
 const AdminGalleryPage = async ({ searchParams }: PropTypes) => {
   await requireAdmin();
-  const { page = "1", q, size } = await searchParams;
+  const sp = await searchParams;
+  const { page = "1", q, size } = sp;
   const pageParam = Number(page);
   const pageSize = resolvePageSize(size);
   const images = await getAllImages({
     page: pageParam,
     query: q,
     limit: pageSize,
+    filters: sp,
   });
   if (images.success === false)
     return (
