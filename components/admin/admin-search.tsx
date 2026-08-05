@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { ADMIN_FILTERS } from "@/lib/admin-filters";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -20,6 +21,12 @@ const AdminSearch = ({
     setQueryValue(q);
   }, [q]);
 
+  const filters = ADMIN_FILTERS[pathname] ?? [];
+  const size = searchParams.get("size");
+  const hasActiveFilter = filters.some((f) => searchParams.get(f.name));
+  const showReset = Boolean(q) || hasActiveFilter;
+  const resetHref = size ? `${pathname}?size=${size}` : pathname;
+
   return (
     <div className="flex items-center gap-2">
       <form action={pathname} method="GET">
@@ -31,13 +38,20 @@ const AdminSearch = ({
           onChange={(e) => setQueryValue(e.target.value)}
           className="md:w-[100px] lg:w-[300px]"
         />
+        {size && <input type="hidden" name="size" value={size} />}
+        {filters.map((f) => {
+          const value = searchParams.get(f.name);
+          return value ? (
+            <input key={f.name} type="hidden" name={f.name} value={value} />
+          ) : null;
+        })}
         <button type="submit" className="sr-only">
           Search
         </button>
       </form>
-      {searchParams.get("q") ? (
+      {showReset ? (
         <Button asChild variant="outline" size="sm">
-          <Link href={pathname}>Reset</Link>
+          <Link href={resetHref}>Reset</Link>
         </Button>
       ) : null}
     </div>
