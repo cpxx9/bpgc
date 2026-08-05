@@ -1,3 +1,4 @@
+import ResultsSummary from "@/components/admin/results-summary";
 import UploadImageButton from "@/components/admin/upload-image-button";
 import CopyText from "@/components/shared/copy-text";
 import DeleteDialog from "@/components/shared/delete-dialog";
@@ -19,14 +20,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface PropTypes {
-  searchParams: Promise<{ page: string }>;
+  searchParams: Promise<{ page: string; q?: string }>;
 }
 
 const AdminGalleryPage = async ({ searchParams }: PropTypes) => {
   await requireAdmin();
-  const { page = "1" } = await searchParams;
+  const { page = "1", q } = await searchParams;
   const pageParam = Number(page);
-  const images = await getAllImages({ page: pageParam });
+  const images = await getAllImages({ page: pageParam, query: q });
   if (images.success === false)
     return (
       <div className="space-y-2 flex-1">
@@ -37,7 +38,6 @@ const AdminGalleryPage = async ({ searchParams }: PropTypes) => {
         <div>Failed to get images</div>
       </div>
     );
-  if (!images.totalPages) images.totalPages = 1;
 
   return (
     <div className="space-y-2 flex-1">
@@ -46,14 +46,12 @@ const AdminGalleryPage = async ({ searchParams }: PropTypes) => {
         <UploadImageButton />
       </div>
       <div className="overflow-x-auto">
-        {images?.totalPages > 1 ? (
-          <Pagination
-            page={Number(page) || 1}
-            totalPages={images?.totalPages}
-          />
-        ) : (
-          <p className="text-muted-foreground">Displaying all results...</p>
-        )}
+        <ResultsSummary
+          totalCount={images.totalCount}
+          totalPages={images.totalPages}
+          page={pageParam}
+          query={q}
+        />
         <Table className="w-full table-fixed">
           <TableHeader>
             <TableRow>

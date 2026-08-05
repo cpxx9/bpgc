@@ -17,6 +17,8 @@ import {
 } from "@/types";
 import { revalidatePath } from "next/cache";
 import { UTApi } from "uploadthing/server";
+import { paginate } from "@/lib/paginate";
+import { Prisma } from "@prisma/client";
 
 const utapi = new UTApi();
 
@@ -84,51 +86,45 @@ export async function getImageById(
 }
 
 export async function getAllImages({
-  limit = PAGE_SIZE,
+  limit,
   page,
+  query,
 }: {
   limit?: number;
   page: number;
-}): Promise<ActionResult<DbImageAdmin[]>> {
-  try {
-    const admin = await requireAdminAction();
-    if (!admin) throw new Error("You are not authorized!");
-    const images = await prisma.images.findMany({
-      orderBy: { createdAt: "asc" },
-      take: limit,
-      skip: (page - 1) * limit,
-      select: {
-        id: true,
-        url: true,
-        fileName: true,
-        displayed: true,
-        isHomeSplash: true,
-        isScheduleSplash: true,
-        isWeeklyScoresSplash: true,
-        isScoringAveragesSplash: true,
-        isTwoManLeagueSplash: true,
-        isClubChampionshipSplash: true,
-        isContestsSplash: true,
-        isVideoOfTheWeek: true,
-        isTwoManChamps: true,
-        isBpgcTv: true,
-        key: true,
-      },
-    });
-
-    const dataCount = await prisma.images.count();
-
-    return {
-      success: true,
-      data: images,
-      totalPages: Math.ceil(dataCount / limit),
-    };
-  } catch (err) {
-    return {
-      success: false,
-      message: formatError(err),
-    };
-  }
+  query?: string;
+}) {
+  return paginate<DbImageAdmin, Prisma.ImagesWhereInput>({
+    page,
+    limit,
+    query,
+    searchFields: ["fileName", "url"],
+    findMany: ({ where, take, skip }) =>
+      prisma.images.findMany({
+        where,
+        take,
+        skip,
+        orderBy: { createdAt: "asc" },
+        select: {
+          id: true,
+          url: true,
+          fileName: true,
+          displayed: true,
+          isHomeSplash: true,
+          isScheduleSplash: true,
+          isWeeklyScoresSplash: true,
+          isScoringAveragesSplash: true,
+          isTwoManLeagueSplash: true,
+          isClubChampionshipSplash: true,
+          isContestsSplash: true,
+          isVideoOfTheWeek: true,
+          isTwoManChamps: true,
+          isBpgcTv: true,
+          key: true,
+        },
+      }),
+    count: ({ where }) => prisma.images.count({ where }),
+  });
 }
 
 export async function getDisplayedImagesPublic(): Promise<
