@@ -17,6 +17,31 @@ export type AdminSearchParams = {
   size?: string;
 };
 
+export type FilterConfig = {
+  name: string;
+  label: string;
+  options: { value: string; label: string }[];
+};
+
+export type FilterResolvers<TWhere> = Record<
+  string,
+  (value: string) => TWhere | null
+>;
+
+export type UserSearchParams = AdminSearchParams & { role?: string };
+export type GolferSearchParams = AdminSearchParams & { status?: string };
+export type TwoManTeamSearchParams = AdminSearchParams & { status?: string };
+export type EventSearchParams = AdminSearchParams & {
+  year?: string;
+  twoman?: string;
+  championship?: string;
+};
+
+export type ImageSearchParams = AdminSearchParams & {
+  displayed?: string;
+  usage?: string;
+};
+
 export type ActionResult<T> =
   | { success: true; data: T; totalPages?: number; year?: number }
   | { success: false; message: string };
