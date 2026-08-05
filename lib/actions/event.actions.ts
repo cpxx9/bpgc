@@ -17,6 +17,8 @@ import {
 } from "@/types";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
+import { paginate } from "@/lib/paginate";
+import { Prisma } from "@prisma/client";
 
 export async function createEvent(prevState: unknown, formData: FormData) {
   try {
@@ -150,34 +152,28 @@ export async function getPreviousEvent(): Promise<
 }
 
 export async function getAllEvents({
-  limit = PAGE_SIZE,
+  limit,
   page,
+  query,
 }: {
   limit?: number;
   page: number;
+  query?: string;
 }) {
-  try {
-    const admin = await requireAdminAction();
-    if (!admin) throw new Error("You are not authorized!");
-    const data: Event[] = await prisma.event.findMany({
-      orderBy: { leagueWeek: "asc" },
-      take: limit,
-      skip: (page - 1) * limit,
-    });
-
-    const dataCount = await prisma.event.count();
-
-    return {
-      success: true,
-      data,
-      totalPages: Math.ceil(dataCount / limit),
-    };
-  } catch (err) {
-    return {
-      success: false,
-      message: formatError(err),
-    };
-  }
+  return paginate<Event, Prisma.EventWhereInput>({
+    page,
+    limit,
+    query,
+    searchFields: ["name"],
+    findMany: ({ where, take, skip }) =>
+      prisma.event.findMany({
+        where,
+        take,
+        skip,
+        orderBy: { leagueWeek: "asc" },
+      }),
+    count: ({ where }) => prisma.event.count({ where }),
+  });
 }
 
 export async function getEventSchedule() {

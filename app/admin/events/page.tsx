@@ -16,21 +16,21 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import CreateEventForm from "@/components/admin/create-event-form";
+import ResultsSummary from "@/components/admin/results-summary";
 
 export const metadata: Metadata = {
   title: "Admin Events",
 };
 
 interface PropTypes {
-  searchParams: Promise<{ page: string }>;
+  searchParams: Promise<{ page: string; q?: string }>;
 }
 
 const AdminEventsPage = async ({ searchParams }: PropTypes) => {
   await requireAdmin();
-  const { page = "1" } = await searchParams;
+  const { page = "1", q } = await searchParams;
   const pageParam = Number(page);
-  const events = await getAllEvents({ page: pageParam });
-  if (!events.totalPages) events.totalPages = 1;
+  const events = await getAllEvents({ page: pageParam, query: q });
 
   return (
     <div className="space-y-2 flex-1">
@@ -39,14 +39,12 @@ const AdminEventsPage = async ({ searchParams }: PropTypes) => {
         <CreateEventForm />
       </div>
       <div className="overflow-x-auto">
-        {events?.totalPages > 1 ? (
-          <Pagination
-            page={Number(page) || 1}
-            totalPages={events?.totalPages}
-          />
-        ) : (
-          <p className="text-muted-foreground">Displaying all results...</p>
-        )}
+        <ResultsSummary
+          totalCount={events.totalCount}
+          totalPages={events.totalPages}
+          page={pageParam}
+          query={q}
+        />
         <Table>
           <TableHeader>
             <TableRow>

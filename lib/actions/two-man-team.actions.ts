@@ -105,7 +105,7 @@ export async function getTwoManTeamById(twoManTeamId: string | undefined) {
 export async function getAllTwoManTeams({
   limit,
   page,
-  query, // CHANGED: new param
+  query,
 }: {
   limit?: number;
   page: number;
@@ -134,7 +134,7 @@ export async function getAllTwoManTeams({
     }),
     findMany: async ({ where, take, skip }) => {
       const raw = await prisma.twoManTeam.findMany({
-        where, // CHANGED: was missing entirely
+        where,
         take,
         skip,
         orderBy: { number: "asc" },
@@ -145,7 +145,7 @@ export async function getAllTwoManTeams({
         golfers: t.memberships.map((m) => m.golfer),
       }));
     },
-    count: ({ where }) => prisma.twoManTeam.count({ where }), // CHANGED: was count() with no filter
+    count: ({ where }) => prisma.twoManTeam.count({ where }),
   });
 }
 
