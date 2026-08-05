@@ -11,6 +11,7 @@ import { revalidatePath } from "next/cache";
 import { PAGE_SIZE } from "@/lib/constants";
 import { requireAdminAction } from "@/lib/auth-guard";
 import { Prisma } from "@prisma/client";
+import { paginate } from "@/lib/paginate";
 
 export async function signInWithCredentials(
   previousState: unknown,
@@ -99,47 +100,20 @@ export async function getAllUsers({
   page: number;
   query?: string;
 }) {
-  try {
-    const admin = await requireAdminAction();
-    if (!admin) throw new Error("You are not authorized!");
-    const queryTrimmed = query?.trim();
-
-    const where: Prisma.UserWhereInput = queryTrimmed
-      ? {
-          OR: [
-            { name: { contains: queryTrimmed, mode: "insensitive" } },
-            { email: { contains: queryTrimmed, mode: "insensitive" } },
-          ],
-        }
-      : {};
-
-    const currentPage = Math.max(1, Math.floor(page) || 1);
-
-    const [data, dataCount] = await Promise.all([
+  return paginate<User, Prisma.UserWhereInput>({
+    page,
+    limit,
+    query,
+    searchFields: ["name", "email"],
+    findMany: ({ where, take, skip }) =>
       prisma.user.findMany({
         where,
+        take,
+        skip,
         orderBy: { createdAt: "desc" },
-        take: limit,
-        skip: (currentPage - 1) * limit,
       }),
-      prisma.user.count({ where }),
-    ]);
-
-    return {
-      success: true,
-      data,
-      totalCount: dataCount,
-      totalPages: Math.ceil(dataCount / limit),
-    };
-  } catch (error) {
-    return {
-      success: false,
-      message: formatError(error),
-      data: [] as User[],
-      totalCount: 0,
-      totalPages: 1,
-    };
-  }
+    count: ({ where }) => prisma.user.count({ where }),
+  });
 }
 
 export async function deleteUser(id: string) {
