@@ -18,13 +18,14 @@ import Link from "next/link";
 import CreateGolferForm from "@/components/admin/create-golfer-form";
 import { PAGE_SIZE, resolvePageSize } from "@/lib/constants";
 import ResultsSummary from "@/components/admin/results-summary";
+import { AdminSearchParams } from "@/types";
 
 export const metadata: Metadata = {
   title: "Admin Golfers",
 };
 
 interface PropTypes {
-  searchParams: Promise<{ page: string; q?: string; size?: string }>;
+  searchParams: Promise<AdminSearchParams>;
 }
 
 const AdminGolfersPage = async ({ searchParams }: PropTypes) => {

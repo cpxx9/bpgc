@@ -19,13 +19,14 @@ import { resolvePageSize } from "@/lib/constants";
 import { shortenUuid } from "@/lib/utils";
 import { Metadata } from "next";
 import Link from "next/link";
+import { AdminSearchParams } from "@/types";
 
 export const metadata: Metadata = {
   title: "Admin Users",
 };
 
 interface PropTypes {
-  searchParams: Promise<{ page: string; q?: string; size?: string }>;
+  searchParams: Promise<AdminSearchParams>;
 }
 
 const AdminUsersPage = async ({ searchParams }: PropTypes) => {

@@ -27,13 +27,14 @@ import UpdateTwoManTeamForm from "@/components/admin/update-twomanteam-form";
 import DisbandDialog from "@/components/admin/disband-dialog";
 import ResultsSummary from "@/components/admin/results-summary";
 import { resolvePageSize } from "@/lib/constants";
+import { AdminSearchParams } from "@/types";
 
 export const metadata: Metadata = {
   title: "Admin Two Man Teams",
 };
 
 interface PropTypes {
-  searchParams: Promise<{ page: string; q?: string; size?: string }>;
+  searchParams: Promise<AdminSearchParams>;
 }
 
 const AdminTwoManTeamsPage = async ({ searchParams }: PropTypes) => {

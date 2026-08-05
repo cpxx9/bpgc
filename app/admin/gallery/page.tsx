@@ -17,11 +17,12 @@ import { deleteImage, getAllImages } from "@/lib/actions/image.actions";
 import { requireAdmin } from "@/lib/auth-guard";
 import { resolvePageSize } from "@/lib/constants";
 import { shortenUuid } from "@/lib/utils";
+import { AdminSearchParams } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 
 interface PropTypes {
-  searchParams: Promise<{ page: string; q?: string; size?: string }>;
+  searchParams: Promise<AdminSearchParams>;
 }
 
 const AdminGalleryPage = async ({ searchParams }: PropTypes) => {

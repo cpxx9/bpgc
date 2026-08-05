@@ -11,6 +11,12 @@ import {
   updateUserSchema,
 } from "@/lib/validators";
 
+export type AdminSearchParams = {
+  page: string;
+  q?: string;
+  size?: string;
+};
+
 export type ActionResult<T> =
   | { success: true; data: T; totalPages?: number; year?: number }
   | { success: false; message: string };
