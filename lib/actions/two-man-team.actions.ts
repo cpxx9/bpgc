@@ -12,10 +12,13 @@ import {
   TwoManTeam,
   TwoManTeamPublic,
   TwoManTeamStandingsPublic,
+  TwoManTeamWithGolfers,
   UpdateTwoManTeam,
 } from "@/types";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
+import { paginate } from "@/lib/paginate";
+import { Prisma } from "@prisma/client";
 
 export async function createTwoManTeam(golfers: TwoManTeam) {
   try {
@@ -100,45 +103,50 @@ export async function getTwoManTeamById(twoManTeamId: string | undefined) {
 }
 
 export async function getAllTwoManTeams({
-  limit = PAGE_SIZE,
+  limit,
   page,
+  query, // CHANGED: new param
 }: {
   limit?: number;
   page: number;
+  query?: string;
 }) {
-  try {
-    const admin = await requireAdminAction();
-    if (!admin) throw new Error("You are not authorized!");
-
-    const raw = await prisma.twoManTeam.findMany({
-      include: {
-        memberships: {
-          include: { golfer: true },
+  return paginate<TwoManTeamWithGolfers, Prisma.TwoManTeamWhereInput>({
+    page,
+    limit,
+    query,
+    buildWhere: (q) => ({
+      OR: [
+        ...(Number.isInteger(Number(q)) ? [{ number: Number(q) }] : []),
+        {
+          memberships: {
+            some: {
+              golfer: {
+                OR: [
+                  { firstName: { contains: q, mode: "insensitive" as const } },
+                  { lastName: { contains: q, mode: "insensitive" as const } },
+                ],
+              },
+            },
+          },
         },
-      },
-      orderBy: { number: "asc" },
-      take: limit,
-      skip: (page - 1) * limit,
-    });
-
-    const data = raw.map((t) => ({
-      ...t,
-      golfers: t.memberships.map((m) => m.golfer),
-    }));
-
-    const dataCount = await prisma.twoManTeam.count();
-
-    return {
-      success: true,
-      data,
-      totalPages: Math.ceil(dataCount / limit),
-    };
-  } catch (err) {
-    return {
-      success: false,
-      message: formatError(err),
-    };
-  }
+      ],
+    }),
+    findMany: async ({ where, take, skip }) => {
+      const raw = await prisma.twoManTeam.findMany({
+        where, // CHANGED: was missing entirely
+        take,
+        skip,
+        orderBy: { number: "asc" },
+        include: { memberships: { include: { golfer: true } } },
+      });
+      return raw.map((t) => ({
+        ...t,
+        golfers: t.memberships.map((m) => m.golfer),
+      }));
+    },
+    count: ({ where }) => prisma.twoManTeam.count({ where }), // CHANGED: was count() with no filter
+  });
 }
 
 export async function getAllTwoManTeamsList(eventId: string) {

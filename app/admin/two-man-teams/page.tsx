@@ -25,23 +25,23 @@ import { getFreeAgents } from "@/lib/actions/golfer.actions";
 import { notFound } from "next/navigation";
 import UpdateTwoManTeamForm from "@/components/admin/update-twomanteam-form";
 import DisbandDialog from "@/components/admin/disband-dialog";
+import ResultsSummary from "@/components/admin/results-summary";
 
 export const metadata: Metadata = {
   title: "Admin Two Man Teams",
 };
 
 interface PropTypes {
-  searchParams: Promise<{ page: string }>;
+  searchParams: Promise<{ page: string; q?: string }>;
 }
 
 const AdminTwoManTeamsPage = async ({ searchParams }: PropTypes) => {
   await requireAdmin();
-  const { page = "1" } = await searchParams;
+  const { page = "1", q } = await searchParams;
   const pageParam = Number(page);
-  const twoManTeams = await getAllTwoManTeams({ page: pageParam });
+  const twoManTeams = await getAllTwoManTeams({ page: pageParam, query: q });
   const { data } = await getFreeAgents();
   if (!data) notFound();
-  if (!twoManTeams.totalPages) twoManTeams.totalPages = 1;
 
   return (
     <div className="space-y-2 flex-1">
@@ -50,14 +50,12 @@ const AdminTwoManTeamsPage = async ({ searchParams }: PropTypes) => {
         <CreateTwoManTeamForm golfers={data} />
       </div>
       <div className="overflow-x-auto">
-        {twoManTeams?.totalPages > 1 ? (
-          <Pagination
-            page={Number(page) || 1}
-            totalPages={twoManTeams?.totalPages}
-          />
-        ) : (
-          <p className="text-muted-foreground">Displaying all results...</p>
-        )}
+        <ResultsSummary
+          totalCount={twoManTeams.totalCount}
+          totalPages={twoManTeams.totalPages}
+          page={pageParam}
+          query={q}
+        />
         <Table>
           <TableHeader>
             <TableRow>

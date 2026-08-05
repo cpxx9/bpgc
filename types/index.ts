@@ -79,6 +79,10 @@ export type TwoManTeamList = {
   number: number;
 };
 
+export type TwoManTeamWithGolfers = TwoManTeamList & {
+  active: boolean;
+};
+
 export type TwoManTeamPublic = {
   id: string;
   number: number;
