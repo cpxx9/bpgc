@@ -164,7 +164,7 @@ export async function getAllEvents({
     page,
     limit,
     query,
-    searchFields: ["name"],
+    searchFields: ["location", "description"],
     findMany: ({ where, take, skip }) =>
       prisma.event.findMany({
         where,
