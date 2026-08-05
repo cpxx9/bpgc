@@ -1,7 +1,7 @@
 import "server-only";
 
 import { PAGE_SIZE } from "@/lib/constants";
-import { PaginatedResult, PaginateArgs } from "@/types";
+import { PaginatedResult, PaginateArgs, FilterResolvers } from "@/types";
 import { requireAdminAction } from "@/lib/auth-guard";
 import { formatError } from "@/lib/utils";
 
@@ -11,6 +11,20 @@ const containsPath = (path: string, value: string) =>
     .reduceRight<
       Record<string, unknown>
     >((acc, key) => Object.fromEntries([[key, acc]]), { contains: value, mode: "insensitive" });
+
+export function buildFilterWhere<TWhere>(
+  resolvers: FilterResolvers<TWhere>,
+  params: Record<string, string | undefined> = {},
+): TWhere {
+  const clauses: TWhere[] = [];
+  for (const [name, resolve] of Object.entries(resolvers)) {
+    const value = params[name];
+    if (!value) continue;
+    const clause = resolve(value);
+    if (clause) clauses.push(clause);
+  }
+  return (clauses.length ? { AND: clauses } : {}) as TWhere;
+}
 
 export async function paginate<TData, TWhere extends object>({
   page,
