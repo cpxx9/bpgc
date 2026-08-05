@@ -40,10 +40,11 @@ const AdminGolfersPage = async ({ searchParams }: PropTypes) => {
       </div>
       <div className="overflow-x-auto">
         <div className="flex items-center justify-between gap-2 mb-2">
-          {golfers.totalCount > 0 ? (
+          {golfers.totalCount < PAGE_SIZE && !q ? (
+            <p className="text-muted-foreground">Displaying all results...</p>
+          ) : golfers.totalCount > 0 ? (
             <p className="text-muted-foreground">
-              Displaying {PAGE_SIZE} of {golfers.totalCount} result
-              {golfers.totalCount === 1 ? "" : "s"}
+              {golfers.totalCount} result{golfers.totalCount === 1 ? "" : "s"}
               {q ? ` for "${q}"` : ""}
             </p>
           ) : (

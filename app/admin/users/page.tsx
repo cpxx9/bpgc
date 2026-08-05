@@ -11,6 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { PAGE_SIZE } from "@/index";
 import { deleteUser, getAllUsers } from "@/lib/actions/user.actions";
 import { requireAdmin } from "@/lib/auth-guard";
 import { shortenUuid } from "@/lib/utils";
@@ -39,7 +40,9 @@ const AdminUsersPage = async ({ searchParams }: PropTypes) => {
       </div>
       <div className="overflow-x-auto">
         <div className="flex items-center justify-between gap-2 mb-2">
-          {users.totalCount > 0 ? (
+          {users.totalCount < PAGE_SIZE && !q ? (
+            <p className="text-muted-foreground">Displaying all results...</p>
+          ) : users.totalCount > 0 ? (
             <p className="text-muted-foreground">
               {users.totalCount} result{users.totalCount === 1 ? "" : "s"}
               {q ? ` for "${q}"` : ""}
