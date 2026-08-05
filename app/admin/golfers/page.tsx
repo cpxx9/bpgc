@@ -17,6 +17,7 @@ import { shortenUuid } from "@/lib/utils";
 import Link from "next/link";
 import CreateGolferForm from "@/components/admin/create-golfer-form";
 import { PAGE_SIZE } from "@/lib/constants";
+import ResultsSummary from "@/components/admin/results-summary";
 
 export const metadata: Metadata = {
   title: "Admin Golfers",
@@ -39,21 +40,12 @@ const AdminGolfersPage = async ({ searchParams }: PropTypes) => {
         <CreateGolferForm />
       </div>
       <div className="overflow-x-auto">
-        <div className="flex items-center justify-between gap-2 mb-2">
-          {golfers.totalCount < PAGE_SIZE && !q ? (
-            <p className="text-muted-foreground">Displaying all results...</p>
-          ) : golfers.totalCount > 0 ? (
-            <p className="text-muted-foreground">
-              {golfers.totalCount} result{golfers.totalCount === 1 ? "" : "s"}
-              {q ? ` for "${q}"` : ""}
-            </p>
-          ) : (
-            <p className="text-muted-foreground">No search results found...</p>
-          )}
-        </div>
-        {golfers.totalPages > 1 && (
-          <Pagination page={pageParam} totalPages={golfers.totalPages} />
-        )}
+        <ResultsSummary
+          totalCount={golfers.totalCount}
+          totalPages={golfers.totalPages}
+          page={pageParam}
+          query={q}
+        />
         <Table>
           <TableHeader>
             <TableRow>

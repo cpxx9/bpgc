@@ -1,4 +1,5 @@
 import CreateUserForm from "@/components/admin/create-user-form";
+import ResultsSummary from "@/components/admin/results-summary";
 import DeleteDialog from "@/components/shared/delete-dialog";
 import Pagination from "@/components/shared/pagination";
 import { Badge } from "@/components/ui/badge";
@@ -39,21 +40,12 @@ const AdminUsersPage = async ({ searchParams }: PropTypes) => {
         <CreateUserForm />
       </div>
       <div className="overflow-x-auto">
-        <div className="flex items-center justify-between gap-2 mb-2">
-          {users.totalCount < PAGE_SIZE && !q ? (
-            <p className="text-muted-foreground">Displaying all results...</p>
-          ) : users.totalCount > 0 ? (
-            <p className="text-muted-foreground">
-              {users.totalCount} result{users.totalCount === 1 ? "" : "s"}
-              {q ? ` for "${q}"` : ""}
-            </p>
-          ) : (
-            <p className="text-muted-foreground">No search results found...</p>
-          )}
-        </div>
-        {users.totalPages > 1 && (
-          <Pagination page={pageParam} totalPages={users.totalPages} />
-        )}
+        <ResultsSummary
+          totalCount={users.totalCount}
+          totalPages={users.totalPages}
+          page={pageParam}
+          query={q}
+        />
         <Table>
           <TableHeader>
             <TableRow>
