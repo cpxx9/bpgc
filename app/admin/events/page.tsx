@@ -18,13 +18,14 @@ import {
 import CreateEventForm from "@/components/admin/create-event-form";
 import ResultsSummary from "@/components/admin/results-summary";
 import { resolvePageSize } from "@/lib/constants";
+import { AdminSearchParams } from "@/types";
 
 export const metadata: Metadata = {
   title: "Admin Events",
 };
 
 interface PropTypes {
-  searchParams: Promise<{ page: string; q?: string; size?: string }>;
+  searchParams: Promise<AdminSearchParams>;
 }
 
 const AdminEventsPage = async ({ searchParams }: PropTypes) => {
