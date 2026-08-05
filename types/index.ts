@@ -23,7 +23,7 @@ export type PaginatedResult<T> = {
   totalPages: number;
 };
 
-type PaginateArgs<TData, TWhere> = {
+export type PaginateArgs<TData, TWhere> = {
   page: number;
   limit?: number;
   query?: string;
