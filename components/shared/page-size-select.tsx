@@ -39,8 +39,11 @@ const PageSizeSelect = ({ pageSize }: { pageSize: number }) => {
 
   return (
     <Select value={String(pageSize)} onValueChange={handleChange}>
-      <SelectTrigger>
-        <SelectValue />
+      <SelectTrigger
+        className="max-w-[120px] h-8"
+        aria-label="Results per page"
+      >
+        <SelectValue>{pageSize} / page</SelectValue>
       </SelectTrigger>
       <SelectContent>
         {PAGE_SIZE_OPTIONS.map((option) => (

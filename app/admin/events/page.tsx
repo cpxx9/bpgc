@@ -17,20 +17,26 @@ import {
 } from "@/components/ui/table";
 import CreateEventForm from "@/components/admin/create-event-form";
 import ResultsSummary from "@/components/admin/results-summary";
+import { resolvePageSize } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Admin Events",
 };
 
 interface PropTypes {
-  searchParams: Promise<{ page: string; q?: string }>;
+  searchParams: Promise<{ page: string; q?: string; size?: string }>;
 }
 
 const AdminEventsPage = async ({ searchParams }: PropTypes) => {
   await requireAdmin();
-  const { page = "1", q } = await searchParams;
+  const { page = "1", q, size } = await searchParams;
   const pageParam = Number(page);
-  const events = await getAllEvents({ page: pageParam, query: q });
+  const pageSize = resolvePageSize(size);
+  const events = await getAllEvents({
+    page: pageParam,
+    query: q,
+    limit: pageSize,
+  });
 
   return (
     <div className="space-y-2 flex-1">
@@ -43,6 +49,7 @@ const AdminEventsPage = async ({ searchParams }: PropTypes) => {
           totalCount={events.totalCount}
           totalPages={events.totalPages}
           page={pageParam}
+          pageSize={pageSize}
           query={q}
         />
         <Table>

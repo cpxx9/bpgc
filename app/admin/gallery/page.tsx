@@ -15,19 +15,25 @@ import {
 } from "@/components/ui/table";
 import { deleteImage, getAllImages } from "@/lib/actions/image.actions";
 import { requireAdmin } from "@/lib/auth-guard";
+import { resolvePageSize } from "@/lib/constants";
 import { shortenUuid } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
 interface PropTypes {
-  searchParams: Promise<{ page: string; q?: string }>;
+  searchParams: Promise<{ page: string; q?: string; size?: string }>;
 }
 
 const AdminGalleryPage = async ({ searchParams }: PropTypes) => {
   await requireAdmin();
-  const { page = "1", q } = await searchParams;
+  const { page = "1", q, size } = await searchParams;
   const pageParam = Number(page);
-  const images = await getAllImages({ page: pageParam, query: q });
+  const pageSize = resolvePageSize(size);
+  const images = await getAllImages({
+    page: pageParam,
+    query: q,
+    limit: pageSize,
+  });
   if (images.success === false)
     return (
       <div className="space-y-2 flex-1">
@@ -50,6 +56,7 @@ const AdminGalleryPage = async ({ searchParams }: PropTypes) => {
           totalCount={images.totalCount}
           totalPages={images.totalPages}
           page={pageParam}
+          pageSize={pageSize}
           query={q}
         />
         <Table className="w-full table-fixed">

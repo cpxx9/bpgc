@@ -15,6 +15,7 @@ import {
 import { PAGE_SIZE } from "@/index";
 import { deleteUser, getAllUsers } from "@/lib/actions/user.actions";
 import { requireAdmin } from "@/lib/auth-guard";
+import { resolvePageSize } from "@/lib/constants";
 import { shortenUuid } from "@/lib/utils";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -24,14 +25,19 @@ export const metadata: Metadata = {
 };
 
 interface PropTypes {
-  searchParams: Promise<{ page: string; q?: string }>;
+  searchParams: Promise<{ page: string; q?: string; size?: string }>;
 }
 
 const AdminUsersPage = async ({ searchParams }: PropTypes) => {
   await requireAdmin();
-  const { page = "1", q } = await searchParams;
+  const { page = "1", q, size } = await searchParams;
   const pageParam = Number(page);
-  const users = await getAllUsers({ page: pageParam, query: q });
+  const pageSize = resolvePageSize(size);
+  const users = await getAllUsers({
+    page: pageParam,
+    query: q,
+    limit: pageSize,
+  });
 
   return (
     <div className="space-y-2 flex-1">
@@ -44,6 +50,7 @@ const AdminUsersPage = async ({ searchParams }: PropTypes) => {
           totalCount={users.totalCount}
           totalPages={users.totalPages}
           page={pageParam}
+          pageSize={pageSize}
           query={q}
         />
         <Table>

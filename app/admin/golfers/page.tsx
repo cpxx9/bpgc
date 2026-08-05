@@ -16,7 +16,7 @@ import { getAllGolfers, deleteGolfer } from "@/lib/actions/golfer.actions";
 import { shortenUuid } from "@/lib/utils";
 import Link from "next/link";
 import CreateGolferForm from "@/components/admin/create-golfer-form";
-import { PAGE_SIZE } from "@/lib/constants";
+import { PAGE_SIZE, resolvePageSize } from "@/lib/constants";
 import ResultsSummary from "@/components/admin/results-summary";
 
 export const metadata: Metadata = {
@@ -24,14 +24,19 @@ export const metadata: Metadata = {
 };
 
 interface PropTypes {
-  searchParams: Promise<{ page: string; q?: string }>;
+  searchParams: Promise<{ page: string; q?: string; size?: string }>;
 }
 
 const AdminGolfersPage = async ({ searchParams }: PropTypes) => {
   await requireAdmin();
-  const { page = "1", q } = await searchParams;
+  const { page = "1", q, size } = await searchParams;
   const pageParam = Number(page);
-  const golfers = await getAllGolfers({ page: pageParam, query: q });
+  const pageSize = resolvePageSize(size);
+  const golfers = await getAllGolfers({
+    page: pageParam,
+    query: q,
+    limit: pageSize,
+  });
 
   return (
     <div className="space-y-2 flex-1">
@@ -44,6 +49,7 @@ const AdminGolfersPage = async ({ searchParams }: PropTypes) => {
           totalCount={golfers.totalCount}
           totalPages={golfers.totalPages}
           page={pageParam}
+          pageSize={pageSize}
           query={q}
         />
         <Table>

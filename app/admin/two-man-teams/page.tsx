@@ -26,20 +26,26 @@ import { notFound } from "next/navigation";
 import UpdateTwoManTeamForm from "@/components/admin/update-twomanteam-form";
 import DisbandDialog from "@/components/admin/disband-dialog";
 import ResultsSummary from "@/components/admin/results-summary";
+import { resolvePageSize } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Admin Two Man Teams",
 };
 
 interface PropTypes {
-  searchParams: Promise<{ page: string; q?: string }>;
+  searchParams: Promise<{ page: string; q?: string; size?: string }>;
 }
 
 const AdminTwoManTeamsPage = async ({ searchParams }: PropTypes) => {
   await requireAdmin();
-  const { page = "1", q } = await searchParams;
+  const { page = "1", q, size } = await searchParams;
   const pageParam = Number(page);
-  const twoManTeams = await getAllTwoManTeams({ page: pageParam, query: q });
+  const pageSize = resolvePageSize(size);
+  const twoManTeams = await getAllTwoManTeams({
+    page: pageParam,
+    query: q,
+    limit: pageSize,
+  });
   const { data } = await getFreeAgents();
   if (!data) notFound();
 
@@ -54,6 +60,7 @@ const AdminTwoManTeamsPage = async ({ searchParams }: PropTypes) => {
           totalCount={twoManTeams.totalCount}
           totalPages={twoManTeams.totalPages}
           page={pageParam}
+          pageSize={pageSize}
           query={q}
         />
         <Table>
