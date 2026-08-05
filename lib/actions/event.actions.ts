@@ -10,15 +10,42 @@ import { createEventSchema } from "@/lib/validators";
 import {
   ActionResult,
   Event,
+  EventSearchParams,
   EventWithScores,
+  FilterResolvers,
   TwoManTeamStandingsPublic,
   UpdateEvent,
   WeeklyMatchupsPublic,
 } from "@/types";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
-import { paginate } from "@/lib/paginate";
+import { buildFilterWhere, paginate } from "@/lib/paginate";
 import { Prisma } from "@prisma/client";
+
+const EVENT_FILTERS: FilterResolvers<Prisma.EventWhereInput> = {
+  year: (v) => {
+    const y = Number(v);
+    if (!Number.isInteger(y)) return null;
+    return {
+      date: {
+        gte: new Date(Date.UTC(y, 0, 1)),
+        lt: new Date(Date.UTC(y + 1, 0, 1)),
+      },
+    };
+  },
+  twoman: (v) =>
+    v === "true"
+      ? { isTwoManMatch: true }
+      : v === "false"
+        ? { isTwoManMatch: false }
+        : null,
+  championship: (v) =>
+    v === "true"
+      ? { isChampionship: true }
+      : v === "false"
+        ? { isChampionship: false }
+        : null,
+};
 
 export async function createEvent(prevState: unknown, formData: FormData) {
   try {
@@ -155,16 +182,19 @@ export async function getAllEvents({
   limit,
   page,
   query,
+  filters,
 }: {
   limit?: number;
   page: number;
   query?: string;
+  filters?: EventSearchParams;
 }) {
   return paginate<Event, Prisma.EventWhereInput>({
     page,
     limit,
     query,
     searchFields: ["location", "description"],
+    baseWhere: buildFilterWhere(EVENT_FILTERS, filters),
     findMany: ({ where, take, skip }) =>
       prisma.event.findMany({
         where,

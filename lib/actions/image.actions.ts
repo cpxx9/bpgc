@@ -13,14 +13,44 @@ import {
   CardImagesPublic,
   DbImage,
   DbImageAdmin,
+  FilterResolvers,
+  ImageSearchParams,
   UpdateImage,
 } from "@/types";
 import { revalidatePath } from "next/cache";
 import { UTApi } from "uploadthing/server";
-import { paginate } from "@/lib/paginate";
+import { buildFilterWhere, paginate } from "@/lib/paginate";
 import { Prisma } from "@prisma/client";
 
 const utapi = new UTApi();
+
+const IMAGE_IN_USE: Prisma.ImagesWhereInput[] = [
+  { isHomeSplash: true },
+  { isScheduleSplash: true },
+  { isWeeklyScoresSplash: true },
+  { isScoringAveragesSplash: true },
+  { isTwoManLeagueSplash: true },
+  { isClubChampionshipSplash: true },
+  { isContestsSplash: true },
+  { isVideoOfTheWeek: true },
+  { isTwoManChamps: true },
+  { isBpgcTv: true },
+];
+
+const IMAGE_FILTERS: FilterResolvers<Prisma.ImagesWhereInput> = {
+  displayed: (v) =>
+    v === "true"
+      ? { displayed: true }
+      : v === "false"
+        ? { displayed: false }
+        : null,
+  usage: (v) =>
+    v === "used"
+      ? { OR: IMAGE_IN_USE } // any flag set
+      : v === "unused"
+        ? { NOT: { OR: IMAGE_IN_USE } } // none set
+        : null,
+};
 
 export async function createImage(data: {
   url: string;
@@ -89,16 +119,19 @@ export async function getAllImages({
   limit,
   page,
   query,
+  filters,
 }: {
   limit?: number;
   page: number;
   query?: string;
+  filters?: ImageSearchParams;
 }) {
   return paginate<DbImageAdmin, Prisma.ImagesWhereInput>({
     page,
     limit,
     query,
     searchFields: ["fileName", "url"],
+    baseWhere: buildFilterWhere(IMAGE_FILTERS, filters),
     findMany: ({ where, take, skip }) =>
       prisma.images.findMany({
         where,

@@ -9,16 +9,27 @@ import { formatError } from "@/lib/utils";
 import { createTwoManTeamSchema } from "@/lib/validators";
 import {
   ActionResult,
+  FilterResolvers,
   TwoManTeam,
   TwoManTeamPublic,
+  TwoManTeamSearchParams,
   TwoManTeamStandingsPublic,
   TwoManTeamWithGolfers,
   UpdateTwoManTeam,
 } from "@/types";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
-import { paginate } from "@/lib/paginate";
+import { buildFilterWhere, paginate } from "@/lib/paginate";
 import { Prisma } from "@prisma/client";
+
+const TEAM_FILTERS: FilterResolvers<Prisma.TwoManTeamWhereInput> = {
+  status: (v) =>
+    v === "active"
+      ? { active: true }
+      : v === "inactive"
+        ? { active: false }
+        : null,
+};
 
 export async function createTwoManTeam(golfers: TwoManTeam) {
   try {
@@ -106,15 +117,18 @@ export async function getAllTwoManTeams({
   limit,
   page,
   query,
+  filters,
 }: {
   limit?: number;
   page: number;
   query?: string;
+  filters?: TwoManTeamSearchParams;
 }) {
   return paginate<TwoManTeamWithGolfers, Prisma.TwoManTeamWhereInput>({
     page,
     limit,
     query,
+    baseWhere: buildFilterWhere(TEAM_FILTERS, filters),
     buildWhere: (q) => ({
       OR: [
         ...(Number.isInteger(Number(q)) ? [{ number: Number(q) }] : []),

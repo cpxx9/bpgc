@@ -10,7 +10,9 @@ import { formatError } from "@/lib/utils";
 import { createGolferSchema } from "@/lib/validators";
 import {
   ActionResult,
+  FilterResolvers,
   Golfer,
+  GolferSearchParams,
   GolferWithScoreAverage,
   GolferWithTeammate,
   UpdateGolfer,
@@ -18,7 +20,16 @@ import {
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { Prisma } from "@prisma/client";
-import { paginate } from "@/lib/paginate";
+import { buildFilterWhere, paginate } from "@/lib/paginate";
+
+const GOLFER_FILTERS: FilterResolvers<Prisma.GolferWhereInput> = {
+  status: (v) =>
+    v === "active"
+      ? { active: true }
+      : v === "inactive"
+        ? { active: false }
+        : null,
+};
 
 export async function createGolfer(prevState: unknown, formData: FormData) {
   try {
@@ -193,16 +204,19 @@ export async function getAllGolfers({
   limit = PAGE_SIZE,
   page,
   query,
+  filters,
 }: {
   limit?: number;
   page: number;
   query?: string;
+  filters?: GolferSearchParams;
 }) {
   return paginate<GolferWithTeammate, Prisma.GolferWhereInput>({
     page,
     limit,
     query,
     searchFields: ["firstName", "lastName"],
+    baseWhere: buildFilterWhere(GOLFER_FILTERS, filters),
     findMany: async ({ where, take, skip }) => {
       const raw = await prisma.golfer.findMany({
         where,

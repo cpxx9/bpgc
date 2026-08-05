@@ -6,12 +6,21 @@ import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { hashSync } from "bcrypt-ts-edge";
 import { prisma } from "@/db/prisma";
 import { formatError } from "@/lib/utils";
-import type { UpdateUser, User } from "@/types";
+import type {
+  FilterResolvers,
+  UpdateUser,
+  User,
+  UserSearchParams,
+} from "@/types";
 import { revalidatePath } from "next/cache";
 import { PAGE_SIZE } from "@/lib/constants";
 import { requireAdminAction } from "@/lib/auth-guard";
 import { Prisma } from "@prisma/client";
-import { paginate } from "@/lib/paginate";
+import { buildFilterWhere, paginate } from "@/lib/paginate";
+
+const USER_FILTERS: FilterResolvers<Prisma.UserWhereInput> = {
+  role: (v) => (v === "admin" || v === "user" ? { role: v } : null),
+};
 
 export async function signInWithCredentials(
   previousState: unknown,
@@ -95,16 +104,19 @@ export async function getAllUsers({
   limit = PAGE_SIZE,
   page,
   query,
+  filters,
 }: {
   limit?: number;
   page: number;
   query?: string;
+  filters?: UserSearchParams;
 }) {
   return paginate<User, Prisma.UserWhereInput>({
     page,
     limit,
     query,
     searchFields: ["name", "email"],
+    baseWhere: buildFilterWhere(USER_FILTERS, filters),
     findMany: ({ where, take, skip }) =>
       prisma.user.findMany({
         where,
