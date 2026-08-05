@@ -18,6 +18,7 @@ import {
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { Prisma } from "@prisma/client";
+import { paginate } from "@/lib/paginate";
 
 export async function createGolfer(prevState: unknown, formData: FormData) {
   try {
@@ -197,73 +198,44 @@ export async function getAllGolfers({
   page: number;
   query?: string;
 }) {
-  try {
-    const admin = await requireAdminAction();
-    if (!admin) throw new Error("You are not authorized!");
-    const queryTrimmed = query?.trim();
-
-    const where: Prisma.GolferWhereInput = queryTrimmed
-      ? {
-          OR: [
-            { firstName: { contains: queryTrimmed, mode: "insensitive" } },
-            { lastName: { contains: queryTrimmed, mode: "insensitive" } },
-          ],
-        }
-      : {};
-
-    const [raw, dataCount] = await Promise.all([
-      prisma.golfer.findMany({
+  return paginate<GolferWithTeammate, Prisma.GolferWhereInput>({
+    page,
+    limit,
+    query,
+    searchFields: ["firstName", "lastName"],
+    findMany: async ({ where, take, skip }) => {
+      const raw = await prisma.golfer.findMany({
         where,
+        take,
+        skip,
         orderBy: [
           { active: "desc" },
           { lastName: "asc" },
           { firstName: "asc" },
         ],
-        take: limit,
-        skip: (page - 1) * limit,
         include: {
           memberships: {
             where: { endDate: null },
             include: {
               twoManTeam: {
-                include: {
-                  memberships: {
-                    include: { golfer: true },
-                  },
-                },
+                include: { memberships: { include: { golfer: true } } },
               },
             },
           },
         },
-      }),
-      await prisma.golfer.count({ where }),
-    ]);
-
-    const data = raw.map((golfer) => {
-      const team = golfer.memberships[0]?.twoManTeam ?? null;
-      return {
-        ...golfer,
-        twoManTeam: team
-          ? { ...team, golfers: team.memberships.map((m) => m.golfer) }
-          : null,
-      };
-    });
-
-    return {
-      success: true,
-      data: data as unknown as GolferWithTeammate[],
-      totalCount: dataCount,
-      totalPages: Math.ceil(dataCount / limit),
-    };
-  } catch (err) {
-    return {
-      success: false,
-      message: formatError(err),
-      data: [] as GolferWithTeammate[],
-      totalCount: 0,
-      totalPages: 1,
-    };
-  }
+      });
+      return raw.map((golfer) => {
+        const team = golfer.memberships[0]?.twoManTeam ?? null;
+        return {
+          ...golfer,
+          twoManTeam: team
+            ? { ...team, golfers: team.memberships.map((m) => m.golfer) }
+            : null,
+        };
+      }) as GolferWithTeammate[];
+    },
+    count: ({ where }) => prisma.golfer.count({ where }),
+  });
 }
 
 export async function updateGolfer(golfer: UpdateGolfer) {

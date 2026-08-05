@@ -16,6 +16,7 @@ import { getAllGolfers, deleteGolfer } from "@/lib/actions/golfer.actions";
 import { shortenUuid } from "@/lib/utils";
 import Link from "next/link";
 import CreateGolferForm from "@/components/admin/create-golfer-form";
+import { PAGE_SIZE } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Admin Golfers",
@@ -41,7 +42,8 @@ const AdminGolfersPage = async ({ searchParams }: PropTypes) => {
         <div className="flex items-center justify-between gap-2 mb-2">
           {golfers.totalCount > 0 ? (
             <p className="text-muted-foreground">
-              {golfers.totalCount} result{golfers.totalCount === 1 ? "" : "s"}
+              Displaying {PAGE_SIZE} of {golfers.totalCount} result
+              {golfers.totalCount === 1 ? "" : "s"}
               {q ? ` for "${q}"` : ""}
             </p>
           ) : (
