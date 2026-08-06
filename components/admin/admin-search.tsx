@@ -1,6 +1,6 @@
 "use client";
 
-import AdminFilter from "@/components/admin/admin-filter";
+import FilterMenu from "@/components/admin/filter-menu";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAdminFilters } from "@/hooks/use-admin-filters";
@@ -50,9 +50,7 @@ const AdminSearch = ({
           Search
         </button>
       </form>
-      {filters.map((f) => (
-        <AdminFilter key={f.name} filter={f} />
-      ))}
+      <FilterMenu />
       {showReset ? (
         <Button asChild variant="outline" size="sm">
           <Link href={resetHref}>Reset</Link>

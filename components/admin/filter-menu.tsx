@@ -9,7 +9,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useAdminFilters } from "@/hooks/use-admin-filters";
-import { ADMIN_FILTERS } from "@/lib/admin-filters";
 import { SlidersHorizontal } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
