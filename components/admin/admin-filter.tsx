@@ -12,7 +12,13 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const ALL = "all";
 
-const AdminFilter = ({ filter }: { filter: FilterConfig }) => {
+const AdminFilter = ({
+  filter,
+  className = "w=[150px]",
+}: {
+  filter: FilterConfig;
+  className?: string;
+}) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -29,7 +35,7 @@ const AdminFilter = ({ filter }: { filter: FilterConfig }) => {
 
   return (
     <Select value={current} onValueChange={handleChange}>
-      <SelectTrigger className="w-[150px] h-9" aria-label={filter.label}>
+      <SelectTrigger className={`${className} h-9`} aria-label={filter.label}>
         <SelectValue />
       </SelectTrigger>
       <SelectContent>

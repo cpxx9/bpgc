@@ -3,7 +3,7 @@
 import AdminFilter from "@/components/admin/admin-filter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ADMIN_FILTERS } from "@/lib/admin-filters";
+import { useAdminFilters } from "@/hooks/use-admin-filters";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -22,7 +22,7 @@ const AdminSearch = ({
     setQueryValue(q);
   }, [q]);
 
-  const filters = ADMIN_FILTERS[pathname] ?? [];
+  const filters = useAdminFilters();
   const size = searchParams.get("size");
   const hasActiveFilter = filters.some((f) => searchParams.get(f.name));
   const showReset = Boolean(q) || hasActiveFilter;
