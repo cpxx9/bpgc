@@ -44,7 +44,7 @@ const FilterMenu = () => {
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent>
+      <PopoverContent className="flex flex-col gap-2">
         {filters.map((f) => (
           <AdminFilter key={f.name} filter={f} />
         ))}
