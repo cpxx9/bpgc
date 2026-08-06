@@ -138,7 +138,7 @@ const Links = ({ withSheetClose = false }: PropTypes) => {
             {openMenu === link.href && (
               <div
                 className={cn(
-                  "flex flex-col gap-2 bg-white",
+                  "flex flex-col gap-2 bg-background text-foreground rounded-md border shadow-md p-1",
                   "md:gap-0 md:mt-1 md:absolute md:top-full md:left-1/2 md:-translate-x-1/2 md:z-50",
                 )}
                 onMouseEnter={() => {
