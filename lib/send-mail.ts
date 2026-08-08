@@ -30,6 +30,7 @@ export async function sendMail(
 ): Promise<ActionResultMessage> {
   try {
     const isVerified = await transporter.verify();
+    console.log(isVerified);
     if (!isVerified) throw new Error("Error verifying credentials!");
     const data = eventRegisterSchema.parse({
       player1: formData.get("player1") || "",

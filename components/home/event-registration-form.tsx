@@ -58,7 +58,7 @@ const EventRegistrationForm = () => {
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4">
-            <form id="create-event-form" action={action}>
+            <form id="event-registration-form" action={action}>
               <input type="hidden" name="callbackUrl" value={callbackUrl} />
               <div className="space-y-6">
                 <div>
