@@ -1,5 +1,6 @@
 "use server";
 import { formatError } from "@/lib/utils";
+import { eventRegisterSchema } from "@/lib/validators";
 import { ActionResultMessage } from "@/types";
 import nodemailer from "nodemailer";
 const SMTP_SERVER_HOST = process.env.SMTP_SERVER_HOST;
@@ -30,13 +31,13 @@ export async function sendMail(
   try {
     const isVerified = await transporter.verify();
     if (!isVerified) throw new Error("Error verifying credentials!");
-    const data = {
+    const data = eventRegisterSchema.parse({
       player1: formData.get("player1") || "",
       player2: formData.get("player2") || "",
       player3: formData.get("player3") || "",
       player4: formData.get("player4") || "",
       comment: formData.get("comment") || "",
-    };
+    });
 
     await transporter.sendMail({
       ...mailOptions,
