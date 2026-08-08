@@ -6,6 +6,7 @@ import BackgroundImage from "@/components/shared/background-image";
 import CardImage from "@/components/shared/card-image";
 import Link from "next/link";
 import { Metadata } from "next";
+import EventRegistrationForm from "@/components/home/event-registration-form";
 
 export const metadata: Metadata = {
   description:
@@ -26,9 +27,7 @@ const Homepage = () => {
           </Suspense>
         </div>
         <div>
-          <Button className="rounded-full tracking-[0.4em] font-semibold py-8 px-7 text-md">
-            REGISTER ONLINE HERE
-          </Button>
+          <EventRegistrationForm />
         </div>
       </div>
       {/* Cards */}
