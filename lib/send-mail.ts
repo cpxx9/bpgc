@@ -25,12 +25,16 @@ const mailOptions = {
 
 export async function sendMail({
   subject,
-  text,
-  html,
+  data,
 }: {
   subject: string;
-  text: string;
-  html?: string;
+  data: {
+    player1: string;
+    player2?: string;
+    player3?: string;
+    player4?: string;
+    comment?: string;
+  };
 }): Promise<ActionResultMessage> {
   try {
     const isVerified = await transporter.verify();
@@ -39,8 +43,8 @@ export async function sendMail({
     await transporter.sendMail({
       ...mailOptions,
       subject,
-      text,
-      html: html ? html : "",
+      text: `Player Registration\nPlayer 1: ${data.player1}\nPlayer 2: ${data.player2 || ""}\nPlayer 3: ${data.player3 || ""}\nPlayer 4: ${data.player4 || ""}\n\nComment: ${data.comment || ""}`,
+      html: `<h1>Player Registration</h1><p>Player 1: ${data.player1}</p><p>Player 2: ${data.player2}</p><p>Player 3: ${data.player3}</p><p>Player 4: ${data.player4}</p><p>Comment: ${data.comment}</p>`,
     });
     return {
       success: true,
