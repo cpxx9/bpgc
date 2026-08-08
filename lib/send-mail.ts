@@ -23,27 +23,25 @@ const mailOptions = {
   to: "test@cjplabs.com",
 };
 
-export async function sendMail({
-  subject,
-  data,
-}: {
-  subject: string;
-  data: {
-    player1: string;
-    player2?: string;
-    player3?: string;
-    player4?: string;
-    comment?: string;
-  };
-}): Promise<ActionResultMessage> {
+export async function sendMail(
+  prevState: unknown,
+  formData: FormData,
+): Promise<ActionResultMessage> {
   try {
     const isVerified = await transporter.verify();
     if (!isVerified) throw new Error("Error verifying credentials!");
+    const data = {
+      player1: formData.get("player1") || "",
+      player2: formData.get("player2") || "",
+      player3: formData.get("player3") || "",
+      player4: formData.get("player4") || "",
+      comment: formData.get("comment") || "",
+    };
 
     await transporter.sendMail({
       ...mailOptions,
-      subject,
-      text: `Player Registration\nPlayer 1: ${data.player1}\nPlayer 2: ${data.player2 || ""}\nPlayer 3: ${data.player3 || ""}\nPlayer 4: ${data.player4 || ""}\n\nComment: ${data.comment || ""}`,
+      subject: "Beaver Point Event Registration Form",
+      text: `Player Registration\nPlayer 1: ${data.player1}\nPlayer 2: ${data.player2}\nPlayer 3: ${data.player3}\nPlayer 4: ${data.player4}n\nComment: ${data.comment}`,
       html: `<h1>Player Registration</h1><p>Player 1: ${data.player1}</p><p>Player 2: ${data.player2}</p><p>Player 3: ${data.player3}</p><p>Player 4: ${data.player4}</p><p>Comment: ${data.comment}</p>`,
     });
     return {
