@@ -85,6 +85,14 @@ export const createEventSchema = z.object({
   }),
 });
 
+export const eventRegisterSchema = z.object({
+  player1: z.string().min(1, `Player 1${isRequiredError}`).trim(),
+  player2: z.string(),
+  player3: z.string(),
+  player4: z.string(),
+  comment: z.string(),
+});
+
 export const updateEventSchema = z.object({
   id: z.string().min(1, `ID${isRequiredError}`).trim(),
   date: z.string(),
