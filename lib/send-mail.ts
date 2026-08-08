@@ -1,5 +1,6 @@
 "use server";
-import { formatError } from "@/lib/utils";
+import { getNextEvent } from "@/lib/actions/event.actions";
+import { convertToFormDate, convertToFormTime, formatError } from "@/lib/utils";
 import { eventRegisterSchema } from "@/lib/validators";
 import { ActionResultMessage } from "@/types";
 import nodemailer from "nodemailer";
@@ -30,8 +31,21 @@ export async function sendMail(
 ): Promise<ActionResultMessage> {
   try {
     const isVerified = await transporter.verify();
-    console.log(isVerified);
     if (!isVerified) throw new Error("Error verifying credentials!");
+
+    const { data: event } = await getNextEvent();
+
+    const eventText = event
+      ? `Event: ${event.description}\nDate: ${convertToFormDate(event.date)}\nCourse: ${event.location}\n1st Tee time: ${convertToFormTime(event.time)}`
+      : "Event: No event currently scheduled";
+
+    const eventHtml = event
+      ? `<h3>${event.description}</h3>
+<h4>Date: ${convertToFormDate(event.date)}</h4>
+<h4>Course: ${event.location}</h4>
+<h4>1st Tee Time: ${convertToFormTime(event.time)}</h4>`
+      : `<h3>No event currently scheduled</h3>`;
+
     const data = eventRegisterSchema.parse({
       player1: formData.get("player1") || "",
       player2: formData.get("player2") || "",
@@ -43,8 +57,15 @@ export async function sendMail(
     await transporter.sendMail({
       ...mailOptions,
       subject: "Beaver Point Event Registration Form",
-      text: `Player Registration\nPlayer 1: ${data.player1}\nPlayer 2: ${data.player2}\nPlayer 3: ${data.player3}\nPlayer 4: ${data.player4}n\nComment: ${data.comment}`,
-      html: `<h1>Player Registration</h1><p>Player 1: ${data.player1}</p><p>Player 2: ${data.player2}</p><p>Player 3: ${data.player3}</p><p>Player 4: ${data.player4}</p><p>Comment: ${data.comment}</p>`,
+      text: `Player Registration\n${eventText}\n\nPlayer Info\nPlayer 1: ${data.player1}\nPlayer 2: ${data.player2}\nPlayer 3: ${data.player3}\nPlayer 4: ${data.player4}n\nComment: ${data.comment}`,
+      html: `<h1>Event Registration</h1>
+             ${eventHtml}
+             <h3>Player info</h3>
+             <h4>Player 1: ${data.player1}</h4>
+             <h4>Player 2: ${data.player2}</h4>
+             <h4>Player 3: ${data.player3}</h4>
+             <h4>Player 4: ${data.player4}</h4>
+             <h4>Comment: ${data.comment}</h4>`,
     });
     return {
       success: true,
