@@ -13,17 +13,31 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useActionState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { useSearchParams } from "next/navigation";
 import { sendMail } from "@/lib/send-mail";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 
 const EventRegistrationForm = () => {
+  const { toast } = useToast();
+
   const [data, action] = useActionState(sendMail, {
     success: false,
     message: "",
   });
+
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (data.success) {
+      setOpen(false);
+      toast({
+        description: data.message,
+      });
+    }
+  }, [data]);
 
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
@@ -45,15 +59,17 @@ const EventRegistrationForm = () => {
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <form>
         <DialogTrigger asChild>
           <Button>REGISTER ONLINE HERE</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>WANNA PLAY THIS WEEKEND</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-2xl text-center">
+              WANNA PLAY THIS WEEKEND?
+            </DialogTitle>
+            <DialogDescription className="text-xl text-center">
               REGISTER FOR THE NEXT OUTING BELOW
             </DialogDescription>
           </DialogHeader>

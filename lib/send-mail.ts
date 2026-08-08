@@ -40,7 +40,7 @@ export async function sendMail(
       : "Event: No event currently scheduled";
 
     const eventHtml = event
-      ? `<h3>${event.description}</h3>
+      ? `<h2>${event.description}</h2>
 <h4>Date: ${convertToFormDate(event.date)}</h4>
 <h4>Course: ${event.location}</h4>
 <h4>1st Tee Time: ${convertToFormTime(event.time)}</h4>`
@@ -60,7 +60,7 @@ export async function sendMail(
       text: `Player Registration\n${eventText}\n\nPlayer Info\nPlayer 1: ${data.player1}\nPlayer 2: ${data.player2}\nPlayer 3: ${data.player3}\nPlayer 4: ${data.player4}n\nComment: ${data.comment}`,
       html: `<h1>Event Registration</h1>
              ${eventHtml}
-             <h3>Player info</h3>
+             <h2>Player info</h2>
              <h4>Player 1: ${data.player1}</h4>
              <h4>Player 2: ${data.player2}</h4>
              <h4>Player 3: ${data.player3}</h4>
