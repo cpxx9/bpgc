@@ -5,7 +5,6 @@ export const authConfig = {
   callbacks: {
     async authorized({ request, auth }: any) {
       const protectedPaths = [
-        /\/profile/,
         /\/user\/(.*)/,
         /\/order\/(.*)/,
         /\/admin\/(.*)/,
