@@ -2,6 +2,8 @@ Admin
 - figure out how to handle teams disbanding
 -- Team switching a player mid season
 -- still properly display stats for old seasons with disbanded teams
+- figure out club championship scores
+-- how to do net and gross
 
 Main Site
 - Club championship page logic
