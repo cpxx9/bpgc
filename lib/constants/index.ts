@@ -9,18 +9,6 @@ export const APP_DESCRIPTION =
 export const SERVER_URL =
   process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000";
 
-export const signInDefaultValues = {
-  email: "",
-  password: "",
-};
-
-export const signUpDefaultValues = {
-  name: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-};
-
 export const PAGE_SIZE = Number(process.env.NEXT_PUBLIC_PAGE_SIZE) || 10;
 
 export const PAGE_SIZE_OPTIONS = [10, 25, 50, 100];
@@ -30,6 +18,4 @@ export const resolvePageSize = (size?: string) => {
   return PAGE_SIZE_OPTIONS.includes(n) ? n : PAGE_SIZE;
 };
 
-export const USER_ROLES = process.env.USER_ROLES
-  ? process.env.USER_ROLES.split(", ")
-  : ["admin", "user"];
+export const USER_ROLES = ["admin", "user"];
