@@ -44,7 +44,24 @@ const TwoManStandings = async () => {
               <TableCell className="px-0 py-1 font-bold whitespace-nowrap">
                 {team.golfers.map((g) => abbrevName(g)).join("/")}
               </TableCell>
-              {team.weeklyScores.map((w) => (
+              {Array.from({ length: WEEKS }, (_, i) => {
+                const week = i + 1;
+                const score =
+                  team.weeklyScores.find((w) => w.week === week)?.score ?? null;
+                return (
+                  <TableCell
+                    key={week}
+                    className="hidden md:table-cell md:px-0 md:py-0 md:text-center md:whitespace-nowrap"
+                  >
+                    {score === null
+                      ? "-"
+                      : score === "DNP"
+                        ? "DNP"
+                        : score.toFixed(1)}
+                  </TableCell>
+                );
+              })}
+              {/* {team.weeklyScores.map((w) => (
                 <TableCell
                   key={w.week}
                   className="hidden md:table-cell md:px-0 md:py-0 md:text-center md:whitespace-nowrap"
@@ -55,7 +72,7 @@ const TwoManStandings = async () => {
                       ? "DNP"
                       : w.score.toFixed(1)}
                 </TableCell>
-              ))}
+              ))} */}
               <TableCell className="px-0 py-0 text-right font-bold">
                 {team.total.toFixed(1)}
               </TableCell>

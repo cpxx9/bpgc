@@ -26,7 +26,7 @@ const BackgroundImage = async ({ page }: PropTypes) => {
           sizes="100vw"
           style={{ objectFit: "cover", zIndex: -20 }}
         />
-        <div className="-z-10 absolute inset-0 bg-black/30" />
+        <div className="-z-10 absolute inset-0 bg-black/40" />
       </>
     );
   }
