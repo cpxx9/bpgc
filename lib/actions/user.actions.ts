@@ -8,6 +8,7 @@ import { prisma } from "@/db/prisma";
 import { formatError } from "@/lib/utils";
 import type {
   FilterResolvers,
+  SafeUser,
   UpdateUser,
   User,
   UserSearchParams,
@@ -95,6 +96,7 @@ export async function getUserById(userId: string | undefined) {
   if (!userId) throw new Error("No id passed");
   const user = await prisma.user.findFirst({
     where: { id: userId },
+    select: {id: true, name: true, email: true, role: true}
   });
   if (!user) throw new Error("User not found");
   return user;
@@ -111,7 +113,9 @@ export async function getAllUsers({
   query?: string;
   filters?: UserSearchParams;
 }) {
-  return paginate<User, Prisma.UserWhereInput>({
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
+  return paginate<SafeUser, Prisma.UserWhereInput>({
     page,
     limit,
     query,
@@ -120,6 +124,7 @@ export async function getAllUsers({
     findMany: ({ where, take, skip }) =>
       prisma.user.findMany({
         where,
+    select: {id: true, name: true, email: true, role: true, createdAt: true, updatedAt: true},
         take,
         skip,
         orderBy: { createdAt: "desc" },

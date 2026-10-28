@@ -12,7 +12,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { PAGE_SIZE } from "@/index";
 import { deleteUser, getAllUsers } from "@/lib/actions/user.actions";
 import { requireAdmin } from "@/lib/auth-guard";
 import { resolvePageSize } from "@/lib/constants";

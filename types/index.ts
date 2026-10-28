@@ -160,6 +160,8 @@ export type User = {
   updatedAt: Date;
 };
 
+export type SafeUser = Omit<User, "password" | "emailVerified">;
+
 export type Golfer = {
   id: string;
   firstName: string;
