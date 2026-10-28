@@ -44,14 +44,11 @@ export const config = {
   ],
   callbacks: {
     ...authConfig.callbacks,
-    async session({ session, user, trigger, token }: any) {
+    async session({ session, token }: any) {
       session.user.id = token.sub;
       session.user.role = token.role;
       session.user.name = token.name;
 
-      if (trigger === "update") {
-        session.user.name = user.name;
-      }
       return session;
     },
     async jwt({ token, user, trigger, session }: any) {

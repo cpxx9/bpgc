@@ -19,7 +19,7 @@ const getYesterday = () => {
 
 export const signInFormSchema = z.object({
   email: z.string().email("Invalid email address").trim(),
-  password: z.string().min(6, "Password must be at least 6 characters.").trim(),
+  password: z.string().min(6, "Password must be at least 6 characters."),
 });
 
 export const signUpFormSchema = z
