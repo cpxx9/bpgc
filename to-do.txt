@@ -1,13 +1,19 @@
 Admin
 - figure out how to handle teams disbanding
----- When a team disbands, make inactive as default
----- change team number to something like 99 or 999
----- This should now allow the golfers to be displayed again when creating a new team 
----- stop displaying the team in lists for matches
-- Figure out how to handle golfer going inactive
---- default should be making a golder inactive and preserving all past data
---- if golfer goes inactive, make team inactive
---- stop displaying in lists for events/teams
+-- Team switching a player mid season
+-- still properly display stats for old seasons with disbanded teams
 
 Main Site
 - Club championship page logic
+
+
+
+
+Update all button on matchups
+
+Change the home screen cards
+- Make BPGC news editable
+
+Date for next outing is wrong, Showing Oct 30 when it is set for Oct 31
+
+Fix year set up for public site. Admin can change year
