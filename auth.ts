@@ -2,9 +2,12 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/db/prisma";
-import { compareSync } from "bcrypt-ts-edge";
+import { compare } from "bcrypt-ts-edge";
 import { cookies } from "next/headers";
 import { authConfig } from "@/auth.config";
+import { signInFormSchema } from "@/lib/validators";
+
+const DUMMY_HASH = "0fc7e08ee1b3d611fa48d0fee19c82fb";
 
 export const config = {
   pages: {
@@ -23,30 +26,19 @@ export const config = {
         password: { type: "password" },
       },
       async authorize(credentials) {
-        if (credentials === null) return null;
+        const parsed = signInFormSchema.safeParse(credentials);
+  if (!parsed.success) return null;
 
-        const user = await prisma.user.findFirst({
-          where: {
-            email: credentials.email as string,
-          },
-        });
+  // TODO: rate-limit
 
-        if (user && user.password) {
-          const isMatch = compareSync(
-            credentials.password as string,
-            user.password,
-          );
+  const user = await prisma.user.findFirst({
+    where: { email: { equals: parsed.data.email, mode: "insensitive" } },
+  });
 
-          if (isMatch) {
-            return {
-              id: user.id,
-              name: user.name,
-              email: user.email,
-              role: user.role,
-            };
-          }
-        }
-        return null;
+  const ok = await compare(parsed.data.password, user?.password ?? DUMMY_HASH);
+  if (!user || !user.password || !ok) return null;
+
+  return { id: user.id, name: user.name, email: user.email, role: user.role };
       },
     }),
   ],

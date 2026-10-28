@@ -11,6 +11,18 @@ export const SERVER_URL =
 
 export const PAGE_SIZE = Number(process.env.NEXT_PUBLIC_PAGE_SIZE) || 10;
 
+export const signInDefaultValues = {
+  email: "",
+  password: "",
+};
+
+export const signUpDefaultValues = {
+  name: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
+
 export const PAGE_SIZE_OPTIONS = [10, 25, 50, 100];
 
 export const resolvePageSize = (size?: string) => {
