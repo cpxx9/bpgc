@@ -85,12 +85,14 @@ export const createEventSchema = z.object({
   }),
 });
 
+const playerName = z.string().trim().max(60, "Names must be 60 characters or fewer");
+
 export const eventRegisterSchema = z.object({
-  player1: z.string().min(1, `Player 1${isRequiredError}`).trim(),
-  player2: z.string(),
-  player3: z.string(),
-  player4: z.string(),
-  comment: z.string(),
+  player1: playerName.min(1, `Player 1${isRequiredError}`),
+  player2: playerName,
+  player3: playerName,
+  player4: playerName,
+  comment: z.string().trim().max(1000, "Comments must be 1000 characters or fewer"),
 });
 
 export const updateEventSchema = z.object({
