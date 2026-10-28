@@ -42,8 +42,8 @@ export async function createScore(prevState: unknown, formData: FormData) {
         birdies: score.birdies,
         snowmen: score.snowmen,
         closestToPin: convertFeetToFloat({
-          feet: score.closestToPinFeet ?? 0,
-          inches: score.closestToPinInches ?? 0,
+          feet: score.closestToPinFeet,
+          inches: score.closestToPinInches,
         }),
       },
     });
@@ -108,10 +108,6 @@ export async function getScoreAveragesForEvents(): Promise<
   }
 }
 
-/* TO-DO
-Checks for Null
-return readable text if there is no contest winner yet
-*/
 export async function getEventScoreWinners(eventId: string) {
   try {
     const lowestScore = await prisma.score.findFirst({
@@ -134,6 +130,7 @@ export async function getEventScoreWinners(eventId: string) {
     const closestToPin = await prisma.score.findFirst({
       where: {
         eventId: eventId,
+        closestToPin: { not: null },
       },
       include: {
         golfer: {
@@ -192,10 +189,10 @@ export async function getEventScoreWinners(eventId: string) {
           score: lowestScore?.score ? lowestScore.score : "",
         },
         closestToPin: {
-          name: closestToPin?.closestToPin
-            ? `${closestToPin?.golfer.firstName} ${closestToPin?.golfer.lastName}`
+          name: closestToPin
+            ? `${closestToPin.golfer.firstName} ${closestToPin.golfer.lastName}`
             : "No winner",
-          score: closestToPin?.closestToPin ? closestToPin?.closestToPin : 0,
+          score: closestToPin?.closestToPin ?? null,
         },
         mostBirdies: {
           name: mostBirdies?.birdies
@@ -309,8 +306,8 @@ export async function updateScore(score: UpdateScore) {
         birdies: score.birdies,
         snowmen: score.snowmen,
         closestToPin: convertFeetToFloat({
-          feet: score.closestToPinFeet ?? 0,
-          inches: score.closestToPinInches ?? 0,
+          feet: score.closestToPinFeet,
+          inches: score.closestToPinInches,
         }),
       },
     });

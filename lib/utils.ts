@@ -199,11 +199,11 @@ export function convertFeetToFloat({
   feet,
   inches,
 }: {
-  feet: number;
-  inches: number;
-}) {
-  const decimal = inches / 12;
-  return feet + decimal;
+  feet: number | null | undefined;
+  inches: number | null | undefined;
+}): number | null {
+  if (feet == null && inches == null) return null;
+  return (feet ?? 0) + (inches ?? 0) / 12;
 }
 export function convertFloatToFeet(float: number) {
   const feet = Math.trunc(float);

@@ -7,24 +7,36 @@ interface PropTypes {
 
 const EventScoreWinners = async ({ eventId }: PropTypes) => {
   const { data: winners } = await getEventScoreWinners(eventId);
-  const feetAndInches = convertFloatToFeet(winners?.closestToPin.score ?? 0);
+
+  const ctp = winners?.closestToPin.score;
+  const ctpText =
+    ctp == null
+      ? ""
+      : (() => {
+          const { feet, inches } = convertFloatToFeet(ctp);
+          return ` (${feet}' ${inches}")`;
+        })();
+
+  const withScore = (name?: string, score?: number | string) =>
+    ` ${name}${score !== "" && score != null ? ` (${score})` : ""}`;
+
   return (
     <>
       <p>
         <b>Lowest Score:</b>
-        {` ${winners?.lowestScore.name} (${winners?.lowestScore.score})`}
+        {withScore(winners?.lowestScore.name, winners?.lowestScore.score)}
       </p>
       <p>
         <b>Closest To Pin:</b>
-        {` ${winners?.closestToPin.name} (${feetAndInches.feet}' ${feetAndInches.inches}")`}
+        {` ${winners?.closestToPin.name}${ctpText}`}
       </p>
       <p>
         <b>Most Birdies:</b>
-        {` ${winners?.mostBirdies.name} (${winners?.mostBirdies.score})`}
+        {withScore(winners?.mostBirdies.name, winners?.mostBirdies.score)}
       </p>
       <p>
         <b>Most Snowmen:</b>
-        {` ${winners?.mostSnowmen.name} (${winners?.mostSnowmen.score})`}
+        {withScore(winners?.mostSnowmen.name, winners?.mostSnowmen.score)}
       </p>
     </>
   );
