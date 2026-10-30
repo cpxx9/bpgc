@@ -28,7 +28,22 @@ const AdminOverviewPage = async () => {
     <>
       <div className="space-y-2">
         <h1 className="h2-bold">Dashboard</h1>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 pb-2 md:grid-cols-2 lg:grid-cols-4">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-xl font-bold">
+                Update BPGC News
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-sm font-medium">
+                Update BPGC news input here
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+        <hr className="border-t border-gray-300" />
+        <div className="grid gap-4 pt-2 md:grid-cols-2 lg:grid-cols-4">
           <Link href={"/admin/users"}>
             <Card className="hover:shadow-md">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
