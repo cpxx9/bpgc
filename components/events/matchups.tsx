@@ -16,24 +16,30 @@ const Matchups = async () => {
     return <>No data found</>;
   }
 
+  console.log(matchResult.data);
+
   return (
     <>
       <section className="grid gap-x-4 grid-cols-4 gap-y-4 mb-3 order-2 md:order-none md:mb-0 md:gap-y-0 md:grid-cols-10">
-        {matchResult.data?.map((w) => (
-          <div key={w.week}>
-            <h3 className="text-white">Wk. {w.week}</h3>
-            <ul>
-              {w.matchups.map((m) => (
-                <li
-                  key={m.id}
-                  className={w.completed ? "text-black" : "text-white"}
-                >
-                  {m.teamOne} v {m.teamTwo ?? "—"}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        {matchResult.data.length < 1 ? (
+          <p className="w-[200px]">No Matches yet!</p>
+        ) : (
+          matchResult.data?.map((w) => (
+            <div key={w.week}>
+              <h3 className="text-white">Wk. {w.week}</h3>
+              <ul>
+                {w.matchups.map((m) => (
+                  <li
+                    key={m.id}
+                    className={w.completed ? "text-black" : "text-white"}
+                  >
+                    {m.teamOne} v {m.teamTwo ?? "—"}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        )}
       </section>
 
       <section className="order-4 md:order-none">

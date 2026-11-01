@@ -21,7 +21,10 @@ import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { buildFilterWhere, paginate } from "@/lib/paginate";
 import { Prisma } from "@prisma/client";
-import { getLeagueYear } from "@/lib/actions/siteSettings.actions";
+import {
+  getLeagueYear,
+  getTwoManLeagueYear,
+} from "@/lib/actions/siteSettings.actions";
 
 const EVENT_FILTERS: FilterResolvers<Prisma.EventWhereInput> = {
   year: (v) => {
@@ -244,11 +247,13 @@ export async function getEventSchedule() {
   }
 }
 
-export async function getWeeklyMatchesPublic(
-  year?: number,
-): Promise<ActionResult<WeeklyMatchupsPublic[]>> {
+export async function getWeeklyMatchesPublic(): Promise<
+  ActionResult<WeeklyMatchupsPublic[]>
+> {
   try {
-    const targetYear = year ?? new Date().getFullYear();
+    const yearResult = await getTwoManLeagueYear();
+    if (!yearResult.success) throw new Error("No year found in site settings!");
+    const targetYear = yearResult.data;
     const start = new Date(Date.UTC(targetYear, 0, 1));
     const end = new Date(Date.UTC(targetYear + 1, 0, 1));
 
@@ -305,7 +310,9 @@ export async function getTwoManTeamsStandingsPublic(): Promise<
   ActionResult<TwoManTeamStandingsPublic[]>
 > {
   try {
-    const targetYear = new Date().getFullYear();
+    const yearResult = await getTwoManLeagueYear();
+    if (!yearResult.success) throw new Error("No year found in site settings!");
+    const targetYear = yearResult.data;
     const start = new Date(Date.UTC(targetYear, 0, 1));
     const end = new Date(Date.UTC(targetYear + 1, 0, 1));
     const now = new Date();

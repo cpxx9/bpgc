@@ -7,61 +7,68 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { getTwoManTeamsStandingsPublic } from "@/lib/actions/event.actions";
+import { getTwoManLeagueYear } from "@/lib/actions/siteSettings.actions";
 import { abbrevName } from "@/lib/utils";
 
 const WEEKS = 10;
 
 const TwoManStandings = async () => {
+  const yearResult = await getTwoManLeagueYear();
   const result = await getTwoManTeamsStandingsPublic();
-  if (!result.success) {
+  if (!result.success || !yearResult.success) {
     return <p>No data found</p>;
   }
 
   const teams = result.data;
 
   return (
-    <section className="overflow-x-auto">
-      <Table className="text-white border-collapse w-full text-lg">
-        <TableHeader className="text-xl">
-          <TableRow className="text-left">
-            <TableHead className="px-0 font-bold text-white">TEAM</TableHead>
-            {Array.from({ length: WEEKS }, (_, i) => (
-              <TableHead
-                key={i + 1}
-                className="hidden text-white md:table-cell md:px-1 md:text-right md:font-bold md:whitespace-nowrap"
-              >
-                Wk. {i + 1}
+    <>
+      <h2 className="text-3xl text-white font-bold">
+        {yearResult.data} Two Man Leage Standings
+      </h2>
+      <section className="overflow-x-auto">
+        <Table className="text-white border-collapse w-full text-lg">
+          <TableHeader className="text-xl">
+            <TableRow className="text-left">
+              <TableHead className="px-0 font-bold text-white">TEAM</TableHead>
+              {Array.from({ length: WEEKS }, (_, i) => (
+                <TableHead
+                  key={i + 1}
+                  className="hidden text-white md:table-cell md:px-1 md:text-right md:font-bold md:whitespace-nowrap"
+                >
+                  Wk. {i + 1}
+                </TableHead>
+              ))}
+              <TableHead className="px-0 text-right font-bold whitespace-nowrap text-white">
+                * Total
               </TableHead>
-            ))}
-            <TableHead className="px-0 text-right font-bold whitespace-nowrap text-white">
-              * Total
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {teams.map((team) => (
-            <TableRow key={team.id} className="border-white/50">
-              <TableCell className="px-0 py-1 font-bold whitespace-nowrap">
-                {team.golfers.map((g) => abbrevName(g)).join("/")}
-              </TableCell>
-              {Array.from({ length: WEEKS }, (_, i) => {
-                const week = i + 1;
-                const score =
-                  team.weeklyScores.find((w) => w.week === week)?.score ?? null;
-                return (
-                  <TableCell
-                    key={week}
-                    className="hidden md:table-cell md:px-0 md:py-0 md:text-center md:whitespace-nowrap"
-                  >
-                    {score === null
-                      ? "-"
-                      : score === "DNP"
-                        ? "DNP"
-                        : score.toFixed(1)}
-                  </TableCell>
-                );
-              })}
-              {/* {team.weeklyScores.map((w) => (
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {teams.map((team) => (
+              <TableRow key={team.id} className="border-white/50">
+                <TableCell className="px-0 py-1 font-bold whitespace-nowrap">
+                  {team.golfers.map((g) => abbrevName(g)).join("/")}
+                </TableCell>
+                {Array.from({ length: WEEKS }, (_, i) => {
+                  const week = i + 1;
+                  const score =
+                    team.weeklyScores.find((w) => w.week === week)?.score ??
+                    null;
+                  return (
+                    <TableCell
+                      key={week}
+                      className="hidden md:table-cell md:px-0 md:py-0 md:text-center md:whitespace-nowrap"
+                    >
+                      {score === null
+                        ? "-"
+                        : score === "DNP"
+                          ? "DNP"
+                          : score.toFixed(1)}
+                    </TableCell>
+                  );
+                })}
+                {/* {team.weeklyScores.map((w) => (
                 <TableCell
                   key={w.week}
                   className="hidden md:table-cell md:px-0 md:py-0 md:text-center md:whitespace-nowrap"
@@ -73,14 +80,15 @@ const TwoManStandings = async () => {
                       : w.score.toFixed(1)}
                 </TableCell>
               ))} */}
-              <TableCell className="px-0 py-0 text-right font-bold">
-                {team.total.toFixed(1)}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </section>
+                <TableCell className="px-0 py-0 text-right font-bold">
+                  {team.total.toFixed(1)}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </section>
+    </>
   );
 };
 
