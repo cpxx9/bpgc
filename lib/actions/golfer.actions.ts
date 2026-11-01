@@ -21,6 +21,7 @@ import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { Prisma } from "@prisma/client";
 import { buildFilterWhere, paginate } from "@/lib/paginate";
+import { getLeagueYear } from "@/lib/actions/siteSettings.actions";
 
 const GOLFER_FILTERS: FilterResolvers<Prisma.GolferWhereInput> = {
   status: (v) =>
@@ -118,8 +119,15 @@ export async function getAllGolfersWithScoreAverages(): Promise<
   ActionResult<GolferWithScoreAverage[]>
 > {
   try {
+    const yearResult = await getLeagueYear();
+    if (!yearResult.success) throw new Error("No year found in site settings!");
+    const targetYear = yearResult.data;
+    const start = new Date(Date.UTC(targetYear, 0, 1));
+    const end = new Date(Date.UTC(targetYear + 1, 0, 1));
+
     const avgs = await prisma.score.groupBy({
       by: ["golferId"],
+      where: { event: { date: { gte: start, lt: end } } },
       _avg: { score: true },
     });
 

@@ -14,6 +14,7 @@ import {
 } from "@/types";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
+import { getLeagueYear } from "@/lib/actions/siteSettings.actions";
 
 const _currentYear = new Date().getFullYear();
 
@@ -73,6 +74,12 @@ export async function getScoreAveragesForEvents(): Promise<
   ActionResult<EventWithScoreAverage[]>
 > {
   try {
+    const yearResult = await getLeagueYear();
+    if (!yearResult.success) throw new Error("No year found in site settings!");
+    const targetYear = yearResult.data;
+    const startDate = `${targetYear}-01-01`;
+    const endDate = `${targetYear + 1}-01-01`;
+
     const data = await prisma.$queryRaw<EventWithScoreAverage[]>`
       SELECT
         e.id,
@@ -83,8 +90,8 @@ export async function getScoreAveragesForEvents(): Promise<
       FROM "Event" e
       LEFT JOIN "Score" s
         ON s."eventId" = e.id
-      WHERE e."date" >= date_trunc('year', CURRENT_DATE)
-        AND e."date" < date_trunc('year', CURRENT_DATE) + INTERVAL '1 year'
+      WHERE e."date" >= ${startDate}::date
+        AND e."date" < ${endDate}::date
       GROUP BY e.id, e.location, e."leagueWeek"
       ORDER BY e."date";
     `;

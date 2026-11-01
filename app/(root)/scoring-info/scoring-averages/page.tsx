@@ -18,9 +18,6 @@ const ScoringInfoAveragesPage = () => {
       <BackgroundImage page="scoringAverages" />
       <div className="flex flex-col items-center gap-4">
         <section className="bg-blue-400/70 p-5 md:min-w-[800px]">
-          <h2 className="mb-5 text-2xl text-white font-bold">
-            2026 Individual Scoring Averages
-          </h2>
           <Suspense fallback={<WeeklyScoresIndivAveragesSkeleton />}>
             <IndividualScoreAverages />
           </Suspense>
