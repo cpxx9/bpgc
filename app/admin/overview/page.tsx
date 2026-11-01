@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getGolferCount } from "@/lib/actions/golfer.actions";
 import { getUserCount } from "@/lib/actions/user.actions";
@@ -25,6 +26,9 @@ const AdminOverviewPage = async () => {
   const { twoManTeamCount } = await getTwoManTeamCount();
   const { eventCount } = await getEventCount();
   const { imageCount } = await getImageCount();
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!userId) throw new Error("Not signed in");
   const result = await getSiteSettings();
 
   return (
@@ -40,7 +44,10 @@ const AdminOverviewPage = async () => {
             </CardHeader>
             <CardContent>
               {result.success === true ? (
-                <UpdateSiteSettingsForm siteSettings={result.data} />
+                <UpdateSiteSettingsForm
+                  siteSettings={result.data}
+                  userId={userId}
+                />
               ) : (
                 <>No Data</>
               )}

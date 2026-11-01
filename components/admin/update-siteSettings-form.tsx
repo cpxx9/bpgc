@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -18,13 +17,13 @@ import { UpdateSiteSettings } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { ControllerRenderProps, useForm } from "react-hook-form";
-import z from "zod";
 
 interface PropTypes {
   siteSettings: UpdateSiteSettings;
+  userId: string;
 }
 
-const UpdateSiteSettingsForm = ({ siteSettings }: PropTypes) => {
+const UpdateSiteSettingsForm = ({ siteSettings, userId }: PropTypes) => {
   const router = useRouter();
   const { toast } = useToast();
   const form = useForm<UpdateSiteSettings>({
@@ -34,7 +33,11 @@ const UpdateSiteSettingsForm = ({ siteSettings }: PropTypes) => {
 
   const onSubmit = async (values: UpdateSiteSettings) => {
     try {
-      const res = await updateSiteSettings({ ...values, id: siteSettings.id });
+      const res = await updateSiteSettings({
+        ...values,
+        id: siteSettings.id,
+        updatedBy: userId,
+      });
 
       if (!res.success) {
         return toast({
