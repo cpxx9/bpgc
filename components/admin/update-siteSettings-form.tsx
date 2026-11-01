@@ -90,12 +90,12 @@ const UpdateSiteSettingsForm = ({ siteSettings, userId }: PropTypes) => {
               field: ControllerRenderProps<UpdateSiteSettings, "leagueYear">;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>HCI</FormLabel>
+                <FormLabel>League Schedule Year</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Enter League Schedule Year"
                     {...field}
-                    type="decimal"
+                    type="number"
                   ></Input>
                 </FormControl>
                 <FormMessage />
@@ -116,12 +116,12 @@ const UpdateSiteSettingsForm = ({ siteSettings, userId }: PropTypes) => {
               >;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>HCI</FormLabel>
+                <FormLabel>Club Championship Stats Year</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Enter Club Championship Stats Year"
                     {...field}
-                    type="decimal"
+                    type="number"
                   ></Input>
                 </FormControl>
                 <FormMessage />
@@ -142,12 +142,12 @@ const UpdateSiteSettingsForm = ({ siteSettings, userId }: PropTypes) => {
               >;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>HCI</FormLabel>
+                <FormLabel>Two-Man League Scheule Year</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Enter Two Man League Schedule Year"
                     {...field}
-                    type="decimal"
+                    type="number"
                   ></Input>
                 </FormControl>
                 <FormMessage />

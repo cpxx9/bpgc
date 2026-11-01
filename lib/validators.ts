@@ -222,12 +222,18 @@ export const updateSiteSettingsSchema = z.object({
     .string({ message: "BPGC News must be a string!" })
     .trim()
     .optional(),
-  leagueYear: z.coerce.number({ message: "League Year must be a number!" }),
-  clubChampionshipYear: z.coerce.number({
-    message: "CC Year must be a number!",
-  }),
-  twoManLeagueYear: z.coerce.number({
-    message: "Two-Man League Year must be a number!",
-  }),
+  leagueYear: z.coerce
+    .number({ message: "League Year must be a number!" })
+    .min(4, `Year${isRequiredError} and must be 4 digits!`),
+  clubChampionshipYear: z.coerce
+    .number({
+      message: "CC Year must be a number!",
+    })
+    .min(4, `Year${isRequiredError}`),
+  twoManLeagueYear: z.coerce
+    .number({
+      message: "Two-Man League Year must be a number!",
+    })
+    .min(4, `Year${isRequiredError}`),
   updatedBy: z.string({ message: "Updated by must be a string!" }).trim(),
 });
