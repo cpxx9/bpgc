@@ -79,3 +79,28 @@ export async function getClubChampionShipYear(): Promise<ActionResult<number>> {
     };
   }
 }
+
+export async function getTwoManLeagueYear(): Promise<ActionResult<number>> {
+  try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
+
+    const siteSettings = await prisma.siteSettings.findFirst({
+      select: {
+        twoManLeagueYear: true,
+      },
+    });
+
+    if (!siteSettings) throw new Error("Could not find any settings!");
+
+    return {
+      success: true,
+      data: siteSettings.twoManLeagueYear,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
+}
