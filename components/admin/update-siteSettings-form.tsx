@@ -64,7 +64,7 @@ const UpdateSiteSettingsForm = ({ siteSettings, userId }: PropTypes) => {
       <form
         method="POST"
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex justify-between items-end gap-3"
+        className="flex flex-col gap-3 md:flex-row md:justify-between md:items-end"
       >
         <div className="flex-1">
           <FormField
