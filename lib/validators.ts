@@ -85,14 +85,20 @@ export const createEventSchema = z.object({
   }),
 });
 
-const playerName = z.string().trim().max(60, "Names must be 60 characters or fewer");
+const playerName = z
+  .string()
+  .trim()
+  .max(60, "Names must be 60 characters or fewer");
 
 export const eventRegisterSchema = z.object({
   player1: playerName.min(1, `Player 1${isRequiredError}`),
   player2: playerName,
   player3: playerName,
   player4: playerName,
-  comment: z.string().trim().max(1000, "Comments must be 1000 characters or fewer"),
+  comment: z
+    .string()
+    .trim()
+    .max(1000, "Comments must be 1000 characters or fewer"),
 });
 
 export const updateEventSchema = z.object({
@@ -208,4 +214,19 @@ export const updateImageSchema = z.object({
     message: `isTwoManChamps status${isRequiredError}`,
   }),
   isBpgcTv: z.boolean({ message: `isBpgcTv status${isRequiredError}` }),
+});
+
+export const updateSiteSettingsSchema = z.object({
+  id: z.string().min(1, `ID${isRequiredError}`).trim(),
+  bpgcNews: z
+    .string({ message: "BPGC News must be a string!" })
+    .trim()
+    .nullable(),
+  leagueYear: z.coerce.number({ message: "League Year must be a number!" }),
+  clubChampionshipYear: z.coerce.number({
+    message: "CC Year must be a number!",
+  }),
+  twoManLeagueYaer: z.coerce.number({
+    message: "Two-Man League Year must be a number!",
+  }),
 });

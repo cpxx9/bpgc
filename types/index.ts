@@ -7,6 +7,7 @@ import {
   updateImageSchema,
   updateMatchupSchema,
   updateScoreSchema,
+  updateSiteSettingsSchema,
   updateTwoManTeamSchema,
   updateUserSchema,
 } from "@/lib/validators";
@@ -80,6 +81,7 @@ export type UpdateScore = z.infer<typeof updateScoreSchema>;
 export type UpdateMatchup = z.infer<typeof updateMatchupSchema>;
 export type UpdateTwoManTeam = z.infer<typeof updateTwoManTeamSchema>;
 export type UpdateImage = z.infer<typeof updateImageSchema>;
+export type updateSiteSettings = z.infer<typeof updateSiteSettingsSchema>;
 
 export type ContestWinnersPublic = {
   birdies: {
