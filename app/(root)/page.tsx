@@ -7,6 +7,8 @@ import CardImage from "@/components/shared/card-image";
 import Link from "next/link";
 import { Metadata } from "next";
 import EventRegistrationForm from "@/components/home/event-registration-form";
+import BpgcNews from "@/components/home/bpgc-news";
+import BpgcNewsSkeleton from "@/components/skeletons/bpgc-news-skeleton";
 
 export const metadata: Metadata = {
   description:
@@ -36,11 +38,9 @@ const Homepage = () => {
           <h3 className="text-2xl font-semibold justify-self-start">
             BPGC IMPORTANT NEWS
           </h3>
-          <p className="w-[400px] m-auto text-lg">
-            <em>
-              ANY IMPORTANT NEWS OR UPDATES <br /> WILL BE POSTED HERE
-            </em>
-          </p>
+          <Suspense fallback={<BpgcNewsSkeleton />}>
+            <BpgcNews />
+          </Suspense>
         </div>
         <div className="bg-blue-300 text-center py-4 px-10">
           <h3 className="text-2xl font-semibold">
