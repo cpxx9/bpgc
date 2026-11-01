@@ -51,7 +51,7 @@ const Homepage = () => {
         </div>
         <Link href="/gallery">
           <div className="bg-blue-300 text-center py-4 px-10">
-            <h3 className="text-2xl font-semibold">BPGC TV</h3>
+            <h3 className="text-2xl font-semibold">BPGC GALLERY</h3>
             <CardImage card="isBpgcTv" />
             <p className="mt-1 text-wrap">
               Random videos, media and other content.... <br />
