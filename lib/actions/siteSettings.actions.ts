@@ -18,7 +18,6 @@ export async function getSiteSettings(): Promise<ActionResult<SiteSettings>> {
     if (!admin) throw new Error("You are not authorized!");
 
     const siteSettings = await prisma.siteSettings.findFirst();
-    console.log(siteSettings);
 
     if (!siteSettings) throw new Error("Could not find any settings!");
 
