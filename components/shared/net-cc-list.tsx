@@ -15,7 +15,6 @@ const NetCCList = ({ columns }: PropTypes) => {
   if (columns[0].length < 1) {
     return <section>No club championship scores yet!</section>;
   }
-  console.log(columns);
 
   return (
     <section className="flex flex-col md:flex-row justify-between">

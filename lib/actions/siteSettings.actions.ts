@@ -145,7 +145,7 @@ export async function updateSiteSettings(
     });
 
     revalidatePath("/admin/overview");
-    revalidatePublic("news");
+    revalidatePublic("season");
 
     return {
       success: true,
