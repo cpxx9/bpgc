@@ -226,7 +226,11 @@ export const updateSiteSettingsSchema = z.object({
   clubChampionshipYear: z.coerce.number({
     message: "CC Year must be a number!",
   }),
-  twoManLeagueYaer: z.coerce.number({
+  twoManLeagueYear: z.coerce.number({
     message: "Two-Man League Year must be a number!",
   }),
+  updatedBy: z
+    .string({ message: "Updated by must be a string!" })
+    .trim()
+    .nullable(),
 });
