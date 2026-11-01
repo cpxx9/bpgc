@@ -10,6 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { updateSiteSettings } from "@/lib/actions/siteSettings.actions";
 import { updateSiteSettingsSchema } from "@/lib/validators";
@@ -73,7 +74,13 @@ const UpdateSiteSettingsForm = ({ siteSettings, userId }: PropTypes) => {
               <FormItem className="w-full">
                 <FormLabel>BPGC News</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter the news" {...field}></Input>
+                  <Textarea
+                    placeholder="Enter the news"
+                    className=""
+                    rows={6}
+                    maxLength={2000}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
