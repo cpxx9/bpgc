@@ -3,7 +3,28 @@
 import { prisma } from "@/db/prisma";
 import { requireAdminAction } from "@/lib/auth-guard";
 import { formatError } from "@/lib/utils";
-import { ActionResult } from "@/types";
+import { ActionResult, SiteSettings } from "@/types";
+
+export async function getSiteSettings(): Promise<ActionResult<SiteSettings>> {
+  try {
+    const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
+
+    const siteSettings = await prisma.siteSettings.findFirst();
+
+    if (!siteSettings) throw new Error("Could not find any settings!");
+
+    return {
+      success: true,
+      data: siteSettings,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
+}
 
 export async function getBpgcNews(): Promise<ActionResult<string>> {
   try {

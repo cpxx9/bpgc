@@ -269,3 +269,13 @@ export type CardImagesPublic = {
   isTwoManChamps: DbImage;
   isBpgcTv: DbImage;
 };
+
+export type SiteSettings = {
+  id: string;
+  bpgcNews: string;
+  leagueYear: number;
+  clubChampionshipYear: number;
+  twoManLeagueYear: number;
+  updatedAt: Date;
+  updatedBy: string | null;
+};
