@@ -21,6 +21,7 @@ import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { buildFilterWhere, paginate } from "@/lib/paginate";
 import { Prisma } from "@prisma/client";
+import { getLeagueYear } from "@/lib/actions/siteSettings.actions";
 
 const EVENT_FILTERS: FilterResolvers<Prisma.EventWhereInput> = {
   year: (v) => {
@@ -207,69 +208,33 @@ export async function getAllEvents({
 }
 
 export async function getEventSchedule() {
-  const currentYearOnly = new Date().getFullYear();
-  const currentYear = new Date(currentYearOnly, 0, 1);
-  const nextYear = new Date();
-  nextYear.setFullYear(nextYear.getFullYear() + 1);
-
   try {
-    const schedule = await prisma.$transaction(async (tx) => {
-      const april: Event[] = await prisma.$queryRaw`
-        SELECT * FROM "Event"
-        WHERE EXTRACT(MONTH FROM "date") = 4
-        ORDER BY "date" ASC
-      `;
+    const result = await getLeagueYear();
+    if (!result.success) throw new Error("Could not get league year");
+    const leagueYear = result.data;
+    const start = new Date(Date.UTC(leagueYear, 0, 1));
+    const end = new Date(Date.UTC(leagueYear + 1, 0, 1));
 
-      const may: Event[] = await prisma.$queryRaw`
-        SELECT * FROM "Event"
-        WHERE EXTRACT(MONTH FROM "date") = 5
-        ORDER BY "date" ASC
-      `;
-
-      const june: Event[] = await prisma.$queryRaw`
-        SELECT * FROM "Event"
-        WHERE EXTRACT(MONTH FROM "date") = 6
-        ORDER BY "date" ASC
-      `;
-
-      const july: Event[] = await prisma.$queryRaw`
-        SELECT * FROM "Event"
-        WHERE EXTRACT(MONTH FROM "date") = 7
-        ORDER BY "date" ASC
-      `;
-
-      const august: Event[] = await prisma.$queryRaw`
-        SELECT * FROM "Event"
-        WHERE EXTRACT(MONTH FROM "date") = 8
-        ORDER BY "date" ASC
-      `;
-
-      const september: Event[] = await prisma.$queryRaw`
-        SELECT * FROM "Event"
-        WHERE EXTRACT(MONTH FROM "date") = 9
-        ORDER BY "date" ASC
-      `;
-
-      const october: Event[] = await prisma.$queryRaw`
-        SELECT * FROM "Event"
-        WHERE EXTRACT(MONTH FROM "date") = 10
-        ORDER BY "date" ASC
-      `;
-
-      return {
-        april,
-        may,
-        june,
-        july,
-        august,
-        september,
-        october,
-      };
+    const events = await prisma.event.findMany({
+      where: { date: { gte: start, lt: end } },
+      orderBy: [{ date: "asc" }, { time: "asc" }],
     });
+
+    console.log(events);
+    const month = (m: number) =>
+      events.filter((e) => e.date.getUTCMonth() === m);
 
     return {
       success: true,
-      data: schedule,
+      data: {
+        april: month(3),
+        may: month(4),
+        june: month(5),
+        july: month(6),
+        august: month(7),
+        september: month(8),
+        october: month(9),
+      },
     };
   } catch (err) {
     return {

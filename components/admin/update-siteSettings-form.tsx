@@ -153,7 +153,7 @@ const UpdateSiteSettingsForm = ({ siteSettings, userId }: PropTypes) => {
               >;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>Two-Man League Scheule Year</FormLabel>
+                <FormLabel>Two-Man League Schedule Year</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Enter Two Man League Schedule Year"
