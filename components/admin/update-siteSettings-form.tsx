@@ -1,0 +1,169 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
+import { updateSiteSettings } from "@/lib/actions/siteSettings.actions";
+import { updateSiteSettingsSchema } from "@/lib/validators";
+import { UpdateSiteSettings } from "@/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { ControllerRenderProps, useForm } from "react-hook-form";
+import z from "zod";
+
+interface PropTypes {
+  siteSettings: UpdateSiteSettings;
+}
+
+const UpdateSiteSettingsForm = ({ siteSettings }: PropTypes) => {
+  const router = useRouter();
+  const { toast } = useToast();
+  const form = useForm<UpdateSiteSettings>({
+    resolver: zodResolver(updateSiteSettingsSchema),
+    defaultValues: siteSettings,
+  });
+
+  const onSubmit = async (values: UpdateSiteSettings) => {
+    try {
+      const res = await updateSiteSettings({ ...values, id: siteSettings.id });
+
+      if (!res.success) {
+        return toast({
+          variant: "destructive",
+          description: res.message,
+        });
+      }
+
+      toast({
+        description: res.message,
+      });
+      router.push("/admin/overview");
+    } catch (err) {
+      toast({
+        variant: "destructive",
+        description: (err as Error).message,
+      });
+    }
+  };
+
+  return (
+    <Form {...form}>
+      <form method="POST" onSubmit={form.handleSubmit(onSubmit)}>
+        <div>
+          <FormField
+            control={form.control}
+            name="bpgcNews"
+            render={({
+              field,
+            }: {
+              field: ControllerRenderProps<UpdateSiteSettings, "bpgcNews">;
+            }) => (
+              <FormItem className="w-full">
+                <FormLabel>BPGC News</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter the news" {...field}></Input>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div>
+          <FormField
+            control={form.control}
+            name="leagueYear"
+            render={({
+              field,
+            }: {
+              field: ControllerRenderProps<UpdateSiteSettings, "leagueYear">;
+            }) => (
+              <FormItem className="w-full">
+                <FormLabel>HCI</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Enter League Schedule Year"
+                    {...field}
+                    type="decimal"
+                  ></Input>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div>
+          <FormField
+            control={form.control}
+            name="clubChampionshipYear"
+            render={({
+              field,
+            }: {
+              field: ControllerRenderProps<
+                UpdateSiteSettings,
+                "clubChampionshipYear"
+              >;
+            }) => (
+              <FormItem className="w-full">
+                <FormLabel>HCI</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Enter Club Championship Stats Year"
+                    {...field}
+                    type="decimal"
+                  ></Input>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div>
+          <FormField
+            control={form.control}
+            name="twoManLeagueYear"
+            render={({
+              field,
+            }: {
+              field: ControllerRenderProps<
+                UpdateSiteSettings,
+                "twoManLeagueYear"
+              >;
+            }) => (
+              <FormItem className="w-full">
+                <FormLabel>HCI</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Enter Two Man League Schedule Year"
+                    {...field}
+                    type="decimal"
+                  ></Input>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="flex-between mt-4">
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={form.formState.isSubmitting}
+          >
+            {form.formState.isSubmitting ? "Submitting..." : "Update Settings"}
+          </Button>
+        </div>
+      </form>
+    </Form>
+  );
+};
+
+export default UpdateSiteSettingsForm;

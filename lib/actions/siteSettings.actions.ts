@@ -142,13 +142,11 @@ export async function updateSiteSettings(
     await prisma.siteSettings.update({
       where: { id: siteSettings.id },
       data: {
-        bpgcNews:
-          siteSettings.bpgcNews !== null ? siteSettings.bpgcNews : undefined,
+        bpgcNews: siteSettings.bpgcNews ? siteSettings.bpgcNews : undefined,
         leagueYear: siteSettings.leagueYear,
         clubChampionshipYear: siteSettings.clubChampionshipYear,
         twoManLeagueYear: siteSettings.twoManLeagueYear,
-        updatedBy:
-          siteSettings.updatedBy !== null ? siteSettings.updatedBy : undefined,
+        updatedBy: siteSettings.updatedBy ? siteSettings.updatedBy : undefined,
       },
     });
 

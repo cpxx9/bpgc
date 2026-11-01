@@ -221,7 +221,7 @@ export const updateSiteSettingsSchema = z.object({
   bpgcNews: z
     .string({ message: "BPGC News must be a string!" })
     .trim()
-    .nullable(),
+    .optional(),
   leagueYear: z.coerce.number({ message: "League Year must be a number!" }),
   clubChampionshipYear: z.coerce.number({
     message: "CC Year must be a number!",
@@ -232,5 +232,5 @@ export const updateSiteSettingsSchema = z.object({
   updatedBy: z
     .string({ message: "Updated by must be a string!" })
     .trim()
-    .nullable(),
+    .optional(),
 });
