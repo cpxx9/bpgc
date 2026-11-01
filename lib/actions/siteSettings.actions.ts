@@ -2,8 +2,15 @@
 
 import { prisma } from "@/db/prisma";
 import { requireAdminAction } from "@/lib/auth-guard";
+import { revalidatePublic } from "@/lib/revalidate-public";
 import { formatError } from "@/lib/utils";
-import { ActionResult, SiteSettings } from "@/types";
+import {
+  ActionResult,
+  ActionResultMessage,
+  SiteSettings,
+  UpdateSiteSettings,
+} from "@/types";
+import { revalidatePath } from "next/cache";
 
 export async function getSiteSettings(): Promise<ActionResult<SiteSettings>> {
   try {
@@ -117,6 +124,40 @@ export async function getTwoManLeagueYear(): Promise<ActionResult<number>> {
     return {
       success: true,
       data: siteSettings.twoManLeagueYear,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: formatError(err),
+    };
+  }
+}
+
+export async function updateSiteSettings(
+  siteSettings: UpdateSiteSettings,
+): Promise<ActionResultMessage> {
+  try {
+    const admin = await requireAdminAction();
+
+    await prisma.siteSettings.update({
+      where: { id: siteSettings.id },
+      data: {
+        bpgcNews:
+          siteSettings.bpgcNews !== null ? siteSettings.bpgcNews : undefined,
+        leagueYear: siteSettings.leagueYear,
+        clubChampionshipYear: siteSettings.clubChampionshipYear,
+        twoManLeagueYear: siteSettings.twoManLeagueYear,
+        updatedBy:
+          siteSettings.updatedBy !== null ? siteSettings.updatedBy : undefined,
+      },
+    });
+
+    revalidatePath("/admin/overview");
+    revalidatePublic("news");
+
+    return {
+      success: true,
+      message: "Settings updated successfully",
     };
   } catch (err) {
     return {

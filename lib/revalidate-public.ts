@@ -18,6 +18,7 @@ const PUBLIC_ROUTES = {
     "/scoring-info/scoring-averages",
     "/scoring-info/weekly-scores",
   ],
+  news: ["/"],
   teams: ["/events/two-man-league"],
   golfers: [
     "/events/two-man-league",
