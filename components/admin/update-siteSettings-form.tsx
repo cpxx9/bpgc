@@ -37,7 +37,6 @@ const UpdateSiteSettingsForm = ({ siteSettings, userId }: PropTypes) => {
       const res = await updateSiteSettings({
         ...values,
         id: siteSettings.id,
-        updatedBy: userId,
       });
 
       if (!res.success) {
@@ -50,7 +49,7 @@ const UpdateSiteSettingsForm = ({ siteSettings, userId }: PropTypes) => {
       toast({
         description: res.message,
       });
-      router.push("/admin/overview");
+      router.refresh();
     } catch (err) {
       toast({
         variant: "destructive",

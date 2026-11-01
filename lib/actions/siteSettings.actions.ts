@@ -1,5 +1,6 @@
 "use server";
 
+import { auth } from "@/auth";
 import { prisma } from "@/db/prisma";
 import { requireAdminAction } from "@/lib/auth-guard";
 import { revalidatePublic } from "@/lib/revalidate-public";
@@ -127,6 +128,8 @@ export async function updateSiteSettings(
   try {
     const admin = await requireAdminAction();
     if (!admin) throw new Error("You are not authorized!");
+    const session = await auth();
+    if (!session) throw new Error("You are not authorized!");
 
     await prisma.siteSettings.update({
       where: { id: siteSettings.id },
@@ -137,7 +140,7 @@ export async function updateSiteSettings(
         leagueYear: siteSettings.leagueYear,
         clubChampionshipYear: siteSettings.clubChampionshipYear,
         twoManLeagueYear: siteSettings.twoManLeagueYear,
-        updatedBy: siteSettings.updatedBy,
+        updatedBy: session.user.id,
       },
     });
 

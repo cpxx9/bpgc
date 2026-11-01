@@ -7,7 +7,8 @@ import { cookies } from "next/headers";
 import { authConfig } from "@/auth.config";
 import { signInFormSchema } from "@/lib/validators";
 
-const DUMMY_HASH = "0fc7e08ee1b3d611fa48d0fee19c82fb";
+const DUMMY_HASH =
+  "$2a$10$L7E5A7tsdrdvZXKnU02S7u/yi8cSf3R2PQLyyeNGdqrM0wRHOaafu";
 
 export const config = {
   pages: {
@@ -27,18 +28,26 @@ export const config = {
       },
       async authorize(credentials) {
         const parsed = signInFormSchema.safeParse(credentials);
-  if (!parsed.success) return null;
+        if (!parsed.success) return null;
 
-  // TODO: rate-limit
+        // TODO: rate-limit
 
-  const user = await prisma.user.findFirst({
-    where: { email: { equals: parsed.data.email, mode: "insensitive" } },
-  });
+        const user = await prisma.user.findFirst({
+          where: { email: { equals: parsed.data.email, mode: "insensitive" } },
+        });
 
-  const ok = await compare(parsed.data.password, user?.password ?? DUMMY_HASH);
-  if (!user || !user.password || !ok) return null;
+        const ok = await compare(
+          parsed.data.password,
+          user?.password ?? DUMMY_HASH,
+        );
+        if (!user || !user.password || !ok) return null;
 
-  return { id: user.id, name: user.name, email: user.email, role: user.role };
+        return {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+        };
       },
     }),
   ],

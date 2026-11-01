@@ -235,5 +235,4 @@ export const updateSiteSettingsSchema = z.object({
       message: "Two-Man League Year must be a number!",
     })
     .min(4, `Year${isRequiredError}`),
-  updatedBy: z.string({ message: "Updated by must be a string!" }).trim(),
 });
