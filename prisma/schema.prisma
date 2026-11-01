@@ -153,10 +153,13 @@ model MailAttempt {
 }
 
 model SiteSettings {
-  id                   String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  bpgcNews             String @default("ANY IMPORTANT NEWS OR UPDATES WILL BE POSTED HERE")
+  id                   String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  bpgcNews             String   @default("ANY IMPORTANT NEWS OR UPDATES WILL BE POSTED HERE")
   leagueYear           Int
   clubChampionshipYear Int
+  twoManLeagueYear     Int
+  updatedAt            DateTime @updatedAt
+  updatedBy            String?
 }
 
 model Account {
