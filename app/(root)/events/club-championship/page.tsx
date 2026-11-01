@@ -17,7 +17,7 @@ const EventsClubChampionshipPage = () => {
       <div className="w-full max-w-5xl px-4 space-y-6">
         <section className="bg-blue-400/70 text-center py-6 rounded">
           <h2 className="text-3xl font-bold uppercase leading-tight">
-            2025 BPGC Club Championship
+            2026 BPGC Club Championship
             <br />
             Final Results
           </h2>
