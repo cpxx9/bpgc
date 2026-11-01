@@ -11,6 +11,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Info } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { updateSiteSettings } from "@/lib/actions/siteSettings.actions";
 import { updateSiteSettingsSchema } from "@/lib/validators";
@@ -75,7 +81,20 @@ const UpdateSiteSettingsForm = ({ siteSettings, userId }: PropTypes) => {
               field: ControllerRenderProps<UpdateSiteSettings, "bpgcNews">;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>BPGC News</FormLabel>
+                <FormLabel className="flex items-center gap-1">
+                  <p className="text-[1rem]">BPGC News</p>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Info width={20} />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>
+                        This will update the news card on the Homepage of the
+                        site.
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
+                </FormLabel>
                 <FormControl>
                   <Textarea
                     placeholder="Enter the news"
@@ -101,7 +120,20 @@ const UpdateSiteSettingsForm = ({ siteSettings, userId }: PropTypes) => {
               field: ControllerRenderProps<UpdateSiteSettings, "leagueYear">;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>League Schedule Year</FormLabel>
+                <FormLabel className="flex items-center gap-1">
+                  <p className="text-[1rem]">League Schedule Year</p>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Info width={20} />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>
+                        This will update the year used to get data for the
+                        Schedule, Scoring Info, and Contests pages.
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Enter League Schedule Year"
@@ -127,7 +159,21 @@ const UpdateSiteSettingsForm = ({ siteSettings, userId }: PropTypes) => {
               >;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>Club Championship Stats Year</FormLabel>
+                <FormLabel className="flex items-center gap-1">
+                  <p className="text-[1rem]">Club Championship Stats Year</p>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Info width={20} />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>
+                        This currently does nothing, as the club championship
+                        page is hardcoded. It will eventually update the year
+                        used to pull that data
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Enter Club Championship Stats Year"
@@ -153,7 +199,20 @@ const UpdateSiteSettingsForm = ({ siteSettings, userId }: PropTypes) => {
               >;
             }) => (
               <FormItem className="w-full">
-                <FormLabel>Two-Man League Schedule Year</FormLabel>
+                <FormLabel className="flex items-center gap-1">
+                  <p className="text-[1rem]">Two-Man League Schedule Year</p>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Info width={20} />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>
+                        This will update the year used to pull data for the
+                        Two-man League page.
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Enter Two Man League Schedule Year"

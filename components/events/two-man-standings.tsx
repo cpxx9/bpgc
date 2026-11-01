@@ -24,7 +24,7 @@ const TwoManStandings = async () => {
   return (
     <>
       <h2 className="text-3xl text-white font-bold">
-        {yearResult.data} Two Man Leage Standings
+        {yearResult.data} Two Man League Standings
       </h2>
       <section className="overflow-x-auto">
         <Table className="text-white border-collapse w-full text-lg">

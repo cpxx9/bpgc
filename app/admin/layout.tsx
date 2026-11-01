@@ -1,3 +1,4 @@
+import { TooltipProvider } from "@/components/ui/tooltip";
 import Link from "next/link";
 import Menu from "@/components/shared/header/menu";
 import MainNav from "@/app/admin/main-nav";
@@ -33,7 +34,7 @@ export default function AdminLayout({
           </div>
         </div>
         <div className="flex-1 space-y-4 p-0 pt-6 container mx-auto relative">
-          {children}
+          <TooltipProvider>{children}</TooltipProvider>
         </div>
       </div>
     </>
