@@ -1,25 +1,19 @@
 import { PrismaClient } from "@prisma/client";
-import { CLIENT_PUBLIC_FILES_PATH } from "next/dist/shared/lib/constants";
 
-let prisma: PrismaClient;
+const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
 
-if (process.env.LOCATION !== "local") {
-  // ✅ Neon ONLY in production/preview
-  const { Pool, neonConfig } = require("@neondatabase/serverless");
-  const { PrismaNeon } = require("@prisma/adapter-neon");
-  const ws = require("ws");
-
-  neonConfig.webSocketConstructor = ws;
-
-  const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-  });
-
-  const adapter = new PrismaNeon(pool);
-  prisma = new PrismaClient({ adapter });
-} else {
-  // ✅ Local dev: NORMAL Postgres connection
-  prisma = new PrismaClient();
+function createClient(): PrismaClient {
+  if (process.env.LOCATION !== "local") {
+    const { Pool, neonConfig } = require("@neondatabase/serverless");
+    const { PrismaNeon } = require("@prisma/adapter-neon");
+    const ws = require("ws");
+    neonConfig.webSocketConstructor = ws;
+    const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+    return new PrismaClient({ adapter: new PrismaNeon(pool) });
+  }
+  return new PrismaClient();
 }
 
-export { prisma };
+export const prisma = globalForPrisma.prisma ?? createClient();
+
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;

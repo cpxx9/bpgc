@@ -35,9 +35,6 @@ export async function getSiteSettings(): Promise<ActionResult<SiteSettings>> {
 
 export async function getBpgcNews(): Promise<ActionResult<string>> {
   try {
-    const admin = await requireAdminAction();
-    if (!admin) throw new Error("You are not authorized!");
-
     const siteSettings = await prisma.siteSettings.findFirst({
       select: {
         bpgcNews: true,
@@ -60,9 +57,6 @@ export async function getBpgcNews(): Promise<ActionResult<string>> {
 
 export async function getLeagueYear(): Promise<ActionResult<number>> {
   try {
-    const admin = await requireAdminAction();
-    if (!admin) throw new Error("You are not authorized!");
-
     const siteSettings = await prisma.siteSettings.findFirst({
       select: {
         leagueYear: true,
@@ -85,9 +79,6 @@ export async function getLeagueYear(): Promise<ActionResult<number>> {
 
 export async function getClubChampionShipYear(): Promise<ActionResult<number>> {
   try {
-    const admin = await requireAdminAction();
-    if (!admin) throw new Error("You are not authorized!");
-
     const siteSettings = await prisma.siteSettings.findFirst({
       select: {
         clubChampionshipYear: true,
@@ -110,9 +101,6 @@ export async function getClubChampionShipYear(): Promise<ActionResult<number>> {
 
 export async function getTwoManLeagueYear(): Promise<ActionResult<number>> {
   try {
-    const admin = await requireAdminAction();
-    if (!admin) throw new Error("You are not authorized!");
-
     const siteSettings = await prisma.siteSettings.findFirst({
       select: {
         twoManLeagueYear: true,
@@ -138,6 +126,7 @@ export async function updateSiteSettings(
 ): Promise<ActionResultMessage> {
   try {
     const admin = await requireAdminAction();
+    if (!admin) throw new Error("You are not authorized!");
 
     await prisma.siteSettings.update({
       where: { id: siteSettings.id },
