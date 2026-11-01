@@ -226,11 +226,14 @@ export async function getEventScoreWinners(eventId: string) {
 export async function getContestWinnersPublic(): Promise<
   ActionResult<ContestWinnersPublic>
 > {
-  const targetYear = new Date().getFullYear();
-  const start = new Date(Date.UTC(targetYear, 0, 1));
-  const end = new Date(Date.UTC(targetYear + 1, 0, 1));
-
   try {
+    const yearResult = await getLeagueYear();
+    if (!yearResult.success)
+      throw new Error("No league year in site settings!");
+    const targetYear = yearResult.data;
+    const start = new Date(Date.UTC(targetYear, 0, 1));
+    const end = new Date(Date.UTC(targetYear + 1, 0, 1));
+
     const yearFilter = {
       event: { date: { gte: start, lt: end } },
     };
