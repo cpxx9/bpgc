@@ -61,8 +61,12 @@ const UpdateSiteSettingsForm = ({ siteSettings, userId }: PropTypes) => {
 
   return (
     <Form {...form}>
-      <form method="POST" onSubmit={form.handleSubmit(onSubmit)}>
-        <div>
+      <form
+        method="POST"
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex justify-between items-end gap-3"
+      >
+        <div className="flex-1">
           <FormField
             control={form.control}
             name="bpgcNews"
@@ -76,8 +80,9 @@ const UpdateSiteSettingsForm = ({ siteSettings, userId }: PropTypes) => {
                 <FormControl>
                   <Textarea
                     placeholder="Enter the news"
-                    className=""
-                    rows={6}
+                    className="min-h-10"
+                    field-sizing="content"
+                    rows={1}
                     maxLength={2000}
                     {...field}
                   />
@@ -87,7 +92,7 @@ const UpdateSiteSettingsForm = ({ siteSettings, userId }: PropTypes) => {
             )}
           />
         </div>
-        <div>
+        <div className="flex-2">
           <FormField
             control={form.control}
             name="leagueYear"
@@ -110,7 +115,7 @@ const UpdateSiteSettingsForm = ({ siteSettings, userId }: PropTypes) => {
             )}
           />
         </div>
-        <div>
+        <div className="flex-2">
           <FormField
             control={form.control}
             name="clubChampionshipYear"
@@ -136,7 +141,7 @@ const UpdateSiteSettingsForm = ({ siteSettings, userId }: PropTypes) => {
             )}
           />
         </div>
-        <div>
+        <div className="flex-2">
           <FormField
             control={form.control}
             name="twoManLeagueYear"
@@ -162,7 +167,7 @@ const UpdateSiteSettingsForm = ({ siteSettings, userId }: PropTypes) => {
             )}
           />
         </div>
-        <div className="flex-between mt-4">
+        <div className="flex-6">
           <Button
             type="submit"
             className="w-full"

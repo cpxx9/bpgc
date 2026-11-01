@@ -35,11 +35,11 @@ const AdminOverviewPage = async () => {
     <>
       <div className="space-y-2">
         <h1 className="h2-bold">Dashboard</h1>
-        <div className="grid gap-4 pb-2 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 pb-2 grid-cols-1">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-xl font-bold">
-                Update BPGC News
+                Update Site Settings
               </CardTitle>
             </CardHeader>
             <CardContent>
