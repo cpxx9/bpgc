@@ -11,6 +11,8 @@ import golferIcon from "@/assets/golfer.svg";
 import { getTwoManTeamCount } from "@/lib/actions/two-man-team.actions";
 import { getEventCount } from "@/lib/actions/event.actions";
 import { getImageCount } from "@/lib/actions/image.actions";
+import UpdateSiteSettingsForm from "@/components/admin/update-siteSettings-form";
+import { getSiteSettings } from "@/lib/actions/siteSettings.actions";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
@@ -23,6 +25,7 @@ const AdminOverviewPage = async () => {
   const { twoManTeamCount } = await getTwoManTeamCount();
   const { eventCount } = await getEventCount();
   const { imageCount } = await getImageCount();
+  const result = await getSiteSettings();
 
   return (
     <>
@@ -36,9 +39,11 @@ const AdminOverviewPage = async () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-sm font-medium">
-                Update BPGC news input here
-              </div>
+              {result.success === true ? (
+                <UpdateSiteSettingsForm siteSettings={result.data} />
+              ) : (
+                <>No Data</>
+              )}
             </CardContent>
           </Card>
         </div>

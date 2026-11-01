@@ -159,7 +159,7 @@ model SiteSettings {
   clubChampionshipYear Int
   twoManLeagueYear     Int
   updatedAt            DateTime @updatedAt
-  updatedBy            String?
+  updatedBy            String
 }
 
 model Account {

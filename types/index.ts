@@ -279,5 +279,5 @@ export type SiteSettings = {
   clubChampionshipYear: number;
   twoManLeagueYear: number;
   updatedAt: Date;
-  updatedBy: string | null;
+  updatedBy: string;
 };
