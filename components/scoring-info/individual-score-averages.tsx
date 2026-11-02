@@ -11,7 +11,14 @@ const IndividualScoreAverages = async () => {
   console.log(result);
   console.log(yearResult);
   if (!result.success || !yearResult.success) {
-    return <>No averages for the season yet!</>;
+    return (
+      <>
+        <h2 className="mb-5 text-2xl text-white font-bold">
+          {new Date().getFullYear()} Individual Scoring Averages
+        </h2>
+        No averages for the season yet!
+      </>
+    );
   }
   const golfers = result.data;
   const chunkSize = Math.ceil(golfers.length / 3);

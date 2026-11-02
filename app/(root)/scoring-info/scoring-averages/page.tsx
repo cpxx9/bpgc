@@ -1,10 +1,10 @@
 import EventScoreAverages from "@/components/scoring-info/event-score-averages";
 import IndividualScoreAverages from "@/components/scoring-info/individual-score-averages";
 import WeeklyScoresEventAveragesSkeleton from "@/components/skeletons/weekly-scores-event-averages-skeleton";
-import WeeklyScoresIndivAveragesSkeleton from "@/components/skeletons/weekly-scores-indiv-averages-skeleton";
 import { Suspense } from "react";
 import BackgroundImage from "@/components/shared/background-image";
 import { Metadata } from "next";
+import IndivScreAveragesSkeleton from "@/components/skeletons/indiv-score-averages-skeleton";
 
 export const metadata: Metadata = {
   title: "Scoring Averages",
@@ -18,7 +18,7 @@ const ScoringInfoAveragesPage = () => {
       <BackgroundImage page="scoringAverages" />
       <div className="flex flex-col items-center gap-4">
         <section className="bg-blue-400/70 p-5 md:min-w-[800px]">
-          <Suspense fallback={<WeeklyScoresIndivAveragesSkeleton />}>
+          <Suspense fallback={<IndivScreAveragesSkeleton />}>
             <IndividualScoreAverages />
           </Suspense>
         </section>
