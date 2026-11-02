@@ -20,8 +20,8 @@ const Homepage = () => {
     <div className="flex flex-col items-center gap-3 mb-12">
       <div className="w-full flex flex-col items-center pt-32 pb-10 gap-4 tracking-widest relative">
         <BackgroundImage page="home" />
-        <div className="bg-gray-600/75 py-5 px-10 pb-14">
-          <h2 className="text-5xl text-white font-black tracking-[0.2em] text-center px-10">
+        <div className="bg-gray-600/75 py-5 px-4 sm:px-10 pb-14 max-w-full">
+          <h2 className="text-4xl sm:text-5xl text-white font-black tracking-[0.1em] sm:tracking-[0.2em] text-center px-0 sm:px-10">
             NEXT OUTING
           </h2>
           <Suspense fallback={<NextEventCardSkeleton />}>
@@ -33,8 +33,8 @@ const Homepage = () => {
         </div>
       </div>
       {/* Cards */}
-      <div className="flex flex-col gap-2 md:flex-row px-2">
-        <div className="bg-blue-300 text-center py-4 px-10 flex flex-col">
+      <div className="flex flex-col gap-2 md:flex-row px-2 w-full md:w-auto">
+        <div className="bg-blue-300 text-center py-4 px-4 sm:px-10 flex flex-col">
           <h3 className="text-2xl font-semibold justify-self-start">
             BPGC IMPORTANT NEWS
           </h3>
