@@ -16,7 +16,14 @@ const TwoManStandings = async () => {
   const yearResult = await getTwoManLeagueYear();
   const result = await getTwoManTeamsStandingsPublic();
   if (!result.success || !yearResult.success) {
-    return <p>No data found</p>;
+    return (
+      <>
+        <h2 className="text-3xl text-white font-bold">
+          Two Man League Standings
+        </h2>
+        <p>No data found</p>
+      </>
+    );
   }
 
   const teams = result.data;

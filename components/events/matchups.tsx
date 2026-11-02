@@ -12,11 +12,28 @@ const Matchups = async () => {
   }
 
   const matchResult = await getWeeklyMatchesPublic();
-  if (!matchResult.success) {
+  if (!matchResult.success && !teamResult.success) {
     return <>No data found</>;
-  }
+  } else if (!matchResult.success) {
+    return (
+      <>
+        <section className="grid gap-x-4 grid-cols-4 gap-y-4 mb-3 order-2 md:order-none md:mb-0 md:gap-y-0 md:grid-cols-10">
+          <p>No Data Found...</p>
+        </section>
 
-  console.log(matchResult.data);
+        <section className="order-4 md:order-none">
+          <ul>
+            {teamResult.data.map((team) => (
+              <li key={team.id} className="text-white flex gap-2">
+                <span className="w-6">{team.number}</span>
+                <span>{`${abbrevName(team.golfers[0])}/${abbrevName(team.golfers[1])}`}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </>
+    );
+  }
 
   return (
     <>

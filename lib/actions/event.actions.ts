@@ -223,7 +223,6 @@ export async function getEventSchedule() {
       orderBy: [{ date: "asc" }, { time: "asc" }],
     });
 
-    console.log(events);
     const month = (m: number) =>
       events.filter((e) => e.date.getUTCMonth() === m);
 

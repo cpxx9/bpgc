@@ -8,8 +8,6 @@ const IndividualScoreAverages = async () => {
 
   const yearResult = await getLeagueYear();
   const result = await getAllGolfersWithScoreAverages();
-  console.log(result);
-  console.log(yearResult);
   if (!result.success || !yearResult.success) {
     return (
       <>
