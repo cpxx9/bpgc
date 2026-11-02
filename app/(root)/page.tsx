@@ -43,11 +43,11 @@ const Homepage = () => {
           </Suspense>
         </div>
         <div className="bg-blue-300 text-center py-4 px-10">
-          <h3 className="text-2xl font-semibold">
-            {new Date().getFullYear() - 1} TWO MAN CHAMPS!!
-          </h3>
+          <h3 className="text-2xl font-semibold">2026 TWO MAN CHAMPS!!</h3>
           <CardImage card="isTwoManChamps" />
-          <p className="mt-1">ANOTHER CHAMPIONSHIP!</p>
+          <p className="mt-1">
+            Congrats to Marcell and George for finally bringing it home!
+          </p>
         </div>
         <Link href="/gallery">
           <div className="bg-blue-300 text-center py-4 px-10">
