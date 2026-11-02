@@ -3,8 +3,64 @@ import { convertFloatToFeet } from "@/lib/utils";
 
 const ScoreCards = async () => {
   const contests = await getContestWinnersPublic();
-  if (!contests.success || !contests.data) {
+  if (!contests.success) {
     return <>No data found</>;
+  } else if (!contests.data) {
+    return (
+      <section className="mx-auto max-w-5xl">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <article className="flex flex-col md:gap-4">
+            <div className="bg-sky-600 flex flex-col gap-4 justify-between p-4 text-center text-white">
+              <h2 className="font-bold text-3xl">Birdie Busters</h2>
+              <div className="text-gray-600 hidden md:block">
+                <h3 className="text-xl font-semibold">No winner yet</h3>
+              </div>
+              <p className="font-semibold hidden md:block">Clubhouse Leader</p>
+            </div>
+
+            <div className="bg-neutral-700 p-4 text-white">
+              <ul>
+                <li className="font-semibold text-lg">No scores yet</li>
+              </ul>
+            </div>
+          </article>
+
+          <article className="flex flex-col md:gap-4">
+            <div className="bg-sky-600 flex flex-col gap-4 justify-between p-4 text-center text-white">
+              <h2 className="font-bold text-3xl">
+                Closest-to-Pin / Hole-in-One
+              </h2>
+              <div className="text-gray-600 hidden md:block">
+                <h3 className="text-xl font-semibold">No winner yet</h3>
+              </div>
+              <p className="font-semibold hidden md:block">Clubhouse Leader</p>
+            </div>
+
+            <div className="bg-neutral-700 p-4 text-white">
+              <ul>
+                <li className="font-semibold text-lg">No scores yet</li>
+              </ul>
+            </div>
+          </article>
+
+          <article className="flex flex-col md:gap-4">
+            <div className="bg-sky-600 flex flex-col gap-4 justify-between p-4 text-center text-white">
+              <h2 className="font-bold text-3xl">Snowmen</h2>
+              <div className="text-gray-600 hidden md:block">
+                <h3 className="text-xl font-semibold">No winner yet</h3>
+              </div>
+              <p className="font-semibold hidden md:block">Clubhouse Leader</p>
+            </div>
+
+            <div className="bg-neutral-700 p-4 text-white">
+              <ul>
+                <li className="font-semibold text-lg">No scores yet</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </section>
+    );
   }
 
   const birdiesLeader = contests.data.birdies[0];
